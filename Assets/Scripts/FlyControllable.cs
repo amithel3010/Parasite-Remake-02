@@ -19,9 +19,9 @@ public class FlyControllable : MonoBehaviour, IControllable
         _rb = GetComponent<Rigidbody>(); //this is the only reason i need mono behavior, is there a better way?
     }
 
-    public void HandleAllMovement(Vector3 MoveAmount)
+    public void HandleAllMovement(Vector2 MoveInput, bool jumpPressed)
     {
-        Move(MoveAmount);
+        HorizontalMovement(MoveInput);
         RotateTowardsTarget(TargetToRotateTo);
     }
 
@@ -43,14 +43,24 @@ public class FlyControllable : MonoBehaviour, IControllable
 
     private void RotateTowardsTarget(Transform target)
     {
+        //this is an AI only movement 
+
+        if (IsControlledByPlayer)
+            return;
+
         Vector3 targetDirection = (target.position - transform.position).normalized;
         Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
         _rb.MoveRotation(targetRotation);
     }
 
-    private void Move(Vector3 moveAmount)
+    private void HorizontalMovement(Vector2 moveInput)
     {
-        _rb.linearVelocity = moveAmount;
+        _rb.linearVelocity = new Vector3(moveInput.x, _rb.linearVelocity.y, moveInput.y);
+    }
+
+    private void HandleFlight(bool jumpPressedInput)
+    {
+        //TODO: Implement flight
     }
     
 }

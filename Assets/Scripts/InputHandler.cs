@@ -56,6 +56,6 @@ public class InputHandler : MonoBehaviour
         actionPressed = actionPressed || Input.GetKeyDown(KeyCode.E);
         actionHeld = actionHeld || Input.GetKey(KeyCode.E);
 
-        MovementInput = new Vector3(horizontalInput, 0, verticalInput);
+        MovementInput = new Vector2(horizontalInput, verticalInput);
     }
 }

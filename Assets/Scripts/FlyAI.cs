@@ -23,7 +23,7 @@ public class FlyAI : MonoBehaviour
     {
         if (!flyControllable.IsControlledByPlayer)
         {
-            flyControllable.HandleAllMovement(Vector3.up * MoveAmount);
+            //flyControllable.HandleAllMovement(Vector3.up * MoveAmount);
         }
     }
 

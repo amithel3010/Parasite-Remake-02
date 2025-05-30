@@ -25,7 +25,7 @@ public class ControllableManager : MonoBehaviour
             currentControllable = defaultControllable;
         }
 
-        currentControllable.HandleAllMovement(input.MovementInput);
+        currentControllable.HandleAllMovement(input.MovementInput, input.jumpPressed);
     }
 
 

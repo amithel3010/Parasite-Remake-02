@@ -3,7 +3,11 @@ using UnityEngine;
 
 public class ParasiteControllable : MonoBehaviour, IControllable
 {
+    //this script, in addition to controlling all parasite movement
+    //should also be responsible for possessing 
+
     private Rigidbody _rb;
+    private IControllable nextControllable;
 
     [SerializeField] float moveSpeed = 2f;
     [SerializeField] float jumpForce = 3f;
@@ -11,6 +15,17 @@ public class ParasiteControllable : MonoBehaviour, IControllable
     void Awake()
     {
         _rb = GetComponent<Rigidbody>();
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        //take over the collision object 
+
+        nextControllable = collision.gameObject.GetComponent<IControllable>();
+        if (nextControllable != null)
+        {
+            
+        }
     }
 
     public void HandleAllMovement(Vector2 MoveInput, bool jumpPressed)
@@ -41,5 +56,10 @@ public class ParasiteControllable : MonoBehaviour, IControllable
         {
             _rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
+    }
+
+    private void Possess()
+    {
+
     }
 }

@@ -163,6 +163,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b7b0a9cccdf7486e90a5351e8e8d5e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  horizontalInput: 0
+  verticalInput: 0
+  jumpPressed: 0
+  jumpHeld: 0
+  actionPressed: 0
+  actionHeld: 0
+  MovementInput: {x: 0, y: 0, z: 0}
 --- !u!1 &232549368
 GameObject:
   m_ObjectHideFlags: 0
@@ -176,7 +183,7 @@ GameObject:
   - component: {fileID: 232549371}
   m_Layer: 0
   m_Name: Parasite
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -236,6 +243,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c5c920b0ae3748518763811c42744cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 2
+  jumpForce: 0.3
 --- !u!1 &478819303
 GameObject:
   m_ObjectHideFlags: 0
@@ -373,6 +382,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46bf32d862c5e4c1684186949ceb05df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  input: {fileID: 41351195}
 --- !u!4 &698813460
 Transform:
   m_ObjectHideFlags: 0
@@ -421,6 +431,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controllableManager: {fileID: 0}
+  MoveAmount: 2
 --- !u!4 &906205269
 Transform:
   m_ObjectHideFlags: 0
@@ -449,7 +460,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 218652c83e1bc412a833dc9bcafc9b5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parasiteTransform: {fileID: 232549370}
+  IsControlledByPlayer: 0
+  TargetToRotateTo: {fileID: 232549370}
 --- !u!54 &906205271
 Rigidbody:
   m_ObjectHideFlags: 0

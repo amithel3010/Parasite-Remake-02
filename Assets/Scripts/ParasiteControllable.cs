@@ -1,25 +1,30 @@
+using UnityEditor.Callbacks;
 using UnityEngine;
 
 public class ParasiteControllable : MonoBehaviour, IControllable
 {
-    public void HandleAllMovement()
+    private Rigidbody _rb;
+
+    [SerializeField] float moveSpeed = 2f;
+
+    void Awake()
     {
-        throw new System.NotImplementedException();
+        _rb = GetComponent<Rigidbody>();
     }
 
-    public void HandleAllMovement(Vector3 MoveAmount)
+    public void HandleAllMovement(Vector3 MoveInput)
     {
-        throw new System.NotImplementedException();
+        _rb.linearVelocity = MoveInput * moveSpeed;
     }
 
     public void OnDePossess()
     {
-        throw new System.NotImplementedException();
+        //Cannot DePossess, this is the default controller.
     }
 
     public void OnPossess()
     {
-        throw new System.NotImplementedException();
+        //cannot possess
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

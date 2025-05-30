@@ -3,19 +3,30 @@ using UnityEngine;
 public class ControllableManager : MonoBehaviour
 {
     //this script is responsible for translating player input into commands for the current controllable.
-    
-    [SerializeField] private IControllable currentControllable;
+
+    private IControllable defaultControllable;
+    private IControllable currentControllable; //would really like a way to see this in inspector
+
     [SerializeField] private InputHandler input;
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    Vector3 moveInput;
+
     void Start()
     {
-        
+        defaultControllable = FindAnyObjectByType<ParasiteControllable>();
+        currentControllable = defaultControllable;
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
-        currentControllable.HandleAllMovement();
+        if (input.actionPressed && currentControllable != defaultControllable)
+        {
+            currentControllable.OnDePossess();
+            currentControllable = defaultControllable;
+        }
+
+        currentControllable.HandleAllMovement(input.MovementInput);
     }
+
+
 }

@@ -8,7 +8,9 @@ public class FlyAI : MonoBehaviour
     [SerializeField] private ControllableManager controllableManager;
     private FlyControllable flyControllable;
 
-    private bool isControlledByPlayer = false;
+    public float MoveAmount = 2f;
+
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -19,21 +21,19 @@ public class FlyAI : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!isControlledByPlayer)
+        if (!flyControllable.IsControlledByPlayer)
         {
-            flyControllable.HandleAllMovement();
+            flyControllable.HandleAllMovement(Vector3.up * MoveAmount);
         }
     }
 
     private void GiveControlToPlayer()
     {
         flyControllable.OnPossess();
-        isControlledByPlayer = true;
     }
 
     private void GiveControlToAI()
     {
         flyControllable.OnDePossess();
-        isControlledByPlayer = false;
     }
 }

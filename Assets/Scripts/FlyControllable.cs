@@ -1,4 +1,5 @@
 
+using UnityEditor.Callbacks;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -9,6 +10,7 @@ public class FlyControllable : MonoBehaviour, IControllable
 
     private Rigidbody _rb;
 
+    public bool IsControlledByPlayer; // im having a hard time understanding where this should change
     public Transform TargetToRotateTo; // should be set in the AI and the controllable manager... or maybe I should have logic in here to detect if AI is controlling or Player?
     //[SerializeField] LayerMask PlayerLayer;
 
@@ -19,7 +21,7 @@ public class FlyControllable : MonoBehaviour, IControllable
 
     public void HandleAllMovement(Vector3 MoveAmount)
     {
-        Debug.Log("Moving");
+        Move(MoveAmount);
         RotateTowardsTarget(TargetToRotateTo);
     }
 
@@ -30,19 +32,25 @@ public class FlyControllable : MonoBehaviour, IControllable
 
     public void OnPossess()
     {
-        throw new System.NotImplementedException();
+        //set parasite rb to kinematic
+
+        //set parasite transform.position
+
+        // parasite becomes child of object
+
+        // disable AI
     }
 
     private void RotateTowardsTarget(Transform target)
     {
         Vector3 targetDirection = (target.position - transform.position).normalized;
-        Debug.DrawLine(target.position, transform.position);
-        Quaternion targetRotation = Quaternion.LookRotation(targetDirection);   
+        Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
         _rb.MoveRotation(targetRotation);
     }
 
-    public void HandleAllMovement()
+    private void Move(Vector3 moveAmount)
     {
-        throw new System.NotImplementedException();
+        _rb.linearVelocity = moveAmount;
     }
+    
 }

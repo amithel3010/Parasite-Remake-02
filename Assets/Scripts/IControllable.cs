@@ -7,6 +7,6 @@ public interface IControllable
     public void OnPossess();
 
     public void OnDePossess();
-    void HandleAllMovement();
+    //void HandleAllMovement();
 } 
 

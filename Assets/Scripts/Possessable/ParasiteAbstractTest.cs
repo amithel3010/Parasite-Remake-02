@@ -2,29 +2,32 @@ using UnityEngine;
 
 public class ParasiteAbstractTest : Possessable
 {
-    [SerializeField] PlayerController playerController;
-
     [Header("Possessable Check")]
     [SerializeField] float raycastLength = 1f;
     [SerializeField] LayerMask PossessableLayer;
 
     private bool isPossessing = false; //TODO: ask pavel if this is a good way to do it.
 
+    protected void OnEnable()
+    {
+        playerController.Possess(this);
+    }
+
     protected override void FixedUpdate() //TODO: ask pavel about fixed update in an abstract class
     {
-        CheckForPossessables();
         if (isPossessing)
         {
             return;
         }
+        CheckForPossessables();
         base.FixedUpdate();
     }
 
-    protected override void HandleActionInput(IInputSource input)
+    protected override void HandleActionPressInput(IInputSource input)
     {
         if (input.ActionPressed)
         {
-            Debug.Log("Action pressed");
+            Debug.Log("Action pressed, but can't depossess parasite");
         }
     }
 
@@ -37,6 +40,7 @@ public class ParasiteAbstractTest : Possessable
     public override void OnPossessed()
     {
         base.OnPossessed();
+        _rb.isKinematic = false;
         isPossessing = false;
     }
 
@@ -45,10 +49,9 @@ public class ParasiteAbstractTest : Possessable
         Ray ray = new Ray(transform.position, Vector3.down);
 
         if (Physics.Raycast(ray, out RaycastHit hitInfo, raycastLength, PossessableLayer))
-        {
-            print(hitInfo.collider.gameObject.name);
-            
-            Possessable possessableToPossess = hitInfo.collider.GetComponent<Possessable>();
+        {   
+            Possessable possessableToPossess = hitInfo.collider.GetComponentInParent<Possessable>();
+            possessableToPossess.CacheParasitePossessable(this);
             playerController.Possess(possessableToPossess);
             isPossessing = true;
         }

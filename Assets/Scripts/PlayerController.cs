@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        if (currentPossessable = null)
+        if (currentPossessable == null)
         {
             Debug.LogError("No Possessable On Start");
         }

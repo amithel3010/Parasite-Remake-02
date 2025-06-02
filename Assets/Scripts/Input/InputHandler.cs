@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class InputHandler : MonoBehaviour, IInputSource
 {
-
     public float horizontalInput;
     public float verticalInput;
     public bool jumpPressed;
@@ -12,15 +11,10 @@ public class InputHandler : MonoBehaviour, IInputSource
     public Vector2 movementInput;
 
     bool readyToClear;
-
     bool IInputSource.JumpPressed => jumpPressed;
-
     bool IInputSource.JumpHeld => jumpHeld;
-
     bool IInputSource.ActionPressed => actionPressed;
-
     bool IInputSource.ActionHeld => actionHeld;
-
     Vector2 IInputSource.MovementInput => movementInput;
 
     void Update()

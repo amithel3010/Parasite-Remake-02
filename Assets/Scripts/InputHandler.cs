@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class InputHandler : MonoBehaviour
+public class InputHandler : MonoBehaviour, IInputSource
 {
 
     public float horizontalInput;
@@ -9,9 +9,19 @@ public class InputHandler : MonoBehaviour
     public bool jumpHeld;
     public bool actionPressed;
     public bool actionHeld;
-    public Vector3 MovementInput;
+    public Vector2 movementInput;
 
     bool readyToClear;
+
+    bool IInputSource.JumpPressed => jumpPressed;
+
+    bool IInputSource.JumpHeld => jumpHeld;
+
+    bool IInputSource.ActionPressed => actionPressed;
+
+    bool IInputSource.ActionHeld => actionHeld;
+
+    Vector2 IInputSource.MovementInput => movementInput;
 
     void Update()
     {
@@ -56,6 +66,6 @@ public class InputHandler : MonoBehaviour
         actionPressed = actionPressed || Input.GetKeyDown(KeyCode.E);
         actionHeld = actionHeld || Input.GetKey(KeyCode.E);
 
-        MovementInput = new Vector2(horizontalInput, verticalInput);
+        movementInput = new Vector2(horizontalInput, verticalInput);
     }
 }

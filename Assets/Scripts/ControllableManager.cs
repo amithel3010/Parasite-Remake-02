@@ -4,10 +4,10 @@ public class ControllableManager : MonoBehaviour
 {
     //this script is responsible for translating player input into commands for the current controllable.
 
-    private static ControllableManager instance;
+    public static ControllableManager instance;
 
-    private IControllable ParasiteControllable;  //Defualt Controller
-    private IControllable currentControllable; 
+    private ParasiteAbstractTest ParasiteControllable;  //Defualt Controller
+    [SerializeField] private Possessable currentControllable;
 
     [SerializeField] private InputHandler input; // should be singleton?
 
@@ -27,31 +27,17 @@ public class ControllableManager : MonoBehaviour
 
     void Start()
     {
-        ParasiteControllable = FindAnyObjectByType<ParasiteControllable>();
+        ParasiteControllable = FindAnyObjectByType<ParasiteAbstractTest>();
         currentControllable = ParasiteControllable;
+        currentControllable.SetInputSource(input);
     }
 
-    void FixedUpdate()
+    private void FixedUpdate() {
+    }
+
+    public void Possess(Possessable CreatureToPossess)
     {
-        if (input.actionPressed )
-        {
-            if (currentControllable == ParasiteControllable)
-            {
-                currentControllable.OnDePossess();
-                currentControllable = FindAnyObjectByType<FlyControllable>();
-                currentControllable.OnPossess();
-            }
-
-            else if (currentControllable != ParasiteControllable)
-            {
-                currentControllable.OnDePossess();
-                currentControllable = ParasiteControllable;
-                currentControllable.OnPossess();
-            }
-        }
-
-        currentControllable.HandleAllMovement(input.MovementInput, input.jumpPressed);
+        currentControllable = CreatureToPossess;
     }
-
 
 }

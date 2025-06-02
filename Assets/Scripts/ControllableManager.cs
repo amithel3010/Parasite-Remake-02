@@ -4,25 +4,50 @@ public class ControllableManager : MonoBehaviour
 {
     //this script is responsible for translating player input into commands for the current controllable.
 
-    private IControllable defaultControllable;
-    private IControllable currentControllable; //would really like a way to see this in inspector
+    private static ControllableManager instance;
 
-    [SerializeField] private InputHandler input;
+    private IControllable ParasiteControllable;  //Defualt Controller
+    private IControllable currentControllable; 
 
-    Vector3 moveInput;
+    [SerializeField] private InputHandler input; // should be singleton?
+
+    void Awake()
+    {
+        if (instance = null)
+        {
+            instance = this;
+        }
+        else if (instance != null)
+        {
+            Destroy(this);
+        }
+
+        DontDestroyOnLoad(this);
+    }
 
     void Start()
     {
-        defaultControllable = FindAnyObjectByType<ParasiteControllable>();
-        currentControllable = defaultControllable;
+        ParasiteControllable = FindAnyObjectByType<ParasiteControllable>();
+        currentControllable = ParasiteControllable;
     }
 
     void FixedUpdate()
     {
-        if (input.actionPressed && currentControllable != defaultControllable)
+        if (input.actionPressed )
         {
-            currentControllable.OnDePossess();
-            currentControllable = defaultControllable;
+            if (currentControllable == ParasiteControllable)
+            {
+                currentControllable.OnDePossess();
+                currentControllable = FindAnyObjectByType<FlyControllable>();
+                currentControllable.OnPossess();
+            }
+
+            else if (currentControllable != ParasiteControllable)
+            {
+                currentControllable.OnDePossess();
+                currentControllable = ParasiteControllable;
+                currentControllable.OnPossess();
+            }
         }
 
         currentControllable.HandleAllMovement(input.MovementInput, input.jumpPressed);

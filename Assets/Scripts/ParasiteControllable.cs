@@ -10,7 +10,6 @@ public class ParasiteControllable : MonoBehaviour, IControllable
     private IControllable nextControllable;
 
     [SerializeField] float moveSpeed = 2f;
-    [SerializeField] float jumpForce = 3f;
 
     void Awake()
     {
@@ -20,46 +19,39 @@ public class ParasiteControllable : MonoBehaviour, IControllable
     void OnCollisionEnter(Collision collision)
     {
         //take over the collision object 
-
         nextControllable = collision.gameObject.GetComponent<IControllable>();
-        if (nextControllable != null)
-        {
-            
-        }
     }
 
     public void HandleAllMovement(Vector2 MoveInput, bool jumpPressed)
     {
         HorizontalMovement(MoveInput);
-        Jump(jumpPressed);
     }
 
     public void OnDePossess()
     {
+        Debug.Log("Depossessed Parasite");
         //Cannot DePossess, this is the default controller.
     }
 
     public void OnPossess()
     {
+        Debug.Log("Possessed Parasite");
         //cannot possess
     }
 
     private void HorizontalMovement(Vector2 MoveInput)
     {
-        Vector3 moveDir = new Vector3(MoveInput.x, 0, MoveInput.y);
-        _rb.linearVelocity = moveDir * moveSpeed; //TODO: change this so it doesnt zero Y vel every frame
-    }
-
-    private void Jump(bool jumpPressed)
-    {
-        if (jumpPressed)
-        {
-            _rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-        }
+        Vector3 moveVector = new Vector3(MoveInput.x * moveSpeed, _rb.linearVelocity.y, MoveInput.y * moveSpeed);
+        _rb.linearVelocity = moveVector;
     }
 
     private void Possess()
     {
 
+    }
+
+    public IControllable GetNextControllable()
+    {
+        return nextControllable;
     }
 }

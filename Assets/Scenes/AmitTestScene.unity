@@ -215,7 +215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputHandler: {fileID: 41351195}
-  currentPossessable: {fileID: 1700488482}
+  currentPossessable: {fileID: 1700488485}
 --- !u!1 &1323066057
 GameObject:
   m_ObjectHideFlags: 0
@@ -262,8 +262,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61196bea0ffc5415381893047637b8bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cachedParasite: {fileID: 1700488485}
   playerController: {fileID: 469783715}
-  parasitePrefab: {fileID: 0}
   moveSpeed: 5
 --- !u!54 &1323066060
 Rigidbody:
@@ -290,7 +290,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!1 &1543822800
 GameObject:
@@ -400,15 +400,15 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1543822800}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1700488482 stripped
+--- !u!114 &1700488485 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6064217097327569983, guid: 37034a3af5c644c6b9209398b6140eff, type: 3}
+  m_CorrespondingSourceObject: {fileID: 2619894799277603724, guid: 37034a3af5c644c6b9209398b6140eff, type: 3}
   m_PrefabInstance: {fileID: 4485030087818944851}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a774dd34d6d943baa8cca99714453cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 81cd8afa45cf84c6ba4ab2336aea1fc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1703926744
@@ -823,6 +823,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Parasite Test
       objectReference: {fileID: 0}
+    - target: {fileID: 2619894799277603724, guid: 37034a3af5c644c6b9209398b6140eff, type: 3}
+      propertyPath: cachedParasite
+      value: 
+      objectReference: {fileID: 1700488485}
+    - target: {fileID: 2619894799277603724, guid: 37034a3af5c644c6b9209398b6140eff, type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 469783715}
+    - target: {fileID: 2619894799277603724, guid: 37034a3af5c644c6b9209398b6140eff, type: 3}
+      propertyPath: PossessableLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 3107222188324341655, guid: 37034a3af5c644c6b9209398b6140eff, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.94504
@@ -863,10 +875,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6064217097327569983, guid: 37034a3af5c644c6b9209398b6140eff, type: 3}
-      propertyPath: playerController
-      value: 
-      objectReference: {fileID: 469783715}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    //responsible for keeping track of currently possessed possessable
+    //and giving them input from the player
+
     [SerializeField] InputHandler inputHandler;
     [SerializeField] Possessable currentPossessable;
 
@@ -13,7 +16,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            print("Good to go");
+            print("Possessable on Start:" + currentPossessable); //Should always be Parasite.
         }
 
         currentPossessable.SetInputSource(inputHandler); //Feels weird calling this from here... feels like it should be in OnPossessed but i dont know how to do that

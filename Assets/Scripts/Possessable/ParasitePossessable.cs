@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ParasiteAbstractTest : Possessable
+public class ParasitePossessable : Possessable
 {
     [Header("Possessable Check")]
     [SerializeField] float raycastLength = 1f;
@@ -33,7 +33,6 @@ public class ParasiteAbstractTest : Possessable
 
     public override void OnDepossessed()
     {
-        base.OnDepossessed();
         _rb.isKinematic = true;
     }
 
@@ -49,9 +48,10 @@ public class ParasiteAbstractTest : Possessable
         Ray ray = new Ray(transform.position, Vector3.down);
 
         if (Physics.Raycast(ray, out RaycastHit hitInfo, raycastLength, PossessableLayer))
-        {   
+        {
+            print("hit");
             Possessable possessableToPossess = hitInfo.collider.GetComponentInParent<Possessable>();
-            possessableToPossess.CacheParasitePossessable(this);
+            this.transform.SetParent(possessableToPossess.transform);
             playerController.Possess(possessableToPossess);
             isPossessing = true;
         }

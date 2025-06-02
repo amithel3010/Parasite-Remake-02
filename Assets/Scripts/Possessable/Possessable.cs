@@ -4,13 +4,12 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public abstract class Possessable : MonoBehaviour
 {
-    protected Rigidbody _rb;
     protected IInputSource inputSource;
+    protected Rigidbody _rb;
+
+    [SerializeField] protected Possessable cachedParasite;
 
     [SerializeField] protected PlayerController playerController;
-
-    [SerializeField] protected GameObject parasitePrefab; // TODO: maybe better to disable and enable instead of instantiate...
-    protected Possessable cachedParasite;
 
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 5f;
@@ -65,21 +64,16 @@ public abstract class Possessable : MonoBehaviour
 
     public virtual void OnDepossessed()
     {
+        cachedParasite.transform.SetParent(null);
         Debug.Log("Now Depossessed" + this);
-        //  Possessable newPossessable = Instantiate(parasitePrefab, transform.position, quaternion.identity).GetComponent<Possessable>();
         SetInputSource(null); //Will change to be AI input source
     }
 
     public void SetInputSource(IInputSource source)
     {
-        //should be called from an outside script. is this ok?
+        //TODO: feels wrong this should be called from an outside script. is this ok?
         inputSource = source;
         print("set input source to" + source);
-    }
-
-    public void CacheParasitePossessable(ParasiteAbstractTest parasitePossesable)
-    {
-        cachedParasite = parasitePossesable;
     }
 
 }

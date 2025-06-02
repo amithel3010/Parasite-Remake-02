@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3107222188324341655}
   - component: {fileID: 6630336859026493504}
-  - component: {fileID: 6064217097327569983}
+  - component: {fileID: 2619894799277603724}
   m_Layer: 7
   m_Name: Parasite Test
   m_TagString: Player
@@ -61,7 +61,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!114 &6064217097327569983
+--- !u!114 &2619894799277603724
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -70,15 +70,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 2593316886566920041}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a774dd34d6d943baa8cca99714453cf, type: 3}
+  m_Script: {fileID: 11500000, guid: 81cd8afa45cf84c6ba4ab2336aea1fc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
   playerController: {fileID: 0}
+  parasitePrefab: {fileID: 0}
+  moveSpeed: 5
   raycastLength: 1
   PossessableLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
 --- !u!1 &5065615686888149049
 GameObject:
   m_ObjectHideFlags: 0

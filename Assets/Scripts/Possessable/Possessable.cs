@@ -7,6 +7,7 @@ public abstract class Possessable : MonoBehaviour
     protected IInputSource inputSource;
 
 
+
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 5f;
 
@@ -16,7 +17,7 @@ public abstract class Possessable : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
     }
 
-    void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         if (inputSource != null)
         {
@@ -48,8 +49,20 @@ public abstract class Possessable : MonoBehaviour
 
     protected abstract void HandleActionInput(IInputSource input);
 
+    public virtual void OnPossessed()
+    {
+        Debug.Log("Possessed" + this);
+    }
+
+    public virtual void OnDepossessed()
+    {
+        Debug.Log("Now Depossessed" + this);
+        SetInputSource(null); //Will change to be AI input source
+    }
+
     public void SetInputSource(IInputSource source)
     {
+        //should be called from an outside script. is this ok?
         inputSource = source;
     }
 

@@ -4,15 +4,20 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public abstract class Possessable : MonoBehaviour
 {
+    //base class for handling and controlling possessables
+    //should be able to recieve inputs from player OR from AI
+    //maybe should reconsider? faking inputs to move AI seems hard
+
     protected IInputSource inputSource;
     protected Rigidbody _rb;
 
-    [SerializeField] protected Possessable cachedParasite;
+    [SerializeField] protected GameObject cachedParasite;
 
     [SerializeField] protected PlayerController playerController;
 
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float jumpForce = 5f;
 
     void Awake()
     {
@@ -45,7 +50,7 @@ public abstract class Possessable : MonoBehaviour
     {
         if (input.JumpPressed)
         {
-            _rb.AddForce(Vector3.up * 5f, ForceMode.Impulse);
+            _rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
     }
 
@@ -53,20 +58,21 @@ public abstract class Possessable : MonoBehaviour
     {
         if (input.ActionPressed)
         {
-            playerController.Possess(cachedParasite);
+            Possessable parasite = Instantiate(cachedParasite, transform.position + transform.forward * 3f, quaternion.identity).GetComponent<Possessable>();
+            playerController.Possess(parasite);
         }
     }
 
     public virtual void OnPossessed()
     {
-        Debug.Log("Possessed" + this);
+        Debug.Log("Now Possessed" + this);
     }
 
     public virtual void OnDepossessed()
     {
-        cachedParasite.transform.SetParent(null);
         Debug.Log("Now Depossessed" + this);
-        SetInputSource(null); //Will change to be AI input source
+        //  SetInputSource(null); //Will change to be AI input source
+        Destroy(this.gameObject);
     }
 
     public void SetInputSource(IInputSource source)

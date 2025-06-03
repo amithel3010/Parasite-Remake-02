@@ -1,17 +1,20 @@
+using System.Collections;
 using UnityEngine;
 
 public class ParasitePossessable : Possessable
 {
+    //the parasite possessable is the default possessable
+    //there should be only one of these in the scene at all times
+    //after depossessing every other possessable you possess parasite
+
+    //kinda like mario in mario odyssey
+
     [Header("Possessable Check")]
     [SerializeField] float raycastLength = 1f;
     [SerializeField] LayerMask PossessableLayer;
+    [SerializeField] float cooldownTimer = 3f;
 
     private bool isPossessing = false; //TODO: ask pavel if this is a good way to do it.
-
-    protected void OnEnable()
-    {
-        playerController.Possess(this);
-    }
 
     protected override void FixedUpdate() //TODO: ask pavel about fixed update in an abstract class
     {
@@ -33,13 +36,21 @@ public class ParasitePossessable : Possessable
 
     public override void OnDepossessed()
     {
-        _rb.isKinematic = true;
+        Debug.Log("Now Depossessed" + this);
+        Destroy(this.gameObject);
+        // SetInputSource(null);
+        // _rb.isKinematic = true;
+        // _rb.detectCollisions = false;
     }
 
     public override void OnPossessed()
     {
         base.OnPossessed();
+
         _rb.isKinematic = false;
+        _rb.detectCollisions = true;
+        
+        //StartCoroutine(PossessCooldown(cooldownTimer));
         isPossessing = false;
     }
 
@@ -49,12 +60,16 @@ public class ParasitePossessable : Possessable
 
         if (Physics.Raycast(ray, out RaycastHit hitInfo, raycastLength, PossessableLayer))
         {
-            print("hit");
             Possessable possessableToPossess = hitInfo.collider.GetComponentInParent<Possessable>();
-            this.transform.SetParent(possessableToPossess.transform);
             playerController.Possess(possessableToPossess);
             isPossessing = true;
         }
+    }
+
+    private IEnumerator PossessCooldown(float cooldownTimer)
+    {
+        yield return new WaitForSeconds(cooldownTimer);
+        isPossessing = false;
     }
 
     void OnDrawGizmosSelected()

@@ -73,13 +73,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81cd8afa45cf84c6ba4ab2336aea1fc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cachedParasite: {fileID: 0}
   playerController: {fileID: 0}
-  parasitePrefab: {fileID: 0}
   moveSpeed: 5
+  jumpForce: 5
   raycastLength: 1
   PossessableLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
+  cooldownTimer: 3
 --- !u!1 &5065615686888149049
 GameObject:
   m_ObjectHideFlags: 0

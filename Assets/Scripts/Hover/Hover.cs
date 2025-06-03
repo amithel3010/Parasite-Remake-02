@@ -2,6 +2,11 @@ using UnityEngine;
 
 public class Hover : MonoBehaviour
 {
+    //Keeps Gameobject hovering at a certain ride height using a dampened spring
+    //Based on logic by toyful games explained in their video on very very valet
+
+    //in ver very valet, the same script is also responsible for moving the player, but i might seperate the two
+
     public Vector3 DownDir = Vector3.down;
 
     private Rigidbody _RB;
@@ -13,11 +18,11 @@ public class Hover : MonoBehaviour
     private Vector3 _m_GoalVel = Vector3.zero;
 
     [Header("Ride Properties")]
-    [SerializeField] [Tooltip("Needs to be lower than raycastToGroundLength")] float RideHeight = 1.75f;
+    [SerializeField] [Tooltip("Needs to be lower than raycastToGroundLength")] float rideHeight = 1.75f;
     [SerializeField, Range(1, 0)] float springDampingRatio = 0.5f;
     [SerializeField] float rideSpringStrength; //?
     [SerializeField] float raycastToGroundLength = 3f;
-    float rideSpringDamper;
+
 
     [Header("Movement:")]
     [SerializeField] private float _maxSpeed = 8f;
@@ -28,6 +33,9 @@ public class Hover : MonoBehaviour
     [SerializeField] private AnimationCurve _maxAccelerationForceFactorFromDot;
     [SerializeField] private Vector3 _moveForceScale = new Vector3(1f, 0f, 1f);
 
+    [Header("Other:")]
+    [SerializeField] private LayerMask groundLayer;
+
 
     private void Awake()
     {
@@ -36,7 +44,21 @@ public class Hover : MonoBehaviour
 
     void FixedUpdate()
     {
+        (bool rayHitGround, RaycastHit rayHit) = RaycastToGround();
+
+        bool isGrounded = CheckIfGrounded(rayHitGround, rayHit);
+
+        if (isGrounded)
+        {
+            //grounded logic
+        }
+
+        //Move
+        //Jump
+
         MaintainHeight();
+
+        //Maintain Upright
     }
 
 
@@ -48,7 +70,7 @@ public class Hover : MonoBehaviour
         {
 
             Debug.DrawLine(transform.position, _rayhit.point, Color.green); // actual ray hit
-            Debug.DrawRay(_rayhit.point, Vector3.up * RideHeight, Color.yellow); // target ride height
+            Debug.DrawRay(_rayhit.point, Vector3.up * rideHeight, Color.yellow); // target ride height
 
             Vector3 vel = _RB.linearVelocity;
             Vector3 rayDir = transform.TransformDirection(DownDir); // same as transform.down?
@@ -66,9 +88,9 @@ public class Hover : MonoBehaviour
             float relVel = rayDirVel - otherDirVel;
 
             float mass = _RB.mass;
-            rideSpringDamper = 2f * Mathf.Sqrt(rideSpringStrength * mass) * springDampingRatio;
+            float rideSpringDamper = 2f * Mathf.Sqrt(rideSpringStrength * mass) * springDampingRatio; //from zeta formula, 
 
-            float x = _rayhit.distance - RideHeight;
+            float x = _rayhit.distance - rideHeight;
 
             float springForce = (x * rideSpringStrength) - (relVel * rideSpringDamper);
 
@@ -80,6 +102,34 @@ public class Hover : MonoBehaviour
             }
 
         }
+    }
+
+        private (bool, RaycastHit) RaycastToGround()
+    {
+        Vector3 _rayDir =transform.TransformDirection(DownDir);
+
+        RaycastHit rayHit;
+        Ray rayToGround = new Ray(transform.position, _rayDir);
+        bool rayHitGround = Physics.Raycast(rayToGround, out rayHit, raycastToGroundLength, groundLayer.value);
+
+        //Debug.DrawRay(transform.position, _rayDir * _rayToGroundLength, Color.blue);
+
+        return (rayHitGround, rayHit);
+    }
+
+    private bool CheckIfGrounded(bool rayHitGround, RaycastHit rayHit)
+    {
+        bool grounded;
+        if (rayHitGround)
+        {
+            grounded = rayHit.distance <= rideHeight * 1.3f; // 1.3f ?
+        }
+        else
+        {
+            grounded = false;
+        }
+
+        return grounded;
     }
 
     private void CharacterMove(Vector3 moveInput, RaycastHit rayHit)

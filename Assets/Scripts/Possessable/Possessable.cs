@@ -10,10 +10,10 @@ public abstract class Possessable : MonoBehaviour
 
     protected IInputSource inputSource;
     protected Rigidbody _rb;
+    protected PlayerController playerController;
 
     [SerializeField] protected GameObject cachedParasite; //TODO: I need this cached on every Possessable EXCEPT parasite. how should I approach that?
 
-    [SerializeField] protected PlayerController playerController; //TODO: find a way to get this without serializeField
 
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 5f;
@@ -22,6 +22,7 @@ public abstract class Possessable : MonoBehaviour
     void Awake()
     {
         _rb = GetComponent<Rigidbody>();
+        playerController = FindAnyObjectByType<PlayerController>();
     }
 
     protected virtual void FixedUpdate()
@@ -81,5 +82,4 @@ public abstract class Possessable : MonoBehaviour
         inputSource = source;
         print("set input source of" + this + "to" + source);
     }
-
 }

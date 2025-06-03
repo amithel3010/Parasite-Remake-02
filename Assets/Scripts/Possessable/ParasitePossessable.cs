@@ -9,22 +9,22 @@ public class ParasitePossessable : Possessable
 
     //kinda like mario in mario odyssey
 
-    //Parastie should be able to move slowly and Jump once
-    //Has 1 HP TODO: where should HP be implemented?
+    //Parastie should be able to move slowly and Jump once, has 1HP
+    //TODO: where should HP be implemented?
 
     [Header("Possessable Check")]
     [SerializeField] float raycastLength = 1f;
     [SerializeField] LayerMask PossessableLayer;
     [SerializeField] float cooldownTimer = 3f;
 
-    private bool isPossessing = false; //TODO: ask pavel if this is a good way to do it.
+    private bool isPossessing = false;
 
     protected override void FixedUpdate() //TODO: ask pavel about fixed update in an abstract class
     {
         if (isPossessing)
             return;
 
-        CheckForPossessables();
+        CheckForPossessablesAndPossess();
         base.FixedUpdate();
     }
 
@@ -42,7 +42,7 @@ public class ParasitePossessable : Possessable
         isPossessing = false;
     }
 
-    private void CheckForPossessables()
+    private void CheckForPossessablesAndPossess()
     {
         Ray ray = new Ray(transform.position, Vector3.down);
 

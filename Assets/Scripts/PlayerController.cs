@@ -5,6 +5,8 @@ public class PlayerController : MonoBehaviour
     //responsible for keeping track of currently possessed possessable
     //and giving them input from the player
 
+    //TODO: maybe should be a singleton? no reason for 2 of these
+
     [SerializeField] InputHandler inputHandler;
     [SerializeField] Possessable currentPossessable;
 
@@ -24,7 +26,7 @@ public class PlayerController : MonoBehaviour
 
     public void Possess(Possessable newPossessable)
     {
-        currentPossessable.OnDepossessed(); //here we set the input source of the old possessable back to AI if it should live
+        currentPossessable.OnDepossessed(); //here we would set the input source of the old possessable back to AI if it should live
         currentPossessable = newPossessable;
         currentPossessable.OnPossessed(); 
         currentPossessable.SetInputSource(inputHandler);

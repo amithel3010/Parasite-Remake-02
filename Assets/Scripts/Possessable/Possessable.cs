@@ -6,14 +6,14 @@ public abstract class Possessable : MonoBehaviour
 {
     //base class for handling and controlling possessables
     //should be able to recieve inputs from player OR from AI
-    //maybe should reconsider? faking inputs to move AI seems hard
+    //TODO: maybe should reconsider? faking inputs to move AI seems hard
 
     protected IInputSource inputSource;
     protected Rigidbody _rb;
 
-    [SerializeField] protected GameObject cachedParasite;
+    [SerializeField] protected GameObject cachedParasite; //TODO: I need this cached on every Possessable EXCEPT parasite. how should I approach that?
 
-    [SerializeField] protected PlayerController playerController;
+    [SerializeField] protected PlayerController playerController; //TODO: find a way to get this without serializeField
 
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 5f;
@@ -26,17 +26,17 @@ public abstract class Possessable : MonoBehaviour
 
     protected virtual void FixedUpdate()
     {
-        if (inputSource != null)
-        {
-            HandleAllInputs(inputSource);
-        }
+        HandleAllInputs(inputSource);
     }
 
     protected virtual void HandleAllInputs(IInputSource input)
     {
-        HandleHorizontalInput(input);
-        HandleJumpInput(input);
-        HandleActionPressInput(input);
+        if (inputSource != null)
+        {
+            HandleHorizontalInput(input);
+            HandleJumpInput(input);
+            HandleActionPressInput(input);
+        }
     }
 
     protected virtual void HandleHorizontalInput(IInputSource input)
@@ -79,7 +79,7 @@ public abstract class Possessable : MonoBehaviour
     {
         //TODO: feels wrong this should be called from an outside script. is this ok?
         inputSource = source;
-        print("set input source to" + source);
+        print("set input source of" + this + "to" + source);
     }
 
 }

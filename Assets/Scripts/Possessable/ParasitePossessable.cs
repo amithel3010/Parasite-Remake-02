@@ -9,6 +9,9 @@ public class ParasitePossessable : Possessable
 
     //kinda like mario in mario odyssey
 
+    //Parastie should be able to move slowly and Jump once
+    //Has 1 HP TODO: where should HP be implemented?
+
     [Header("Possessable Check")]
     [SerializeField] float raycastLength = 1f;
     [SerializeField] LayerMask PossessableLayer;
@@ -19,9 +22,8 @@ public class ParasitePossessable : Possessable
     protected override void FixedUpdate() //TODO: ask pavel about fixed update in an abstract class
     {
         if (isPossessing)
-        {
             return;
-        }
+
         CheckForPossessables();
         base.FixedUpdate();
     }
@@ -34,23 +36,9 @@ public class ParasitePossessable : Possessable
         }
     }
 
-    public override void OnDepossessed()
-    {
-        Debug.Log("Now Depossessed" + this);
-        Destroy(this.gameObject);
-        // SetInputSource(null);
-        // _rb.isKinematic = true;
-        // _rb.detectCollisions = false;
-    }
-
     public override void OnPossessed()
     {
         base.OnPossessed();
-
-        _rb.isKinematic = false;
-        _rb.detectCollisions = true;
-        
-        //StartCoroutine(PossessCooldown(cooldownTimer));
         isPossessing = false;
     }
 
@@ -58,18 +46,13 @@ public class ParasitePossessable : Possessable
     {
         Ray ray = new Ray(transform.position, Vector3.down);
 
+        //if found possessable, possess it
         if (Physics.Raycast(ray, out RaycastHit hitInfo, raycastLength, PossessableLayer))
         {
             Possessable possessableToPossess = hitInfo.collider.GetComponentInParent<Possessable>();
             playerController.Possess(possessableToPossess);
             isPossessing = true;
         }
-    }
-
-    private IEnumerator PossessCooldown(float cooldownTimer)
-    {
-        yield return new WaitForSeconds(cooldownTimer);
-        isPossessing = false;
     }
 
     void OnDrawGizmosSelected()

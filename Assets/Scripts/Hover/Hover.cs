@@ -5,26 +5,25 @@ public class Hover : MonoBehaviour
     //Keeps Gameobject hovering at a certain ride height using a dampened spring
     //Based on logic by toyful games explained in their video on very very valet
 
-    //in ver very valet, the same script is also responsible for moving the player, but i might seperate the two
+    //in very very valet, the same script is also responsible for moving the player, but i might seperate the two
 
-    public Vector3 DownDir = Vector3.down;
+    [SerializeField] private Vector3 DownDir = Vector3.down; //I have no idea what this is used for
 
     private Rigidbody _RB;
-    private InputHandler input;
 
-    private Vector3 moveInput;
-    private float _speedFactor = 1f;
-    private float _maxAccelForceFactor = 1f;
-    private Vector3 _m_GoalVel = Vector3.zero;
 
     [Header("Ride Properties")]
-    [SerializeField] [Tooltip("Needs to be lower than raycastToGroundLength")] float rideHeight = 1.75f;
+    [SerializeField][Tooltip("Needs to be lower than raycastToGroundLength")] float rideHeight = 1.75f;
     [SerializeField, Range(1, 0)] float springDampingRatio = 0.5f;
     [SerializeField] float rideSpringStrength; //?
     [SerializeField] float raycastToGroundLength = 3f;
 
+    private Vector3 m_UnitGoal;
+    private float m_speedFactor = 1f;
+    private float m_maxAccelForceFactor = 1f;
+    private Vector3 m_GoalVel = Vector3.zero;
 
-    [Header("Movement:")]
+    [Header("Movement")]
     [SerializeField] private float _maxSpeed = 8f;
     [SerializeField] private float _acceleration = 200f;
     [SerializeField] private float _maxAccelForce = 150f;
@@ -33,7 +32,8 @@ public class Hover : MonoBehaviour
     [SerializeField] private AnimationCurve _maxAccelerationForceFactorFromDot;
     [SerializeField] private Vector3 _moveForceScale = new Vector3(1f, 0f, 1f);
 
-    [Header("Other:")]
+    [Header("Other")]
+    [SerializeField] private InputHandler _input;
     [SerializeField] private LayerMask groundLayer;
 
 
@@ -44,69 +44,68 @@ public class Hover : MonoBehaviour
 
     void FixedUpdate()
     {
-        (bool rayHitGround, RaycastHit rayHit) = RaycastToGround();
+        (bool isRayHittingGround, RaycastHit groundRayHitInfo) = RaycastToGround();
 
-        bool isGrounded = CheckIfGrounded(rayHitGround, rayHit);
+        bool isGrounded = CheckIfGrounded(isRayHittingGround, groundRayHitInfo);
 
         if (isGrounded)
         {
             //grounded logic
         }
 
-        //Move
+        CharacterMove(_input.movementInput);
         //Jump
 
-        MaintainHeight();
+        
+        if (isRayHittingGround)
+        {
+            MaintainHeight(groundRayHitInfo);
+        }
 
         //Maintain Upright
     }
 
 
-    private void MaintainHeight()
+    private void MaintainHeight(RaycastHit rayHit)
     {
-        bool _rayDidHit = Physics.Raycast(transform.position, Vector3.down, out RaycastHit _rayhit, raycastToGroundLength);
+        // bool _rayDidHit = Physics.Raycast(transform.position, Vector3.down, out RaycastHit _rayhit, raycastToGroundLength);
 
-        if (_rayDidHit)
+        Debug.DrawLine(transform.position, rayHit.point, Color.green); // actual ray hit
+        Debug.DrawRay(rayHit.point, Vector3.up * rideHeight, Color.yellow); // target ride height
+
+        Vector3 vel = _RB.linearVelocity;
+        Vector3 rayDir = transform.TransformDirection(DownDir); // same as transform.down?
+
+        Vector3 othervel = Vector3.zero;
+        Rigidbody hitBody = rayHit.rigidbody;
+        if (hitBody != null)
         {
+            othervel = hitBody.linearVelocity;
+        }
 
-            Debug.DrawLine(transform.position, _rayhit.point, Color.green); // actual ray hit
-            Debug.DrawRay(_rayhit.point, Vector3.up * rideHeight, Color.yellow); // target ride height
+        float rayDirVel = Vector3.Dot(rayDir, vel);
+        float otherDirVel = Vector3.Dot(rayDir, othervel); //what is dot and how is it used here?
 
-            Vector3 vel = _RB.linearVelocity;
-            Vector3 rayDir = transform.TransformDirection(DownDir); // same as transform.down?
+        float relVel = rayDirVel - otherDirVel;
 
-            Vector3 othervel = Vector3.zero;
-            Rigidbody hitBody = _rayhit.rigidbody;
-            if (hitBody != null)
-            {
-                othervel = hitBody.linearVelocity;
-            }
+        float mass = _RB.mass;
+        float rideSpringDamper = 2f * Mathf.Sqrt(rideSpringStrength * mass) * springDampingRatio; //from zeta formula, 
 
-            float rayDirVel = Vector3.Dot(rayDir, vel);
-            float otherDirVel = Vector3.Dot(rayDir, othervel); //what is dot and how is it used here?
+        float x = rayHit.distance - rideHeight;
 
-            float relVel = rayDirVel - otherDirVel;
+        float springForce = (x * rideSpringStrength) - (relVel * rideSpringDamper);
 
-            float mass = _RB.mass;
-            float rideSpringDamper = 2f * Mathf.Sqrt(rideSpringStrength * mass) * springDampingRatio; //from zeta formula, 
+        _RB.AddForce(rayDir * springForce);
 
-            float x = _rayhit.distance - rideHeight;
-
-            float springForce = (x * rideSpringStrength) - (relVel * rideSpringDamper);
-
-            _RB.AddForce(rayDir * springForce);
-
-            if (hitBody != null)
-            {
-                hitBody.AddForceAtPosition(rayDir * -springForce, _rayhit.point);
-            }
-
+        if (hitBody != null)
+        {
+            hitBody.AddForceAtPosition(rayDir * -springForce, rayHit.point);
         }
     }
 
-        private (bool, RaycastHit) RaycastToGround()
+    private (bool, RaycastHit) RaycastToGround()
     {
-        Vector3 _rayDir =transform.TransformDirection(DownDir);
+        Vector3 _rayDir = transform.TransformDirection(DownDir); 
 
         RaycastHit rayHit;
         Ray rayToGround = new Ray(transform.position, _rayDir);
@@ -122,7 +121,7 @@ public class Hover : MonoBehaviour
         bool grounded;
         if (rayHitGround)
         {
-            grounded = rayHit.distance <= rideHeight * 1.3f; // 1.3f ?
+            grounded = rayHit.distance <= rideHeight * 1.3f; // 1.3f? multiplied because object will oscilate but 1.3 is random
         }
         else
         {
@@ -132,26 +131,25 @@ public class Hover : MonoBehaviour
         return grounded;
     }
 
-    private void CharacterMove(Vector3 moveInput, RaycastHit rayHit)
+    private void CharacterMove(Vector2 moveInput)
     {
-        Vector3 m_UnitGoal = moveInput;
+        m_UnitGoal = new Vector3(moveInput.x, 0, moveInput.y);
 
-        Vector3 unitVel = _m_GoalVel.normalized; //pat goal?
+        //calculate new goal vel
+        Vector3 unitVel = m_GoalVel.normalized; //current vel direction?
 
-        float velDot = Vector3.Dot(m_UnitGoal, unitVel);
-        float accel = _acceleration * _accelerationFactorFromDot.Evaluate(velDot); // animation curve evaluate. need to learn syntax
+        float velDot = Vector3.Dot(m_UnitGoal, unitVel); // checking difference in direction in current input and current velocity direction?
+        float accel = _acceleration * _accelerationFactorFromDot.Evaluate(velDot); //should be between 0 and 1?
 
-        Vector3 goalVel = m_UnitGoal * _maxSpeed * _speedFactor; //????
+        Vector3 goalVel = _maxSpeed * m_speedFactor * m_UnitGoal; //velocity at its max
 
-        Vector3 otherVel = Vector3.zero;// ?????
+        //THIS IS THE ACTUAL CALCULATION OF THE NEW m_goalVel
+        m_GoalVel = Vector3.MoveTowards(m_GoalVel, goalVel, accel * Time.fixedDeltaTime);
 
-        Rigidbody hitBody = rayHit.rigidbody;
+        //actual force
+        Vector3 neededAccel = (m_GoalVel - _RB.linearVelocity) / Time.fixedDeltaTime; // acceleration needed to reach max accel in 1 fixed update?
 
-        _m_GoalVel = Vector3.MoveTowards(_m_GoalVel, goalVel, accel * Time.fixedDeltaTime);
-
-        Vector3 neededAccel = (_m_GoalVel - _RB.linearVelocity) / Time.fixedDeltaTime; // vel needed to reach max accel in 1 fixed update?
-
-        float maxAccel = _maxAccelForce * _maxAccelerationForceFactorFromDot.Evaluate(velDot) * _maxAccelForceFactor;
+        float maxAccel = _maxAccelForce * _maxAccelerationForceFactorFromDot.Evaluate(velDot) * m_maxAccelForceFactor;
         neededAccel = Vector3.ClampMagnitude(neededAccel, maxAccel);
         _RB.AddForceAtPosition(Vector3.Scale(neededAccel * _RB.mass, _moveForceScale), transform.position + new Vector3(0f, transform.localScale.y * _leanFactor, 0f)); // Using AddForceAtPosition in order to both move the player and cause the play to lean in the direction of input.
     }

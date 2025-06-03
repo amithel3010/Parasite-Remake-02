@@ -23,8 +23,6 @@ public class InputHandler : MonoBehaviour, IInputSource
 
         ProcessInputs();
 
-        horizontalInput = Mathf.Clamp(horizontalInput, -1f, 1f);
-        verticalInput = Mathf.Clamp(verticalInput, -1f, 1f);
     }
 
     private void FixedUpdate()
@@ -59,6 +57,9 @@ public class InputHandler : MonoBehaviour, IInputSource
 
         actionPressed = actionPressed || Input.GetKeyDown(KeyCode.E);
         actionHeld = actionHeld || Input.GetKey(KeyCode.E);
+
+        horizontalInput = Mathf.Clamp(horizontalInput, -1f, 1f); //used to be in update is it ok here?
+        verticalInput = Mathf.Clamp(verticalInput, -1f, 1f);
 
         movementInput = new Vector2(horizontalInput, verticalInput);
     }

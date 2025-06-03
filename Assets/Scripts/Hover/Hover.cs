@@ -15,10 +15,10 @@ public class Hover : MonoBehaviour
     [Header("Ride Properties")]
     [SerializeField][Tooltip("Needs to be lower than raycastToGroundLength")] float rideHeight = 1.75f;
     [SerializeField, Range(1, 0)] float springDampingRatio = 0.5f;
-    [SerializeField] float rideSpringStrength; //?
+    [SerializeField] float rideSpringStrength;
     [SerializeField] float raycastToGroundLength = 3f;
 
-    private Vector3 m_UnitGoal;
+    private Vector3 m_GoalDirFromInput; //just input, why is it a member?
     private float m_speedFactor = 1f;
     private float m_maxAccelForceFactor = 1f;
     private Vector3 m_GoalVel = Vector3.zero;
@@ -55,7 +55,6 @@ public class Hover : MonoBehaviour
 
         CharacterMove(_input.movementInput);
         //Jump
-
         
         if (isRayHittingGround)
         {
@@ -133,15 +132,16 @@ public class Hover : MonoBehaviour
 
     private void CharacterMove(Vector2 moveInput)
     {
-        m_UnitGoal = new Vector3(moveInput.x, 0, moveInput.y);
+        m_GoalDirFromInput = new Vector3(moveInput.x, 0, moveInput.y).normalized;
 
         //calculate new goal vel
-        Vector3 unitVel = m_GoalVel.normalized; //current vel direction?
+        Vector3 unitDir = m_GoalVel.normalized; //current vel direction
 
-        float velDot = Vector3.Dot(m_UnitGoal, unitVel); // checking difference in direction in current input and current velocity direction?
+        float velDot = Vector3.Dot(m_GoalDirFromInput, unitDir); // checking difference in direction in current input and current velocity direction?
         float accel = _acceleration * _accelerationFactorFromDot.Evaluate(velDot); //should be between 0 and 1?
+        Debug.Log("VelDot:" +velDot + ", accel:" + accel);
 
-        Vector3 goalVel = _maxSpeed * m_speedFactor * m_UnitGoal; //velocity at its max
+        Vector3 goalVel = _maxSpeed * m_speedFactor * m_GoalDirFromInput; //velocity at its max
 
         //THIS IS THE ACTUAL CALCULATION OF THE NEW m_goalVel
         m_GoalVel = Vector3.MoveTowards(m_GoalVel, goalVel, accel * Time.fixedDeltaTime);

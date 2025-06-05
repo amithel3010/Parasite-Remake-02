@@ -1,15 +1,24 @@
+using System.Buffers.Text;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class FlyPossessable : Possessable
 {
-    //Should be able to fly in Bursts, has 2 HP
-
-    public override void OnDepossessed()
+    public override void Awake()
     {
-        base.OnDepossessed();
-        Destroy(this.gameObject);
+        base.Awake();
+        SetInputSource(null);
     }
 
-    // on jump press fly up
+    public override void OnFixedUpdate()
+    {
+        Debug.Log("FixedUpdate");
+        base.OnFixedUpdate();
+    }
 
+    public override void OnJumpInput(bool jumpInput)
+    {
+        if(jumpInput)
+            Debug.Log("Flying");
+    }
 }

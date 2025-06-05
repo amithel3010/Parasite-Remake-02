@@ -6,31 +6,22 @@ public class PlayerController : MonoBehaviour
     //and setting their input to be from the player
 
     //TODO: maybe should be a singleton? no reason ever for 2 of these
+    //TODO: maybe setinputsource should be here?
 
     [SerializeField] InputHandler inputHandler;
-    [SerializeField] Possessable currentPossessable;
+    [SerializeField] IControllable currentControllable;
 
     void Start()
     {
-        if (currentPossessable == null)
-        {
-            Debug.LogError("No Possessable On Start");
-        }
-        else
-        {
-            print("Possessable on Start:" + currentPossessable); //Should always be Parasite.
-        }
-
-        currentPossessable.SetInputSource(inputHandler); //Feels weird calling this from here... feels like it should be in OnPossessed but i dont know how to do that
+        
+       currentControllable = FindAnyObjectByType<ParasitePossessable>(FindObjectsInactive.Exclude);
     }
 
-    public void Possess(Possessable newPossessable)
+    private void FixedUpdate()
     {
-        //TODO: not ideal, messy
-        currentPossessable.OnDepossessed(); //here we would set the input source of the old possessable back to AI if it should live
-        currentPossessable = newPossessable;
-        currentPossessable.OnPossessed(); 
-        currentPossessable.SetInputSource(inputHandler);
+        currentControllable.OnFixedUpdate();
     }
+
+
 
 }

@@ -1,18 +1,17 @@
 using UnityEngine;
 
-public class Hover : MonoBehaviour
+public abstract class Hover : MonoBehaviour, IControllable
 {
     //Keeps Gameobject hovering at a certain ride height using a dampened spring
     //Based on logic by toyful games explained in their video on very very valet
 
     //in very very valet, the same script is also responsible for moving the player, but i might seperate the two
 
-    //TODO: how can i use this script to move the possessable? maybe this needs a reference to possessable and the values will be decided there?
-
-    [SerializeField] private Vector3 DownDir = Vector3.down; //I have no idea what this is used for
 
     private Rigidbody _RB;
+    protected IInputSource InputSource;
 
+    [SerializeField] private Vector3 DownDir = Vector3.down;
 
     [Header("Ride Properties")]
     [SerializeField][Tooltip("Needs to be lower than raycastToGroundLength")] float rideHeight = 1.75f;
@@ -39,12 +38,13 @@ public class Hover : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
 
 
-    private void Awake()
+    public virtual void Awake()
     {
         _RB = GetComponent<Rigidbody>();
+        InputSource = FindAnyObjectByType<InputHandler>(); //feels wrong
     }
 
-    void FixedUpdate()
+    public virtual void OnFixedUpdate()
     {
         (bool isRayHittingGround, RaycastHit groundRayHitInfo) = RaycastToGround();
 
@@ -55,9 +55,12 @@ public class Hover : MonoBehaviour
             //grounded logic
         }
 
-        CharacterMove(_input.movementInput);
-        //Jump
-        
+        if (InputSource != null)
+        {
+            OnMovementInput(InputSource.MovementInput);
+            OnJumpInput(InputSource.JumpPressed);           
+        }
+
         if (isRayHittingGround)
         {
             MaintainHeight(groundRayHitInfo);
@@ -67,6 +70,22 @@ public class Hover : MonoBehaviour
     }
 
 
+    public void OnMovementInput(Vector2 moveInput)
+    {
+        CharacterMove(moveInput);
+    }
+
+    public virtual void OnJumpInput(bool jumpInput)
+    {
+        if(jumpInput)
+            Debug.Log("Jumped");
+    }
+
+    public virtual void OnActionInput(bool actionInput)
+    {
+        if(actionInput)
+            Debug.Log("Used Action");
+    }
     private void MaintainHeight(RaycastHit rayHit)
     {
         // bool _rayDidHit = Physics.Raycast(transform.position, Vector3.down, out RaycastHit _rayhit, raycastToGroundLength);
@@ -106,7 +125,7 @@ public class Hover : MonoBehaviour
 
     private (bool, RaycastHit) RaycastToGround()
     {
-        Vector3 _rayDir = transform.TransformDirection(DownDir); 
+        Vector3 _rayDir = transform.TransformDirection(DownDir);
 
         RaycastHit rayHit;
         Ray rayToGround = new Ray(transform.position, _rayDir);
@@ -141,7 +160,7 @@ public class Hover : MonoBehaviour
 
         float velDot = Vector3.Dot(m_GoalDirFromInput, unitDir); // checking difference in direction in current input and current velocity direction?
         float accel = _acceleration * _accelerationFactorFromDot.Evaluate(velDot); //should be between 0 and 1?
-        Debug.Log("VelDot:" + velDot + ", accel:" + accel);
+        //Debug.Log("VelDot:" + velDot + ", accel:" + accel);
 
         Vector3 goalVel = _maxSpeed * m_speedFactor * m_GoalDirFromInput; //velocity at its max
 

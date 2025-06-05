@@ -10,4 +10,6 @@ public class FlyPossessable : Possessable
         Destroy(this.gameObject);
     }
 
+    // on jump press fly up
+
 }

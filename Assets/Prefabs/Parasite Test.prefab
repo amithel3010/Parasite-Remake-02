@@ -74,8 +74,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cachedParasite: {fileID: 0}
-  playerController: {fileID: 0}
-  moveSpeed: 5
+  moveSpeed: 10
   jumpForce: 5
   raycastLength: 1
   PossessableLayer:
@@ -147,7 +146,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 827c803e0cdfd461696fb32002f8d1cc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

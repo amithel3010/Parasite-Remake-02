@@ -3,9 +3,9 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     //responsible for keeping track of currently possessed possessable
-    //and giving them input from the player
+    //and setting their input to be from the player
 
-    //TODO: maybe should be a singleton? no reason for 2 of these
+    //TODO: maybe should be a singleton? no reason ever for 2 of these
 
     [SerializeField] InputHandler inputHandler;
     [SerializeField] Possessable currentPossessable;
@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
 
     public void Possess(Possessable newPossessable)
     {
+        //TODO: not ideal, messy
         currentPossessable.OnDepossessed(); //here we would set the input source of the old possessable back to AI if it should live
         currentPossessable = newPossessable;
         currentPossessable.OnPossessed(); 

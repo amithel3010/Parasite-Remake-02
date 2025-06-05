@@ -7,6 +7,8 @@ public class Hover : MonoBehaviour
 
     //in very very valet, the same script is also responsible for moving the player, but i might seperate the two
 
+    //TODO: how can i use this script to move the possessable? maybe this needs a reference to possessable and the values will be decided there?
+
     [SerializeField] private Vector3 DownDir = Vector3.down; //I have no idea what this is used for
 
     private Rigidbody _RB;
@@ -134,12 +136,12 @@ public class Hover : MonoBehaviour
     {
         m_GoalDirFromInput = new Vector3(moveInput.x, 0, moveInput.y).normalized;
 
-        //calculate new goal vel
+        //calculate new goal vel...
         Vector3 unitDir = m_GoalVel.normalized; //current vel direction
 
         float velDot = Vector3.Dot(m_GoalDirFromInput, unitDir); // checking difference in direction in current input and current velocity direction?
         float accel = _acceleration * _accelerationFactorFromDot.Evaluate(velDot); //should be between 0 and 1?
-        Debug.Log("VelDot:" +velDot + ", accel:" + accel);
+        Debug.Log("VelDot:" + velDot + ", accel:" + accel);
 
         Vector3 goalVel = _maxSpeed * m_speedFactor * m_GoalDirFromInput; //velocity at its max
 
@@ -151,7 +153,8 @@ public class Hover : MonoBehaviour
 
         float maxAccel = _maxAccelForce * _maxAccelerationForceFactorFromDot.Evaluate(velDot) * m_maxAccelForceFactor;
         neededAccel = Vector3.ClampMagnitude(neededAccel, maxAccel);
-        _RB.AddForceAtPosition(Vector3.Scale(neededAccel * _RB.mass, _moveForceScale), transform.position + new Vector3(0f, transform.localScale.y * _leanFactor, 0f)); // Using AddForceAtPosition in order to both move the player and cause the play to lean in the direction of input.
+        // _RB.AddForceAtPosition(Vector3.Scale(neededAccel * _RB.mass, _moveForceScale), transform.position + new Vector3(0f, transform.localScale.y * _leanFactor, 0f)); // Using AddForceAtPosition in order to both move the player and cause the play to lean in the direction of input.
+        _RB.AddForceAtPosition(Vector3.Scale(neededAccel * _RB.mass, _moveForceScale), transform.position);
     }
 
 }

@@ -6,7 +6,10 @@ public abstract class Possessable : MonoBehaviour
 {
     //base class for handling and controlling possessables
     //should be able to recieve inputs from player OR from AI
-    //TODO: maybe should reconsider? faking inputs to move AI seems hard
+    //TODO: instead of inputs, this needs to get a move amount or a destination, or else working with AI will be hard
+    //TODO: read on couple animator and navmesh
+
+    //navmesh driven vs inputdriven
 
     protected IInputSource inputSource;
     protected Rigidbody _rb;
@@ -66,6 +69,7 @@ public abstract class Possessable : MonoBehaviour
 
     public virtual void OnPossessed()
     {
+        //Here we will play possessing animation
         Debug.Log("Now Possessed" + this);
     }
 

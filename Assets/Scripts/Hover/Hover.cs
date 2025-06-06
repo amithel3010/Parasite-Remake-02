@@ -34,14 +34,15 @@ public abstract class Hover : MonoBehaviour, IControllable
     [SerializeField] private Vector3 _moveForceScale = new Vector3(1f, 0f, 1f);
 
     [Header("Other")]
-    [SerializeField] private InputHandler _input;
+    //[SerializeField] private InputHandler _input;
     [SerializeField] private LayerMask groundLayer;
 
 
     public virtual void Awake()
     {
         _RB = GetComponent<Rigidbody>();
-        InputSource = FindAnyObjectByType<InputHandler>(); //feels wrong
+        if(GetComponent<ParasitePossessable>() != null)
+            InputSource = FindAnyObjectByType<InputHandler>(); //TODO: feels wrong
     }
 
     public virtual void OnFixedUpdate()

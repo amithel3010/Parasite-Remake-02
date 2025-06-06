@@ -13,8 +13,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        
-       currentControllable = FindAnyObjectByType<ParasitePossessable>(FindObjectsInactive.Exclude);
+        currentControllable = GetComponent<ParasitePossessable>();
     }
 
     private void FixedUpdate()

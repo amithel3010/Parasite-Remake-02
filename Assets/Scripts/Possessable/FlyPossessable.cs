@@ -4,12 +4,6 @@ using UnityEngine;
 
 public class FlyPossessable : Possessable
 {
-    public override void Awake()
-    {
-        base.Awake();
-        SetInputSource(null);
-    }
-
     public override void OnFixedUpdate()
     {
         Debug.Log("FixedUpdate");

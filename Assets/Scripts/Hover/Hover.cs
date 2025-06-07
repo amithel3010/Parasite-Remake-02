@@ -23,6 +23,7 @@ public abstract class Hover : MonoBehaviour, IControllable
     private float m_speedFactor = 1f;
     private float m_maxAccelForceFactor = 1f;
     private Vector3 m_GoalVel = Vector3.zero;
+    private bool _shouldMaintainHeight = true;
 
     [Header("Movement")]
     [SerializeField] private float _maxSpeed = 8f;
@@ -33,6 +34,17 @@ public abstract class Hover : MonoBehaviour, IControllable
     [SerializeField] private AnimationCurve _maxAccelerationForceFactorFromDot;
     [SerializeField] private Vector3 _moveForceScale = new Vector3(1f, 0f, 1f);
 
+    [Header("Jumping")]
+    [SerializeField] float jumpApex;
+    [SerializeField] float timeToApex;
+
+    private float initialJumpVel;
+    private float gravityModifier;
+    private float _timeSinceJumpPressed; //?
+    private float _timeSinceJump; //?
+    private bool _jumpReady;
+    private bool _isJumping;
+
     [Header("Other")]
     //[SerializeField] private InputHandler _input;
     [SerializeField] private LayerMask groundLayer;
@@ -41,13 +53,15 @@ public abstract class Hover : MonoBehaviour, IControllable
     public virtual void Awake()
     {
         _RB = GetComponent<Rigidbody>();
-        if(GetComponent<ParasitePossessable>() != null)
+        if (GetComponent<ParasitePossessable>() != null)
             InputSource = FindAnyObjectByType<InputHandler>(); //TODO: feels wrong
     }
 
     public virtual void OnFixedUpdate()
     {
-        (bool isRayHittingGround, RaycastHit groundRayHitInfo) = RaycastToGround();
+        OnActionInput(InputSource.ActionPressed);
+
+        (bool isRayHittingGround, RaycastHit groundRayHitInfo) = RaycastToGround(); // maybe these vars should be members
 
         bool isGrounded = CheckIfGrounded(isRayHittingGround, groundRayHitInfo);
 
@@ -59,10 +73,10 @@ public abstract class Hover : MonoBehaviour, IControllable
         if (InputSource != null)
         {
             OnMovementInput(InputSource.MovementInput);
-            OnJumpInput(InputSource.JumpPressed);           
+            OnJumpInput(InputSource.JumpPressed);
         }
 
-        if (isRayHittingGround)
+        if (isRayHittingGround && _shouldMaintainHeight)
         {
             MaintainHeight(groundRayHitInfo);
         }
@@ -78,13 +92,14 @@ public abstract class Hover : MonoBehaviour, IControllable
 
     public virtual void OnJumpInput(bool jumpInput)
     {
-        if(jumpInput)
+
+        if (jumpInput)
             Debug.Log("Jumped");
     }
 
     public virtual void OnActionInput(bool actionInput)
     {
-        if(actionInput)
+        if (actionInput)
             Debug.Log("Used Action");
     }
     private void MaintainHeight(RaycastHit rayHit)
@@ -177,5 +192,28 @@ public abstract class Hover : MonoBehaviour, IControllable
         _RB.AddForceAtPosition(Vector3.Scale(neededAccel * _RB.mass, _moveForceScale), transform.position);
     }
 
+    private void CharacterJump(bool jumpHeld, bool grounded, RaycastHit rayHit)
+    {
+        //if can jump 
+        if (jumpHeld && CanJump(grounded))
+        {
+            _shouldMaintainHeight = false;
+            _RB.AddForce(Vector3.up * jumpApex, ForceMode.Impulse);
+        }
+
+        //calculate force needed to reach jump apex in timeToJumpApex
+
+        //if jump released before apex, make the player fall faster
+
+        //
+
+    }
+
+    public virtual bool CanJump(bool grounded)
+    {     
+        return grounded;
+    }
 }
+
+        
 

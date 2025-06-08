@@ -34,6 +34,18 @@ public class Hover : MonoBehaviour
     [SerializeField] private AnimationCurve _maxAccelerationForceFactorFromDot;
     [SerializeField] private Vector3 _moveForceScale = new Vector3(1f, 0f, 1f);
 
+    private bool _shouldMaintainHeight = true;
+    private bool isGrounded = true;
+    private float _timeSinceJumpPressed = 0.5f; // if it's zero character jumps on start
+    private float _timeSinceUngrounded;
+    private bool _jumpReady = true;
+    private bool _isJumping;
+
+    [Header("Jumping")]
+    [SerializeField] private float _jumpForce = 20f; //TODO: means nothing
+    [SerializeField] private float _jumpBuffer;
+    [SerializeField] private float _coyoteTime;
+
     [Header("Other")]
     [SerializeField] private InputHandler _input;
     [SerializeField] private LayerMask groundLayer;
@@ -48,17 +60,21 @@ public class Hover : MonoBehaviour
     {
         (bool isRayHittingGround, RaycastHit groundRayHitInfo) = RaycastToGround();
 
-        bool isGrounded = CheckIfGrounded(isRayHittingGround, groundRayHitInfo);
+        isGrounded = CheckIfGrounded(isRayHittingGround, groundRayHitInfo);
 
         if (isGrounded)
         {
-            //grounded logic
+            _timeSinceUngrounded = 0f;
+        }
+        else
+        {
+            _timeSinceUngrounded += Time.fixedDeltaTime;
         }
 
         CharacterMove(_input.movementInput);
-        //Jump
-        
-        if (isRayHittingGround)
+        CharacterJump(_input.jumpPressed);
+
+        if (isRayHittingGround && _shouldMaintainHeight)
         {
             MaintainHeight(groundRayHitInfo);
         }
@@ -106,7 +122,7 @@ public class Hover : MonoBehaviour
 
     private (bool, RaycastHit) RaycastToGround()
     {
-        Vector3 _rayDir = transform.TransformDirection(DownDir); 
+        Vector3 _rayDir = transform.TransformDirection(DownDir);
 
         RaycastHit rayHit;
         Ray rayToGround = new Ray(transform.position, _rayDir);
@@ -141,7 +157,7 @@ public class Hover : MonoBehaviour
 
         float velDot = Vector3.Dot(m_GoalDirFromInput, unitDir); // checking difference in direction in current input and current velocity direction?
         float accel = _acceleration * _accelerationFactorFromDot.Evaluate(velDot); //should be between 0 and 1?
-        Debug.Log("VelDot:" + velDot + ", accel:" + accel);
+       // Debug.Log("VelDot:" + velDot + ", accel:" + accel);
 
         Vector3 goalVel = _maxSpeed * m_speedFactor * m_GoalDirFromInput; //velocity at its max
 
@@ -157,5 +173,32 @@ public class Hover : MonoBehaviour
         _RB.AddForceAtPosition(Vector3.Scale(neededAccel * _RB.mass, _moveForceScale), transform.position);
     }
 
+    private void CharacterJump(bool jumpPressed)
+    {
+        _timeSinceJumpPressed += Time.fixedDeltaTime;
+
+        if(_RB.linearVelocity.y < 0)
+        {
+            _shouldMaintainHeight = true;
+            _jumpReady = true;
+        }
+
+        if (jumpPressed)
+        {
+            _timeSinceJumpPressed = 0f;
+        }
+
+        if (_timeSinceJumpPressed < _jumpBuffer && _timeSinceUngrounded < _coyoteTime && _jumpReady)
+        {
+            //flags
+            _jumpReady = false;
+            _shouldMaintainHeight = false;
+            _isJumping = true;
+
+            //jump
+            _RB.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
+            _timeSinceJumpPressed = _jumpBuffer; //to make sure jump only happens once per input
+        }
+    }
 }
 

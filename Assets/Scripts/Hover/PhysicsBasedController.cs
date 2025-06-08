@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Hover : MonoBehaviour
+public class PhysicsBasedController : MonoBehaviour
 {
     //Keeps Gameobject hovering at a certain ride height using a dampened spring
     //Based on logic by toyful games explained in their video on very very valet
@@ -39,7 +39,6 @@ public class Hover : MonoBehaviour
     private float _timeSinceJumpPressed = 0.5f; // if it's zero character jumps on start
     private float _timeSinceUngrounded;
     private bool _jumpReady = true;
-    private bool _isJumping;
 
     [Header("Jumping")]
     [SerializeField] private float _jumpForce = 20f; //TODO: means nothing
@@ -169,12 +168,15 @@ public class Hover : MonoBehaviour
 
         float maxAccel = _maxAccelForce * _maxAccelerationForceFactorFromDot.Evaluate(velDot) * m_maxAccelForceFactor;
         neededAccel = Vector3.ClampMagnitude(neededAccel, maxAccel);
-        // _RB.AddForceAtPosition(Vector3.Scale(neededAccel * _RB.mass, _moveForceScale), transform.position + new Vector3(0f, transform.localScale.y * _leanFactor, 0f)); // Using AddForceAtPosition in order to both move the player and cause the play to lean in the direction of input.
-        _RB.AddForceAtPosition(Vector3.Scale(neededAccel * _RB.mass, _moveForceScale), transform.position);
+        _RB.AddForceAtPosition(Vector3.Scale(neededAccel * _RB.mass, _moveForceScale), transform.position + new Vector3(0f, transform.localScale.y * _leanFactor, 0f)); // Using AddForceAtPosition in order to both move the player and cause the play to lean in the direction of input.
+        //_RB.AddForceAtPosition(Vector3.Scale(neededAccel * _RB.mass, _moveForceScale), transform.position);
     }
 
     private void CharacterJump(bool jumpPressed)
     {
+        //inconsistent jump. needs to work like move where you calculate needed force for jump
+        //or maybe define max and min upwards acceleration values
+
         _timeSinceJumpPressed += Time.fixedDeltaTime;
 
         if(_RB.linearVelocity.y < 0)
@@ -193,7 +195,7 @@ public class Hover : MonoBehaviour
             //flags
             _jumpReady = false;
             _shouldMaintainHeight = false;
-            _isJumping = true;
+            //_isJumping = true;
 
             //jump
             _RB.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);

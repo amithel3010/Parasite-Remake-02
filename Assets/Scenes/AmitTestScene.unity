@@ -245,11 +245,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DownDir: {x: 0, y: -1, z: 0}
-  rideHeight: 0.8
+  rideHeight: 0.93
   springDampingRatio: 0.208
-  rideSpringStrength: 500
-  raycastToGroundLength: 3
-  _maxSpeed: 6
+  rideSpringStrength: 2000
+  raycastToGroundLength: 1.78
+  _maxSpeed: 4
   _acceleration: 25
   _maxAccelForce: 150
   _leanFactor: 0.25
@@ -320,6 +320,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _moveForceScale: {x: 1, y: 0, z: 1}
+  _jumpForce: 70
   _jumpBuffer: 0.2
   _coyoteTime: 0.2
   _input: {fileID: 41351195}

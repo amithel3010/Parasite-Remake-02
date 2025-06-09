@@ -598,7 +598,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 827c803e0cdfd461696fb32002f8d1cc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -638,7 +638,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4.6858, y: 4.6858, z: 4.6858}
+  m_LocalScale: {x: 14.8329, y: 14.8329, z: 14.8329}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -823,13 +823,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2139068113}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.089936145, y: -0, z: -0, w: 0.99594754}
-  m_LocalPosition: {x: 1.22504, y: 3.444, z: -10.74}
+  m_LocalRotation: {x: 0.3305143, y: 0, z: 0, w: 0.943801}
+  m_LocalPosition: {x: 0.42, y: 7.25, z: -11.24}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 10.32, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 38.6, y: 0, z: 0}
 --- !u!114 &2139068115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -985,14 +985,6 @@ PrefabInstance:
       propertyPath: _input
       value: 
       objectReference: {fileID: 41351195}
-    - target: {fileID: 3350185483172229929, guid: c1768b107ed98f44ca511479663ee26e, type: 3}
-      propertyPath: _jumpForce
-      value: 55
-      objectReference: {fileID: 0}
-    - target: {fileID: 3350185483172229929, guid: c1768b107ed98f44ca511479663ee26e, type: 3}
-      propertyPath: _uprightSpringStrength
-      value: 800
-      objectReference: {fileID: 0}
     - target: {fileID: 4799134120777256835, guid: c1768b107ed98f44ca511479663ee26e, type: 3}
       propertyPath: m_Name
       value: Hovering Creature

@@ -200,7 +200,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4799134120777256835}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.1837497, y: -3.93296, z: 3.9984403}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -225,7 +225,7 @@ MonoBehaviour:
   rideHeight: 0.93
   springDampingRatio: 0.208
   rideSpringStrength: 2000
-  raycastToGroundLength: 1.78
+  raycastToGroundLength: 1.2
   _maxSpeed: 4
   _acceleration: 25
   _maxAccelForce: 150
@@ -297,7 +297,10 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _moveForceScale: {x: 1, y: 0, z: 1}
-  _jumpForce: 70
+  _charcterLookDirection: 2
+  _uprightSpringDamper: 25
+  _uprightSpringStrength: 800
+  _jumpForce: 55
   _jumpBuffer: 0.2
   _coyoteTime: 0.2
   _input: {fileID: 0}
@@ -329,7 +332,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!1 &6828550944634921630
 GameObject:

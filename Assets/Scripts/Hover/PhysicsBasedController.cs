@@ -82,7 +82,7 @@ public class PhysicsBasedController : MonoBehaviour
         }
 
         CharacterMove(_input.movementInput);
-        CharacterJump(_input.jumpPressed);
+        CharacterJump(_input.jumpPressed, groundRayHitInfo);
 
         if (isRayHittingGround && _shouldMaintainHeight)
         {
@@ -235,7 +235,7 @@ public class PhysicsBasedController : MonoBehaviour
         //_RB.AddForceAtPosition(Vector3.Scale(neededAccel * _RB.mass, _moveForceScale), transform.position);
     }
 
-    private void CharacterJump(bool jumpPressed)
+    private void CharacterJump(bool jumpPressed, RaycastHit rayHit)
     {
         //inconsistent jump. needs to work like move where you calculate needed force for jump
         //or maybe define max and min upwards acceleration values
@@ -260,7 +260,14 @@ public class PhysicsBasedController : MonoBehaviour
             _shouldMaintainHeight = false;
             //_isJumping = true;
 
+            _RB.linearVelocity = new Vector3(_RB.linearVelocity.x, 0f, _RB.linearVelocity.z); //TODO: cheat fix by Joe Binns. I would like to have calculations for needed accel like in CharacterMove(). 
+
             //jump
+            if (rayHit.distance != 0)
+            {
+                _RB.position = new Vector3(_RB.position.x, _RB.position.y - (rayHit.distance - rideHeight), _RB.position.z);
+            }
+
             _RB.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
             _timeSinceJumpPressed = _jumpBuffer; //to make sure jump only happens once per input
         }

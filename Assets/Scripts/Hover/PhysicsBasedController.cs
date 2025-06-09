@@ -7,19 +7,20 @@ public class PhysicsBasedController : MonoBehaviour
 
     //in very very valet, the same script is also responsible for moving the player, but i might seperate the two
 
-    //TODO: how can i use this script to move the possessable? maybe this needs a reference to possessable and the values will be decided there?
 
     [SerializeField] private Vector3 DownDir = Vector3.down; //I have no idea what this is used for
 
     private Rigidbody _RB;
+    private Vector3 _previousVelocity = Vector3.zero; //I Would have never thought of this
 
 
-    [Header("Ride Properties")]
+    [Header("Height Spring")]
     [SerializeField][Tooltip("Needs to be lower than raycastToGroundLength")] float rideHeight = 1.75f;
     [SerializeField, Range(1, 0)] float springDampingRatio = 0.5f;
     [SerializeField] float rideSpringStrength;
     [SerializeField] float raycastToGroundLength = 3f;
 
+    //movement private vars
     private Vector3 m_GoalDirFromInput; //just input, why is it a member?
     private float m_speedFactor = 1f;
     private float m_maxAccelForceFactor = 1f;
@@ -34,6 +35,16 @@ public class PhysicsBasedController : MonoBehaviour
     [SerializeField] private AnimationCurve _maxAccelerationForceFactorFromDot;
     [SerializeField] private Vector3 _moveForceScale = new Vector3(1f, 0f, 1f);
 
+    //rotation private vars
+    private enum lookDirectionOptions { velocity, acceleration, moveInput }
+    private Quaternion _uprightTargetRot = Quaternion.identity;
+
+    [Header("Upright Spring")]
+    [SerializeField] private lookDirectionOptions _charcterLookDirection = lookDirectionOptions.velocity;
+    [SerializeField] private float _uprightSpringDamper = 5f;
+    [SerializeField] private float _uprightSpringStrength = 40f;
+
+    //jumping private vars
     private bool _shouldMaintainHeight = true;
     private bool isGrounded = true;
     private float _timeSinceJumpPressed = 0.5f; // if it's zero character jumps on start
@@ -78,6 +89,8 @@ public class PhysicsBasedController : MonoBehaviour
             MaintainHeight(groundRayHitInfo);
         }
 
+        Vector3 lookDirection = GetLookDirection();
+        MaintainUpright(lookDirection);
         //Maintain Upright
     }
 
@@ -105,7 +118,7 @@ public class PhysicsBasedController : MonoBehaviour
         float relVel = rayDirVel - otherDirVel;
 
         float mass = _RB.mass;
-        float rideSpringDamper = 2f * Mathf.Sqrt(rideSpringStrength * mass) * springDampingRatio; //from zeta formula, 
+        float rideSpringDamper = 2f * Mathf.Sqrt(rideSpringStrength * mass) * springDampingRatio; //from zeta formula 
 
         float x = rayHit.distance - rideHeight;
 
@@ -119,6 +132,56 @@ public class PhysicsBasedController : MonoBehaviour
         }
     }
 
+    private Vector3 GetLookDirection()
+    {
+        Vector3 lookDirection = Vector3.zero;
+
+        if (_charcterLookDirection == lookDirectionOptions.velocity || _charcterLookDirection == lookDirectionOptions.acceleration)
+        {
+            Vector3 velocity = _RB.linearVelocity;
+            velocity.y = 0;
+
+            if (_charcterLookDirection == lookDirectionOptions.velocity)
+            {
+                lookDirection = velocity;
+            }
+            else if (_charcterLookDirection == lookDirectionOptions.acceleration)
+            {
+                Vector3 deltaVelocity = velocity - _previousVelocity;
+                _previousVelocity = velocity;
+                Vector3 acceleration = deltaVelocity / Time.fixedDeltaTime;
+                lookDirection = acceleration;
+            }
+        }
+        else if (_charcterLookDirection == lookDirectionOptions.moveInput)
+        {
+            lookDirection = new Vector3(_input.movementInput.x, 0, _input.movementInput.y); //TODO: make this vector 3 a part of inputhandler? its reused a lot
+        }
+
+        return lookDirection;
+    }
+
+    private void MaintainUpright(Vector3 lookDir)
+    {
+        if (lookDir != Vector3.zero)
+        {
+            _uprightTargetRot = Quaternion.LookRotation(lookDir, Vector3.up);
+        }
+
+        Quaternion currentRot = transform.rotation;
+        Quaternion toGoal = MathUtils.ShortestRotation(_uprightTargetRot, currentRot);
+
+        Vector3 rotAxis;
+        float rotDegrees;
+
+        toGoal.ToAngleAxis(out rotDegrees, out rotAxis);
+        rotAxis.Normalize();
+
+        float rotRadians = rotDegrees * Mathf.Deg2Rad;
+
+        _RB.AddTorque(rotAxis * (rotRadians * _uprightSpringStrength) - (_RB.angularVelocity * _uprightSpringDamper));
+
+    }
     private (bool, RaycastHit) RaycastToGround()
     {
         Vector3 _rayDir = transform.TransformDirection(DownDir);
@@ -156,7 +219,7 @@ public class PhysicsBasedController : MonoBehaviour
 
         float velDot = Vector3.Dot(m_GoalDirFromInput, unitDir); // checking difference in direction in current input and current velocity direction?
         float accel = _acceleration * _accelerationFactorFromDot.Evaluate(velDot); //should be between 0 and 1?
-       // Debug.Log("VelDot:" + velDot + ", accel:" + accel);
+                                                                                   // Debug.Log("VelDot:" + velDot + ", accel:" + accel);
 
         Vector3 goalVel = _maxSpeed * m_speedFactor * m_GoalDirFromInput; //velocity at its max
 
@@ -179,7 +242,7 @@ public class PhysicsBasedController : MonoBehaviour
 
         _timeSinceJumpPressed += Time.fixedDeltaTime;
 
-        if(_RB.linearVelocity.y < 0)
+        if (_RB.linearVelocity.y < 0)
         {
             _shouldMaintainHeight = true;
             _jumpReady = true;

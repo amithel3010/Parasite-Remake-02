@@ -47,23 +47,27 @@ public class PhysicsBasedController : MonoBehaviour
     //jumping private vars
     private bool _shouldMaintainHeight = true;
     private bool isGrounded = true;
-    private float _timeSinceJumpPressed = 0.5f; // if it's zero character jumps on start
+    protected float _timeSinceJumpPressed = 0.5f; // if it's zero character jumps on start
     private float _timeSinceUngrounded;
-    private bool _jumpReady = true;
+    protected bool _jumpReady = true;
+    protected int _availableJumps;
 
     [Header("Jumping")]
     [SerializeField] private float _jumpForce = 20f; //TODO: means nothing
-    [SerializeField] private float _jumpBuffer;
+    [SerializeField] protected float _jumpBuffer;
     [SerializeField] private float _coyoteTime;
+    [SerializeField] private int _maxJumps = 1;
 
     [Header("Other")]
     [SerializeField] private InputHandler _input;
     [SerializeField] private LayerMask groundLayer;
 
+    private IInputSource _inputSource;
 
     private void Awake()
     {
         _RB = GetComponent<Rigidbody>();
+        _inputSource = GetComponent<IInputSource>();
     }
 
     void FixedUpdate()
@@ -75,14 +79,15 @@ public class PhysicsBasedController : MonoBehaviour
         if (isGrounded)
         {
             _timeSinceUngrounded = 0f;
+            ResetNumberOfJumps();
         }
         else
         {
             _timeSinceUngrounded += Time.fixedDeltaTime;
         }
 
-        CharacterMove(_input.movementInput);
-        CharacterJump(_input.jumpPressed, groundRayHitInfo);
+        CharacterMove(_inputSource.MovementInput);
+        CharacterJump(_inputSource.JumpPressed, groundRayHitInfo);
 
         if (isRayHittingGround && _shouldMaintainHeight)
         {
@@ -155,7 +160,7 @@ public class PhysicsBasedController : MonoBehaviour
         }
         else if (_charcterLookDirection == lookDirectionOptions.moveInput)
         {
-            lookDirection = new Vector3(_input.movementInput.x, 0, _input.movementInput.y); //TODO: make this vector 3 a part of inputhandler? its reused a lot
+            lookDirection = new Vector3(_inputSource.MovementInput.x, 0, _inputSource.MovementInput.y); //TODO: make this vector 3 a part of inputhandler? its reused a lot
         }
 
         return lookDirection;
@@ -253,12 +258,13 @@ public class PhysicsBasedController : MonoBehaviour
             _timeSinceJumpPressed = 0f;
         }
 
-        if (_timeSinceJumpPressed < _jumpBuffer && _timeSinceUngrounded < _coyoteTime && _jumpReady)
+        if (CanJump())
         {
             //flags
             _jumpReady = false;
             _shouldMaintainHeight = false;
             //_isJumping = true;
+            _availableJumps--;
 
             _RB.linearVelocity = new Vector3(_RB.linearVelocity.x, 0f, _RB.linearVelocity.z); //TODO: cheat fix by Joe Binns. I would like to have calculations for needed accel like in CharacterMove(). 
 
@@ -271,6 +277,16 @@ public class PhysicsBasedController : MonoBehaviour
             _RB.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
             _timeSinceJumpPressed = _jumpBuffer; //to make sure jump only happens once per input
         }
+    }
+
+    protected virtual bool CanJump()
+    {
+        return _timeSinceJumpPressed < _jumpBuffer && _timeSinceUngrounded < _coyoteTime && _jumpReady && _availableJumps > 0;
+    }
+
+    private void ResetNumberOfJumps()
+    {
+        _availableJumps = _maxJumps;
     }
 }
 

@@ -288,7 +288,15 @@ public class PhysicsBasedController : MonoBehaviour
     {
         if (actionPressed)
         {
-        Debug.Log("Action pressed, but is parasite");
+            if (_parasitePossessing == null)
+            {
+                Debug.Log("Action pressed, but is parasite");
+                return;
+            }
+            else
+            {
+                _parasitePossessing.StopPossessing();
+            }
         }
     }
 
@@ -297,9 +305,21 @@ public class PhysicsBasedController : MonoBehaviour
         _availableJumps = _maxJumps;
     }
 
-    public void ChangeInputSource(IInputSource newInputSource)
+    // public void ChangeInputSource(IInputSource newInputSource)
+    // {
+    //     _inputSource = newInputSource;
+    // }
+
+    public void OnPossess(IInputSource newInputSource, Parasite parasite)
     {
         _inputSource = newInputSource;
+        _parasitePossessing = parasite;
+    }
+
+    public void OnUnPossess()
+    {
+        _inputSource = GetComponent<IInputSource>();
+        _parasitePossessing = null;
     }
 }
 

@@ -11,8 +11,9 @@ public class PhysicsBasedController : MonoBehaviour
     [SerializeField] private Vector3 DownDir = Vector3.down; //I have no idea what this is used for
 
     private Rigidbody _RB;
+    private IInputSource _inputSource;
     private Vector3 _previousVelocity = Vector3.zero; //I Would have never thought of this
-
+    public Parasite _parasitePossessing;
 
     [Header("Height Spring")]
     [SerializeField][Tooltip("Needs to be lower than raycastToGroundLength")] float rideHeight = 1.75f;
@@ -47,27 +48,30 @@ public class PhysicsBasedController : MonoBehaviour
     //jumping private vars
     private bool _shouldMaintainHeight = true;
     private bool isGrounded = true;
-    private float _timeSinceJumpPressed = 0.5f; // if it's zero character jumps on start
+    protected float _timeSinceJumpPressed = 0.5f; // if it's zero character jumps on start
     private float _timeSinceUngrounded;
-    private bool _jumpReady = true;
+    protected bool _jumpReady = true;
+    protected int _availableJumps;
 
     [Header("Jumping")]
     [SerializeField] private float _jumpForce = 20f; //TODO: means nothing
-    [SerializeField] private float _jumpBuffer;
+    [SerializeField] protected float _jumpBuffer;
     [SerializeField] private float _coyoteTime;
+    [SerializeField] private int _maxJumps = 1;
 
     [Header("Other")]
-    [SerializeField] private InputHandler _input;
     [SerializeField] private LayerMask groundLayer;
-
 
     private void Awake()
     {
         _RB = GetComponent<Rigidbody>();
+        _inputSource = GetComponent<IInputSource>();
     }
 
     void FixedUpdate()
     {
+        OnActionPressed(_inputSource.ActionPressed);
+
         (bool isRayHittingGround, RaycastHit groundRayHitInfo) = RaycastToGround();
 
         isGrounded = CheckIfGrounded(isRayHittingGround, groundRayHitInfo);
@@ -75,14 +79,15 @@ public class PhysicsBasedController : MonoBehaviour
         if (isGrounded)
         {
             _timeSinceUngrounded = 0f;
+            ResetNumberOfJumps();
         }
         else
         {
             _timeSinceUngrounded += Time.fixedDeltaTime;
         }
 
-        CharacterMove(_input.movementInput);
-        CharacterJump(_input.jumpPressed);
+        CharacterMove(_inputSource.MovementInput);
+        CharacterJump(_inputSource.JumpPressed, groundRayHitInfo);
 
         if (isRayHittingGround && _shouldMaintainHeight)
         {
@@ -155,7 +160,7 @@ public class PhysicsBasedController : MonoBehaviour
         }
         else if (_charcterLookDirection == lookDirectionOptions.moveInput)
         {
-            lookDirection = new Vector3(_input.movementInput.x, 0, _input.movementInput.y); //TODO: make this vector 3 a part of inputhandler? its reused a lot
+            lookDirection = new Vector3(_inputSource.MovementInput.x, 0, _inputSource.MovementInput.y); //TODO: make this vector 3 a part of inputhandler? its reused a lot
         }
 
         return lookDirection;
@@ -235,7 +240,7 @@ public class PhysicsBasedController : MonoBehaviour
         //_RB.AddForceAtPosition(Vector3.Scale(neededAccel * _RB.mass, _moveForceScale), transform.position);
     }
 
-    private void CharacterJump(bool jumpPressed)
+    private void CharacterJump(bool jumpPressed, RaycastHit rayHit)
     {
         //inconsistent jump. needs to work like move where you calculate needed force for jump
         //or maybe define max and min upwards acceleration values
@@ -253,17 +258,68 @@ public class PhysicsBasedController : MonoBehaviour
             _timeSinceJumpPressed = 0f;
         }
 
-        if (_timeSinceJumpPressed < _jumpBuffer && _timeSinceUngrounded < _coyoteTime && _jumpReady)
+        if (CanJump())
         {
             //flags
             _jumpReady = false;
             _shouldMaintainHeight = false;
             //_isJumping = true;
+            _availableJumps--;
+
+            _RB.linearVelocity = new Vector3(_RB.linearVelocity.x, 0f, _RB.linearVelocity.z); //TODO: cheat fix by Joe Binns. I would like to have calculations for needed accel like in CharacterMove(). 
 
             //jump
+            if (rayHit.distance != 0)
+            {
+                _RB.position = new Vector3(_RB.position.x, _RB.position.y - (rayHit.distance - rideHeight), _RB.position.z);
+            }
+
             _RB.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
             _timeSinceJumpPressed = _jumpBuffer; //to make sure jump only happens once per input
         }
+    }
+
+    protected virtual bool CanJump()
+    {
+        return _timeSinceJumpPressed < _jumpBuffer && _timeSinceUngrounded < _coyoteTime && _jumpReady && _availableJumps > 0;
+    }
+
+    protected virtual void OnActionPressed(bool actionPressed)
+    {
+        if (actionPressed)
+        {
+            if (_parasitePossessing == null)
+            {
+                Debug.Log("Action pressed, but is parasite");
+                return;
+            }
+            else
+            {
+                _parasitePossessing.StopPossessing();
+            }
+        }
+    }
+
+    private void ResetNumberOfJumps()
+    {
+        _availableJumps = _maxJumps;
+    }
+
+    // public void ChangeInputSource(IInputSource newInputSource)
+    // {
+    //     _inputSource = newInputSource;
+    // }
+
+    public void OnPossess(IInputSource newInputSource, Parasite parasite)
+    {
+        _inputSource = newInputSource;
+        _parasitePossessing = parasite;
+    }
+
+    public void OnUnPossess()
+    {
+        _inputSource = GetComponent<IInputSource>();
+        _parasitePossessing = null;
     }
 }
 

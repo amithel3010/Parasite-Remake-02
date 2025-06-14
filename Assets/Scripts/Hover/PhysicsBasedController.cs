@@ -11,8 +11,9 @@ public class PhysicsBasedController : MonoBehaviour
     [SerializeField] private Vector3 DownDir = Vector3.down; //I have no idea what this is used for
 
     private Rigidbody _RB;
+    private IInputSource _inputSource;
     private Vector3 _previousVelocity = Vector3.zero; //I Would have never thought of this
-
+    public Parasite _parasitePossessing;
 
     [Header("Height Spring")]
     [SerializeField][Tooltip("Needs to be lower than raycastToGroundLength")] float rideHeight = 1.75f;
@@ -59,10 +60,7 @@ public class PhysicsBasedController : MonoBehaviour
     [SerializeField] private int _maxJumps = 1;
 
     [Header("Other")]
-    [SerializeField] private InputHandler _input;
     [SerializeField] private LayerMask groundLayer;
-
-    private IInputSource _inputSource;
 
     private void Awake()
     {
@@ -72,6 +70,8 @@ public class PhysicsBasedController : MonoBehaviour
 
     void FixedUpdate()
     {
+        OnActionPressed(_inputSource.ActionPressed);
+
         (bool isRayHittingGround, RaycastHit groundRayHitInfo) = RaycastToGround();
 
         isGrounded = CheckIfGrounded(isRayHittingGround, groundRayHitInfo);
@@ -284,9 +284,22 @@ public class PhysicsBasedController : MonoBehaviour
         return _timeSinceJumpPressed < _jumpBuffer && _timeSinceUngrounded < _coyoteTime && _jumpReady && _availableJumps > 0;
     }
 
+    protected virtual void OnActionPressed(bool actionPressed)
+    {
+        if (actionPressed)
+        {
+        Debug.Log("Action pressed, but is parasite");
+        }
+    }
+
     private void ResetNumberOfJumps()
     {
         _availableJumps = _maxJumps;
+    }
+
+    public void ChangeInputSource(IInputSource newInputSource)
+    {
+        _inputSource = newInputSource;
     }
 }
 

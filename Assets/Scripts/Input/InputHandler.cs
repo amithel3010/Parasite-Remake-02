@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class InputHandler : MonoBehaviour, IInputSource
 {
+    //TODO: needs to always have ONLY 1 target. is there a way to make sure of that?
+
     public float horizontalInput;
     public float verticalInput;
     public bool jumpPressed;

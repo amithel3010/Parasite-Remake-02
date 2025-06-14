@@ -665,6 +665,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1074179840}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1094142902 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1797882618458479483, guid: c1768b107ed98f44ca511479663ee26e, type: 3}
+  m_PrefabInstance: {fileID: 7725228278049272085}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1172343296 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4799134120777256835, guid: c1768b107ed98f44ca511479663ee26e, type: 3}
@@ -703,8 +708,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _possessableLayer:
     serializedVersion: 2
-    m_Bits: 0
-  _possessRayLength: 0
+    m_Bits: 64
+  _possessRayLength: 1
+  _gfx: {fileID: 1094142902}
 --- !u!1001 &1223851717
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -897,7 +903,7 @@ GameObject:
   - component: {fileID: 1661926403}
   - component: {fileID: 1661926402}
   - component: {fileID: 1661926407}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Inheritence
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -932,7 +938,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DownDir: {x: 0, y: -1, z: 0}
-  rideHeight: 1.75
+  _parasitePossessing: {fileID: 0}
+  rideHeight: 1.3
   springDampingRatio: 0.5
   rideSpringStrength: 80
   raycastToGroundLength: 3
@@ -1014,7 +1021,6 @@ MonoBehaviour:
   _jumpBuffer: 0.2
   _coyoteTime: 0.2
   _maxJumps: 5
-  _input: {fileID: 41351195}
   groundLayer:
     serializedVersion: 2
     m_Bits: 256

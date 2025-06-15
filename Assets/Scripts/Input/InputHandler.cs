@@ -10,6 +10,7 @@ public class InputHandler : MonoBehaviour, IInputSource
     public bool jumpHeld;
     public bool actionPressed;
     public bool actionHeld;
+    public bool action2Pressed;
     public Vector2 movementInput;
 
     bool readyToClear;
@@ -17,6 +18,7 @@ public class InputHandler : MonoBehaviour, IInputSource
     bool IInputSource.JumpHeld => jumpHeld;
     bool IInputSource.ActionPressed => actionPressed;
     bool IInputSource.ActionHeld => actionHeld;
+    bool IInputSource.Action2Pressed => action2Pressed;
     Vector2 IInputSource.MovementInput => movementInput;
 
     void Update()
@@ -24,7 +26,6 @@ public class InputHandler : MonoBehaviour, IInputSource
         ClearInputs();
 
         ProcessInputs();
-
     }
 
     private void FixedUpdate()
@@ -45,6 +46,7 @@ public class InputHandler : MonoBehaviour, IInputSource
         jumpHeld = false;
         actionPressed = false;
         actionHeld = false;
+        action2Pressed = false;
 
         readyToClear = false;
     }
@@ -59,6 +61,8 @@ public class InputHandler : MonoBehaviour, IInputSource
 
         actionPressed = actionPressed || Input.GetKeyDown(KeyCode.E);
         actionHeld = actionHeld || Input.GetKey(KeyCode.E);
+
+        action2Pressed = action2Pressed || Input.GetKeyDown(KeyCode.F);
 
         horizontalInput = Mathf.Clamp(horizontalInput, -1f, 1f); //used to be in update is it ok here?
         verticalInput = Mathf.Clamp(verticalInput, -1f, 1f);

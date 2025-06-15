@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class PhysicsBasedController : MonoBehaviour
 {
     //Keeps Gameobject hovering at a certain ride height using a dampened spring

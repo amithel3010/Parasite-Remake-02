@@ -605,6 +605,25 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1244873568}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1267620278 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4799134120777256835, guid: c1768b107ed98f44ca511479663ee26e, type: 3}
+  m_PrefabInstance: {fileID: 7725228278049272085}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1267620279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1267620278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 097107124f0954eb7abcde21d173212a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth: 100
+  _optionalUI: {fileID: 0}
 --- !u!1001 &1400873275
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -956,7 +975,6 @@ MonoBehaviour:
   springDampingRatio: 0.5
   rideSpringStrength: 800
   raycastToGroundLength: 1.2
-  _charcterLookDirection: 0
   _uprightSpringDamper: 5
   _uprightSpringStrength: 40
   groundLayer:
@@ -1211,7 +1229,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4799134120777256835, guid: c1768b107ed98f44ca511479663ee26e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1267620279}
   m_SourcePrefab: {fileID: 100100000, guid: c1768b107ed98f44ca511479663ee26e, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

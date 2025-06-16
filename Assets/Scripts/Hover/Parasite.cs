@@ -35,7 +35,7 @@ public class Parasite : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
         _healthSystem = GetComponent<PlayerHealth>();
 
-        _healthSystem.OnHealthChanged += StartPossessionCooldown; //TODO: this feels wrong
+        _healthSystem.OnDamaged += StartPossessionCooldown; //TODO: this feels wrong
     }
 
     void FixedUpdate()

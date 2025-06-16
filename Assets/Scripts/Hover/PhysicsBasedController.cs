@@ -72,7 +72,7 @@ public class PhysicsBasedController : MonoBehaviour
         TryGetComponent<IDamagable>(out _healthSystem);
         if (_healthSystem != null)
         {
-            _healthSystem.OnHealthChanged += OnTakingDamage;
+            _healthSystem.OnDamaged += OnTakingDamage;
         }
     }
 

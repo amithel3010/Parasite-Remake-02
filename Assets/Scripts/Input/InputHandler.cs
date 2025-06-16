@@ -25,6 +25,8 @@ public class InputHandler : MonoBehaviour, IInputSource
     {
         ClearInputs();
 
+        if (GameManager.Instance.IsPaused) return;
+        
         ProcessInputs();
     }
 

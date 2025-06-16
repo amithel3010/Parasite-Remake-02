@@ -62,6 +62,11 @@ public class PlayerHealth : MonoBehaviour, IDamagable
         }
     }
 
+    public void ResetHealth()
+    {
+        ChangeHealth(_maxHealth);
+    }
+
     private void DeathEventTest()
     {
         Debug.Log("Death Event Invoked");

@@ -29,6 +29,6 @@ public class UIManager : MonoBehaviour
 
     public void ShowGameOverScreen()
     {
-        _deathScreenCanvas.enabled = true;
+        _deathScreenCanvas.enabled = true;       
     }
 }

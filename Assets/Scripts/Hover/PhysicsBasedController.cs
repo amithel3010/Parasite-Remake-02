@@ -73,6 +73,7 @@ public class PhysicsBasedController : MonoBehaviour
         if (_healthSystem != null)
         {
             _healthSystem.OnDamaged += OnTakingDamage;
+            _healthSystem.OnDeath += OnDeath;
         }
     }
 
@@ -342,7 +343,14 @@ public class PhysicsBasedController : MonoBehaviour
     public void OnDeath()
     {
         //if is parasite, game over...
-        //if is possessing something, that something should die...
+        if (_parasitePossessing == null)
+        {
+            GameManager.Instance.GameOver();
+        }
+        else
+        {
+            //if is possessing something, that something should die...
+        }
     }
 }
 

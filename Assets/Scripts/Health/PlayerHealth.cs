@@ -21,10 +21,6 @@ public class PlayerHealth : MonoBehaviour, IDamagable
     public float CurrentHealth => _currentHealth;
     public float MaxHealth => _maxHealth;
 
-    void OnEnable()
-    {
-        OnDeath += DeathEventTest;
-    }
 
     void Awake()
     {
@@ -64,14 +60,8 @@ public class PlayerHealth : MonoBehaviour, IDamagable
 
     public void ResetHealth()
     {
-        ChangeHealth(_maxHealth);
-    }
-
-    private void DeathEventTest()
-    {
-        Debug.Log("Death Event Invoked");
-        UIManager.Instance.ShowGameOverScreen();
-        //TODO: disable movement
+        _currentHealth = _maxHealth;
+        OnHealthChanged?.Invoke(_currentHealth, _maxHealth);
     }
 
     private IEnumerator IFrameCooldown()

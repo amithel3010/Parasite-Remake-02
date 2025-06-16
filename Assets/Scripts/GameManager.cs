@@ -31,15 +31,15 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        //Time.timeScale = 0f;
+        Time.timeScale = 0f;
         UIManager.Instance.ShowGameOverScreen();
         _isPaused = true;
     }
 
     public void Restart()
     {
-        _playerHealth.ResetHealth();
         Time.timeScale = 1f;
+        _playerHealth.ResetHealth();
         _isPaused = false;
     }
 

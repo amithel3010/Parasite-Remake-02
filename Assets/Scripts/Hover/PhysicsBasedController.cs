@@ -100,7 +100,6 @@ public class PhysicsBasedController : MonoBehaviour
         //Maintain Upright
     }
 
-
     private void MaintainHeight(RaycastHit rayHit)
     {
         // bool _rayDidHit = Physics.Raycast(transform.position, Vector3.down, out RaycastHit _rayhit, raycastToGroundLength);
@@ -321,6 +320,19 @@ public class PhysicsBasedController : MonoBehaviour
     {
         _inputSource = GetComponent<IInputSource>();
         _parasitePossessing = null;
+    }
+
+    public void OnTakingDamage()
+    {
+        //get knocked back...
+        //get some Iframes...
+        //have limited control over movement??
+    }
+
+    public void OnDeath()
+    {
+        //if is parasite, game over...
+        //if is possessing something, that something should die...
     }
 }
 

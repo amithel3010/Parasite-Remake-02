@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerHealth : MonoBehaviour, IDamagable
 {
     //class responsible for managing a creature health
     //creature with health can: take damage, heal and die
@@ -12,10 +12,11 @@ public class PlayerHealth : MonoBehaviour
 
     [SerializeField] private float _maxHealth = 100f;
 
-    [SerializeField] private GameObject _optionalUI;
-
     private float _currentHealth;
 
+    public float CurrentHealth => _currentHealth;
+
+    public float MaxHealth => _maxHealth;
 
     void Awake()
     {
@@ -44,6 +45,7 @@ public class PlayerHealth : MonoBehaviour
         }
         else if (_currentHealth <= 0)
         {
+            OnHealthChanged?.Invoke();
             OnDeath?.Invoke();
         }
 
@@ -61,5 +63,8 @@ public class PlayerHealth : MonoBehaviour
         //TODO: disable movement
     }
 
-
+    void IDamagable.OnDeath()
+    {
+        //
+    }
 }

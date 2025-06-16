@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour, IDamagable
@@ -8,14 +9,16 @@ public class PlayerHealth : MonoBehaviour, IDamagable
     //should also update UI if relevant
 
     public event Action OnHealthChanged; //TODO: watch pavel's lesson on events
-    public event Action OnDeath; 
+    public event Action OnDeath;
 
     [SerializeField] private float _maxHealth = 100f;
+    [SerializeField] private float _IFramesDuration = 0.3f;
 
     private float _currentHealth;
+    private bool _isHittable = true;
+
 
     public float CurrentHealth => _currentHealth;
-
     public float MaxHealth => _maxHealth;
 
     void Awake()
@@ -36,17 +39,20 @@ public class PlayerHealth : MonoBehaviour, IDamagable
 
     public void ChangeHealth(float amount)
     {
-        _currentHealth += amount;
-        _currentHealth = Mathf.Clamp(_currentHealth, 0, _maxHealth);
+        if (_isHittable)
+        {
+            _currentHealth += amount;
+            _currentHealth = Mathf.Clamp(_currentHealth, 0, _maxHealth);
 
-        if (_currentHealth > 0)
-        {
-            OnHealthChanged?.Invoke();
-        }
-        else if (_currentHealth <= 0)
-        {
-            OnHealthChanged?.Invoke();
-            OnDeath?.Invoke();
+            if (_currentHealth > 0)
+            {
+                OnHealthChanged?.Invoke();
+            }
+            else if (_currentHealth <= 0)
+            {
+                OnHealthChanged?.Invoke();
+                OnDeath?.Invoke();
+            }
         }
 
     }
@@ -54,6 +60,8 @@ public class PlayerHealth : MonoBehaviour, IDamagable
     private void HealthChangedEventTest()
     {
         UIManager.Instance.UpdateHealthBar(_currentHealth, _maxHealth);
+        _isHittable = false;
+        StartCoroutine(IsHittableCooldown());
     }
 
     private void DeathEventTest()
@@ -66,5 +74,14 @@ public class PlayerHealth : MonoBehaviour, IDamagable
     void IDamagable.OnDeath()
     {
         //
+    }
+
+    private IEnumerator IsHittableCooldown()
+    {
+        if (_isHittable == false)
+        {
+            yield return new WaitForSeconds(_IFramesDuration);
+            _isHittable = true;
+        }
     }
 }

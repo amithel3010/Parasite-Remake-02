@@ -325,7 +325,9 @@ public class PhysicsBasedController : MonoBehaviour
     public void OnTakingDamage()
     {
         //get knocked back...
-        //get some Iframes...
+        //TODO: should probably find a way to calc hit vector, for now it's just testing if its working
+        _RB.AddForce(-Vector3.forward * 50f, ForceMode.Impulse);
+
         //have limited control over movement??
     }
 

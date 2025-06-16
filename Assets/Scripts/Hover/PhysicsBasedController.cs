@@ -12,6 +12,7 @@ public class PhysicsBasedController : MonoBehaviour
     [SerializeField] private Vector3 DownDir = Vector3.down; //I have no idea what this is used for
 
     private Rigidbody _RB;
+    private IDamagable _healthSystem;
     private IInputSource _inputSource;
     private Vector3 _previousVelocity = Vector3.zero; //I Would have never thought of this
     public Parasite _parasitePossessing;
@@ -62,11 +63,17 @@ public class PhysicsBasedController : MonoBehaviour
 
     [Header("Other")]
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private float _knockbackForce = 400f;
 
     private void Awake()
     {
         _RB = GetComponent<Rigidbody>();
         _inputSource = GetComponent<IInputSource>();
+        TryGetComponent<IDamagable>(out _healthSystem);
+        if (_healthSystem != null)
+        {
+            _healthSystem.OnHealthChanged += OnTakingDamage;
+        }
     }
 
     void FixedUpdate()
@@ -324,9 +331,10 @@ public class PhysicsBasedController : MonoBehaviour
 
     public void OnTakingDamage()
     {
+        Debug.Log("OnTakingDamage Invoked");
         //get knocked back...
         //TODO: should probably find a way to calc hit vector, for now it's just testing if its working
-        _RB.AddForce(-Vector3.forward * 50f, ForceMode.Impulse);
+        _RB.AddForce(-transform.forward * _knockbackForce, ForceMode.Impulse);
 
         //have limited control over movement??
     }

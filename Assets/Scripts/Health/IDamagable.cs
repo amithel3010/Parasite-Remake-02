@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public interface IDamagable
@@ -8,5 +9,7 @@ public interface IDamagable
 
     public float CurrentHealth { get; }
 
-    public float MaxHealth{ get; }
+    public float MaxHealth { get; }
+
+    public event Action OnHealthChanged;
 }

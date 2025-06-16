@@ -26,12 +26,16 @@ public class Parasite : MonoBehaviour
     private PhysicsBasedController _movementScript;
     private InputHandler _playerInput;
     private Rigidbody _rb;
+    private PlayerHealth _healthSystem;
 
     void Awake()
     {
         _movementScript = GetComponent<PhysicsBasedController>();
         _playerInput = GetComponent<InputHandler>();
         _rb = GetComponent<Rigidbody>();
+        _healthSystem = GetComponent<PlayerHealth>();
+
+        _healthSystem.OnHealthChanged += StartPossessionCooldown; //TODO: this feels wrong
     }
 
     void FixedUpdate()
@@ -69,7 +73,6 @@ public class Parasite : MonoBehaviour
         }
     }
 
-
     public void StopPossessing() //this is called from WITHIN possessable, which feels very very wrong
     {
         if (_currentlyPossessed == null) return;
@@ -91,10 +94,16 @@ public class Parasite : MonoBehaviour
 
     private IEnumerator PossessionCooldown()
     {
-        if (_ableToPossess == false)
-        {
-            yield return new WaitForSeconds(_possessionCooldown);
-            _ableToPossess = true;
-        }
+        if (_ableToPossess == true)
+            _ableToPossess = false;
+
+        yield return new WaitForSeconds(_possessionCooldown);
+        _ableToPossess = true;
+
+    }
+
+    private void StartPossessionCooldown()
+    {
+        StartCoroutine(PossessionCooldown());
     }
 }

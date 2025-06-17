@@ -1,123 +1,86 @@
 using UnityEngine;
 
-public class MaintainHeightAndUpright : MonoBehaviour
+public class MaintainHeightAndUpright
 {
+    //Height
+    private readonly Rigidbody _rb;
+    private readonly float _rideHeight = 1.5f;
+    private readonly float _springDampingRatio = 0.5f;
+    private readonly float _rideSpringStrength = 1000f;
+    private readonly float _raycastToGroundLength = 2f;
 
-    //trying to seperate movement and hovering logic
+    private readonly Vector3 DownDir = Vector3.down;
 
+    //Upright
+    private readonly float _uprightSpringStrength = 800f;
+    private readonly float _uprightSpringDamper = 25f;
 
-    [SerializeField] private Vector3 DownDir = Vector3.down; //I have no idea what this is used for
-
-    private Rigidbody _RB;
-    private Vector3 _previousVelocity = Vector3.zero; //I Would have never thought of this
-    private bool isGrounded;
-
-    [Header("Height Spring")]
-    [SerializeField][Tooltip("Needs to be lower than raycastToGroundLength")] float rideHeight = 1.75f;
-    [SerializeField, Range(1, 0)] float springDampingRatio = 0.5f;
-    [SerializeField] float rideSpringStrength;
-    [SerializeField] float raycastToGroundLength = 3f;
-
-    private enum lookDirectionOptions { velocity, acceleration, moveInput }
     private Quaternion _uprightTargetRot = Quaternion.identity;
 
-    [Header("Upright Spring")]
-    //[SerializeField] private lookDirectionOptions _charcterLookDirection = lookDirectionOptions.velocity;
-    [SerializeField] private float _uprightSpringDamper = 5f;
-    [SerializeField] private float _uprightSpringStrength = 40f;
-
-    [Header("Other")]
-    [SerializeField] LayerMask groundLayer;
-
-    void Awake()
+    public MaintainHeightAndUpright(Rigidbody rb, HoverSettings settings)
     {
-        _RB = GetComponent<Rigidbody>();
+        _rb = rb;
+        _rideHeight = settings.RideHeight;
+        _springDampingRatio = settings.RideSpringDampingRatio;
+        _rideSpringStrength = settings.RideSpringStrength;
+        _raycastToGroundLength = settings.RaycastToGroundLength;
     }
 
-    void FixedUpdate()
+    public void Tick(Vector3 lookDir)
     {
-        (bool isRayHittingGround, RaycastHit groundRayHitInfo) = RaycastToGround();
-        isGrounded = CheckIfGrounded(isRayHittingGround, groundRayHitInfo);
-
-        if (isRayHittingGround)
-        {
-            MaintainHeight(groundRayHitInfo);
-        }
-        MaintainUpright();
+        MaintainHeight();
+        MaintainUpright(lookDir);
     }
 
-    private (bool, RaycastHit) RaycastToGround()
+    private void MaintainHeight()
     {
-        Vector3 _rayDir = transform.TransformDirection(DownDir);
+        bool rayDidHit = Physics.Raycast(_rb.position, Vector3.down, out RaycastHit rayHit, _raycastToGroundLength);
 
-        RaycastHit rayHit;
-        Ray rayToGround = new Ray(transform.position, _rayDir);
-        bool rayHitGround = Physics.Raycast(rayToGround, out rayHit, raycastToGroundLength, groundLayer.value);
-
-        //Debug.DrawRay(transform.position, _rayDir * _rayToGroundLength, Color.blue);
-
-        return (rayHitGround, rayHit);
-    }
-
-    private bool CheckIfGrounded(bool rayHitGround, RaycastHit rayHit)
-    {
-        bool grounded;
-        if (rayHitGround)
+        //Debug.DrawLine(_rb.position, rayHit.point, Color.green); // actual ray hit
+        //Debug.DrawRay(rayHit.point, Vector3.up * _rideHeight, Color.yellow); // target ride height
+        if (rayDidHit)
         {
-            grounded = rayHit.distance <= rideHeight * 1.3f; // 1.3f? multiplied because object will oscilate but 1.3 is random
-        }
-        else
-        {
-            grounded = false;
-        }
+            Vector3 vel = _rb.linearVelocity;
+            Vector3 rayDir = _rb.transform.TransformDirection(DownDir); // same as transform.down?
+            Debug.DrawRay(_rb.position, rayDir);
 
-        return grounded;
-    }
+            Vector3 othervel = Vector3.zero;
+            Rigidbody hitBody = rayHit.rigidbody;
+            if (hitBody != null)
+            {
+                othervel = hitBody.linearVelocity;
+            }
 
-    private void MaintainHeight(RaycastHit rayHit)
-    {
-        // bool _rayDidHit = Physics.Raycast(transform.position, Vector3.down, out RaycastHit _rayhit, raycastToGroundLength);
+            float rayDirVel = Vector3.Dot(rayDir, vel);
+            float otherDirVel = Vector3.Dot(rayDir, othervel); //what is dot and how is it used here?
 
-        Debug.DrawLine(transform.position, rayHit.point, Color.green); // actual ray hit
-        Debug.DrawRay(rayHit.point, Vector3.up * rideHeight, Color.yellow); // target ride height
+            float relVel = rayDirVel - otherDirVel;
 
-        Vector3 vel = _RB.linearVelocity;
-        Vector3 rayDir = transform.TransformDirection(DownDir); // same as transform.down?
+            float mass = _rb.mass;
+            float rideSpringDamper = 2f * Mathf.Sqrt(_rideSpringStrength * mass) * _springDampingRatio; //from zeta formula 
 
-        Vector3 othervel = Vector3.zero;
-        Rigidbody hitBody = rayHit.rigidbody;
-        if (hitBody != null)
-        {
-            othervel = hitBody.linearVelocity;
-        }
+            float x = rayHit.distance - _rideHeight;
 
-        float rayDirVel = Vector3.Dot(rayDir, vel);
-        float otherDirVel = Vector3.Dot(rayDir, othervel); //what is dot and how is it used here?
+            float springForce = (x * _rideSpringStrength) - (relVel * rideSpringDamper);
 
-        float relVel = rayDirVel - otherDirVel;
+            _rb.AddForce(rayDir * springForce);
 
-        float mass = _RB.mass;
-        float rideSpringDamper = 2f * Mathf.Sqrt(rideSpringStrength * mass) * springDampingRatio; //from zeta formula 
-
-        float x = rayHit.distance - rideHeight;
-
-        float springForce = (x * rideSpringStrength) - (relVel * rideSpringDamper);
-
-        _RB.AddForce(rayDir * springForce);
-
-        if (hitBody != null)
-        {
-            hitBody.AddForceAtPosition(rayDir * -springForce, rayHit.point);
+            if (hitBody != null)
+            {
+                hitBody.AddForceAtPosition(rayDir * -springForce, rayHit.point);
+            }
         }
     }
 
-    private void MaintainUpright()
+    private void MaintainUpright(Vector3 lookDir)
     {
 
-        _uprightTargetRot = Quaternion.LookRotation(transform.forward, Vector3.up);
+        if (lookDir != Vector3.zero)
+        {
+            _uprightTargetRot = Quaternion.LookRotation(lookDir, Vector3.up);
+        }
 
-
-        Quaternion currentRot = transform.rotation;
+        Quaternion currentRot = _rb.rotation;
         Quaternion toGoal = MathUtils.ShortestRotation(_uprightTargetRot, currentRot);
 
         Vector3 rotAxis;
@@ -128,7 +91,6 @@ public class MaintainHeightAndUpright : MonoBehaviour
 
         float rotRadians = rotDegrees * Mathf.Deg2Rad;
 
-        _RB.AddTorque(rotAxis * (rotRadians * _uprightSpringStrength) - (_RB.angularVelocity * _uprightSpringDamper));
-
+        _rb.AddTorque(rotAxis * (rotRadians * _uprightSpringStrength) - (_rb.angularVelocity * _uprightSpringDamper));
     }
 }

@@ -25,8 +25,8 @@ public class PhysicsBasedController : MonoBehaviour
 
     //movement private vars
     private Vector3 m_GoalDirFromInput; //just input, why is it a member?
-    private float m_speedFactor = 1f;
-    private float m_maxAccelForceFactor = 1f;
+    private float m_speedFactor = 1f; //Does nothing?
+    private float m_maxAccelForceFactor = 1f; //also does nothing?
     private Vector3 m_GoalVel = Vector3.zero;
 
     [Header("Movement")]

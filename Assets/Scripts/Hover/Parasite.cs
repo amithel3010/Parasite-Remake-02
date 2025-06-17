@@ -59,6 +59,7 @@ public class Parasite : MonoBehaviour
                 _currentlyPossessed = target;
                 _currentlyPossessedTransform = hitInfo.transform;
 
+                _healthSystem.ResetHealth();
 
                 _rb.isKinematic = true;
                 _rb.detectCollisions = false;

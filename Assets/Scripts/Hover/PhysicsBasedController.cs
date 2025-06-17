@@ -72,6 +72,7 @@ public class PhysicsBasedController : MonoBehaviour
         TryGetComponent<IDamagable>(out _healthSystem);
         if (_healthSystem != null)
         {
+            print(_healthSystem);
             _healthSystem.OnDamaged += OnTakingDamage;
             _healthSystem.OnDeath += OnDeath;
         }
@@ -350,6 +351,8 @@ public class PhysicsBasedController : MonoBehaviour
         else
         {
             //if is possessing something, that something should die...
+            _parasitePossessing.StopPossessing();
+            Destroy(this.gameObject);
         }
     }
 }

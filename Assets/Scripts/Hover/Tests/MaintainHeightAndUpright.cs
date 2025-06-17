@@ -8,6 +8,8 @@ public class MaintainHeightAndUpright
     private readonly float _springDampingRatio = 0.5f;
     private readonly float _rideSpringStrength = 1000f;
     private readonly float _raycastToGroundLength = 2f;
+    private float _currentDistanceFromGround;
+    public float CurrentDistanceFromGround => _currentDistanceFromGround;
 
     private readonly Vector3 DownDir = Vector3.down;
 

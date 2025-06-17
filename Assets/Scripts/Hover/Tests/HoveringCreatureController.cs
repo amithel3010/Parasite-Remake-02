@@ -4,6 +4,9 @@ public class HoveringCreatureController : MonoBehaviour
 {
     [SerializeField] private HoverSettings _hoverSettings;
     [SerializeField] private LocomotionSettings _locomotionSettings;
+
+    [SerializeField] private bool _enableHover;
+    [SerializeField] private bool _enableMovement;
     
     private MaintainHeightAndUpright _hover;
     private Locomotion _locomotion;
@@ -21,10 +24,12 @@ public class HoveringCreatureController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        _locomotion.Tick(_inputSource.MovementInput);
+        if(_enableMovement) _locomotion.Tick(_inputSource.MovementInput, _inputSource.JumpPressed);
+        // TODO: find a way to pass isGrounded, timeSinceUngrounded, currentDistanceFromGround
 
         Vector3 lookDir = GetLookDir();
-        _hover.Tick(lookDir);
+        //TODO: find a replacement for ShouldMaintainHeight
+        if(_enableHover)_hover.Tick(lookDir);
     }
 
     private Vector3 GetLookDir()

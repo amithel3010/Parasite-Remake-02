@@ -63,7 +63,7 @@ public class PhysicsBasedController : MonoBehaviour
 
     [Header("Other")]
     [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private float _knockbackForce = 400f;
+    [SerializeField] private float _knockbackForce = 400f; //TODO:Change knockback mechanic
 
     private void Awake()
     {
@@ -72,7 +72,6 @@ public class PhysicsBasedController : MonoBehaviour
         TryGetComponent<IDamagable>(out _healthSystem);
         if (_healthSystem != null)
         {
-            print(_healthSystem);
             _healthSystem.OnDamaged += OnTakingDamage;
             _healthSystem.OnDeath += OnDeath;
         }
@@ -106,7 +105,6 @@ public class PhysicsBasedController : MonoBehaviour
 
         Vector3 lookDirection = GetLookDirection();
         MaintainUpright(lookDirection);
-        //Maintain Upright
     }
 
     private void MaintainHeight(RaycastHit rayHit)
@@ -313,11 +311,6 @@ public class PhysicsBasedController : MonoBehaviour
     {
         _availableJumps = _maxJumps;
     }
-
-    // public void ChangeInputSource(IInputSource newInputSource)
-    // {
-    //     _inputSource = newInputSource;
-    // }
 
     public void OnPossess(IInputSource newInputSource, Parasite parasite)
     {

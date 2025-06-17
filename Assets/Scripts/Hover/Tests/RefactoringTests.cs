@@ -1,0 +1,80 @@
+using UnityEngine;
+
+public class RefactoringTests : MonoBehaviour
+{
+    private MaintainHeightWithSpring _hover;
+    private Rigidbody _rb;
+
+    private void Awake()
+    {
+        _rb = GetComponent<Rigidbody>();
+        _hover = new MaintainHeightWithSpring(_rb);
+    }
+
+    private void FixedUpdate()
+    {
+        _hover.Tick();
+    }
+
+}
+
+public class MaintainHeightWithSpring
+{
+    private readonly Rigidbody _rb;
+    private readonly float _rideHeight = 1.5f;
+    private readonly float _springDampingRatio = 0.5f;
+    private readonly float _rideSpringStrength = 1000f;
+    private readonly float _raycastToGroundLength = 2f;
+
+    private readonly Vector3 DownDir = Vector3.down;
+
+    public MaintainHeightWithSpring(Rigidbody rb)
+    {
+        _rb = rb;
+    }
+
+    public void Tick()
+    {
+        MaintainHeight();
+    }
+
+    private void MaintainHeight()
+    {
+        bool rayDidHit = Physics.Raycast(_rb.position, Vector3.down, out RaycastHit rayHit, _raycastToGroundLength);
+
+        //Debug.DrawLine(_rb.position, rayHit.point, Color.green); // actual ray hit
+        //Debug.DrawRay(rayHit.point, Vector3.up * _rideHeight, Color.yellow); // target ride height
+        if (rayDidHit)
+        {
+            Vector3 vel = _rb.linearVelocity;
+            Vector3 rayDir = _rb.transform.TransformDirection(DownDir); // same as transform.down?
+            Debug.DrawRay(_rb.position, rayDir);
+
+            Vector3 othervel = Vector3.zero;
+            Rigidbody hitBody = rayHit.rigidbody;
+            if (hitBody != null)
+            {
+                othervel = hitBody.linearVelocity;
+            }
+
+            float rayDirVel = Vector3.Dot(rayDir, vel);
+            float otherDirVel = Vector3.Dot(rayDir, othervel); //what is dot and how is it used here?
+
+            float relVel = rayDirVel - otherDirVel;
+
+            float mass = _rb.mass;
+            float rideSpringDamper = 2f * Mathf.Sqrt(_rideSpringStrength * mass) * _springDampingRatio; //from zeta formula 
+
+            float x = rayHit.distance - _rideHeight;
+
+            float springForce = (x * _rideSpringStrength) - (relVel * rideSpringDamper);
+
+            _rb.AddForce(rayDir * springForce);
+
+            if (hitBody != null)
+            {
+                hitBody.AddForceAtPosition(rayDir * -springForce, rayHit.point);
+            }
+        }
+    }
+}

@@ -8,7 +8,7 @@ public class HoveringCreatureController : MonoBehaviour
     private MaintainHeightAndUpright _hover;
     private Locomotion _locomotion;
     private Rigidbody _rb;
-    private IInputSource _inputSource; //Coupled? only need this for 
+    private IInputSource _inputSource; //Coupled? only need this for lookDir
 
     void Awake()
     {

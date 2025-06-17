@@ -22,7 +22,7 @@ public class MaintainHeightAndUpright : MonoBehaviour
     private Quaternion _uprightTargetRot = Quaternion.identity;
 
     [Header("Upright Spring")]
-    [SerializeField] private lookDirectionOptions _charcterLookDirection = lookDirectionOptions.velocity;
+    //[SerializeField] private lookDirectionOptions _charcterLookDirection = lookDirectionOptions.velocity;
     [SerializeField] private float _uprightSpringDamper = 5f;
     [SerializeField] private float _uprightSpringStrength = 40f;
 

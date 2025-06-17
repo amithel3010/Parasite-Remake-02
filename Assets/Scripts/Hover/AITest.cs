@@ -10,6 +10,8 @@ public class AITest : MonoBehaviour, IInputSource
 
     public bool ActionHeld => false;
 
+    public bool Action2Pressed => false;
+
     public Vector2 MovementInput => Vector2.zero;
 
 }

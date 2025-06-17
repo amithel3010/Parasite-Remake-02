@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Thorns : MonoBehaviour
+public class DamageOnCollision : MonoBehaviour
 {
     [SerializeField] float _damage = 25;
 
@@ -11,8 +11,7 @@ public class Thorns : MonoBehaviour
         if (other.gameObject.TryGetComponent<IDamagable>(out IDamagable damagable))
         {
             damagable.ChangeHealth(-_damage);
-            Debug.Log("thorns damaged" + damagable + "for" + _damage);
+            Debug.Log(this.name + " damaged " + damagable + " for" + _damage);
         }
     }
 }
-

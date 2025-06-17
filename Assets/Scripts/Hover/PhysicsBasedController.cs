@@ -95,6 +95,7 @@ public class PhysicsBasedController : MonoBehaviour
             _timeSinceUngrounded += Time.fixedDeltaTime;
         }
 
+        //TODO: I would like to seperate HeightandUpright, and MovementAndJumping. wouldn't the order of fixed update be unpredictable?
         CharacterMove(_inputSource.MovementInput);
         CharacterJump(_inputSource.JumpPressed, groundRayHitInfo);
 

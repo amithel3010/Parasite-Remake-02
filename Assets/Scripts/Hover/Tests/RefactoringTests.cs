@@ -2,19 +2,33 @@ using UnityEngine;
 
 public class RefactoringTests : MonoBehaviour
 {
+    private IInputSource _inputSource;
+
     private MaintainHeightWithSpring _hover;
+    private MaintainUprightWithSpring _upright;
     private Rigidbody _rb;
+
 
     private void Awake()
     {
+        _inputSource = GetComponent<IInputSource>();
         _rb = GetComponent<Rigidbody>();
         _hover = new MaintainHeightWithSpring(_rb);
+        _upright = new MaintainUprightWithSpring(_rb);
     }
 
     private void FixedUpdate()
     {
         _hover.Tick();
+        _upright.Tick(GetLookDir());
     }
+
+    private Vector3 GetLookDir()
+    {
+        return new Vector3(_inputSource.MovementInput.x, 0, _inputSource.MovementInput.y).normalized;
+    }
+
+    
 
 }
 
@@ -77,4 +91,45 @@ public class MaintainHeightWithSpring
             }
         }
     }
+}
+
+public class MaintainUprightWithSpring
+{
+    private readonly Rigidbody _rb;
+    private readonly float _uprightSpringStrength = 800f;
+    private readonly float _uprightSpringDamper = 25f;
+
+    public MaintainUprightWithSpring(Rigidbody rb)
+    {
+        _rb = rb;
+    }
+
+    public void Tick(Vector3 lookDir)
+    {
+        MaintainUpright(lookDir);
+    }
+
+    private void MaintainUpright(Vector3 lookDir)
+    {
+        Quaternion uprightTargetRot = Quaternion.identity; //might be problematic
+
+        if (lookDir != Vector3.zero)
+        {
+            uprightTargetRot = Quaternion.LookRotation(lookDir, Vector3.up);
+        }
+
+        Quaternion currentRot = _rb.rotation;
+        Quaternion toGoal = MathUtils.ShortestRotation(uprightTargetRot, currentRot);
+
+        Vector3 rotAxis;
+        float rotDegrees;
+
+        toGoal.ToAngleAxis(out rotDegrees, out rotAxis);
+        rotAxis.Normalize();
+
+        float rotRadians = rotDegrees * Mathf.Deg2Rad;
+
+        _rb.AddTorque(rotAxis * (rotRadians * _uprightSpringStrength) - (_rb.angularVelocity * _uprightSpringDamper));
+    }
+
 }

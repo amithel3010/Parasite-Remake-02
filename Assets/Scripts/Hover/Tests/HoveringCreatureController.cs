@@ -44,7 +44,7 @@ public class HoveringCreatureController : MonoBehaviour
 
         Vector3 lookDir = GetLookDir();
         //TODO: find a replacement for ShouldMaintainHeight
-        
+
         if (_enableHover)
         {
             _hover?.Tick(lookDir, !_locomotion.IsJumping, _groundChecker);
@@ -58,5 +58,13 @@ public class HoveringCreatureController : MonoBehaviour
         return lookDir;
     }
 
+    void OnValidate()
+    {
+        if (_groundCheckerSettings.RaycastToGroundLength < _hoverSettings.RideHeight)
+        {
+            Debug.Log(this + "make sure raycast length is longer than ride height!");
+            _groundCheckerSettings.RaycastToGroundLength = _hoverSettings.RideHeight;
+        }
+    }
 
 }

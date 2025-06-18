@@ -7,7 +7,6 @@ public class MaintainHeightAndUpright
     private readonly float _rideHeight = 1.5f;
     private readonly float _springDampingRatio = 0.5f;
     private readonly float _rideSpringStrength = 1000f;
-    private readonly float _raycastToGroundLength = 2f;
 
     private readonly Vector3 DownDir = Vector3.down;
 
@@ -23,7 +22,6 @@ public class MaintainHeightAndUpright
         _rideHeight = settings.RideHeight;
         _springDampingRatio = settings.RideSpringDampingRatio;
         _rideSpringStrength = settings.RideSpringStrength;
-        _raycastToGroundLength = settings.RaycastToGroundLength;
     }
 
     public void Tick(Vector3 lookDir, bool ShouldMaintainHeight, GroundChecker groundChecker)

@@ -41,8 +41,8 @@ public class GroundChecker
 
         _groundLayer = settings.GroundLayer;
         _downDir = settings.DownDir;
-
-        _raycastToGroundLength = optionalHoverSettings.RaycastToGroundLength;
+        _raycastToGroundLength = settings.RaycastToGroundLength;
+        
         _rideHeight = optionalHoverSettings.RideHeight;
     }
 

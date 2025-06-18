@@ -8,8 +8,6 @@ public class MaintainHeightAndUpright
     private readonly float _springDampingRatio = 0.5f;
     private readonly float _rideSpringStrength = 1000f;
     private readonly float _raycastToGroundLength = 2f;
-    private float _currentDistanceFromGround;
-    public float CurrentDistanceFromGround => _currentDistanceFromGround;
 
     private readonly Vector3 DownDir = Vector3.down;
 
@@ -28,29 +26,28 @@ public class MaintainHeightAndUpright
         _raycastToGroundLength = settings.RaycastToGroundLength;
     }
 
-    public void Tick(Vector3 lookDir, bool ShouldMaintainHeight)
+    public void Tick(Vector3 lookDir, bool ShouldMaintainHeight, GroundChecker groundChecker)
     {
         if (ShouldMaintainHeight)
         {
-            MaintainHeight();
+            MaintainHeight(groundChecker);
         }
         MaintainUpright(lookDir);
     }
 
-    private void MaintainHeight()
+    private void MaintainHeight(GroundChecker groundChecker)
     {
-        bool rayDidHit = Physics.Raycast(_rb.position, Vector3.down, out RaycastHit rayHit, _raycastToGroundLength);
+       // bool rayDidHit = Physics.Raycast(_rb.position, Vector3.down, out RaycastHit rayHit, _raycastToGroundLength);
 
         //Debug.DrawLine(_rb.position, rayHit.point, Color.green); // actual ray hit
         //Debug.DrawRay(rayHit.point, Vector3.up * _rideHeight, Color.yellow); // target ride height
-        if (rayDidHit)
+        if (groundChecker.RayHitGround)
         {
             Vector3 vel = _rb.linearVelocity;
-            Vector3 rayDir = _rb.transform.TransformDirection(DownDir); // same as transform.down?
-            Debug.DrawRay(_rb.position, rayDir);
+            Vector3 rayDir = -_rb.transform.up;
 
             Vector3 othervel = Vector3.zero;
-            Rigidbody hitBody = rayHit.rigidbody;
+            Rigidbody hitBody = groundChecker.hitBody;
             if (hitBody != null)
             {
                 othervel = hitBody.linearVelocity;
@@ -64,17 +61,15 @@ public class MaintainHeightAndUpright
             float mass = _rb.mass;
             float rideSpringDamper = 2f * Mathf.Sqrt(_rideSpringStrength * mass) * _springDampingRatio; //from zeta formula 
 
-            _currentDistanceFromGround = rayHit.distance; //not ideal
-            float  _distanceFromRideHeight = rayHit.distance - _rideHeight;
+            float  _distanceFromRideHeight = groundChecker.CurrentDistanceFromGround - _rideHeight;
             
-
             float springForce = (_distanceFromRideHeight * _rideSpringStrength) - (relVel * rideSpringDamper);
 
             _rb.AddForce(rayDir * springForce);
 
             if (hitBody != null)
             {
-                hitBody.AddForceAtPosition(rayDir * -springForce, rayHit.point);
+                hitBody.AddForceAtPosition(rayDir * -springForce, groundChecker._rayHit.point);
             }
         }
     }

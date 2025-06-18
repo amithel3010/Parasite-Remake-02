@@ -56,11 +56,11 @@ public class Locomotion
     private float _jumpBuffer = 0.2f;
     private float _coyoteTime = 0.2f;
 
-    public void Tick(Vector2 moveInput, bool jumpPressed, float rideHeight)
+    public void Tick(Vector2 moveInput, bool jumpPressed, GroundChecker groundCheckerInfo)
     {
         CharacterMove(moveInput);
         //StaticCharacterJump(jumpPressed);
-        HoveringCharacterJump(jumpPressed, rideHeight);
+        HoveringCharacterJump(jumpPressed, groundCheckerInfo);
     }
 
     private void CharacterMove(Vector2 moveInput) //might be better if moveInput was a field
@@ -87,79 +87,41 @@ public class Locomotion
         _rb.AddForceAtPosition(Vector3.Scale(neededAccel * _rb.mass, _moveForceScale), _rb.position + new Vector3(0f, _rb.transform.localScale.y * _leanFactor, 0f)); // Using AddForceAtPosition in order to both move the player and cause the play to lean in the direction of input.
     }
 
-    private void StaticCharacterJump(bool jumpPressed)
-    {
-        _timeSinceJumpPressed += Time.fixedDeltaTime;
-
-        if (_rb.linearVelocity.y < 0)
-        {
-            //_shouldMaintainHeight = true;
-            _jumpReady = true;
-        }
-
-        if (jumpPressed)
-        {
-            _timeSinceJumpPressed = 0f;
-        }
-
-        if (CanJump())
-        {
-            //flags
-            _jumpReady = false;
-            _shouldMaintainHeight = false;
-            //_isJumping = true;
-            //_availableJumps--;
-
-            //if starting Ypos is static:
-            float jumpVelocity = Mathf.Sqrt(_jumpHeight * -2 * Physics.gravity.y);
-            float jumpForce = jumpVelocity * _rb.mass;
-            _rb.AddForce(jumpForce * Vector3.up, ForceMode.Impulse);
-
-            //Ypos changing due to spring:
-            //FIRST we have to stop maintaining height!!!! doable with IsJumping Public Bool
-            //jump height should be fixed somewhere above player, no need for distance from ground//
-            //calc jump height from current pos
-            //could V0 be regarded as 0? probably not. we need to get the  difference in velocity needed to be applied this frame to reach that height
-            //meaning RequiredVel = GoalVel - currentVel 
-            //then , we need the force needd for that velocity change (acceleration)
-            // jumpForce = RequiredVel * rb.mass
-            //add impulse force;
-
-            _timeSinceJumpPressed = _jumpBuffer; //to make sure jump only happens once per input
-        }
-    }
-
-    private void HoveringCharacterJump(bool jumpPressed, float currentDistanceFromGround)
+    private void HoveringCharacterJump(bool jumpPressed, GroundChecker groundChecker)
     {
         
         _timeSinceJumpPressed += Time.fixedDeltaTime;
 
-        if (_rb.linearVelocity.y < 0)
+        if (groundChecker.IsGrounded)
         {
-            //_shouldMaintainHeight = true;
-            _jumpReady = true;
-            IsJumping = false;
+            _availableJumps = _maxJumps;
         }
+
+        if (_rb.linearVelocity.y < 0)
+            {
+                _jumpReady = true;
+                IsJumping = false;
+            }
 
         if (jumpPressed)
         {
             _timeSinceJumpPressed = 0f;
         }
 
-        if (CanJump())
+        if (CanJump(groundChecker))
         {
             //flags
             _jumpReady = false;
             _shouldMaintainHeight = false;
             IsJumping = true;
-            //_availableJumps--;
+            _availableJumps--;
 
             //Ypos changing due to spring:
             //FIRST we have to stop maintaining height!!!! doable with IsJumping Public Bool
             //jump height should be fixed somewhere above player, no need for distance from ground// cheat right now we do get ride height
             //calc jump height from current pos
-            float adjustedJumpHeight = _jumpHeight - currentDistanceFromGround; //still has small inconsistencies but I cant figure out why, and it's for sure good enough.
-            Debug.Log($"current distance from ground: {currentDistanceFromGround}, jump height: {_jumpHeight}, adjusted jump height: {adjustedJumpHeight}");
+            float adjustedJumpHeight = _jumpHeight - groundChecker.CurrentDistanceFromGround; //still has small inconsistencies but I cant figure out why, and it's for sure good enough.
+            //Debug.Log($"current distance from ground: {groundChecker.CurrentDistanceFromGround}, jump height: {_jumpHeight}, adjusted jump height: {adjustedJumpHeight}");
             
 
             //could V0 be regarded as 0? probably not. we need to get the  difference in velocity needed to be applied this frame to reach that height
@@ -177,9 +139,9 @@ public class Locomotion
         }
     }
 
-    private bool CanJump()
+    private bool CanJump(GroundChecker groundChecker)
     {
-        return _timeSinceJumpPressed < _jumpBuffer && _jumpReady && _availableJumps > 0;
+        return _timeSinceJumpPressed < _jumpBuffer && groundChecker.TimeSinceUngrounded < _coyoteTime &&_jumpReady && _availableJumps > 0;
     }
 }
 

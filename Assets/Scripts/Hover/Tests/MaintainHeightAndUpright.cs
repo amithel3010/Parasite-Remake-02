@@ -64,9 +64,9 @@ public class MaintainHeightAndUpright
             float mass = _rb.mass;
             float rideSpringDamper = 2f * Mathf.Sqrt(_rideSpringStrength * mass) * _springDampingRatio; //from zeta formula 
 
+            _currentDistanceFromGround = rayHit.distance; //not ideal
             float  _distanceFromRideHeight = rayHit.distance - _rideHeight;
             
-            _currentDistanceFromGround = _distanceFromRideHeight + _rideHeight;
 
             float springForce = (_distanceFromRideHeight * _rideSpringStrength) - (relVel * rideSpringDamper);
 

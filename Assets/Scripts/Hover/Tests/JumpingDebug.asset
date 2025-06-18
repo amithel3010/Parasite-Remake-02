@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 358e962ee27344858b6e84687786e717, type: 3}
   m_Name: JumpingDebug
   m_EditorClassIdentifier: 
-  RideHeight: 0.93
-  RaycastToGroundLength: 1.2
+  RideHeight: 1.5
+  RaycastToGroundLength: 3
   RideSpringStrength: 2000
-  RideSpringDampingRatio: 0.2
+  RideSpringDampingRatio: 0.024
   UprightSpringStrength: 800
   UprightSpringDamper: 25

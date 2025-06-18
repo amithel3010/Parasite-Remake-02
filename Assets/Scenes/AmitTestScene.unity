@@ -2710,9 +2710,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5afec866e83d04c3d869d6f40ccfceff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hoverSettings: {fileID: 11400000, guid: 92edb2c23df7b47debed337d03135872, type: 2}
+  _hoverSettings: {fileID: 11400000, guid: 95d7007638b304c5da7324ac7b712e4c, type: 2}
   _locomotionSettings: {fileID: 11400000, guid: 034c90835fbef434f8f436e87a639173, type: 2}
-  _enableHover: 0
+  _enableHover: 1
   _enableMovement: 1
 --- !u!114 &6952988163258591759
 MonoBehaviour:

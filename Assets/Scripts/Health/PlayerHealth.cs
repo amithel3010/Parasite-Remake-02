@@ -27,14 +27,6 @@ public class PlayerHealth : MonoBehaviour, IDamagable
         _currentHealth = _maxHealth;
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            ChangeHealth(-5f);
-        }
-    }
-
     public void ChangeHealth(float amount)
     {
         if (!_isHittable) return;

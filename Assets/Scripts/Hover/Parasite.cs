@@ -23,14 +23,16 @@ public class Parasite : MonoBehaviour
     private IPossessable _currentlyPossessed;
     private Transform _currentlyPossessedTransform;
 
-    private PhysicsBasedController _movementScript;
+    //private PhysicsBasedController _movementScript;
+    private HoveringCreatureController _movementScript;
+
     private InputHandler _playerInput;
     private Rigidbody _rb;
     private PlayerHealth _healthSystem;
 
     void Awake()
     {
-        _movementScript = GetComponent<PhysicsBasedController>();
+        _movementScript = GetComponent<HoveringCreatureController>();
         _playerInput = GetComponent<InputHandler>();
         _rb = GetComponent<Rigidbody>();
         _healthSystem = GetComponent<PlayerHealth>();

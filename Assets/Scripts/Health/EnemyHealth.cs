@@ -6,10 +6,10 @@ public class EnemyHealth : MonoBehaviour, IDamagable
 {
     [SerializeField] private float _maxHealth = 100f;
     [SerializeField] private float _iFramesDuration = 0.3f;
+
     private float _currentHealth;
     private bool _isHittable = true;
     
-
     public float CurrentHealth => _currentHealth;
 
     public float MaxHealth => _maxHealth;
@@ -25,7 +25,6 @@ public class EnemyHealth : MonoBehaviour, IDamagable
 
     public void ChangeHealth(float amount)
     {
-        print("trying to change enemy health");
         if (!_isHittable) return;
 
         float oldHealth = _currentHealth;

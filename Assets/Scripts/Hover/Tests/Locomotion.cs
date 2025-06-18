@@ -131,6 +131,7 @@ public class Locomotion
 
     private void HoveringCharacterJump(bool jumpPressed, float currentDistanceFromGround)
     {
+        
         _timeSinceJumpPressed += Time.fixedDeltaTime;
 
         if (_rb.linearVelocity.y < 0)
@@ -157,9 +158,9 @@ public class Locomotion
             //FIRST we have to stop maintaining height!!!! doable with IsJumping Public Bool
             //jump height should be fixed somewhere above player, no need for distance from ground// cheat right now we do get ride height
             //calc jump height from current pos
-            float adjustedJumpHeight = _jumpHeight - currentDistanceFromGround; // almost consistent. not static. need to take current distance from ride height into consideration
+            float adjustedJumpHeight = _jumpHeight - currentDistanceFromGround; //still has small inconsistencies but I cant figure out why, and it's for sure good enough.
             Debug.Log($"current distance from ground: {currentDistanceFromGround}, jump height: {_jumpHeight}, adjusted jump height: {adjustedJumpHeight}");
-            _debugJumpheight = new Vector3(_rb.position.x, _rb.position.y + adjustedJumpHeight, _rb.position.z);
+            
 
             //could V0 be regarded as 0? probably not. we need to get the  difference in velocity needed to be applied this frame to reach that height
             float goalVel = Mathf.Sqrt(adjustedJumpHeight * -2 * Physics.gravity.y);

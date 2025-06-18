@@ -83,3 +83,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   MoveForceScale: {x: 1, y: 0, z: 1}
+  MaxJumps: 1
+  JumpHeight: 10
+  JumpBuffer: 0.2
+  CoyoteTime: 0.2

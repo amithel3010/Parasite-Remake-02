@@ -12,6 +12,7 @@ public class HoveringCreatureController : MonoBehaviour
     private MaintainHeightAndUpright _hover;
     private Locomotion _locomotion;
     private GroundChecker _groundChecker;
+
     private Rigidbody _rb;
     private IInputSource _inputSource;
 
@@ -43,7 +44,11 @@ public class HoveringCreatureController : MonoBehaviour
 
         Vector3 lookDir = GetLookDir();
         //TODO: find a replacement for ShouldMaintainHeight
-        if (_enableHover) _hover?.Tick(lookDir, !_locomotion.IsJumping, _groundChecker);
+        
+        if (_enableHover)
+        {
+            _hover?.Tick(lookDir, !_locomotion.IsJumping, _groundChecker);
+        }
     }
 
     private Vector3 GetLookDir()

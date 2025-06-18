@@ -41,10 +41,7 @@ public class Locomotion
 
     //jumping
     public bool IsJumping;
-    private bool _shouldMaintainHeight = true; //TODO: conflicts with seperation
-    private bool isGrounded = true;
     private float _timeSinceJumpPressed = 0.5f; // if it's zero character jumps on start
-    private float _timeSinceUngrounded;
     private bool _jumpReady = true;
     private int _availableJumps;
 
@@ -112,7 +109,6 @@ public class Locomotion
         {
             //flags
             _jumpReady = false;
-            _shouldMaintainHeight = false;
             IsJumping = true;
             _availableJumps--;
 

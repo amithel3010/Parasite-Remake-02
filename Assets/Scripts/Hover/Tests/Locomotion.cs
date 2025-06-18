@@ -33,6 +33,7 @@ public class Locomotion
     private float _maxAccelForceFactor = 1f; //also does nothin?
 
     //jumping
+    public bool IsJumping;
     private bool _shouldMaintainHeight = true; //TODO: conflicts with seperation
     private bool isGrounded = true;
     private float _timeSinceJumpPressed = 0.5f; // if it's zero character jumps on start
@@ -41,7 +42,7 @@ public class Locomotion
     private int _availableJumps = 3;
 
     private int _maxJumps = 1;
-    private float _jumpHeight = 50f;
+    private float _jumpHeight = 5f;
     private readonly float gravity = Physics.gravity.y;
 
 
@@ -49,10 +50,14 @@ public class Locomotion
     private float _coyoteTime = 0.2f;
     private float _jumpForce = 55f;
 
-    public void Tick(Vector2 moveInput, bool jumpPressed)
+    public void Tick(Vector2 moveInput, bool jumpPressed, float rideHeight)
     {
         CharacterMove(moveInput);
-        CharacterJump(jumpPressed);
+        //StaticCharacterJump(jumpPressed);
+        HoveringCharacterJump(jumpPressed, rideHeight);
+
+        if (IsJumping)
+            Debug.Log("jumping");
     }
 
     private void CharacterMove(Vector2 moveInput) //might be better if moveInput was a field
@@ -79,11 +84,8 @@ public class Locomotion
         _rb.AddForceAtPosition(Vector3.Scale(neededAccel * _rb.mass, _moveForceScale), _rb.position + new Vector3(0f, _rb.transform.localScale.y * _leanFactor, 0f)); // Using AddForceAtPosition in order to both move the player and cause the play to lean in the direction of input.
     }
 
-    private void CharacterJump(bool jumpPressed)
+    private void StaticCharacterJump(bool jumpPressed)
     {
-        //inconsistent jump. needs to work like move where you calculate needed force for jump
-        //or maybe define max and min upwards acceleration values
-
         _timeSinceJumpPressed += Time.fixedDeltaTime;
 
         if (_rb.linearVelocity.y < 0)
@@ -103,27 +105,68 @@ public class Locomotion
             _jumpReady = false;
             _shouldMaintainHeight = false;
             //_isJumping = true;
-            _availableJumps--;
+            //_availableJumps--;
 
-            float initialJumpVel = math.sqrt(2 * -gravity*_rb.mass * _jumpHeight); //this is goal
-            //Debug.Log(initialJumpVel);
-            Vector3 goalInitialVel = new Vector3(_rb.linearVelocity.x, initialJumpVel, _rb.linearVelocity.z);
-            Vector3 currentVel = _rb.linearVelocity;
+            //if starting Ypos is static:
+            float jumpVelocity = Mathf.Sqrt(_jumpHeight * -2 * Physics.gravity.y);
+            float jumpForce = jumpVelocity * _rb.mass;
+            _rb.AddForce(jumpForce * Vector3.up, ForceMode.Impulse);
 
-            float neededAccel = (goalInitialVel.y - currentVel.y)/ Time.fixedDeltaTime;
-            Debug.Log(neededAccel);
-            _rb.AddForce(Vector3.up * neededAccel, ForceMode.Force);
-             //needs to be only in Y
-            //set jump height by 1.distance from ground? 2. distance from ride height?
-            //gravity force is Physics.gravity * rb.mass
-            //set time to jump height
+            //Ypos changing due to spring:
+            //FIRST we have to stop maintaining height!!!! doable with IsJumping Public Bool
+            //jump height should be fixed somewhere above player, no need for distance from ground//
+            //calc jump height from current pos
+            //could V0 be regarded as 0? probably not. we need to get the  difference in velocity needed to be applied this frame to reach that height
+            //meaning RequiredVel = GoalVel - currentVel 
+            //then , we need the force needd for that velocity change (acceleration)
+            // jumpForce = RequiredVel * rb.mass
+            //add impulse force;
 
-            //calc initial Yvel required to reach jump height
-            //calc current Yvel
-            //calc ACCELERATION required to reach that goalYvel in 1 frame
-            //apply that acceleration in 1 frame
+            _timeSinceJumpPressed = _jumpBuffer; //to make sure jump only happens once per input
+        }
+    }
 
-            //_rb.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
+     private void HoveringCharacterJump(bool jumpPressed, float targetRideHeight)
+    {
+        _timeSinceJumpPressed += Time.fixedDeltaTime;
+
+        if (_rb.linearVelocity.y < 0)
+        {
+            //_shouldMaintainHeight = true;
+            _jumpReady = true;
+            IsJumping = false;
+        }
+
+        if (jumpPressed)
+        {
+            _timeSinceJumpPressed = 0f;
+        }
+
+        if (CanJump())
+        {
+            //flags
+            _jumpReady = false;
+            _shouldMaintainHeight = false;
+            IsJumping = true;
+            //_availableJumps--;
+
+            //Ypos changing due to spring:
+            //FIRST we have to stop maintaining height!!!! doable with IsJumping Public Bool
+            //jump height should be fixed somewhere above player, no need for distance from ground// cheat right now we do get ride height
+            //calc jump height from current pos
+            float adjustedJumpHeight = _jumpHeight - targetRideHeight;
+            Debug.DrawRay(_rb.position, Vector3.up * adjustedJumpHeight);
+            //could V0 be regarded as 0? probably not. we need to get the  difference in velocity needed to be applied this frame to reach that height
+            float goalVel = Mathf.Sqrt(adjustedJumpHeight * -2 * Physics.gravity.y);
+            float currentVel = _rb.linearVelocity.y;
+            //meaning RequiredVel = GoalVel - currentVel 
+            float requiredVel = goalVel - currentVel;
+            //then , we need the force needd for that velocity change (acceleration)
+            // jumpForce = RequiredVel * rb.mass
+            float jumpForce = requiredVel * _rb.mass;
+            //add impulse force;
+            _rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+
             _timeSinceJumpPressed = _jumpBuffer; //to make sure jump only happens once per input
         }
     }

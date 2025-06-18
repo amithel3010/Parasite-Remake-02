@@ -2712,6 +2712,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hoverSettings: {fileID: 11400000, guid: 92edb2c23df7b47debed337d03135872, type: 2}
   _locomotionSettings: {fileID: 11400000, guid: 034c90835fbef434f8f436e87a639173, type: 2}
+  _enableHover: 0
+  _enableMovement: 1
 --- !u!114 &6952988163258591759
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -11,7 +11,7 @@ public class HoveringCreatureController : MonoBehaviour
     private MaintainHeightAndUpright _hover;
     private Locomotion _locomotion;
     private Rigidbody _rb;
-    private IInputSource _inputSource; //Coupled? only need this for lookDir
+    private IInputSource _inputSource;
 
     void Awake()
     {
@@ -24,12 +24,12 @@ public class HoveringCreatureController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(_enableMovement) _locomotion.Tick(_inputSource.MovementInput, _inputSource.JumpPressed);
+        if(_enableMovement) _locomotion.Tick(_inputSource.MovementInput, _inputSource.JumpPressed, _hover._rideHeight);
         // TODO: find a way to pass isGrounded, timeSinceUngrounded, currentDistanceFromGround
 
         Vector3 lookDir = GetLookDir();
         //TODO: find a replacement for ShouldMaintainHeight
-        if(_enableHover)_hover.Tick(lookDir);
+        if(_enableHover)_hover.Tick(lookDir, !_locomotion.IsJumping);
     }
 
     private Vector3 GetLookDir()

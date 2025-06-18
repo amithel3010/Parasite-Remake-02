@@ -4,7 +4,7 @@ public class MaintainHeightAndUpright
 {
     //Height
     private readonly Rigidbody _rb;
-    private readonly float _rideHeight = 1.5f;
+    public readonly float _rideHeight = 1.5f;
     private readonly float _springDampingRatio = 0.5f;
     private readonly float _rideSpringStrength = 1000f;
     private readonly float _raycastToGroundLength = 2f;
@@ -28,9 +28,12 @@ public class MaintainHeightAndUpright
         _raycastToGroundLength = settings.RaycastToGroundLength;
     }
 
-    public void Tick(Vector3 lookDir)
+    public void Tick(Vector3 lookDir, bool ShouldMaintainHeight)
     {
-        MaintainHeight();
+        if (ShouldMaintainHeight)
+        {
+            MaintainHeight();
+        }
         MaintainUpright(lookDir);
     }
 

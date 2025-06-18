@@ -4,7 +4,7 @@ public class MaintainHeightAndUpright
 {
     //Height
     private readonly Rigidbody _rb;
-    public readonly float _rideHeight = 1.5f;
+    private readonly float _rideHeight = 1.5f;
     private readonly float _springDampingRatio = 0.5f;
     private readonly float _rideSpringStrength = 1000f;
     private readonly float _raycastToGroundLength = 2f;
@@ -64,9 +64,11 @@ public class MaintainHeightAndUpright
             float mass = _rb.mass;
             float rideSpringDamper = 2f * Mathf.Sqrt(_rideSpringStrength * mass) * _springDampingRatio; //from zeta formula 
 
-            float x = rayHit.distance - _rideHeight;
+            float  _distanceFromRideHeight = rayHit.distance - _rideHeight;
+            
+            _currentDistanceFromGround = _distanceFromRideHeight + _rideHeight;
 
-            float springForce = (x * _rideSpringStrength) - (relVel * rideSpringDamper);
+            float springForce = (_distanceFromRideHeight * _rideSpringStrength) - (relVel * rideSpringDamper);
 
             _rb.AddForce(rayDir * springForce);
 

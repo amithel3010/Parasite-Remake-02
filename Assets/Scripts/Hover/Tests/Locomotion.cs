@@ -41,6 +41,9 @@ public class Locomotion
     private bool _jumpReady = true;
     private int _availableJumps = 3;
 
+    //debug
+    public Vector3 _debugJumpheight;
+
     private int _maxJumps = 1;
     private float _jumpHeight = 5f;
     private readonly float gravity = Physics.gravity.y;
@@ -55,9 +58,6 @@ public class Locomotion
         CharacterMove(moveInput);
         //StaticCharacterJump(jumpPressed);
         HoveringCharacterJump(jumpPressed, rideHeight);
-
-        if (IsJumping)
-            Debug.Log("jumping");
     }
 
     private void CharacterMove(Vector2 moveInput) //might be better if moveInput was a field
@@ -126,7 +126,7 @@ public class Locomotion
         }
     }
 
-     private void HoveringCharacterJump(bool jumpPressed, float targetRideHeight)
+    private void HoveringCharacterJump(bool jumpPressed, float currentDistanceFromGround)
     {
         _timeSinceJumpPressed += Time.fixedDeltaTime;
 
@@ -154,8 +154,10 @@ public class Locomotion
             //FIRST we have to stop maintaining height!!!! doable with IsJumping Public Bool
             //jump height should be fixed somewhere above player, no need for distance from ground// cheat right now we do get ride height
             //calc jump height from current pos
-            float adjustedJumpHeight = _jumpHeight - targetRideHeight;
-            Debug.DrawRay(_rb.position, Vector3.up * adjustedJumpHeight);
+            float adjustedJumpHeight = _jumpHeight - currentDistanceFromGround; // almost consistent. not static. need to take current distance from ride height into consideration
+            Debug.Log($"current distance from ground: {currentDistanceFromGround}, jump height: {_jumpHeight}, adjusted jump height: {adjustedJumpHeight}");
+            _debugJumpheight = new Vector3(_rb.position.x, _rb.position.y+adjustedJumpHeight, _rb.position.z);
+            
             //could V0 be regarded as 0? probably not. we need to get the  difference in velocity needed to be applied this frame to reach that height
             float goalVel = Mathf.Sqrt(adjustedJumpHeight * -2 * Physics.gravity.y);
             float currentVel = _rb.linearVelocity.y;
@@ -175,6 +177,5 @@ public class Locomotion
     {
         return _timeSinceJumpPressed < _jumpBuffer && _jumpReady && _availableJumps > 0;
     }
-
 }
 

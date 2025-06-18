@@ -5,6 +5,8 @@ public class HoveringCreatureController : MonoBehaviour
     [SerializeField] private HoverSettings _hoverSettings;
     [SerializeField] private LocomotionSettings _locomotionSettings;
 
+    //there should be a ground checker class, that gets a ride height from hover
+
     [SerializeField] private bool _enableHover;
     [SerializeField] private bool _enableMovement;
     

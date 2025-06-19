@@ -53,7 +53,7 @@ public class GroundChecker
 
     private void RaycastToGround()
     {
-        Vector3 _rayDir = -_rb.transform.up;
+        Vector3 _rayDir = _rb.transform.TransformDirection(_downDir);
 
         Ray rayToGround = new Ray(_rb.position, _rayDir);
         _rayHitGround = Physics.Raycast(rayToGround, out RaycastHit _rayHit, _raycastToGroundLength, _groundLayer.value);

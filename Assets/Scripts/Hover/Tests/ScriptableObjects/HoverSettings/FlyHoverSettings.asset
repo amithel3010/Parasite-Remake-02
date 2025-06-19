@@ -15,5 +15,5 @@ MonoBehaviour:
   RideHeight: 1.3
   RideSpringStrength: 80
   RideSpringDampingRatio: 0.5
-  UprightSpringStrength: 5
-  UprightSpringDamper: 40
+  UprightSpringStrength: 40
+  UprightSpringDamper: 5

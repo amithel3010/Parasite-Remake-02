@@ -22,6 +22,9 @@ public class MaintainHeightAndUpright
         _rideHeight = settings.RideHeight;
         _springDampingRatio = settings.RideSpringDampingRatio;
         _rideSpringStrength = settings.RideSpringStrength;
+
+        _uprightSpringStrength = settings.UprightSpringStrength;
+        _uprightSpringDamper = settings.UprightSpringDamper;
     }
 
     public void Tick(Vector3 lookDir, bool ShouldMaintainHeight, GroundChecker groundChecker)
@@ -90,6 +93,8 @@ public class MaintainHeightAndUpright
         rotAxis.Normalize();
 
         float rotRadians = rotDegrees * Mathf.Deg2Rad;
+
+        Debug.Log(_rb.transform.name + $"{_uprightSpringStrength} + {_uprightSpringDamper}");
 
         _rb.AddTorque(rotAxis * (rotRadians * _uprightSpringStrength) - (_rb.angularVelocity * _uprightSpringDamper));
     }

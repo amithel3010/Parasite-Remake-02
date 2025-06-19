@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GroundLayer:
     serializedVersion: 2
-    m_Bits: 0
-  RaycastToGroundLength: 0
+    m_Bits: 256
+  RaycastToGroundLength: 3
   DownDir: {x: 0, y: -1, z: 0}

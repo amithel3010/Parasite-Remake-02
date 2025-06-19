@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 358e962ee27344858b6e84687786e717, type: 3}
   m_Name: FlyHoverSettings
   m_EditorClassIdentifier: 
-  RideHeight: 1.5
-  RideSpringStrength: 1000
+  RideHeight: 1.3
+  RideSpringStrength: 80
   RideSpringDampingRatio: 0.5
-  UprightSpringStrength: 800
-  UprightSpringDamper: 25
+  UprightSpringStrength: 5
+  UprightSpringDamper: 40

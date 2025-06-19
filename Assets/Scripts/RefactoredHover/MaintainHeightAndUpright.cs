@@ -94,8 +94,6 @@ public class MaintainHeightAndUpright
 
         float rotRadians = rotDegrees * Mathf.Deg2Rad;
 
-        Debug.Log(_rb.transform.name + $"{_uprightSpringStrength} + {_uprightSpringDamper}");
-
         _rb.AddTorque(rotAxis * (rotRadians * _uprightSpringStrength) - (_rb.angularVelocity * _uprightSpringDamper));
     }
 }

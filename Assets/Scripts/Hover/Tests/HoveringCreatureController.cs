@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class HoveringCreatureController : MonoBehaviour
 {
     [SerializeField] private HoverSettings _hoverSettings;
@@ -29,6 +30,14 @@ public class HoveringCreatureController : MonoBehaviour
         _hover = new MaintainHeightAndUpright(_rb, _hoverSettings);
         _locomotion = new Locomotion(_rb, _locomotionSettings);
         _groundChecker = new GroundChecker(_rb, _groundCheckerSettings, _hoverSettings);
+    }
+
+    void Start()
+    {
+        if (_inputSource == null)
+        {
+            Debug.Log("Missing Input Source");
+        }
     }
 
     // Update is called once per frame

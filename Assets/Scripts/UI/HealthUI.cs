@@ -2,32 +2,26 @@ using UnityEngine;
 
 public class HealthUI : MonoBehaviour
 {
-    private PlayerHealth _playerHealth;
+    private IDamagable _healthSystem;
 
     void Awake()
     {
-        _playerHealth = GetComponent<PlayerHealth>();
+        _healthSystem = GetComponent<IDamagable>();
     }
 
     void OnEnable()
     {
-        _playerHealth.OnHealthChanged += UpdateHealthBar;
-        _playerHealth.OnDeath += ShowGameOverScreen;
+        _healthSystem.OnHealthChanged += UpdateHealthBar;
     }
 
     void OnDisable() //not sure why i would ever disable this but i guess this is good practice
     {
-        _playerHealth.OnHealthChanged -= UpdateHealthBar;
-        _playerHealth.OnDeath -= ShowGameOverScreen;
+        _healthSystem.OnHealthChanged -= UpdateHealthBar;
     }
 
     private void UpdateHealthBar(float current, float max)
     {
+        //this is only for player currently
         UIManager.Instance.UpdateHealthBar(current, max);
-    }
-
-    private void ShowGameOverScreen()
-    {
-        UIManager.Instance.ShowGameOverScreen();
     }
 }

@@ -28,14 +28,14 @@ public class Parasite : MonoBehaviour
 
     private InputHandler _playerInput;
     private Rigidbody _rb;
-    private PlayerHealth _healthSystem;
+    private Health _healthSystem;
 
     void Awake()
     {
         _movementScript = GetComponent<HoveringCreatureController>();
         _playerInput = GetComponent<InputHandler>();
         _rb = GetComponent<Rigidbody>();
-        _healthSystem = GetComponent<PlayerHealth>();
+        _healthSystem = GetComponent<Health>();
 
         _healthSystem.OnDamaged += StartPossessionCooldown; //TODO: this feels wrong
     }

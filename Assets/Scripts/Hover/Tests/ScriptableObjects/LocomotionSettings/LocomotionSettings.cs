@@ -17,4 +17,6 @@ public class LocomotionSettings : ScriptableObject
     public float JumpHeight = 5f;
     public float JumpBuffer = 0.2f;
     public float CoyoteTime = 0.2f;
+
+    public bool IsFlying = false;
 }

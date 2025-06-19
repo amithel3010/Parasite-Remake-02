@@ -22,6 +22,8 @@ public class Locomotion
         _jumpBuffer = settings.JumpBuffer;
         _coyoteTime = settings.CoyoteTime;
 
+        _isflying = settings.IsFlying;
+
         _availableJumps = _maxJumps;
     }
 
@@ -43,7 +45,8 @@ public class Locomotion
     public bool IsJumping;
     private float _timeSinceJumpPressed = 0.5f; // if it's zero character jumps on start
     private bool _jumpReady = true;
-    private int _availableJumps;
+    private int _availableJumps = 1;
+    private bool _isflying = false;
 
     //debug
     public Vector3 _debugJumpheight;
@@ -86,7 +89,7 @@ public class Locomotion
 
     private void HoveringCharacterJump(bool jumpPressed, GroundChecker groundChecker)
     {
-        
+
         _timeSinceJumpPressed += Time.fixedDeltaTime;
 
         if (groundChecker.IsGrounded)
@@ -95,10 +98,10 @@ public class Locomotion
         }
 
         if (_rb.linearVelocity.y < 0)
-            {
-                _jumpReady = true;
-                IsJumping = false;
-            }
+        {
+            _jumpReady = true;
+            IsJumping = false;
+        }
 
         if (jumpPressed)
         {
@@ -117,8 +120,8 @@ public class Locomotion
             //jump height should be fixed somewhere above player, no need for distance from ground// cheat right now we do get ride height
             //calc jump height from current pos
             float adjustedJumpHeight = _jumpHeight - groundChecker.CurrentDistanceFromGround; //still has small inconsistencies but I cant figure out why, and it's for sure good enough.
-            //Debug.Log($"current distance from ground: {groundChecker.CurrentDistanceFromGround}, jump height: {_jumpHeight}, adjusted jump height: {adjustedJumpHeight}");
-            
+                                                                                              //Debug.Log($"current distance from ground: {groundChecker.CurrentDistanceFromGround}, jump height: {_jumpHeight}, adjusted jump height: {adjustedJumpHeight}");
+
 
             //could V0 be regarded as 0? probably not. we need to get the  difference in velocity needed to be applied this frame to reach that height
             float goalVel = Mathf.Sqrt(adjustedJumpHeight * -2 * Physics.gravity.y);
@@ -137,7 +140,14 @@ public class Locomotion
 
     private bool CanJump(GroundChecker groundChecker)
     {
-        return _timeSinceJumpPressed < _jumpBuffer && groundChecker.TimeSinceUngrounded < _coyoteTime &&_jumpReady && _availableJumps > 0;
+        if (!_isflying)
+        {
+            return _timeSinceJumpPressed < _jumpBuffer && groundChecker.TimeSinceUngrounded < _coyoteTime && _jumpReady && _availableJumps > 0;
+        }
+        else
+        {
+            return _timeSinceJumpPressed < _jumpBuffer && _jumpReady && _availableJumps > 0;
+        }
     }
 }
 

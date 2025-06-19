@@ -9,6 +9,6 @@ public class HoverSettings : ScriptableObject
     [Range(0, 1)] public float RideSpringDampingRatio = 0.5f;
 
     [Header("Upright Spring Settings")]
-    public float UprightSpringStrength = 800f;
     public float UprightSpringDamper = 25f;
+    public float UprightSpringStrength = 800f;
 }

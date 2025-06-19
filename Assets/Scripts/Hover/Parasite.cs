@@ -20,9 +20,10 @@ public class Parasite : MonoBehaviour
     [SerializeField] private GameObject _gfx;
 
     private bool _canPossess = true;
-    
+
     private IPossessable _currentlyPossessed;
     private Transform _currentlyPossessedTransform;
+    private IDamagable _currentlyPossessedHealthSystem;
 
     //private PhysicsBasedController _movementScript;
     private HoveringCreatureController _movementScript; //coupled... hard to change
@@ -62,6 +63,12 @@ public class Parasite : MonoBehaviour
                 _currentlyPossessed = target;
                 _currentlyPossessedTransform = hitInfo.transform;
 
+                _currentlyPossessedHealthSystem = _currentlyPossessedTransform.GetComponent<IDamagable>();
+                if (_currentlyPossessedHealthSystem != null)
+                {
+                    _currentlyPossessedHealthSystem.OnDeath += StopPossessing;
+                }
+
                 _parasiteHealth.ResetHealth();
 
                 _rb.isKinematic = true;
@@ -77,12 +84,18 @@ public class Parasite : MonoBehaviour
         }
     }
 
-    public void StopPossessing() //this is called from WITHIN possessable, which feels very very wrong
+    public void StopPossessing()
     {
         if (_currentlyPossessed == null) return;
 
         _currentlyPossessed.OnUnPossess();
         _currentlyPossessed = null;
+
+        if (_currentlyPossessedHealthSystem != null)
+        {
+            _currentlyPossessedHealthSystem.OnDeath -= StopPossessing;
+            _currentlyPossessedHealthSystem = null;
+        }
 
         this.transform.SetParent(null);
         _gfx.SetActive(true);

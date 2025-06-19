@@ -48,7 +48,6 @@ public class HoveringCreatureController : MonoBehaviour
         if (_enableMovement)
         {
             _locomotion?.Tick(_inputSource.MovementInput, _inputSource.JumpPressed, _groundChecker);
-            Debug.DrawLine(transform.position, _locomotion._debugJumpheight);
         }
 
         Vector3 lookDir = GetLookDir();
@@ -65,6 +64,16 @@ public class HoveringCreatureController : MonoBehaviour
         Vector3 lookDir = Vector3.zero;
         lookDir = new Vector3(_inputSource.MovementInput.x, 0, _inputSource.MovementInput.y);
         return lookDir;
+    }
+
+    public void OnPossess(IInputSource newInputSource, Parasite parasite)
+    {
+        _inputSource = newInputSource;
+    }
+
+    public void OnUnPossess()
+    {
+        _inputSource = GetComponent<IInputSource>();
     }
 
     void OnValidate()

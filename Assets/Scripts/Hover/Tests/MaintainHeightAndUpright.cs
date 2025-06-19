@@ -78,6 +78,7 @@ public class MaintainHeightAndUpright
         if (lookDir != Vector3.zero)
         {
             _uprightTargetRot = Quaternion.LookRotation(lookDir, Vector3.up);
+            Debug.Log(_uprightTargetRot);
         }
 
         Quaternion currentRot = _rb.rotation;

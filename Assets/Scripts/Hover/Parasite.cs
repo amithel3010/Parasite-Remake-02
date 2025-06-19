@@ -13,36 +13,37 @@ public class Parasite : MonoBehaviour
     [SerializeField] private float _possessRayLength;
 
     [Header("Possession")]
-    [SerializeField] private float _explosionForce = 50f;
+    [SerializeField] private float _ejectForce = 50f;
     [SerializeField] private float _possessionCooldown = 3f;
 
     [Header("Other")]
     [SerializeField] private GameObject _gfx;
 
-    private bool _ableToPossess = true;
+    private bool _canPossess = true;
+    
     private IPossessable _currentlyPossessed;
     private Transform _currentlyPossessedTransform;
 
     //private PhysicsBasedController _movementScript;
-    private HoveringCreatureController _movementScript;
+    private HoveringCreatureController _movementScript; //coupled... hard to change
 
     private InputHandler _playerInput;
     private Rigidbody _rb;
-    private Health _healthSystem;
+    private IDamagable _parasiteHealth;
 
     void Awake()
     {
         _movementScript = GetComponent<HoveringCreatureController>();
         _playerInput = GetComponent<InputHandler>();
         _rb = GetComponent<Rigidbody>();
-        _healthSystem = GetComponent<Health>();
+        _parasiteHealth = GetComponent<IDamagable>();
 
-        _healthSystem.OnDamaged += StartPossessionCooldown; //TODO: this feels wrong
+        _parasiteHealth.OnDamaged += TriggerPossessionCooldown; //TODO: this feels wrong
     }
 
     void FixedUpdate()
     {
-        if (_currentlyPossessed == null && _ableToPossess)
+        if (_currentlyPossessed == null && _canPossess)
         {
             TryPossess();
         }
@@ -61,7 +62,7 @@ public class Parasite : MonoBehaviour
                 _currentlyPossessed = target;
                 _currentlyPossessedTransform = hitInfo.transform;
 
-                _healthSystem.ResetHealth();
+                _parasiteHealth.ResetHealth();
 
                 _rb.isKinematic = true;
                 _rb.detectCollisions = false;
@@ -70,7 +71,7 @@ public class Parasite : MonoBehaviour
                 transform.SetParent(_currentlyPossessedTransform); //TODO:isn't it weird that the child is controlling the parent?
 
                 _currentlyPossessed.OnPossess(_playerInput, this);
-                _ableToPossess = false;
+                _canPossess = false;
 
             }
         }
@@ -91,21 +92,21 @@ public class Parasite : MonoBehaviour
 
         _movementScript.enabled = true;
 
-        _rb.AddForce(Vector3.up * _explosionForce, ForceMode.Impulse);
+        _rb.AddForce(Vector3.up * _ejectForce, ForceMode.Impulse); //that's for exiting Possessable with height
         StartCoroutine(PossessionCooldown());
     }
 
     private IEnumerator PossessionCooldown()
     {
-        if (_ableToPossess == true)
-            _ableToPossess = false;
+        if (_canPossess == true)
+            _canPossess = false;
 
         yield return new WaitForSeconds(_possessionCooldown);
-        _ableToPossess = true;
+        _canPossess = true;
 
     }
 
-    private void StartPossessionCooldown()
+    private void TriggerPossessionCooldown()
     {
         StartCoroutine(PossessionCooldown());
     }

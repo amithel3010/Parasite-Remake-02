@@ -2,11 +2,12 @@ using UnityEngine;
 
 public class Possessable : MonoBehaviour, IPossessable
 {
-    private PhysicsBasedController _controller;
+    //private PhysicsBasedController _controller;
+    private HoveringCreatureController _controller; //might need to make this an interface
 
     void Awake()
     {
-        _controller = GetComponent<PhysicsBasedController>();
+        _controller = GetComponent<HoveringCreatureController>();
     }
 
     public void OnPossess(IInputSource inputSource, Parasite parasite)

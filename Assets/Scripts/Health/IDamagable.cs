@@ -4,6 +4,8 @@ using UnityEngine;
 public interface IDamagable
 {
     public void ChangeHealth(float amount);
+    
+    public void ResetHealth();
 
     public event Action OnDamaged;
    

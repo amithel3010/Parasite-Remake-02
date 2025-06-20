@@ -45,9 +45,8 @@ GameObject:
   - component: {fileID: 3141228938963786432}
   - component: {fileID: 895892674944352080}
   - component: {fileID: 3671928919972350049}
-  - component: {fileID: 7874905728431153194}
   m_Layer: 6
-  m_Name: FlyPrototype
+  m_Name: OldFlyPrototype
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -221,20 +220,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b847e50e90c04cf9862c55cd2033385, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7874905728431153194
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2171991697981904221}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: faeb486fdd25d4f32924b691bed70041, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _maxHealth: 100
-  _iFramesDuration: 0.3
 --- !u!1 &5167335732512416188
 GameObject:
   m_ObjectHideFlags: 0
@@ -354,7 +339,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: dea03b9baede64f789e81d2258b14818, type: 2}
+  - {fileID: 2100000, guid: b55b1fd0877a5488c93eb9cb9cbeb1f9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

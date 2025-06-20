@@ -1,8 +1,8 @@
+using UnityEngine;
 using System;
 using System.Collections;
-using UnityEngine;
 
-public class PlayerHealth : MonoBehaviour, IDamagable
+public class Health : MonoBehaviour, IDamagable
 {
     //class responsible for managing a creature health
     //creature with health can: take damage, heal and die
@@ -25,14 +25,6 @@ public class PlayerHealth : MonoBehaviour, IDamagable
     void Awake()
     {
         _currentHealth = _maxHealth;
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            ChangeHealth(-5f);
-        }
     }
 
     public void ChangeHealth(float amount)

@@ -14,6 +14,8 @@ public class HoveringCreatureController : MonoBehaviour
     private Locomotion _locomotion;
     private GroundChecker _groundChecker;
 
+    private KnockbackTest _knockback;
+
     private Rigidbody _rb;
     private IInputSource _inputSource;
 
@@ -27,6 +29,7 @@ public class HoveringCreatureController : MonoBehaviour
     {
         _inputSource = GetComponent<IInputSource>();
         _rb = GetComponent<Rigidbody>();
+        _knockback = GetComponent<KnockbackTest>();
         _hover = new MaintainHeightAndUpright(_rb, _hoverSettings);
         _locomotion = new Locomotion(_rb, _locomotionSettings);
         _groundChecker = new GroundChecker(_rb, _groundCheckerSettings, _hoverSettings);
@@ -34,7 +37,7 @@ public class HoveringCreatureController : MonoBehaviour
 
     void Start()
     {
-        if (_inputSource == null)
+        if (_inputSource == null )
         {
             Debug.Log("Missing Input Source");
         }
@@ -45,7 +48,7 @@ public class HoveringCreatureController : MonoBehaviour
     {
         _groundChecker?.Tick();
 
-        if (_enableMovement)
+        if (_enableMovement && !_knockback.IsKnockedBack)
         {
             _locomotion?.Tick(_inputSource.MovementInput, _inputSource.JumpPressed, _groundChecker);
         }

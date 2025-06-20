@@ -44,7 +44,7 @@ public class Parasite : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (_currentlyPossessed == null && _canPossess &&_rb.linearVelocity.y < 0)
+        if (_currentlyPossessed == null && _canPossess && _rb.linearVelocity.y < -0.5f)
         {
             TryPossess();
         }

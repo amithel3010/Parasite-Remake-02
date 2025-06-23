@@ -8,6 +8,8 @@ public class Parasite : MonoBehaviour
     // if found, will possess
     //when possess, stop checking disable hover script, and give reference to player input
 
+    //TODO: will be easier to handle if it became the parent of possessed creature and not the other way around...
+
     [Header("Raycast")]
     [SerializeField] private LayerMask _possessableLayer;
     [SerializeField] private float _possessRayLength;
@@ -47,6 +49,11 @@ public class Parasite : MonoBehaviour
         if (_currentlyPossessed == null && _canPossess && _rb.linearVelocity.y < -0.5f)
         {
             TryPossess();
+        }
+
+        if (_playerInput.actionPressed)
+        {
+            ExitPossessableOnActionPress();
         }
     }
 
@@ -117,6 +124,18 @@ public class Parasite : MonoBehaviour
         yield return new WaitForSeconds(_possessionCooldown);
         _canPossess = true;
 
+    }
+
+    private void ExitPossessableOnActionPress()
+    {
+        if (_currentlyPossessed == null)
+        {
+            Debug.Log("Action pressed, but player is controlling parasite");
+        }
+        else
+        {
+            StopPossessing();
+        }
     }
 
     private void TriggerPossessionCooldown()

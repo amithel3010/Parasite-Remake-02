@@ -82,7 +82,7 @@ public class Parasite : MonoBehaviour
                 _rb.detectCollisions = false;
                 _movementScript.enabled = false;
                 _gfx.SetActive(false);
-                transform.SetParent(_currentlyPossessedTransform); //TODO:isn't it weird that the child is controlling the parent?
+                //transform.SetParent(_currentlyPossessedTransform); //TODO:isn't it weird that the child is controlling the parent?
 
                 _currentlyPossessed.OnPossess(_playerInput, this);
                 _canPossess = false;
@@ -95,21 +95,28 @@ public class Parasite : MonoBehaviour
     {
         if (_currentlyPossessed == null) return;
 
+        Vector3 targetExitPosition = _currentlyPossessedTransform != null
+               ? _currentlyPossessedTransform.position + Vector3.up * 1.5f
+               : transform.position;
         _currentlyPossessed.OnUnPossess();
-        _currentlyPossessed = null;
 
         if (_currentlyPossessedHealthSystem != null)
         {
             _currentlyPossessedHealthSystem.OnDeath -= StopPossessing;
-            _currentlyPossessedHealthSystem = null;
         }
 
-        this.transform.SetParent(null);
-        _gfx.SetActive(true);
+        _rb.position = targetExitPosition;
 
+        _currentlyPossessed = null;
+        _currentlyPossessedTransform = null;
+        _currentlyPossessedHealthSystem = null;
+
+
+        //this.transform.SetParent(null);
+
+        _gfx.SetActive(true);
         _rb.isKinematic = false;
         _rb.detectCollisions = true;
-
         _movementScript.enabled = true;
 
         _rb.AddForce(Vector3.up * _ejectForce, ForceMode.Impulse); //that's for exiting Possessable with height

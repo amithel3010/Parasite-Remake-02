@@ -1,14 +1,14 @@
 using UnityEngine;
 
-public class Possessable : MonoBehaviour, IPossessable
+public class Possessable : MonoBehaviour, IPossessable, ICollector
 {
+    [HideInInspector] public bool IsPossessedByPlayer = false;
+
     [SerializeField] private bool _dieOnUnPossess = true;
 
     private HoveringCreatureController _controller; //might need to make this an interface
     private IDamagable _healthSystem;
     
-    [HideInInspector] public bool IsPossessedByPlayer = false;
-
     void Awake()
     {
         _controller = GetComponent<HoveringCreatureController>();
@@ -18,7 +18,6 @@ public class Possessable : MonoBehaviour, IPossessable
     public void OnPossess(IInputSource inputSource, Parasite parasite)
     {
         _controller.OnPossess(inputSource, parasite);
-        gameObject.AddComponent<Collector>(); //TODO: feels like a weird way of doing things
         IsPossessedByPlayer = true;
     }
 
@@ -30,6 +29,14 @@ public class Possessable : MonoBehaviour, IPossessable
         if (_dieOnUnPossess)
         {
             _healthSystem.ChangeHealth(-_healthSystem.CurrentHealth); //die
+        }
+    }
+
+    public void Collect(Collectable collectable)
+    {
+        if (IsPossessedByPlayer)
+        {
+            Debug.Log("Collected" + collectable);
         }
     }
 }

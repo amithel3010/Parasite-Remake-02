@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,8 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance;
 
     [SerializeField] private Image _healthBar;
+    [SerializeField] private Image _collectableTracker;
+    [SerializeField] private TextMeshPro _collectableText;
     [SerializeField] private Canvas _deathScreenCanvas;
 
     private void Awake()
@@ -27,8 +30,14 @@ public class UIManager : MonoBehaviour
         _healthBar.fillAmount = currentHealth / maxHealth;
     }
 
+    public void UpdateCollectableTracker(int collected, int total)
+    {
+        _collectableTracker.fillAmount = collected / total;
+        _collectableText.text = $"{collected} / {total}";
+    } 
+
     public void ShowGameOverScreen()
     {
-        _deathScreenCanvas.enabled = true;       
+        _deathScreenCanvas.enabled = true;
     }
 }

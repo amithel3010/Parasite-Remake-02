@@ -7,14 +7,26 @@ public class Collectable : MonoBehaviour
     //also, total amount in scene should be tracked somewhere
     //and collected amount
 
+
+    void OnEnable()
+    {
+        if (CollectableManager.Instance != null)
+        {
+            CollectableManager.Instance.InitCollectable(this);
+        }
+        else
+        {
+            Debug.LogWarning("Collectable manager instance is null when trying to init collectable");
+        }
+    }
+
     void OnTriggerEnter(Collider other)
     {
-        if (other.transform.parent.TryGetComponent<Collector>(out var collector))
+        if (other.transform.parent.TryGetComponent<ICollector>(out var collector))
         {
-
-            //collect
-            collector.OnCollecting(this);
-            Debug.Log($"{collector.name}" + " triggered" + this);
+            collector.Collect(this);
+            CollectableManager.Instance.MarkAsCollected(this);
+            Destroy(this.transform.parent.gameObject);
         }
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Parasite : MonoBehaviour
+public class Parasite : MonoBehaviour, ICollector
 {
     //will check downwards for possessables
     // if found, will possess
@@ -148,5 +148,10 @@ public class Parasite : MonoBehaviour
     private void TriggerPossessionCooldown()
     {
         StartCoroutine(PossessionCooldown());
+    }
+
+    public void Collect(Collectable collectable)
+    {
+        Debug.Log("Collected" + collectable);
     }
 }

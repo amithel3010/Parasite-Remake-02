@@ -17,6 +17,7 @@ public class CollectableManager : MonoBehaviour
 
     void Awake()
     {
+        Debug.Log("Collectable manager awake");
         if (Instance != null)
         {
             Debug.LogError("More than one Collectable manager in scene!");

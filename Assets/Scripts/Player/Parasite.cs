@@ -51,7 +51,7 @@ public class Parasite : MonoBehaviour, ICollector
             TryPossess();
         }
 
-        if (_playerInput.actionPressed)
+        if (_playerInput._actionPressed)
         {
             ExitPossessableOnActionPress();
         }

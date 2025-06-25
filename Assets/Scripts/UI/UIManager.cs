@@ -10,7 +10,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private Image _healthBar;
     [SerializeField] private Image _collectableTracker;
-    //[SerializeField] private TextMeshPro _collectableText;
+    [SerializeField] private TMP_Text _collectableText;
     [SerializeField] private Canvas _deathScreenCanvas;
 
     private void Awake()
@@ -34,7 +34,7 @@ public class UIManager : MonoBehaviour
     {
         _collectableTracker.fillAmount = (float)collected / total;
         Debug.Log(_collectableTracker.fillAmount);
-        //_collectableText.text = $"{collected} / {total}";
+        _collectableText.text = $"{collected} / {total}";
     } 
 
     public void ShowGameOverScreen()

@@ -36,6 +36,7 @@ public class Possessable : MonoBehaviour, IPossessable, ICollector
     {
         if (IsPossessedByPlayer)
         {
+            //TODO: Vfx and Sfx
             Debug.Log("Collected" + collectable);
         }
     }

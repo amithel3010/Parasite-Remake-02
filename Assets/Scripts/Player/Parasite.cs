@@ -152,6 +152,7 @@ public class Parasite : MonoBehaviour, ICollector
 
     public void Collect(Collectable collectable)
     {
+        //TODO: vfx and sfx
         Debug.Log("Collected" + collectable);
     }
 }

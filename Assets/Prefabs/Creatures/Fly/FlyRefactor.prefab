@@ -32,7 +32,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4087430175363014747}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.55, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -80,6 +80,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b847e50e90c04cf9862c55cd2033385, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsPossessedByPlayer: 0
+  _dieOnUnPossess: 1
 --- !u!114 &5566598432016288372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,13 +149,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8b1a18bb84a94233a30a418b044339a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hitDirForce: 30
-  _constForce: 5
+  _hitDirForce: 8
+  _constForce: 6
   _inputForce: 0
-  _timer: 0.5
+  _timer: 0.3
   _constForceScaleFromDot:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: -1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0
+      value: 1.3
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4

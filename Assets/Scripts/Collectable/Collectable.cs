@@ -16,7 +16,7 @@ public class Collectable : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Collectable manager instance is null when trying to init collectable");
+            Debug.LogError("Collectable manager instance is null when trying to init collectable");
         }
     }
 

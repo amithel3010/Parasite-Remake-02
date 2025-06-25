@@ -2,11 +2,13 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Parasite : MonoBehaviour
+public class Parasite : MonoBehaviour, ICollector
 {
     //will check downwards for possessables
     // if found, will possess
     //when possess, stop checking disable hover script, and give reference to player input
+
+    //TODO: will be easier to handle if it became the parent of possessed creature and not the other way around...
 
     [Header("Raycast")]
     [SerializeField] private LayerMask _possessableLayer;
@@ -48,6 +50,11 @@ public class Parasite : MonoBehaviour
         {
             TryPossess();
         }
+
+        if (_playerInput.actionPressed)
+        {
+            ExitPossessableOnActionPress();
+        }
     }
 
     private void TryPossess()
@@ -75,7 +82,7 @@ public class Parasite : MonoBehaviour
                 _rb.detectCollisions = false;
                 _movementScript.enabled = false;
                 _gfx.SetActive(false);
-                transform.SetParent(_currentlyPossessedTransform); //TODO:isn't it weird that the child is controlling the parent?
+                //transform.SetParent(_currentlyPossessedTransform); //TODO:isn't it weird that the child is controlling the parent?
 
                 _currentlyPossessed.OnPossess(_playerInput, this);
                 _canPossess = false;
@@ -88,21 +95,28 @@ public class Parasite : MonoBehaviour
     {
         if (_currentlyPossessed == null) return;
 
+        Vector3 targetExitPosition = _currentlyPossessedTransform != null
+               ? _currentlyPossessedTransform.position + Vector3.up * 1.5f
+               : transform.position;
         _currentlyPossessed.OnUnPossess();
-        _currentlyPossessed = null;
 
         if (_currentlyPossessedHealthSystem != null)
         {
             _currentlyPossessedHealthSystem.OnDeath -= StopPossessing;
-            _currentlyPossessedHealthSystem = null;
         }
 
-        this.transform.SetParent(null);
-        _gfx.SetActive(true);
+        _rb.position = targetExitPosition;
 
+        _currentlyPossessed = null;
+        _currentlyPossessedTransform = null;
+        _currentlyPossessedHealthSystem = null;
+
+
+        //this.transform.SetParent(null);
+
+        _gfx.SetActive(true);
         _rb.isKinematic = false;
         _rb.detectCollisions = true;
-
         _movementScript.enabled = true;
 
         _rb.AddForce(Vector3.up * _ejectForce, ForceMode.Impulse); //that's for exiting Possessable with height
@@ -119,8 +133,26 @@ public class Parasite : MonoBehaviour
 
     }
 
+    private void ExitPossessableOnActionPress()
+    {
+        if (_currentlyPossessed == null)
+        {
+            Debug.Log("Action pressed, but player is controlling parasite");
+        }
+        else
+        {
+            StopPossessing();
+        }
+    }
+
     private void TriggerPossessionCooldown()
     {
         StartCoroutine(PossessionCooldown());
+    }
+
+    public void Collect(Collectable collectable)
+    {
+        //TODO: vfx and sfx
+        Debug.Log("Collected" + collectable);
     }
 }

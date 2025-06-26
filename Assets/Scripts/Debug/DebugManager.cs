@@ -24,12 +24,12 @@ public class DebugManager : MonoBehaviour
 
     public void SpawnPossessable(GameObject PossessablePrefab)
     {
-        Instantiate(PossessablePrefab, _playerTransform.position + _playerTransform.forward * 3f, Quaternion.identity);
+        Instantiate(PossessablePrefab, _playerTransform.position + _playerTransform.forward * 3f, Quaternion.identity); //TODO: Change this to work with a Spawn Manager
     }
 
     public void ParasiteBecomesInvincible()
     {
-        _playerHealth.ToggleInvinciblity();
+        _playerHealth.ToggleInvincible();
     }
 
 }

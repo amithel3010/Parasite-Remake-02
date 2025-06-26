@@ -15,6 +15,7 @@ public class Health : MonoBehaviour, IDamagable
     [SerializeField] private float _maxHealth = 100f;
     [SerializeField] private float _iFramesDuration = 0.3f;
 
+    private bool _isInvincible = false;
     private float _currentHealth;
     private bool _isHittable = true;
 
@@ -29,7 +30,7 @@ public class Health : MonoBehaviour, IDamagable
 
     public void ChangeHealth(float amount)
     {
-        if (!_isHittable) return;
+        if (!_isHittable || _isInvincible) return;
 
         float oldHealth = _currentHealth;
         _currentHealth += amount;
@@ -65,18 +66,19 @@ public class Health : MonoBehaviour, IDamagable
         }
     }
 
-    public void ToggleInvinciblity()
+    public void ToggleInvincible()
     {
-        StopAllCoroutines();
-        _isHittable = !_isHittable;
-        if (_isHittable)
+        _isInvincible = !_isInvincible;
+        if (_isInvincible)
         {
             Debug.Log("Parasite is now INVINCIBLE");
         }
-        else if (!_isHittable)
+        else if (!_isInvincible)
         {
             Debug.Log("Parasite is now HITTABLE");
         }
     }
+
+
 
 }

@@ -6,18 +6,19 @@ public class DamageOnCollision : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        //print("Collided with" + other.gameObject.name);
+        if (!enabled) return; //TODO: seems not ideal
+
         GameObject DamageTarget = other.gameObject;
-        Vector3 hitDir = (other.transform.position - transform.position).normalized; //backwards?
+        Vector3 hitDir = (other.transform.position - transform.position).normalized;
 
         if (DamageTarget.TryGetComponent<IDamagable>(out IDamagable damagable))
         {
             damagable.ChangeHealth(-_damage);
             Debug.Log(this.name + " damaged " + damagable + " for" + _damage);
         }
+
         if (DamageTarget.TryGetComponent<KnockbackTest>(out KnockbackTest knockback))
         {
-            Debug.Log("Attempting to knockback");
             knockback.Knockback(hitDir, Vector3.up, Vector3.zero);
         }
     }

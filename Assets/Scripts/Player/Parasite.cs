@@ -81,7 +81,7 @@ public class Parasite : MonoBehaviour, ICollector
                 _movementScript.enabled = false;
                 _gfx.SetActive(false);
 
-                _currentlyPossessed.OnPossess(_playerInput, this);
+                _currentlyPossessed.OnPossess(_playerInput);
                 _canPossess = false;
 
             }

@@ -2,11 +2,12 @@ using UnityEngine;
 
 public class DebugManager : MonoBehaviour
 {
+    //TODO: a better approach would be with events and listeners.
+
     public static DebugManager Instance { get; private set; }
 
     [SerializeField] Transform _playerTransform;
-    [SerializeField] InputHandler _playerInput;
-    [SerializeField] Canvas DebugUI;
+    [SerializeField] Health _playerHealth;
     //[SerializeField] GameObject _PossessablePrefab;
 
     void Awake()
@@ -23,14 +24,12 @@ public class DebugManager : MonoBehaviour
 
     public void SpawnPossessable(GameObject PossessablePrefab)
     {
-        Instantiate(PossessablePrefab, _playerTransform.position + Vector3.forward * 3f, Quaternion.identity);
+        Instantiate(PossessablePrefab, _playerTransform.position + _playerTransform.forward * 3f, Quaternion.identity);
     }
 
-    private void ToggleDebugMenu(bool debugInputPressed)
+    public void ParasiteBecomesInvincible()
     {
-        if (debugInputPressed)
-        {
-
-        }
+        _playerHealth.ToggleInvinciblity();
     }
+
 }

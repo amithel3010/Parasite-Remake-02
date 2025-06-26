@@ -8,8 +8,6 @@ public class Parasite : MonoBehaviour, ICollector
     // if found, will possess
     //when possess, stop checking disable hover script, and give reference to player input
 
-    //TODO: will be easier to handle if it became the parent of possessed creature and not the other way around...
-
     [Header("Raycast")]
     [SerializeField] private LayerMask _possessableLayer;
     [SerializeField] private float _possessRayLength;
@@ -82,7 +80,6 @@ public class Parasite : MonoBehaviour, ICollector
                 _rb.detectCollisions = false;
                 _movementScript.enabled = false;
                 _gfx.SetActive(false);
-                //transform.SetParent(_currentlyPossessedTransform); //TODO:isn't it weird that the child is controlling the parent?
 
                 _currentlyPossessed.OnPossess(_playerInput, this);
                 _canPossess = false;

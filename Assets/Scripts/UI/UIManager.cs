@@ -18,6 +18,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Canvas _deathScreenCanvas;
     [SerializeField] private Canvas _DebugCanvas;
 
+    private bool _lastDebugPressed;
+
     private void Awake()
     {
         if (Instance != null)
@@ -32,10 +34,12 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        if (_playerInput._debugPressed)
+        if (_playerInput._debugPressed && !_lastDebugPressed)
         {
             ToggleDebugMenu();
         }
+
+        _lastDebugPressed = _playerInput._debugPressed;
     }
 
     public void UpdateHealthBar(float currentHealth, float maxHealth)
@@ -46,7 +50,6 @@ public class UIManager : MonoBehaviour
     public void UpdateCollectableTracker(int collected, int total)
     {
         _collectableTracker.fillAmount = (float)collected / total;
-        Debug.Log(_collectableTracker.fillAmount);
         _collectableText.text = $"{collected} / {total}";
     }
 
@@ -57,14 +60,6 @@ public class UIManager : MonoBehaviour
 
     private void ToggleDebugMenu()
     {
-        if (_DebugCanvas.enabled)
-        {
-            _DebugCanvas.enabled = false;
-        }
-
-        else if (_DebugCanvas.enabled == false)
-        {
-            _DebugCanvas.enabled = true; ;
-        }
+            _DebugCanvas.enabled = !_DebugCanvas.enabled;
     }
 }

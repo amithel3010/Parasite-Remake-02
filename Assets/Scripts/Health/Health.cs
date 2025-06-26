@@ -64,4 +64,19 @@ public class Health : MonoBehaviour, IDamagable
             _isHittable = true;
         }
     }
+
+    public void ToggleInvinciblity()
+    {
+        StopAllCoroutines();
+        _isHittable = !_isHittable;
+        if (_isHittable)
+        {
+            Debug.Log("Parasite is now INVINCIBLE");
+        }
+        else if (!_isHittable)
+        {
+            Debug.Log("Parasite is now HITTABLE");
+        }
+    }
+
 }

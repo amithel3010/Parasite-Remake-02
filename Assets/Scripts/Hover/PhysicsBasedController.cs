@@ -63,7 +63,7 @@ public class PhysicsBasedController : MonoBehaviour
 
     [Header("Other")]
     [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private float _knockbackForce = 400f; //TODO:Change knockback mechanic
+    [SerializeField] private float _knockbackForce = 400f;
 
     private void Awake()
     {
@@ -95,7 +95,6 @@ public class PhysicsBasedController : MonoBehaviour
             _timeSinceUngrounded += Time.fixedDeltaTime;
         }
 
-        //TODO: I would like to seperate HeightandUpright, and MovementAndJumping. wouldn't the order of fixed update be unpredictable?
         CharacterMove(_inputSource.MovementInput);
         CharacterJump(_inputSource.JumpPressed, groundRayHitInfo);
 
@@ -329,7 +328,7 @@ public class PhysicsBasedController : MonoBehaviour
     {
         Debug.Log("OnTakingDamage Invoked");
         //get knocked back...
-        //TODO: should probably find a way to calc hit vector, for now it's just testing if its working
+        //OLD KNOCKBACK TESTS!!!
         _RB.AddForce(-transform.forward * _knockbackForce, ForceMode.Impulse);
 
         //have limited control over movement??

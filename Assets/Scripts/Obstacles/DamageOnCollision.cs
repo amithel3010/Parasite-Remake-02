@@ -14,8 +14,6 @@ public class DamageOnCollision : MonoBehaviour
         {
             damagable.ChangeHealth(-_damage);
             Debug.Log(this.name + " damaged " + damagable + " for" + _damage);
-
-            //TODO: Knockback should happen here
         }
         if (DamageTarget.TryGetComponent<KnockbackTest>(out KnockbackTest knockback))
         {

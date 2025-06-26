@@ -17,7 +17,6 @@ public class CollectableManager : MonoBehaviour
 
     void Awake()
     {
-        Debug.Log("Collectable manager awake");
         if (Instance != null)
         {
             Debug.LogError("More than one Collectable manager in scene!");
@@ -42,9 +41,8 @@ public class CollectableManager : MonoBehaviour
 
         if (_collected.Add(collectable))
         {
-            //update UI?
+            //Update UI
             OnCollectionProgressChanged?.Invoke(TotalCollected, TotalCollecteblesInScene);
-            Debug.Log($"Collected {_collected.Count} out of {_allCollectables.Count}");
         }
     }
 }

@@ -18,6 +18,7 @@ public class HoveringCreatureController : MonoBehaviour
 
     private Rigidbody _rb;
     private IInputSource _inputSource;
+    private IInputSource _defaultInputSource;
 
     //TODO: currently coupled: 
     //1.ride height needs to be shared in hover and ground check
@@ -27,7 +28,9 @@ public class HoveringCreatureController : MonoBehaviour
 
     void Awake()
     {
-        _inputSource = GetComponent<IInputSource>();
+        
+        _defaultInputSource = GetComponent<IInputSource>();
+        _inputSource = _defaultInputSource;
         _rb = GetComponent<Rigidbody>();
         _knockback = GetComponent<KnockbackTest>();
         _hover = new MaintainHeightAndUpright(_rb, _hoverSettings);
@@ -69,14 +72,14 @@ public class HoveringCreatureController : MonoBehaviour
         return lookDir;
     }
 
-    public void OnPossess(IInputSource newInputSource, Parasite parasite)
+    public void OnPossess(IInputSource newInputSource)
     {
         _inputSource = newInputSource;
     }
 
     public void OnUnPossess()
     {
-        _inputSource = GetComponent<IInputSource>();
+        _inputSource = _defaultInputSource;
     }
 
     void OnValidate()

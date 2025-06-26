@@ -8,17 +8,25 @@ public class Possessable : MonoBehaviour, IPossessable, ICollector
 
     private HoveringCreatureController _controller; //might need to make this an interface
     private IDamagable _healthSystem;
-    
+
     void Awake()
     {
         _controller = GetComponent<HoveringCreatureController>();
         _healthSystem = GetComponent<IDamagable>();
     }
 
-    public void OnPossess(IInputSource inputSource, Parasite parasite)
+    public void OnPossess(IInputSource inputSource)
     {
-        _controller.OnPossess(inputSource, parasite);
+        _controller.OnPossess(inputSource);
         IsPossessedByPlayer = true;
+
+        if (TryGetComponent<DamageOnCollision>(out var damageOnCollision)) //could make a PossessoionSensitive interface to make it easier to enable and disable all scripts that are sensitive to player possession
+        {
+            if (damageOnCollision.enabled)
+            {
+                damageOnCollision.enabled = false;
+            }
+        }
     }
 
     public void OnUnPossess()
@@ -29,6 +37,16 @@ public class Possessable : MonoBehaviour, IPossessable, ICollector
         if (_dieOnUnPossess)
         {
             _healthSystem.ChangeHealth(-_healthSystem.CurrentHealth); //die
+        }
+        else
+        {
+            if (TryGetComponent<DamageOnCollision>(out var damageOnCollision))
+            {
+                if (!damageOnCollision.enabled)
+                {
+                    damageOnCollision.enabled = true;
+                }
+            }
         }
     }
 

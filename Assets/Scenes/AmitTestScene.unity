@@ -150,17 +150,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2050600658}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &37882365 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7510892294769881806, guid: 23329cf340e909449b98580ce733f260, type: 3}
-  m_PrefabInstance: {fileID: 2003455296}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &217411676
 GameObject:
   m_ObjectHideFlags: 0
@@ -3299,6 +3288,17 @@ Transform:
   - {fileID: 32006434}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2057592982 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8786126354895519419, guid: 23329cf340e909449b98580ce733f260, type: 3}
+  m_PrefabInstance: {fileID: 2003455296}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2106449621
 GameObject:
   m_ObjectHideFlags: 0
@@ -3656,7 +3656,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerInput: {fileID: 6952988163258591769}
-  _healthBar: {fileID: 37882365}
+  _healthBar: {fileID: 2057592982}
   _collectableTracker: {fileID: 560789311}
   _collectableText: {fileID: 1874086161}
   _deathScreenCanvas: {fileID: 960019819}

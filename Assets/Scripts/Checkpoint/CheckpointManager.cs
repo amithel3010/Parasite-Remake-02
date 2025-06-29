@@ -7,6 +7,10 @@ public class CheckpointManager : MonoBehaviour
     [SerializeField] Parasite _playerParasite;
     [SerializeField] private Transform _defaultRespawnPoint;
 
+    [Header("Debugging")]
+    [SerializeField] private Color _inactiveColor;
+    [SerializeField] private Color _activeColor;
+
     private Checkpoint _currentActiveCheckpoint;
 
     void Awake()
@@ -28,7 +32,12 @@ public class CheckpointManager : MonoBehaviour
 
     public void SetActiveCheckpoint(Checkpoint checkpoint)
     {
+        if (_currentActiveCheckpoint != null)
+        {
+            _currentActiveCheckpoint.SetInactive(_inactiveColor);
+        }
         Debug.Log("Set the current active checkpoint to" + checkpoint);
+        checkpoint.SetActive(_activeColor);
         _currentActiveCheckpoint = checkpoint;
     }
 

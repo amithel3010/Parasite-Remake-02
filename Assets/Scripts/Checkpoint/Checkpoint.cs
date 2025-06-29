@@ -10,10 +10,18 @@ public class Checkpoint : MonoBehaviour
 
     private bool _isActive = false;
 
-    private void OnTriggerEnter(Collider other)
+    [Header("Debugging")]
+    private Renderer _renderer;
+
+    void Awake()
+    {
+        _renderer = GetComponentInChildren<Renderer>();
+    }
+
+    public void OnTriggered(Collider other)
     {
         if (_isActive) return;
-        
+
         Parasite parasite = CheckpointManager.Instance.GetParasite();
         if (parasite.IsControlling(other.transform.parent.gameObject))
         {
@@ -22,8 +30,20 @@ public class Checkpoint : MonoBehaviour
         }
     }
 
+    public void SetActive(Color activeColor) //called from manager
+    {
+        _isActive = true;
+        _renderer.material.SetColor("_BaseColor", activeColor);
+    }
+
+    public void SetInactive(Color inactiveColor) // called from manager
+    {
+        _isActive = false;
+        _renderer.material.SetColor("_BaseColor", inactiveColor);
+    }
+
     public Vector3 GetRespawnPoint()
     {
-        return _respawnPoint != null ? _respawnPoint.position : transform.position; 
+        return _respawnPoint != null ? _respawnPoint.position : transform.position;
     }
 }

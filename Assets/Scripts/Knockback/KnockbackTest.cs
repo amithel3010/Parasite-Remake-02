@@ -13,6 +13,7 @@ public class KnockbackTest : MonoBehaviour
     [SerializeField] private AnimationCurve _constForceScaleFromDot;
 
     public bool IsKnockedBack;
+    public bool KnockbackEnabled = true;
 
     private Rigidbody _rb;
 
@@ -23,7 +24,7 @@ public class KnockbackTest : MonoBehaviour
 
     public void Knockback(Vector3 hitDir, Vector3 constForceDir, Vector3 inputDir)
     {
-        if (IsKnockedBack) return;
+        if (IsKnockedBack || !KnockbackEnabled) return;
 
         Vector3 hitForce;
         Vector3 scaledConstForce;

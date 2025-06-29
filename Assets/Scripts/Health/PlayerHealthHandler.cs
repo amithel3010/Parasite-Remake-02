@@ -3,10 +3,12 @@ using UnityEngine;
 public class PlayerHealthHandler : MonoBehaviour
 {
     private IDamagable _health;
+    private KnockbackTest _knockback; //TODO: this feels coupled. i use this to disable knockback on death
 
     void Awake()
     {
         _health = GetComponent<IDamagable>();
+        _knockback = GetComponent<KnockbackTest>();
     }
 
     void OnEnable()
@@ -26,6 +28,7 @@ public class PlayerHealthHandler : MonoBehaviour
         Debug.Log("Player Died!");
         //play animation,
         //stop control,
+        _knockback.KnockbackEnabled = false;
         //show game over screen
         GameManager.Instance.GameOver();
     }
@@ -36,5 +39,10 @@ public class PlayerHealthHandler : MonoBehaviour
         //play animation
         //mostly visual stuff
         //Knockback happens in attacker
+    }
+
+    public void HandleRespawn() //TODO: called in respawn in game manager, is this fine?
+    {
+        _knockback.KnockbackEnabled = true;
     }
 }

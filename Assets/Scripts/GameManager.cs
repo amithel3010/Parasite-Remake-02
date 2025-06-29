@@ -4,7 +4,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    [SerializeField] private Health _playerHealth; //TODO: can't be interface, is thi sthe right way to do it?
+    [SerializeField] private PlayerHealthHandler _playerHealthHandler; //TODO: can't be interface, is thi sthe right way to do it?
 
     private bool _isPaused;
     public bool IsPaused => _isPaused;
@@ -39,7 +39,8 @@ public class GameManager : MonoBehaviour
     public void Restart()
     {
         Time.timeScale = 1f;
-        _playerHealth.ResetHealth();
+        CheckpointManager.Instance.RespawnParasite();
+        _playerHealthHandler.HandleRespawn();
         _isPaused = false;
     }
 

@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Parasite : MonoBehaviour, ICollector
 {
+    //TODO: maybe should be a singleton?
+
+    //TODO: on death, should probably disable movement script.
+
     //will check downwards for possessables
     // if found, will possess
     //when possess, stop checking disable hover script, and give reference to player input
@@ -151,5 +155,31 @@ public class Parasite : MonoBehaviour, ICollector
     {
         //TODO: vfx and sfx
         Debug.Log("Collected" + collectable);
+    }
+
+    public bool IsControlling(GameObject obj)
+    {
+        //is the parasite controlling this object?
+        if (obj == this.gameObject) return true; //the object is the parrasite itself
+
+        if (_currentlyPossessedTransform != null && _currentlyPossessedTransform.gameObject == obj)
+            return true;
+
+        return false;
+    }
+
+    public void RespawnAt(Vector3 respawnPos)
+    {
+        //reset position and velocity. I wonder if this could cause problems...
+        _rb.linearVelocity = Vector3.zero;
+        _rb.angularVelocity = Vector3.zero;
+        _rb.position = respawnPos;
+
+        _movementScript.enabled = true;
+        _gfx.SetActive(true);
+        _rb.isKinematic = false;
+        _rb.detectCollisions = true;
+
+        _parasiteHealth.ResetHealth();
     }
 }

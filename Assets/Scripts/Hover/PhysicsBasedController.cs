@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class PhysicsBasedController : MonoBehaviour
 {
     //Keeps Gameobject hovering at a certain ride height using a dampened spring
@@ -11,6 +12,7 @@ public class PhysicsBasedController : MonoBehaviour
     [SerializeField] private Vector3 DownDir = Vector3.down; //I have no idea what this is used for
 
     private Rigidbody _RB;
+    private IDamagable _healthSystem;
     private IInputSource _inputSource;
     private Vector3 _previousVelocity = Vector3.zero; //I Would have never thought of this
     public Parasite _parasitePossessing;
@@ -23,8 +25,8 @@ public class PhysicsBasedController : MonoBehaviour
 
     //movement private vars
     private Vector3 m_GoalDirFromInput; //just input, why is it a member?
-    private float m_speedFactor = 1f;
-    private float m_maxAccelForceFactor = 1f;
+    private float m_speedFactor = 1f; //Does nothing?
+    private float m_maxAccelForceFactor = 1f; //also does nothing?
     private Vector3 m_GoalVel = Vector3.zero;
 
     [Header("Movement")]
@@ -61,11 +63,18 @@ public class PhysicsBasedController : MonoBehaviour
 
     [Header("Other")]
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private float _knockbackForce = 400f;
 
     private void Awake()
     {
         _RB = GetComponent<Rigidbody>();
         _inputSource = GetComponent<IInputSource>();
+        TryGetComponent<IDamagable>(out _healthSystem);
+        if (_healthSystem != null)
+        {
+            _healthSystem.OnDamaged += OnTakingDamage;
+            _healthSystem.OnDeath += OnDeath;
+        }
     }
 
     void FixedUpdate()
@@ -96,9 +105,7 @@ public class PhysicsBasedController : MonoBehaviour
 
         Vector3 lookDirection = GetLookDirection();
         MaintainUpright(lookDirection);
-        //Maintain Upright
     }
-
 
     private void MaintainHeight(RaycastHit rayHit)
     {
@@ -305,11 +312,6 @@ public class PhysicsBasedController : MonoBehaviour
         _availableJumps = _maxJumps;
     }
 
-    // public void ChangeInputSource(IInputSource newInputSource)
-    // {
-    //     _inputSource = newInputSource;
-    // }
-
     public void OnPossess(IInputSource newInputSource, Parasite parasite)
     {
         _inputSource = newInputSource;
@@ -320,6 +322,31 @@ public class PhysicsBasedController : MonoBehaviour
     {
         _inputSource = GetComponent<IInputSource>();
         _parasitePossessing = null;
+    }
+
+    public void OnTakingDamage()
+    {
+        Debug.Log("OnTakingDamage Invoked");
+        //get knocked back...
+        //OLD KNOCKBACK TESTS!!!
+        _RB.AddForce(-transform.forward * _knockbackForce, ForceMode.Impulse);
+
+        //have limited control over movement??
+    }
+
+    public void OnDeath()
+    {
+        //if is parasite, game over...
+        if (_parasitePossessing == null)
+        {
+            GameManager.Instance.GameOver();
+        }
+        else
+        {
+            //if is possessing something, that something should die...
+            _parasitePossessing.StopPossessing();
+            Destroy(this.gameObject);
+        }
     }
 }
 

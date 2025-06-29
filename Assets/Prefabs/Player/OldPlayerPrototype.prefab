@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d3095350b17b54c7cb942eae5b0fd76d, type: 2}
+  - {fileID: 2100000, guid: b55b1fd0877a5488c93eb9cb9cbeb1f9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -187,8 +187,9 @@ GameObject:
   - component: {fileID: 8151919515377953311}
   - component: {fileID: 533763010982438043}
   - component: {fileID: 8416255941249463471}
+  - component: {fileID: 6078812210107905286}
   m_Layer: 0
-  m_Name: PlayerPrototype
+  m_Name: OldPlayerPrototype
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -310,6 +311,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
+  _knockbackForce: 250
 --- !u!54 &8151919515377953311
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -355,6 +357,7 @@ MonoBehaviour:
   jumpHeld: 0
   actionPressed: 0
   actionHeld: 0
+  action2Pressed: 0
   movementInput: {x: 0, y: 0}
 --- !u!114 &8416255941249463471
 MonoBehaviour:
@@ -372,9 +375,21 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   _possessRayLength: 1
-  _explosionForce: 50
+  _ejectForce: 50
   _possessionCooldown: 3
   _gfx: {fileID: 1797882618458479483}
+--- !u!114 &6078812210107905286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4799134120777256835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eacbd0515fe0a4a19aab6e1b073c552e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6828550944634921630
 GameObject:
   m_ObjectHideFlags: 0

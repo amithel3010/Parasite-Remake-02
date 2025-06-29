@@ -3,28 +3,32 @@ using UnityEngine;
 public class InputHandler : MonoBehaviour, IInputSource
 {
     //TODO: needs to always have ONLY 1 target. is there a way to make sure of that?
+    //maybe could be a singleton. also might not need to be on player.
 
-    public float horizontalInput;
-    public float verticalInput;
-    public bool jumpPressed;
-    public bool jumpHeld;
-    public bool actionPressed;
-    public bool actionHeld;
-    public Vector2 movementInput;
+    public float _horizontalInput;
+    public float _verticalInput;
+    public bool _jumpPressed;
+    public bool _jumpHeld;
+    public bool _actionPressed;
+    public bool _actionHeld;
+    public bool _action2Pressed;
+    public Vector2 _movementInputs;
+
+    public bool _debugPressed;
 
     bool readyToClear;
-    bool IInputSource.JumpPressed => jumpPressed;
-    bool IInputSource.JumpHeld => jumpHeld;
-    bool IInputSource.ActionPressed => actionPressed;
-    bool IInputSource.ActionHeld => actionHeld;
-    Vector2 IInputSource.MovementInput => movementInput;
+    bool IInputSource.JumpPressed => _jumpPressed;
+    bool IInputSource.JumpHeld => _jumpHeld;
+    bool IInputSource.ActionPressed => _actionPressed;
+    bool IInputSource.ActionHeld => _actionHeld;
+    bool IInputSource.Action2Pressed => _action2Pressed;
+    Vector2 IInputSource.MovementInput => _movementInputs;
 
     void Update()
     {
         ClearInputs();
 
         ProcessInputs();
-
     }
 
     private void FixedUpdate()
@@ -39,30 +43,37 @@ public class InputHandler : MonoBehaviour, IInputSource
             return;
         }
 
-        horizontalInput = 0f;
-        verticalInput = 0f;
-        jumpPressed = false;
-        jumpHeld = false;
-        actionPressed = false;
-        actionHeld = false;
+        _horizontalInput = 0f;
+        _verticalInput = 0f;
+        _jumpPressed = false;
+        _jumpHeld = false;
+        _actionPressed = false;
+        _actionHeld = false;
+        _action2Pressed = false;
+
+        _debugPressed = false;
 
         readyToClear = false;
     }
 
     private void ProcessInputs()
     {
-        horizontalInput += Input.GetAxisRaw("Horizontal");
-        verticalInput += Input.GetAxisRaw("Vertical");
+        _horizontalInput += Input.GetAxisRaw("Horizontal");
+        _verticalInput += Input.GetAxisRaw("Vertical");
 
-        jumpPressed = jumpPressed || Input.GetButtonDown("Jump");
-        jumpHeld = jumpHeld || Input.GetButton("Jump");
+        _jumpPressed = _jumpPressed || Input.GetButtonDown("Jump");
+        _jumpHeld = _jumpHeld || Input.GetButton("Jump");
 
-        actionPressed = actionPressed || Input.GetKeyDown(KeyCode.E);
-        actionHeld = actionHeld || Input.GetKey(KeyCode.E);
+        _actionPressed = _actionPressed || Input.GetKeyDown(KeyCode.E);
+        _actionHeld = _actionHeld || Input.GetKey(KeyCode.E);
 
-        horizontalInput = Mathf.Clamp(horizontalInput, -1f, 1f); //used to be in update is it ok here?
-        verticalInput = Mathf.Clamp(verticalInput, -1f, 1f);
+        _action2Pressed = _action2Pressed || Input.GetKeyDown(KeyCode.F);
 
-        movementInput = new Vector2(horizontalInput, verticalInput);
+        _debugPressed = _debugPressed || Input.GetKeyDown(KeyCode.Alpha0);
+
+        _horizontalInput = Mathf.Clamp(_horizontalInput, -1f, 1f); //used to be in update is it ok here?
+        _verticalInput = Mathf.Clamp(_verticalInput, -1f, 1f);
+
+        _movementInputs = new Vector2(_horizontalInput, _verticalInput);
     }
 }

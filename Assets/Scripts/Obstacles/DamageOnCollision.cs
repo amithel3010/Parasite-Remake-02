@@ -4,9 +4,11 @@ public class DamageOnCollision : MonoBehaviour
 {
     [SerializeField] float _damage = 25;
 
+    public bool ShouldDamageOnCollision = true; //TODO: seems not ideal
+
     private void OnCollisionEnter(Collision other)
     {
-        if (!enabled) return; //TODO: seems not ideal
+        if (!ShouldDamageOnCollision) return; 
 
         GameObject DamageTarget = other.gameObject;
         Vector3 hitDir = (other.transform.position - transform.position).normalized;

@@ -22,9 +22,9 @@ public class Possessable : MonoBehaviour, IPossessable, ICollector
 
         if (TryGetComponent<DamageOnCollision>(out var damageOnCollision)) //could make a PossessoionSensitive interface to make it easier to enable and disable all scripts that are sensitive to player possession
         {
-            if (damageOnCollision.enabled)
+            if (damageOnCollision.ShouldDamageOnCollision)
             {
-                damageOnCollision.enabled = false;
+                damageOnCollision.ShouldDamageOnCollision = false;
             }
         }
     }
@@ -42,9 +42,9 @@ public class Possessable : MonoBehaviour, IPossessable, ICollector
         {
             if (TryGetComponent<DamageOnCollision>(out var damageOnCollision))
             {
-                if (!damageOnCollision.enabled)
+                if (!damageOnCollision.ShouldDamageOnCollision)
                 {
-                    damageOnCollision.enabled = true;
+                    damageOnCollision.ShouldDamageOnCollision = true;
                 }
             }
         }

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aec25a5e25254b91a1038327858f8b7, type: 3}
   m_Name: BruteLocomotion
   m_EditorClassIdentifier: 
-  MaxSpeed: 4
-  Acceleration: 25
+  MaxSpeed: 3
+  Acceleration: 10
   MaxAccelForce: 150
   LeanFactor: 0.25
   AccelerationFactorFromDot:
@@ -84,6 +84,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   MoveForceScale: {x: 1, y: 0, z: 1}
   MaxJumps: 1
-  JumpHeight: 3
+  JumpHeight: 2
   JumpBuffer: 0.2
   CoyoteTime: 0.2
+  IsFlying: 0

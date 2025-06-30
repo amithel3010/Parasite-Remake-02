@@ -183,7 +183,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d3095350b17b54c7cb942eae5b0fd76d, type: 2}
+  - {fileID: 2100000, guid: 827c803e0cdfd461696fb32002f8d1cc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -285,14 +285,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b7b0a9cccdf7486e90a5351e8e8d5e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  horizontalInput: 0
-  verticalInput: 0
-  jumpPressed: 0
-  jumpHeld: 0
-  actionPressed: 0
-  actionHeld: 0
-  action2Pressed: 0
-  movementInput: {x: 0, y: 0}
+  _horizontalInput: 0
+  _verticalInput: 0
+  _jumpPressed: 0
+  _jumpHeld: 0
+  _actionPressed: 0
+  _actionHeld: 0
+  _action2Pressed: 0
+  _movementInputs: {x: 0, y: 0}
+  _debugPressed: 0
 --- !u!114 &6354353778507984303
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -417,6 +418,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   IsKnockedBack: 0
+  KnockbackEnabled: 1
 --- !u!1 &9066669027506558875
 GameObject:
   m_ObjectHideFlags: 0

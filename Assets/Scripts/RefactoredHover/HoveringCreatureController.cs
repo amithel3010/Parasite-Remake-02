@@ -28,7 +28,7 @@ public class HoveringCreatureController : MonoBehaviour
 
     void Awake()
     {
-        
+
         _defaultInputSource = GetComponent<IInputSource>();
         _inputSource = _defaultInputSource;
         _rb = GetComponent<Rigidbody>();
@@ -40,7 +40,7 @@ public class HoveringCreatureController : MonoBehaviour
 
     void Start()
     {
-        if (_inputSource == null )
+        if (_inputSource == null)
         {
             Debug.Log("Missing Input Source");
         }
@@ -51,9 +51,20 @@ public class HoveringCreatureController : MonoBehaviour
     {
         _groundChecker?.Tick();
 
-        if (_enableMovement && !_knockback.IsKnockedBack)
+        if (_enableMovement)
         {
-            _locomotion?.Tick(_inputSource.MovementInput, _inputSource.JumpPressed, _groundChecker);
+            //TODO: must be a cleaner way to check if knockback is null
+            if (_knockback != null)
+            {
+                if (!_knockback.IsKnockedBack)
+                {
+                    _locomotion?.Tick(_inputSource.MovementInput, _inputSource.JumpPressed, _groundChecker);
+                }
+            }
+            else if (_knockback == null)
+            {
+                _locomotion?.Tick(_inputSource.MovementInput, _inputSource.JumpPressed, _groundChecker);
+            }
         }
 
         Vector3 lookDir = GetLookDir();

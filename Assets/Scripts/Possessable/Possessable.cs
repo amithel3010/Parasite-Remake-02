@@ -17,6 +17,7 @@ public class Possessable : MonoBehaviour, IPossessable, ICollector
 
     public void OnPossess(IInputSource inputSource)
     {
+        //for each possession sesitive component, OnPossess
         _controller.OnPossess(inputSource);
         IsPossessedByPlayer = true;
 

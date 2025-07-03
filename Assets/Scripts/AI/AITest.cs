@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class AITest : MonoBehaviour, IInputSource
 {
+    [SerializeField] bool _action2Pressed = false;
+
     public bool JumpPressed => false;
 
     public bool JumpHeld => false;
@@ -10,7 +12,7 @@ public class AITest : MonoBehaviour, IInputSource
 
     public bool ActionHeld => false;
 
-    public bool Action2Pressed => false;
+    public bool Action2Pressed => _action2Pressed;
 
     public Vector2 MovementInput => Vector2.zero;
 

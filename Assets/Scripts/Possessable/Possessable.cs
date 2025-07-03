@@ -1,6 +1,7 @@
+using System;
 using UnityEngine;
 
-public class Possessable : MonoBehaviour, IPossessable, ICollector
+public class Possessable : MonoBehaviour, ICollector
 {
     [HideInInspector] public bool IsPossessedByPlayer = false;
 
@@ -8,6 +9,9 @@ public class Possessable : MonoBehaviour, IPossessable, ICollector
 
     private HoveringCreatureController _controller; //might need to make this an interface
     private IDamagable _healthSystem;
+
+    public event Action<IInputSource> Possessed;
+    public event Action UnPossessed;
 
     void Awake()
     {
@@ -17,17 +21,19 @@ public class Possessable : MonoBehaviour, IPossessable, ICollector
 
     public void OnPossess(IInputSource inputSource)
     {
-        //for each possession sesitive component, OnPossess
+        //for each possession sesitive component on this game object, OnPossess
         _controller.OnPossess(inputSource);
         IsPossessedByPlayer = true;
 
-        if (TryGetComponent<DamageOnCollision>(out var damageOnCollision)) //could make a PossessoionSensitive interface to make it easier to enable and disable all scripts that are sensitive to player possession
-        {
-            if (damageOnCollision.ShouldDamageOnCollision)
-            {
-                damageOnCollision.ShouldDamageOnCollision = false;
-            }
-        }
+        Possessed?.Invoke(inputSource);
+
+        // if (TryGetComponent<DamageOnCollision>(out var damageOnCollision)) //could make a PossessoionSensitive interface to make it easier to enable and disable all scripts that are sensitive to player possession
+        // {
+        //     if (damageOnCollision.ShouldDamageOnCollision)
+        //     {
+        //         damageOnCollision.ShouldDamageOnCollision = false;
+        //     }
+        // }
     }
 
     public void OnUnPossess()
@@ -41,13 +47,14 @@ public class Possessable : MonoBehaviour, IPossessable, ICollector
         }
         else
         {
-            if (TryGetComponent<DamageOnCollision>(out var damageOnCollision))
-            {
-                if (!damageOnCollision.ShouldDamageOnCollision)
-                {
-                    damageOnCollision.ShouldDamageOnCollision = true;
-                }
-            }
+            UnPossessed?.Invoke();
+            // if (TryGetComponent<DamageOnCollision>(out var damageOnCollision))
+            // {
+            //     if (!damageOnCollision.ShouldDamageOnCollision)
+            //     {
+            //         damageOnCollision.ShouldDamageOnCollision = true;
+            //     }
+            // }
         }
     }
 

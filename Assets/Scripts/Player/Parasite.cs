@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Parasite : MonoBehaviour, ICollector
 {
+    //assumes haveing Health, rigidbody, hover controller, input handler.
+    
     //TODO: maybe should be a singleton?
 
     //TODO: on death, should probably disable movement script.
@@ -25,11 +27,10 @@ public class Parasite : MonoBehaviour, ICollector
 
     private bool _canPossess = true;
 
-    private IPossessable _currentlyPossessed;
+    private Possessable _currentlyPossessed;
     private Transform _currentlyPossessedTransform;
     private IDamagable _currentlyPossessedHealthSystem;
 
-    //private PhysicsBasedController _movementScript;
     private HoveringCreatureController _movementScript; //coupled... hard to change
 
     private InputHandler _playerInput;
@@ -48,7 +49,7 @@ public class Parasite : MonoBehaviour, ICollector
 
     void FixedUpdate()
     {
-        if (_currentlyPossessed == null && _canPossess && _rb.linearVelocity.y < -0.5f)
+        if (_currentlyPossessed == null && _canPossess && _rb.linearVelocity.y < -0.2f)
         {
             TryPossess();
         }
@@ -66,11 +67,11 @@ public class Parasite : MonoBehaviour, ICollector
         {
             Debug.Log("Trying to possess" + hitInfo.transform.name);
 
-            IPossessable target = hitInfo.transform.GetComponent<IPossessable>();
+            Possessable target = hitInfo.transform.GetComponent<Possessable>();
             if (target != null)
             {
                 _currentlyPossessed = target;
-                _currentlyPossessedTransform = hitInfo.transform;
+                _currentlyPossessedTransform = target.transform;
 
                 _currentlyPossessedHealthSystem = _currentlyPossessedTransform.GetComponent<IDamagable>();
                 if (_currentlyPossessedHealthSystem != null)
@@ -78,14 +79,14 @@ public class Parasite : MonoBehaviour, ICollector
                     _currentlyPossessedHealthSystem.OnDeath += StopPossessing;
                 }
 
-                _parasiteHealth.ResetHealth();
+                _parasiteHealth.ResetHealth(); // on possess reset health
 
                 _rb.isKinematic = true;
                 _rb.detectCollisions = false;
                 _movementScript.enabled = false;
                 _gfx.SetActive(false);
 
-                _currentlyPossessed.OnPossess(_playerInput);
+                _currentlyPossessed.OnPossess(_playerInput); // on possess update input
                 _canPossess = false;
 
             }
@@ -180,6 +181,6 @@ public class Parasite : MonoBehaviour, ICollector
         _rb.isKinematic = false;
         _rb.detectCollisions = true;
 
-        _parasiteHealth.ResetHealth();
+        _parasiteHealth.ResetHealth(); //maybe event? ONRESPAWN?
     }
 }

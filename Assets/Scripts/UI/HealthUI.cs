@@ -2,21 +2,21 @@ using UnityEngine;
 
 public class HealthUI : MonoBehaviour
 {
-    private IDamagable _healthSystem;
+    private Health _health;
 
     void Awake()
     {
-        _healthSystem = GetComponent<IDamagable>();
+        _health = GetComponent<Health>();
     }
 
     void OnEnable()
     {
-        _healthSystem.OnHealthChanged += UpdateHealthBar;
+        _health.OnHealthChanged += UpdateHealthBar;
     }
 
     void OnDisable() //not sure why i would ever disable this but i guess this is good practice
     {
-        _healthSystem.OnHealthChanged -= UpdateHealthBar;
+        _health.OnHealthChanged -= UpdateHealthBar;
     }
 
     private void UpdateHealthBar(float current, float max)

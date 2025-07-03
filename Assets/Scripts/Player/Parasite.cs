@@ -5,10 +5,8 @@ using UnityEngine;
 public class Parasite : MonoBehaviour, ICollector
 {
     //assumes haveing Health, rigidbody, hover controller, input handler.
-    
-    //TODO: maybe should be a singleton?
 
-    //TODO: on death, should probably disable movement script.
+    //TODO: maybe should be a singleton?
 
     //will check downwards for possessables
     // if found, will possess
@@ -18,7 +16,7 @@ public class Parasite : MonoBehaviour, ICollector
     [SerializeField] private LayerMask _possessableLayer;
     [SerializeField] private float _possessRayLength;
 
-    [Header("Possession")]
+    [Header("On UnPossession")]
     [SerializeField] private float _ejectForce = 50f;
     [SerializeField] private float _possessionCooldown = 3f;
 
@@ -29,20 +27,20 @@ public class Parasite : MonoBehaviour, ICollector
 
     private Possessable _currentlyPossessed;
     private Transform _currentlyPossessedTransform;
-    private IDamagable _currentlyPossessedHealthSystem;
+    private Health _currentlyPossessedHealthSystem;
 
     private HoveringCreatureController _movementScript; //coupled... hard to change
 
     private InputHandler _playerInput;
     private Rigidbody _rb;
-    private IDamagable _parasiteHealth;
+    private Health _parasiteHealth;
 
     void Awake()
     {
         _movementScript = GetComponent<HoveringCreatureController>();
         _playerInput = GetComponent<InputHandler>();
         _rb = GetComponent<Rigidbody>();
-        _parasiteHealth = GetComponent<IDamagable>();
+        _parasiteHealth = GetComponent<Health>();
 
         _parasiteHealth.OnDamaged += TriggerPossessionCooldown; //TODO: this feels wrong
     }
@@ -73,7 +71,7 @@ public class Parasite : MonoBehaviour, ICollector
                 _currentlyPossessed = target;
                 _currentlyPossessedTransform = target.transform;
 
-                _currentlyPossessedHealthSystem = _currentlyPossessedTransform.GetComponent<IDamagable>();
+                _currentlyPossessedHealthSystem = _currentlyPossessedTransform.GetComponent<Health>();
                 if (_currentlyPossessedHealthSystem != null)
                 {
                     _currentlyPossessedHealthSystem.OnDeath += StopPossessing;
@@ -122,15 +120,15 @@ public class Parasite : MonoBehaviour, ICollector
         _movementScript.enabled = true;
 
         _rb.AddForce(Vector3.up * _ejectForce, ForceMode.Impulse); //that's for exiting Possessable with height
-        StartCoroutine(PossessionCooldown());
+        StartCoroutine(PossessionCooldown(_possessionCooldown));
     }
 
-    private IEnumerator PossessionCooldown()
+    private IEnumerator PossessionCooldown(float CooldownDuration)
     {
         if (_canPossess == true)
             _canPossess = false;
 
-        yield return new WaitForSeconds(_possessionCooldown);
+        yield return new WaitForSeconds(CooldownDuration);
         _canPossess = true;
 
     }
@@ -147,15 +145,14 @@ public class Parasite : MonoBehaviour, ICollector
         }
     }
 
-    private void TriggerPossessionCooldown()
+    private void TriggerPossessionCooldown(float CooldownDuration)
     {
-        StartCoroutine(PossessionCooldown());
+        StartCoroutine(PossessionCooldown(CooldownDuration));
     }
 
     public void Collect(Collectable collectable)
     {
-        //TODO: vfx and sfx
-        Debug.Log("Collected" + collectable);
+        CollectableManager.Instance.CollectCollectable(collectable);
     }
 
     public bool IsControlling(GameObject obj)

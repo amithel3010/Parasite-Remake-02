@@ -20,13 +20,11 @@ public class Collectable : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    public void OnTriggered(Collider other)
     {
         if (other.transform.parent.TryGetComponent<ICollector>(out var collector))
         {
             collector.Collect(this);
-            CollectableManager.Instance.MarkAsCollected(this); //TODO: doesn't this make more sense inside the collect function?
-            Destroy(this.transform.parent.gameObject);
         }
     }
 }

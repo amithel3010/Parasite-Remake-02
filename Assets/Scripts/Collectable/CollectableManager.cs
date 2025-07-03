@@ -35,7 +35,16 @@ public class CollectableManager : MonoBehaviour
         }
     }
 
-    public void MarkAsCollected(Collectable collectable)
+    public void CollectCollectable(Collectable collectable)
+    {
+        MarkAsCollected(collectable);
+        Destroy(collectable.gameObject);
+
+        // Vfx and Sfx
+        Debug.Log("Collected" + collectable);
+    }
+
+    private void MarkAsCollected(Collectable collectable)
     {
         //should I remove it from _allCollectibles?
 
@@ -45,4 +54,5 @@ public class CollectableManager : MonoBehaviour
             OnCollectionProgressChanged?.Invoke(TotalCollected, TotalCollecteblesInScene);
         }
     }
+
 }

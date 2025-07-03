@@ -23,7 +23,7 @@ public class Checkpoint : MonoBehaviour
         if (_isActive) return;
 
         Parasite parasite = CheckpointManager.Instance.GetParasite();
-        if (parasite.IsControlling(other.transform.parent.gameObject))
+        if (parasite.IsControlling(other.transform.parent.gameObject)) //TODO: player control check should be in game manager i think
         {
             Debug.Log("Checkpoint triggered by" + other.transform.parent.gameObject.name);
             CheckpointManager.Instance.SetActiveCheckpoint(this);

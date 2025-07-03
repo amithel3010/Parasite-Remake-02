@@ -51,7 +51,6 @@ public class KnockbackTest : MonoBehaviour
         }
 
         Vector3 finalForce = combinedForce * _rb.mass;
-        print(finalForce);
 
         StartCoroutine(TriggerKnockbackCooldown());
         _rb.AddForce(finalForce, ForceMode.Impulse);

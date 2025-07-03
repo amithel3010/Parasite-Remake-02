@@ -39,7 +39,7 @@ public class BrutePunch : MonoBehaviour
 
             foreach (var hit in hits)
             {
-                if (hit.transform.parent.gameObject.TryGetComponent<IDamagable>(out IDamagable health))
+                if (hit.transform.parent.gameObject.TryGetComponent<Health>(out Health health))
                 {
                     Debug.Log("Damaged" + hit.gameObject.name);
                     health.ChangeHealth(-_damage);

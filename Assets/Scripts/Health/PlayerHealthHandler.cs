@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class PlayerHealthHandler : MonoBehaviour
 {
-    private IDamagable _health;
+    private Health _health;
     private KnockbackTest _knockback; //TODO: this feels coupled. i use this to disable knockback on death
 
     //on hit Iframes, visual flickering, cant possess take the same time
 
     void Awake()
     {
-        _health = GetComponent<IDamagable>();
+        _health = GetComponent<Health>();
         _knockback = GetComponent<KnockbackTest>();
     }
 
@@ -39,6 +39,7 @@ public class PlayerHealthHandler : MonoBehaviour
     {
         Debug.Log("player got hit");
         //play animation
+        //TODO: visual indication for IFRAMES
         //mostly visual stuff
         //Knockback happens in attacker
     }

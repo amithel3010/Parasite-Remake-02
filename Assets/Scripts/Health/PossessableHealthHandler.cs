@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class PossessableHealthHandler : MonoBehaviour
 {
-    private IDamagable _health;
+    private Health _health;
 
     void Awake()
     {
-        _health = GetComponent<IDamagable>();
+        _health = GetComponent<Health>();
 
         _health.OnDamaged += HandleDamage;
         _health.OnDeath += HandleDeath;

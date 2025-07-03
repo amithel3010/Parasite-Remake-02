@@ -24,10 +24,10 @@ public class DamageOnCollision : MonoBehaviour
         GameObject DamageTarget = other.gameObject;
         Vector3 hitDir = (other.transform.position - transform.position).normalized;
 
-        if (DamageTarget.TryGetComponent<IDamagable>(out IDamagable damagable))
+        if (DamageTarget.TryGetComponent<Health>(out Health health))
         {
-            damagable.ChangeHealth(-_damage);
-            Debug.Log(this.name + " damaged " + damagable + " for" + _damage);
+            health.ChangeHealth(-_damage);
+            Debug.Log(this.name + " damaged " + health + " for" + _damage);
         }
 
         if (DamageTarget.TryGetComponent<KnockbackTest>(out KnockbackTest knockback))

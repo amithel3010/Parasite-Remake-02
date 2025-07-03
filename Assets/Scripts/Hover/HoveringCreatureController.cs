@@ -3,18 +3,19 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class HoveringCreatureController : MonoBehaviour
 {
-    [SerializeField] private HoverSettings _hoverSettings;
-    [SerializeField] private LocomotionSettings _locomotionSettings;
-    [SerializeField] private GroundCheckerSettings _groundCheckerSettings;
+    [SerializeField] private GroundCheckerSettings _groundCheckerSettings; //must
+    [SerializeField] private HoverSettings _hoverSettings; //must
+
+    [SerializeField] private LocomotionSettings _locomotionSettings; //only if it needs to move with input
 
     [SerializeField] private bool _enableHover;
     [SerializeField] private bool _enableMovement;
 
-    private MaintainHeightAndUpright _hover;
+    private GroundChecker _groundChecker; //must
+    private MaintainHeightAndUpright _hover; //must
     private Locomotion _locomotion;
-    private GroundChecker _groundChecker;
 
-    private KnockbackTest _knockback;
+    private KnockbackTest _knockback; //feels wrong
 
     private Rigidbody _rb;
     private IInputSource _inputSource;
@@ -28,9 +29,9 @@ public class HoveringCreatureController : MonoBehaviour
 
     void Awake()
     {
-
         _defaultInputSource = GetComponent<IInputSource>();
         _inputSource = _defaultInputSource;
+        
         _rb = GetComponent<Rigidbody>();
         _knockback = GetComponent<KnockbackTest>();
         _hover = new MaintainHeightAndUpright(_rb, _hoverSettings);

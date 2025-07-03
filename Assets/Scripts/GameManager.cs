@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 
     private bool _isPaused;
     public bool IsPaused => _isPaused;
+
     //private enum GameState { Playing, Paused, GameOver }
     //private GameState currentGameState; 
 

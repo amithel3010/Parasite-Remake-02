@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 
-public class Health : MonoBehaviour, IDamagable
+public class Health : MonoBehaviour
 {
     //class responsible for managing a creature health
     //creature with health can: take damage, heal and die
@@ -66,7 +66,7 @@ public class Health : MonoBehaviour, IDamagable
         }
     }
 
-    public void ToggleInvincible()
+    public void ToggleInvincible() // for debugging
     {
         _isInvincible = !_isInvincible;
         if (_isInvincible)

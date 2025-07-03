@@ -5,7 +5,7 @@ using UnityEngine;
 public class Parasite : MonoBehaviour, ICollector
 {
     //assumes haveing Health, rigidbody, hover controller, input handler.
-    
+
     //TODO: maybe should be a singleton?
 
     //TODO: on death, should probably disable movement script.
@@ -29,20 +29,20 @@ public class Parasite : MonoBehaviour, ICollector
 
     private Possessable _currentlyPossessed;
     private Transform _currentlyPossessedTransform;
-    private IDamagable _currentlyPossessedHealthSystem;
+    private Health _currentlyPossessedHealthSystem;
 
     private HoveringCreatureController _movementScript; //coupled... hard to change
 
     private InputHandler _playerInput;
     private Rigidbody _rb;
-    private IDamagable _parasiteHealth;
+    private Health _parasiteHealth;
 
     void Awake()
     {
         _movementScript = GetComponent<HoveringCreatureController>();
         _playerInput = GetComponent<InputHandler>();
         _rb = GetComponent<Rigidbody>();
-        _parasiteHealth = GetComponent<IDamagable>();
+        _parasiteHealth = GetComponent<Health>();
 
         _parasiteHealth.OnDamaged += TriggerPossessionCooldown; //TODO: this feels wrong
     }
@@ -73,7 +73,7 @@ public class Parasite : MonoBehaviour, ICollector
                 _currentlyPossessed = target;
                 _currentlyPossessedTransform = target.transform;
 
-                _currentlyPossessedHealthSystem = _currentlyPossessedTransform.GetComponent<IDamagable>();
+                _currentlyPossessedHealthSystem = _currentlyPossessedTransform.GetComponent<Health>();
                 if (_currentlyPossessedHealthSystem != null)
                 {
                     _currentlyPossessedHealthSystem.OnDeath += StopPossessing;
@@ -154,8 +154,7 @@ public class Parasite : MonoBehaviour, ICollector
 
     public void Collect(Collectable collectable)
     {
-        //TODO: vfx and sfx
-        Debug.Log("Collected" + collectable);
+        CollectableManager.Instance.CollectCollectable(collectable);
     }
 
     public bool IsControlling(GameObject obj)

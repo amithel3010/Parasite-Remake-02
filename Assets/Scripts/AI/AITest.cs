@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class AITest : MonoBehaviour, IInputSource
 {
-    [SerializeField] bool _action2Pressed = false;
+    [SerializeField] bool _action2Pressed = false; //for debugging
 
     public bool JumpPressed => false;
 

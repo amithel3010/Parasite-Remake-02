@@ -40,7 +40,7 @@ public class CollectableManager : MonoBehaviour
         MarkAsCollected(collectable);
         Destroy(collectable.gameObject);
 
-        //TODO: Vfx and Sfx
+        // Vfx and Sfx
         Debug.Log("Collected" + collectable);
     }
 

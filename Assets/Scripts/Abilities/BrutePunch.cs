@@ -54,7 +54,7 @@ public class BrutePunch : MonoBehaviour
         }
     }
 
-    public void OnPossess(IInputSource newInputSource) //TODO: maybe change to a possession sesitive listener
+    public void OnPossess(IInputSource newInputSource)
     {
         _inputSource = newInputSource;
     }

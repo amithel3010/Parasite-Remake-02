@@ -3,6 +3,10 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class HoveringCreatureController : MonoBehaviour
 {
+    //TODO: refactoring idea: Ground Checker and Hover will be one component. locomotion will be antoher. locomotion will use groundchecker settings for checks and stuff.
+    //then, only locomotion will need to know about knockback status.
+    //should maintain height will be effected by locomotion.
+
     [SerializeField] private GroundCheckerSettings _groundCheckerSettings; //must
     [SerializeField] private HoverSettings _hoverSettings; //must
 
@@ -15,7 +19,7 @@ public class HoveringCreatureController : MonoBehaviour
     private MaintainHeightAndUpright _hover; //must
     private Locomotion _locomotion;
 
-    private KnockbackTest _knockback; //feels wrong
+    private KnockbackTest _knockback; //TODO: NOTGOOD! not every hovering creature will have knockback
 
     private Rigidbody _rb;
     private IInputSource _inputSource;
@@ -31,12 +35,12 @@ public class HoveringCreatureController : MonoBehaviour
     {
         _defaultInputSource = GetComponent<IInputSource>();
         _inputSource = _defaultInputSource;
-        
+
         _rb = GetComponent<Rigidbody>();
         _knockback = GetComponent<KnockbackTest>();
+        _groundChecker = new GroundChecker(_rb, _groundCheckerSettings, _hoverSettings);
         _hover = new MaintainHeightAndUpright(_rb, _hoverSettings);
         _locomotion = new Locomotion(_rb, _locomotionSettings);
-        _groundChecker = new GroundChecker(_rb, _groundCheckerSettings, _hoverSettings);
     }
 
     void Start()

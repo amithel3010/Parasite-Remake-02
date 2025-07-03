@@ -8,7 +8,7 @@ public class Health : MonoBehaviour
     //creature with health can: take damage, heal and die
     //should also update UI if relevant
 
-    public event Action<float, float> OnHealthChanged; //TODO: watch pavel's lesson on events
+    public event Action<float, float> OnHealthChanged;
     public event Action OnDamaged;
     public event Action OnDeath;
 

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Threading;
 using UnityEditor.ShaderGraph;
 using UnityEngine;
 
@@ -8,11 +10,15 @@ public class BrutePunch : MonoBehaviour
     private IInputSource _defaultInputSource;
     private Possessable _possessable;
 
-    [SerializeField] private float _hitboxRadius;
-    [SerializeField] Transform _punchOrigin;
-    [SerializeField] float _damage;
+    [SerializeField] private float _damage;
+    [SerializeField] private float _hitboxRadius = 1;
+    [SerializeField] private float _duration = 0.2f;
+    [SerializeField] private Transform _punchOrigin;
 
     private bool _isPunching;
+    private bool _isActive;
+    private float _timer;
+    private HashSet<GameObject> _alreadyHit = new HashSet<GameObject>();
 
     void Awake()
     {
@@ -24,34 +30,47 @@ public class BrutePunch : MonoBehaviour
         _possessable.UnPossessed += OnUnpossess;
     }
 
-
-    //TODO: make overlap sphere show up in play mode.
-    //TODO: make overlapsphere be around fo rmore than 1 frame
     void FixedUpdate()
     {
-        _isPunching = false;
-
-        if (_inputSource.Action2Pressed)
+        if (_inputSource.Action2Pressed && !_isActive)
         {
-            Collider[] hits = Physics.OverlapSphere(_punchOrigin.position, _hitboxRadius); //sphere?
-            
-            _isPunching = true;
+            _isActive = true;
+            _timer = _duration;
+            _alreadyHit.Clear();
+        }
 
-            foreach (var hit in hits)
+        if (!_isActive) return;
+
+        _timer -= Time.deltaTime;
+        if (_timer <= 0f)
+        {
+            _isActive = false;
+            return;
+        }
+
+        Collider[] hits = Physics.OverlapSphere(_punchOrigin.position, _hitboxRadius); //sphere?
+
+        foreach (var hit in hits)
+        {
+            GameObject target = hit.gameObject;
+
+            if (target == gameObject || _alreadyHit.Contains(target)) continue;
+
+            _alreadyHit.Add(target);
+
+            if (hit.transform.parent.gameObject.TryGetComponent<Health>(out Health health))
             {
-                if (hit.transform.parent.gameObject.TryGetComponent<Health>(out Health health))
-                {
-                    Debug.Log("Damaged" + hit.gameObject.name);
-                    health.ChangeHealth(-_damage);
-                }
-                if (hit.transform.parent.gameObject.TryGetComponent<KnockbackTest>(out KnockbackTest knockback))
-                {
-                    Debug.Log("trying to knockback" + knockback.gameObject.name);
-                    Vector3 hitDir = hit.transform.position - _punchOrigin.position;
-                    knockback.Knockback(hitDir, Vector3.up, Vector3.zero);
-                }
+                Debug.Log("Damaged" + hit.gameObject.name);
+                health.ChangeHealth(-_damage);
+            }
+            if (hit.transform.parent.gameObject.TryGetComponent<KnockbackTest>(out KnockbackTest knockback))
+            {
+                Debug.Log("trying to knockback" + knockback.gameObject.name);
+                Vector3 hitDir = (hit.transform.position - _punchOrigin.position).normalized;
+                knockback.Knockback(hitDir, Vector3.up, Vector3.zero);
             }
         }
+
     }
 
     public void OnPossess(IInputSource newInputSource)
@@ -66,7 +85,7 @@ public class BrutePunch : MonoBehaviour
 
     void OnDrawGizmosSelected()
     {
-        if (_isPunching)
+        if (_isActive)
         {
             Gizmos.color = Color.red;
         }

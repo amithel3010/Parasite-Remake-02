@@ -8,8 +8,6 @@ public class Parasite : MonoBehaviour, ICollector
 
     //TODO: maybe should be a singleton?
 
-    //TODO: on death, should probably disable movement script.
-
     //will check downwards for possessables
     // if found, will possess
     //when possess, stop checking disable hover script, and give reference to player input
@@ -18,7 +16,7 @@ public class Parasite : MonoBehaviour, ICollector
     [SerializeField] private LayerMask _possessableLayer;
     [SerializeField] private float _possessRayLength;
 
-    [Header("Possession")]
+    [Header("On UnPossession")]
     [SerializeField] private float _ejectForce = 50f;
     [SerializeField] private float _possessionCooldown = 3f;
 
@@ -122,15 +120,15 @@ public class Parasite : MonoBehaviour, ICollector
         _movementScript.enabled = true;
 
         _rb.AddForce(Vector3.up * _ejectForce, ForceMode.Impulse); //that's for exiting Possessable with height
-        StartCoroutine(PossessionCooldown());
+        StartCoroutine(PossessionCooldown(_possessionCooldown));
     }
 
-    private IEnumerator PossessionCooldown()
+    private IEnumerator PossessionCooldown(float CooldownDuration)
     {
         if (_canPossess == true)
             _canPossess = false;
 
-        yield return new WaitForSeconds(_possessionCooldown);
+        yield return new WaitForSeconds(CooldownDuration);
         _canPossess = true;
 
     }
@@ -147,9 +145,9 @@ public class Parasite : MonoBehaviour, ICollector
         }
     }
 
-    private void TriggerPossessionCooldown()
+    private void TriggerPossessionCooldown(float CooldownDuration)
     {
-        StartCoroutine(PossessionCooldown());
+        StartCoroutine(PossessionCooldown(CooldownDuration));
     }
 
     public void Collect(Collectable collectable)

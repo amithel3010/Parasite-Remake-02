@@ -9,7 +9,8 @@ public class Health : MonoBehaviour
     //should also update UI if relevant
 
     public event Action<float, float> OnHealthChanged;
-    public event Action OnDamaged;
+    public event Action<float> OnDamaged;
+    public event Action OnFinshedIFrames;
     public event Action OnDeath;
 
     [SerializeField] private float _maxHealth = 100f;
@@ -40,7 +41,7 @@ public class Health : MonoBehaviour
 
         if (_currentHealth < oldHealth)
         {
-            OnDamaged?.Invoke();
+            OnDamaged?.Invoke(_iFramesDuration);
             _isHittable = false;
             StartCoroutine(IFrameCooldown());
         }
@@ -62,6 +63,7 @@ public class Health : MonoBehaviour
         if (_isHittable == false)
         {
             yield return new WaitForSeconds(_iFramesDuration);
+            OnFinshedIFrames?.Invoke();
             _isHittable = true;
         }
     }

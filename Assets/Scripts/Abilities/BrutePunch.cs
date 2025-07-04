@@ -15,6 +15,10 @@ public class BrutePunch : MonoBehaviour
     [SerializeField] private float _duration = 0.2f;
     [SerializeField] private Transform _punchOrigin;
 
+    [SerializeField] private bool _showHitboxInGame = true;
+    [SerializeField] private Material _debugMaterial; // A transparent material for visualization
+    [SerializeField] private Mesh _debugMesh; // Optional: default to a Sphere mesh
+
     private bool _isPunching;
     private bool _isActive;
     private float _timer;

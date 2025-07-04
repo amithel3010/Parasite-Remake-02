@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class DebugManager : MonoBehaviour
 {
-    //TODO: a better approach would be with events and listeners.
-
     public static DebugManager Instance { get; private set; }
 
     [SerializeField] Transform _playerTransform;

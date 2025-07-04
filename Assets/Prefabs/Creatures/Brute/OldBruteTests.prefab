@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 1669889434542331422}
   - component: {fileID: 7269257446974217075}
   m_Layer: 0
-  m_Name: BruteTest
+  m_Name: OldBruteTests
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -195,6 +195,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
+  _knockbackForce: 400
 --- !u!114 &1669889434542331422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,6 +208,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b847e50e90c04cf9862c55cd2033385, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsPossessedByPlayer: 0
+  _dieOnUnPossess: 1
 --- !u!114 &7269257446974217075
 MonoBehaviour:
   m_ObjectHideFlags: 0

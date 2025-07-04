@@ -3,18 +3,23 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class HoveringCreatureController : MonoBehaviour
 {
-    [SerializeField] private HoverSettings _hoverSettings;
-    [SerializeField] private LocomotionSettings _locomotionSettings;
-    [SerializeField] private GroundCheckerSettings _groundCheckerSettings;
+    //TODO: refactoring idea: Ground Checker and Hover will be one component. locomotion will be antoher. locomotion will use groundchecker settings for checks and stuff.
+    //then, only locomotion will need to know about knockback status.
+    //should maintain height will be effected by locomotion.
+
+    [SerializeField] private GroundCheckerSettings _groundCheckerSettings; //must
+    [SerializeField] private HoverSettings _hoverSettings; //must
+
+    [SerializeField] private LocomotionSettings _locomotionSettings; //only if it needs to move with input
 
     [SerializeField] private bool _enableHover;
     [SerializeField] private bool _enableMovement;
 
-    private MaintainHeightAndUpright _hover;
+    private GroundChecker _groundChecker; //must
+    private MaintainHeightAndUpright _hover; //must
     private Locomotion _locomotion;
-    private GroundChecker _groundChecker;
 
-    private KnockbackTest _knockback;
+    private KnockbackTest _knockback; //TODO: NOTGOOD! not every hovering creature will have knockback
 
     private Rigidbody _rb;
     private IInputSource _inputSource;
@@ -28,19 +33,19 @@ public class HoveringCreatureController : MonoBehaviour
 
     void Awake()
     {
-        
         _defaultInputSource = GetComponent<IInputSource>();
         _inputSource = _defaultInputSource;
+
         _rb = GetComponent<Rigidbody>();
         _knockback = GetComponent<KnockbackTest>();
+        _groundChecker = new GroundChecker(_rb, _groundCheckerSettings, _hoverSettings);
         _hover = new MaintainHeightAndUpright(_rb, _hoverSettings);
         _locomotion = new Locomotion(_rb, _locomotionSettings);
-        _groundChecker = new GroundChecker(_rb, _groundCheckerSettings, _hoverSettings);
     }
 
     void Start()
     {
-        if (_inputSource == null )
+        if (_inputSource == null)
         {
             Debug.Log("Missing Input Source");
         }
@@ -51,9 +56,20 @@ public class HoveringCreatureController : MonoBehaviour
     {
         _groundChecker?.Tick();
 
-        if (_enableMovement && !_knockback.IsKnockedBack)
+        if (_enableMovement)
         {
-            _locomotion?.Tick(_inputSource.MovementInput, _inputSource.JumpPressed, _groundChecker);
+            //TODO: must be a cleaner way to check if knockback is null
+            if (_knockback != null)
+            {
+                if (!_knockback.IsKnockedBack)
+                {
+                    _locomotion?.Tick(_inputSource.MovementInput, _inputSource.JumpPressed, _groundChecker);
+                }
+            }
+            else if (_knockback == null)
+            {
+                _locomotion?.Tick(_inputSource.MovementInput, _inputSource.JumpPressed, _groundChecker);
+            }
         }
 
         Vector3 lookDir = GetLookDir();

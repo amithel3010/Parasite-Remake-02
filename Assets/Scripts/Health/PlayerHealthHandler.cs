@@ -1,14 +1,23 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerHealthHandler : MonoBehaviour
 {
-    private IDamagable _health;
+    private Health _health;
     private KnockbackTest _knockback; //TODO: this feels coupled. i use this to disable knockback on death
+
+    private Renderer _renderer;
+    private Color _defaultColor;
+    private Color _hitColor = Color.red;
+    //on hit Iframes, visual flickering, cant possess take the same time
 
     void Awake()
     {
-        _health = GetComponent<IDamagable>();
+        _health = GetComponent<Health>();
         _knockback = GetComponent<KnockbackTest>();
+
+        _renderer = GetComponentInChildren<Renderer>();
+        _defaultColor = _renderer.material.GetColor("_BaseColor");
     }
 
     void OnEnable()
@@ -33,10 +42,11 @@ public class PlayerHealthHandler : MonoBehaviour
         GameManager.Instance.GameOver();
     }
 
-    private void HandleDamage()
+    private void HandleDamage(float IFramesDuration)
     {
         Debug.Log("player got hit");
         //play animation
+        StartCoroutine(DamageFlash(IFramesDuration));
         //mostly visual stuff
         //Knockback happens in attacker
     }
@@ -45,4 +55,12 @@ public class PlayerHealthHandler : MonoBehaviour
     {
         _knockback.KnockbackEnabled = true;
     }
+
+    private IEnumerator DamageFlash(float IFramesDuration)
+    {
+        _renderer.material.SetColor("_BaseColor", _hitColor);
+        yield return new WaitForSeconds(IFramesDuration);
+        _renderer.material.SetColor("_BaseColor", _defaultColor);
+    }
+    
 }

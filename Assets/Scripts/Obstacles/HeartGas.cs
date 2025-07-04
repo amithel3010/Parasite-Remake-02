@@ -7,7 +7,7 @@ public class HeartGas : MonoBehaviour
         Debug.Log("triggerd by" + other.name);
         if (other.transform.parent.TryGetComponent<Possessable>(out Possessable possessable))
         {
-            if (possessable.TryGetComponent<IDamagable>(out var health))
+            if (possessable.TryGetComponent<Health>(out var health))
             {
                 health.ChangeHealth(-health.MaxHealth);
             }

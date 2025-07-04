@@ -2,14 +2,15 @@ using UnityEngine;
 using System;
 using System.Collections;
 
-public class Health : MonoBehaviour, IDamagable
+public class Health : MonoBehaviour
 {
     //class responsible for managing a creature health
     //creature with health can: take damage, heal and die
     //should also update UI if relevant
 
-    public event Action<float, float> OnHealthChanged; //TODO: watch pavel's lesson on events
-    public event Action OnDamaged;
+    public event Action<float, float> OnHealthChanged;
+    public event Action<float> OnDamaged;
+    public event Action OnFinshedIFrames;
     public event Action OnDeath;
 
     [SerializeField] private float _maxHealth = 100f;
@@ -40,7 +41,7 @@ public class Health : MonoBehaviour, IDamagable
 
         if (_currentHealth < oldHealth)
         {
-            OnDamaged?.Invoke();
+            OnDamaged?.Invoke(_iFramesDuration);
             _isHittable = false;
             StartCoroutine(IFrameCooldown());
         }
@@ -62,11 +63,12 @@ public class Health : MonoBehaviour, IDamagable
         if (_isHittable == false)
         {
             yield return new WaitForSeconds(_iFramesDuration);
+            OnFinshedIFrames?.Invoke();
             _isHittable = true;
         }
     }
 
-    public void ToggleInvincible()
+    public void ToggleInvincible() // for debugging
     {
         _isInvincible = !_isInvincible;
         if (_isInvincible)

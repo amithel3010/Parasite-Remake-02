@@ -1,9 +1,11 @@
+using System;
 using Unity.Mathematics;
 using UnityEngine;
 
 public class Locomotion
 {
     private readonly Rigidbody _rb;
+    private bool _previousIsGrounded;
 
     public Locomotion(Rigidbody rb, LocomotionSettings settings)
     {
@@ -47,6 +49,7 @@ public class Locomotion
     private bool _jumpReady = true;
     private int _availableJumps = 1;
     private bool _isflying = false;
+    public event Action OnLanding;
 
     //debug
     public Vector3 _debugJumpheight;
@@ -94,6 +97,11 @@ public class Locomotion
 
         if (groundChecker.IsGrounded)
         {
+            if (!_previousIsGrounded)
+            {
+                OnLanding?.Invoke();
+                Debug.Log("Landed");
+            }
             _availableJumps = _maxJumps;
         }
 
@@ -136,6 +144,7 @@ public class Locomotion
 
             _timeSinceJumpPressed = _jumpBuffer; //to make sure jump only happens once per input
         }
+        _previousIsGrounded = groundChecker.IsGrounded;
     }
 
     private bool CanJump(GroundChecker groundChecker)

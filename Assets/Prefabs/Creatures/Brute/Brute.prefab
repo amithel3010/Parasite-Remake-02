@@ -104,6 +104,8 @@ GameObject:
   - component: {fileID: 4676915547449786905}
   - component: {fileID: 4837421627371946532}
   - component: {fileID: 7735323138785336167}
+  - component: {fileID: 6283027743516186710}
+  - component: {fileID: 5132717996803368486}
   m_Layer: 6
   m_Name: Brute
   m_TagString: Untagged
@@ -167,9 +169,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5afec866e83d04c3d869d6f40ccfceff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _groundCheckerSettings: {fileID: 11400000, guid: 80c83fc7a189643f68a36553329d116d, type: 2}
   _hoverSettings: {fileID: 11400000, guid: f0e2dd0f83058466cb8f00eb7a6d7cf2, type: 2}
   _locomotionSettings: {fileID: 11400000, guid: f5d2a1f4739bf4d88a52d41d6c056d3b, type: 2}
-  _groundCheckerSettings: {fileID: 11400000, guid: 80c83fc7a189643f68a36553329d116d, type: 2}
   _enableHover: 1
   _enableMovement: 1
 --- !u!114 &8727166655759575032
@@ -184,6 +186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf150a132eb1745aba03d500b7cf5541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _action2Pressed: 0
 --- !u!114 &4334227875861224953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -289,6 +292,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _damage: 25
   ShouldDamageOnCollision: 1
+--- !u!114 &6283027743516186710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6999565424575073364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02fd940acb34046eb8f8cf0be9a65622, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damage: 25
+  _hitboxRadius: 2.55
+  _duration: 0.2
+--- !u!114 &5132717996803368486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6999565424575073364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5110d3c22eb314ec0afdb093569a2129, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damage: 25
+  _hitboxRadius: 1
+  _duration: 0.2
+  _punchOrigin: {fileID: 0}
 --- !u!1001 &1618774638222052593
 PrefabInstance:
   m_ObjectHideFlags: 0

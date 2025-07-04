@@ -69,6 +69,10 @@ public class BrutePunch : MonoBehaviour
                 Vector3 hitDir = (hit.transform.position - _punchOrigin.position).normalized;
                 knockback.Knockback(hitDir, Vector3.up, Vector3.zero);
             }
+            if (hit.transform.parent.gameObject.TryGetComponent<Breakable>(out Breakable breakable))
+            {
+                breakable.Break();
+            }
         }
 
     }

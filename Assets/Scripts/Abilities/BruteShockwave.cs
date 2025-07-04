@@ -25,6 +25,7 @@ public class BruteShockwave : MonoBehaviour
         _controller.OnLanding += EmitShockwave;
     }
 
+//TODO: debug doesn't work because timer doesn't work
     private void EmitShockwave()
     {
         if (!_isActive)

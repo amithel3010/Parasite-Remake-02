@@ -10,6 +10,7 @@ public class BrutePunch : MonoBehaviour
     private IInputSource _defaultInputSource;
     private Possessable _possessable;
 
+    [SerializeField] private BreakableType _canBreak;
     [SerializeField] private float _damage;
     [SerializeField] private float _hitboxRadius = 1;
     [SerializeField] private float _duration = 0.2f;
@@ -77,7 +78,10 @@ public class BrutePunch : MonoBehaviour
             }
             if (hit.transform.parent.gameObject.TryGetComponent<Breakable>(out Breakable breakable))
             {
-                breakable.Break();
+                if (breakable._type == this._canBreak)
+                {
+                    breakable.Break();
+                }
             }
         }
 

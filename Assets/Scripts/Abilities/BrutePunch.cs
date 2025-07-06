@@ -36,6 +36,8 @@ public class BrutePunch : MonoBehaviour
 
     void FixedUpdate()
     {
+        //DebugDraw();
+
         if (_inputSource.Action2Pressed && !_isActive)
         {
             _isActive = true;
@@ -79,6 +81,7 @@ public class BrutePunch : MonoBehaviour
             }
         }
 
+
     }
 
     public void OnPossess(IInputSource newInputSource)
@@ -91,6 +94,11 @@ public class BrutePunch : MonoBehaviour
         _inputSource = _defaultInputSource;
     }
 
+    void LateUpdate()
+    {
+        RenderDebugHitbox();
+    }
+
     void OnDrawGizmosSelected()
     {
         if (_isActive)
@@ -99,4 +107,14 @@ public class BrutePunch : MonoBehaviour
         }
         Gizmos.DrawWireSphere(_punchOrigin.position, _hitboxRadius);
     }
+
+    void RenderDebugHitbox()
+    {
+        if (!_showHitboxInGame || !_isActive) return;
+        if (_debugMaterial == null || _debugMesh == null) return;
+
+        Graphics.DrawMesh(_debugMesh, Matrix4x4.TRS(_punchOrigin.position, Quaternion.identity, Vector3.one * _hitboxRadius * 2f), _debugMaterial, 0);
+    }
+
 }
+

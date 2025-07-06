@@ -4282,6 +4282,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5132717996803368486, guid: b2e5d7db94e1a446d8dfe87719c2a3a0, type: 3}
+      propertyPath: _debugMesh
+      value: 
+      objectReference: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+    - target: {fileID: 5132717996803368486, guid: b2e5d7db94e1a446d8dfe87719c2a3a0, type: 3}
+      propertyPath: _debugMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: a701951b68b1a44a7b1d55850e9459f7, type: 2}
+    - target: {fileID: 6283027743516186710, guid: b2e5d7db94e1a446d8dfe87719c2a3a0, type: 3}
+      propertyPath: _circleDebugMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: a701951b68b1a44a7b1d55850e9459f7, type: 2}
     - target: {fileID: 6999565424575073364, guid: b2e5d7db94e1a446d8dfe87719c2a3a0, type: 3}
       propertyPath: m_Name
       value: Brute

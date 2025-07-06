@@ -8,49 +8,60 @@ public class BruteShockwave : MonoBehaviour
     [SerializeField] private float _hitboxRadius = 1f;
     [SerializeField] private float _duration = 0.2f;
 
+    [Header("Debug")]
+    [SerializeField] private Material _circleDebugMaterial;
+    [SerializeField] private bool _showDebugCircleInGame = true;
+
     private bool _isActive;
     private float _timer;
-
-
     private HashSet<GameObject> _alreadyHit = new HashSet<GameObject>();
 
     //Refs
     private HoveringCreatureController _controller;
 
-
     void Awake()
     {
         _controller = GetComponent<HoveringCreatureController>();
-
-        _controller.OnLanding += EmitShockwave;
     }
 
-//TODO: debug doesn't work because timer doesn't work
-    private void EmitShockwave()
+    void OnEnable()
     {
-        if (!_isActive)
-        {
-            _isActive = true;
-            _timer = _duration;
-            _alreadyHit.Clear();
-        }
+        _controller.OnLanding += TriggerShockwave;
+    }
+    void OnDisable()
+    {
+        _controller.OnLanding -= TriggerShockwave;
+    }
 
+    void FixedUpdate()
+    {
         if (!_isActive) return;
 
-        _timer -= Time.deltaTime;
+        _timer -= Time.fixedDeltaTime;
         if (_timer <= 0f)
         {
             _isActive = false;
             return;
         }
-        //Debug.Log("Emit Shockwave");
 
+        EmitShockwave();
+    }
+
+    void LateUpdate()
+    {
+        if (_isActive && _showDebugCircleInGame)
+        {
+            DebugUtils.DrawFilledCircle(transform.position, _hitboxRadius, _circleDebugMaterial);
+        }
+    }
+
+    private void EmitShockwave()
+    {
         Collider[] hits = Physics.OverlapSphere(transform.position, _hitboxRadius); //sphere?
 
         foreach (var hit in hits)
         {
             GameObject target = hit.transform.parent.gameObject;
-            print(target);
 
             if (target == gameObject || _alreadyHit.Contains(target)) continue;
 
@@ -76,13 +87,23 @@ public class BruteShockwave : MonoBehaviour
         }
     }
 
+    private void TriggerShockwave()
+    {
+        _isActive = true;
+        _timer = _duration;
+        _alreadyHit.Clear();
+    }
+
     private void OnDrawGizmosSelected()
     {
         if (_isActive)
         {
-            Gizmos.color = Color.red;
+            DebugUtils.DrawCircle(transform.position, _hitboxRadius, Color.red);
         }
-        Gizmos.DrawWireSphere(transform.position, _hitboxRadius);
+        else
+        {
+            DebugUtils.DrawCircle(transform.position, _hitboxRadius, Color.white);
+        }
     }
 }
 

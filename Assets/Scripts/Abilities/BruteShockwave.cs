@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BruteShockwave : MonoBehaviour
 {
+    [SerializeField] private BreakableType _canBreak;
     [SerializeField] private float _damage = 25f;
     [SerializeField] private float _hitboxRadius = 1f;
     [SerializeField] private float _duration = 0.2f;
@@ -83,6 +84,13 @@ public class BruteShockwave : MonoBehaviour
                 //Debug.Log("trying to knockback" + knockback.gameObject.name);
                 Vector3 hitDir = (hit.transform.position - transform.position).normalized;
                 knockback.Knockback(hitDir, Vector3.up, Vector3.zero);
+            }
+            if (hit.transform.parent.gameObject.TryGetComponent<Breakable>(out Breakable breakable))
+            {
+                if (breakable._type == this._canBreak)
+                {
+                    breakable.Break();
+                }
             }
         }
     }

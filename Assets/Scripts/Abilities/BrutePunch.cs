@@ -10,10 +10,15 @@ public class BrutePunch : MonoBehaviour
     private IInputSource _defaultInputSource;
     private Possessable _possessable;
 
+    [SerializeField] private BreakableType _canBreak;
     [SerializeField] private float _damage;
     [SerializeField] private float _hitboxRadius = 1;
     [SerializeField] private float _duration = 0.2f;
     [SerializeField] private Transform _punchOrigin;
+
+    [SerializeField] private bool _showHitboxInGame = true;
+    [SerializeField] private Material _debugMaterial; // A transparent material for visualization
+    [SerializeField] private Mesh _debugMesh; // Optional: default to a Sphere mesh
 
     private bool _isPunching;
     private bool _isActive;
@@ -32,6 +37,8 @@ public class BrutePunch : MonoBehaviour
 
     void FixedUpdate()
     {
+        //DebugDraw();
+
         if (_inputSource.Action2Pressed && !_isActive)
         {
             _isActive = true;
@@ -69,7 +76,15 @@ public class BrutePunch : MonoBehaviour
                 Vector3 hitDir = (hit.transform.position - _punchOrigin.position).normalized;
                 knockback.Knockback(hitDir, Vector3.up, Vector3.zero);
             }
+            if (hit.transform.parent.gameObject.TryGetComponent<Breakable>(out Breakable breakable))
+            {
+                if (breakable._type == this._canBreak)
+                {
+                    breakable.Break();
+                }
+            }
         }
+
 
     }
 
@@ -83,6 +98,11 @@ public class BrutePunch : MonoBehaviour
         _inputSource = _defaultInputSource;
     }
 
+    void LateUpdate()
+    {
+        RenderDebugHitbox();
+    }
+
     void OnDrawGizmosSelected()
     {
         if (_isActive)
@@ -91,4 +111,14 @@ public class BrutePunch : MonoBehaviour
         }
         Gizmos.DrawWireSphere(_punchOrigin.position, _hitboxRadius);
     }
+
+    void RenderDebugHitbox()
+    {
+        if (!_showHitboxInGame || !_isActive) return;
+        if (_debugMaterial == null || _debugMesh == null) return;
+
+        Graphics.DrawMesh(_debugMesh, Matrix4x4.TRS(_punchOrigin.position, Quaternion.identity, Vector3.one * _hitboxRadius * 2f), _debugMaterial, 0);
+    }
+
 }
+

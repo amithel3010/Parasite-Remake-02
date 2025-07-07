@@ -3,7 +3,7 @@ using System.Threading;
 using UnityEditor.ShaderGraph;
 using UnityEngine;
 
-public class BrutePunch : MonoBehaviour
+public class BrutePunch : MonoBehaviour, IPossessionSensitive
 {
     //assumes having posssessable and input source
     private IInputSource _inputSource;
@@ -30,9 +30,6 @@ public class BrutePunch : MonoBehaviour
         _defaultInputSource = GetComponent<IInputSource>();
         _inputSource = _defaultInputSource;
         _possessable = GetComponent<Possessable>();
-
-        _possessable.Possessed += OnPossess;
-        _possessable.UnPossessed += OnUnpossess;
     }
 
     void FixedUpdate()
@@ -88,12 +85,12 @@ public class BrutePunch : MonoBehaviour
 
     }
 
-    public void OnPossess(IInputSource newInputSource)
+    public void OnPossessed(Parasite playerParasite, IInputSource newInputSource)
     {
         _inputSource = newInputSource;
     }
 
-    public void OnUnpossess()
+    public void OnUnPossessed(Parasite playerParasite)
     {
         _inputSource = _defaultInputSource;
     }

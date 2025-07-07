@@ -2,7 +2,7 @@ using UnityEngine;
 
 public interface IPossessionSensitive
 {
-    public void OnPossess();
+    public void OnPossessed(Parasite playerParasite, IInputSource inputSource);
 
-    public void OnUnPossess();
+    public void OnUnPossessed(Parasite playerParasite); //TODO: feels needless
 }

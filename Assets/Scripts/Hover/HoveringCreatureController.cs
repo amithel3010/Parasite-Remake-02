@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class HoveringCreatureController : MonoBehaviour
+public class HoveringCreatureController : MonoBehaviour,IHasLandedEvent
 {
     //TODO: refactoring idea: Ground Checker and Hover will be one component. locomotion will be antoher. locomotion will use groundchecker settings for checks and stuff.
     //then, only locomotion will need to know about knockback status.

@@ -18,11 +18,11 @@ public class BruteShockwave : MonoBehaviour
     private HashSet<GameObject> _alreadyHit = new HashSet<GameObject>();
 
     //Refs
-    private HoveringCreatureController _controller;
+    private IHasLandedEvent _controller;
 
     void Awake()
     {
-        _controller = GetComponent<HoveringCreatureController>();
+        _controller = GetComponent<IHasLandedEvent>();
     }
 
     void OnEnable()

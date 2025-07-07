@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class PossessableHealthHandler : MonoBehaviour
+public class PossessableHealthHandler : MonoBehaviour, IPossessionSensitive
 {
     private Health _health;
 
@@ -40,6 +40,15 @@ public class PossessableHealthHandler : MonoBehaviour
         _renderer.material.SetColor("_BaseColor", _hitColor);
         yield return new WaitForSeconds(IFramesDuration);
         _renderer.material.SetColor("_BaseColor", _defaultColor);
-        //cool unitended bug makes color black on death
+    }
+
+    public void OnPossessed(Parasite playerParasite, IInputSource inputSource)
+    {
+        _health.OnDeath += playerParasite.ExitPossessable;
+    }
+
+    public void OnUnPossessed(Parasite playerParasite)
+    {
+        _health.OnDeath -= playerParasite.ExitPossessable;
     }
 }

@@ -1,27 +1,31 @@
+using System.Collections;
 using UnityEngine;
 
-public class DamageOnCollision : MonoBehaviour
+public class DamageOnCollision : MonoBehaviour, IPossessionSensitive
 {
     [SerializeField] float _damage = 25;
 
-    private Possessable _optionalPossessable;
-    public bool ShouldDamageOnCollision = true;
+    private bool ShouldDamageOnCollision = true;
 
-    private void Awake()
-    {
-        _optionalPossessable = GetComponent<Possessable>();
-        if (_optionalPossessable != null)
-        {
-            _optionalPossessable.Possessed += OnPossessed;
-            _optionalPossessable.UnPossessed += OnUnPossessed;
-        }
-    }
+    private GameObject _Possessor;
+    private float _safeDuration = 1f;
+    private float _timeOfUnpossess = -999f;
 
     private void OnCollisionEnter(Collision other)
     {
         if (!ShouldDamageOnCollision) return;
 
         GameObject DamageTarget = other.gameObject;
+
+        if (DamageTarget == _Possessor && Time.time - _timeOfUnpossess < _safeDuration)
+        {
+            return;
+        }
+        else
+        {
+            _Possessor = null;
+        }
+
         Vector3 hitDir = (other.transform.position - transform.position).normalized;
 
         if (DamageTarget.TryGetComponent<Health>(out Health health))
@@ -36,12 +40,16 @@ public class DamageOnCollision : MonoBehaviour
         }
     }
 
-    private void OnPossessed(IInputSource inputSource)
+    public void OnPossessed(Parasite playerParasite, IInputSource inputSource)
     {
         ShouldDamageOnCollision = false;
     }
-    private void OnUnPossessed()
+
+    public void OnUnPossessed(Parasite playerParasite)
     {
-        ShouldDamageOnCollision = true;
+        _timeOfUnpossess = Time.time;
+        _Possessor = playerParasite.gameObject;
     }
+
+
 }

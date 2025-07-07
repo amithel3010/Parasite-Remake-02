@@ -40,7 +40,6 @@ public class PossessableHealthHandler : MonoBehaviour, IPossessionSensitive
         _renderer.material.SetColor("_BaseColor", _hitColor);
         yield return new WaitForSeconds(IFramesDuration);
         _renderer.material.SetColor("_BaseColor", _defaultColor);
-        //cool unitended bug makes color black on death
     }
 
     public void OnPossessed(Parasite playerParasite, IInputSource inputSource)

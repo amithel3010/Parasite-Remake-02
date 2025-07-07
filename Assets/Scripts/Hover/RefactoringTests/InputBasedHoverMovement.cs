@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Hover))]
-public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive
+public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPossessionSource, IHasLandedEvent
 {
     private bool _isActive = true;
 
@@ -80,6 +80,7 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive
         CharacterJump(_inputSource.JumpPressed);
     }
 
+    #region  Movement
     private void CharacterMove(Vector3 horizontalMoveInput) //might be better if moveInput was a field
     {
         _GoalDirFromInput = horizontalMoveInput.normalized;
@@ -103,7 +104,9 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive
         neededAccel = Vector3.ClampMagnitude(neededAccel, maxAccel);
         _rb.AddForceAtPosition(Vector3.Scale(neededAccel * _rb.mass, _moveForceScale), _rb.position + new Vector3(0f, _rb.transform.localScale.y * _leanFactor, 0f)); // Using AddForceAtPosition in order to both move the player and cause the play to lean in the direction of input.
     }
+    #endregion
 
+    #region Jumping
     private void CharacterJump(bool jumpPressed)
     {
 
@@ -174,28 +177,27 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive
             return _timeSinceJumpPressed < _jumpBuffer && _jumpReady && _availableJumps > 0;
         }
     }
+    #endregion
 
+    #region Possesion Sensitive
     public void OnPossessed(Parasite playerParasite, IInputSource inputSource)
     {
-        if (playerParasite.gameObject == this.gameObject) //feels wrong. asks if we are on possessing the parasite basically
-        {
-            _isActive = true;
-        }
-        else
-        {
-            _inputSource = inputSource;
-        }
+        _inputSource = inputSource;
     }
 
     public void OnUnPossessed(Parasite playerParasite)
     {
-        if (playerParasite.gameObject == this.gameObject) //feels wrong. asks if we are on possessing the parasite basically
-        {
-            _isActive = false;
-        }
-        else
-        {
-            _inputSource = _defaultInputSource;
-        }
+        _inputSource = _defaultInputSource;
     }
+
+    public void OnParasitePossession()
+    {
+        _isActive = false;
+    }
+
+    public void OnParasiteUnPossession()
+    {
+        _isActive = true;
+    }
+    #endregion
 }

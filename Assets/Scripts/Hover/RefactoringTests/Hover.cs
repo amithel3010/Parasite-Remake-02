@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Hover : MonoBehaviour, IPossessionSensitive
+public class Hover : MonoBehaviour, IPossessionSource
 {
     //Maintain Height and Upright with springs
 
@@ -58,6 +58,7 @@ public class Hover : MonoBehaviour, IPossessionSensitive
         MaintainUpright(lookDir);
     }
 
+    #region Ground Check
     private void RaycastToGround()
     {
         Vector3 _rayDir = _rb.transform.TransformDirection(_downDir);
@@ -81,7 +82,9 @@ public class Hover : MonoBehaviour, IPossessionSensitive
             //_currentDistanceFromGround = 0;
         }
     }
+    #endregion
 
+    #region Maintain Height
     private void MaintainHeight()
     {
         if (_rayHitGround)
@@ -116,7 +119,9 @@ public class Hover : MonoBehaviour, IPossessionSensitive
             }
         }
     }
+    #endregion
 
+    #region MaintainUpright
     private void MaintainUpright(Vector3 lookDir)
     {
 
@@ -148,24 +153,20 @@ public class Hover : MonoBehaviour, IPossessionSensitive
 
         return Vector3.zero;
     }
+    #endregion
 
     public void SetMaintainHeight(bool value)
     {
         _shouldMaintainHeight = value;
     }
 
-    public void OnPossessed(Parasite playerParasite, IInputSource inputSource)
+    public void OnParasitePossession()
     {
-        Debug.Log(this + "OnPossessed");
-        _isActive = true;
+        _isActive = false;
     }
 
-    public void OnUnPossessed(Parasite playerParasite)
+    public void OnParasiteUnPossession()
     {
-        Debug.Log(this + "OnUnPossessed");
-        if (playerParasite.gameObject == this.gameObject) //feels wrong
-        {
-            _isActive = false;
-        }
+        _isActive = true;
     }
 }

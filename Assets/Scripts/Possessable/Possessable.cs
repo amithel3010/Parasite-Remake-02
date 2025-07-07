@@ -3,9 +3,8 @@ using UnityEngine;
 
 public class Possessable : MonoBehaviour, ICollector
 {
-
     [SerializeField] private bool _dieOnUnPossess = true;
-    public bool IsPossessedByPlayer = false;
+    private bool IsPossessedByPlayer = false;
 
     private Health _healthSystem;
 
@@ -29,19 +28,16 @@ public class Possessable : MonoBehaviour, ICollector
     {
         IsPossessedByPlayer = false;
 
+        IPossessionSensitive[] possessionSensitive = GetComponents<IPossessionSensitive>();
+        foreach (var sensitive in possessionSensitive)
+        {
+            sensitive.OnUnPossessed(playerParasite);
+        }
+
         if (_dieOnUnPossess)
         {
             _healthSystem.ChangeHealth(-_healthSystem.CurrentHealth); //die
         }
-        else
-        {
-            IPossessionSensitive[] possessionSensitive = GetComponents<IPossessionSensitive>();
-            foreach (var sensitive in possessionSensitive)
-            {
-                sensitive.OnUnPossessed(playerParasite);
-            }
-        }
-
     }
 
     public void Collect(Collectable collectable)

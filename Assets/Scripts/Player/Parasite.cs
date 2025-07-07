@@ -72,9 +72,9 @@ public class Parasite : MonoBehaviour, ICollector
                 _rb.isKinematic = true;
                 _rb.detectCollisions = false;
 
-                foreach (var sensitive in GetComponents<IPossessionSensitive>())
+                foreach (var sensitive in GetComponents<IPossessionSource>())
                 {
-                    sensitive.OnUnPossessed(this);
+                    sensitive.OnParasitePossession();
                 }
                 //disable gfx
                 _gfx.SetActive(false);
@@ -100,9 +100,9 @@ public class Parasite : MonoBehaviour, ICollector
         _currentlyPossessedTransform = null;
 
         //this.transform.SetParent(null);
-        foreach (var sensitive in GetComponents<IPossessionSensitive>())
+        foreach (var sensitive in GetComponents<IPossessionSource>())
         {
-            sensitive.OnPossessed(this, _playerInput); //feels weirddd
+            sensitive.OnParasiteUnPossession(); //feels weirddd
         }
 
         _gfx.SetActive(true);

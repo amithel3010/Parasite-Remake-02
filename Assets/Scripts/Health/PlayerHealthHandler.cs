@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class PlayerHealthHandler : MonoBehaviour, IPossessionSensitive
+public class PlayerHealthHandler : MonoBehaviour, IPossessionSource
 {
     private Health _health;
     private KnockbackTest _knockback; //TODO: this feels coupled. i use this to disable knockback on death
@@ -63,13 +63,13 @@ public class PlayerHealthHandler : MonoBehaviour, IPossessionSensitive
         _renderer.material.SetColor("_BaseColor", _defaultColor);
     }
 
-    public void OnPossessed(Parasite playerParasite, IInputSource inputSource)
-    {
-        //nothing required
-    }
-
-    public void OnUnPossessed(Parasite playerParasite) //when player possesses possessable
+    public void OnParasitePossession()
     {
         _health.ResetHealth();
+    }
+
+    public void OnParasiteUnPossession()
+    {
+        //nothing required
     }
 }

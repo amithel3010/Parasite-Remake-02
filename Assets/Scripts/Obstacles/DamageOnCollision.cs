@@ -7,11 +7,25 @@ public class DamageOnCollision : MonoBehaviour, IPossessionSensitive
 
     private bool ShouldDamageOnCollision = true;
 
+    private GameObject _Possessor;
+    private float _safeDuration = 1f;
+    private float _timeOfUnpossess = -999f;
+
     private void OnCollisionEnter(Collision other)
     {
         if (!ShouldDamageOnCollision) return;
 
         GameObject DamageTarget = other.gameObject;
+
+        if (DamageTarget == _Possessor && Time.time - _timeOfUnpossess < _safeDuration)
+        {
+            return;
+        }
+        else
+        {
+            _Possessor = null;
+        }
+
         Vector3 hitDir = (other.transform.position - transform.position).normalized;
 
         if (DamageTarget.TryGetComponent<Health>(out Health health))
@@ -33,15 +47,9 @@ public class DamageOnCollision : MonoBehaviour, IPossessionSensitive
 
     public void OnUnPossessed(Parasite playerParasite)
     {
-        StartCoroutine(WaitBeforeReactivating());
+        _timeOfUnpossess = Time.time;
+        _Possessor = playerParasite.gameObject;
     }
 
-    private IEnumerator WaitBeforeReactivating() //TODO: kind of a cheat fix
-    {
-        if (ShouldDamageOnCollision == false)
-        {
-            yield return new WaitForSeconds(1);
-            ShouldDamageOnCollision = true;
-        }
-    }
+
 }

@@ -13,6 +13,7 @@ public class InputHandler : MonoBehaviour, IInputSource
     public bool _actionHeld;
     public bool _action2Pressed;
     public Vector2 _movementInputs;
+    public Vector3 _HorizontalMovement;
 
     public bool _debugPressed;
 
@@ -23,9 +24,11 @@ public class InputHandler : MonoBehaviour, IInputSource
     bool IInputSource.ActionHeld => _actionHeld;
     bool IInputSource.Action2Pressed => _action2Pressed;
     Vector2 IInputSource.MovementInput => _movementInputs;
+    Vector3 IInputSource.HorizontalMovement => _HorizontalMovement;
 
     void Update()
     {
+        print(_HorizontalMovement);
         ClearInputs();
 
         ProcessInputs();
@@ -75,5 +78,6 @@ public class InputHandler : MonoBehaviour, IInputSource
         _verticalInput = Mathf.Clamp(_verticalInput, -1f, 1f);
 
         _movementInputs = new Vector2(_horizontalInput, _verticalInput);
+        _HorizontalMovement = new Vector3(_movementInputs.x, 0f, _movementInputs.y);
     }
 }

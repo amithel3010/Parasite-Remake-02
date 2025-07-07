@@ -42,7 +42,7 @@ public class GroundChecker
         _groundLayer = settings.GroundLayer;
         _downDir = settings.DownDir;
         _raycastToGroundLength = settings.RaycastToGroundLength;
-        
+
         _rideHeight = optionalHoverSettings.RideHeight;
     }
 
@@ -60,8 +60,10 @@ public class GroundChecker
 
         if (_rayHitGround)
         {
-            _isGrounded = _rayHit.distance <= _rideHeight * 1.3f; // 1.3f? multiplied because object will oscilate but 1.3 is random
-            _isGrounded = true;
+            if(_rayHit.distance <= _rideHeight * 1.3f) // 1.3f? multiplied because object will oscilate but 1.3 is random
+            {
+                _isGrounded = true;
+            }
             _timeSinceUngrounded = 0;
             _currentDistanceFromGround = _rayHit.distance;
         }

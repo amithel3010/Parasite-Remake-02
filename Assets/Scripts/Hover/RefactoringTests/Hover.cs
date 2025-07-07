@@ -16,12 +16,16 @@ public class Hover : MonoBehaviour
     private float _currentDistanceFromGround;
     private float _timeSinceUngrounded;
 
+    public bool IsGrounded => _isGrounded;
+    public float CurrentDistanceFromGround => _currentDistanceFromGround;
+    public float TimeSinceUngrounded => _timeSinceUngrounded;
+
     [Header("Height Spring Settings")]
     [SerializeField][Min(0.1f)] private float _rideHeight = 0.93f;
     [SerializeField][Min(0.1f)] private float _rideSpringStrength = 1000f;
     [Range(0, 1)] public float _rideSpringDampingRatio = 0.5f;
 
-    private bool _shouldMaintainHeight;
+    private bool _shouldMaintainHeight = true;
     public bool ShouldMaintainHeight => _shouldMaintainHeight; //useless?
 
     [Header("Upright Spring Settings")]
@@ -38,7 +42,7 @@ public class Hover : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody>();
     }
-    
+
     private void FixedUpdate()
     {
         RaycastToGround();
@@ -48,7 +52,8 @@ public class Hover : MonoBehaviour
             MaintainHeight();
         }
 
-        //MaintainUpright(lookDir)
+        Vector3 lookDir = Vector3.zero; //temporary
+        MaintainUpright(lookDir);
     }
 
     private void RaycastToGround()
@@ -56,12 +61,14 @@ public class Hover : MonoBehaviour
         Vector3 _rayDir = _rb.transform.TransformDirection(_downDir);
 
         Ray rayToGround = new Ray(_rb.position, _rayDir);
-        _rayHitGround = Physics.Raycast(rayToGround, out RaycastHit _rayHit, _raycastToGroundLength, _groundLayer);
+        _rayHitGround = Physics.Raycast(rayToGround, out _rayHit, _raycastToGroundLength, _groundLayer);
 
         if (_rayHitGround)
         {
-            _isGrounded = _rayHit.distance <= _rideHeight * 1.3f; // 1.3f? multiplied because object will oscilate but 1.3 is random
-            _isGrounded = true;
+            if (_rayHit.distance <= _rideHeight * 1.3f) // 1.3f? multiplied because object will oscilate but 1.3 is random
+            {
+                _isGrounded = true;
+            }
             _timeSinceUngrounded = 0;
             _currentDistanceFromGround = _rayHit.distance;
         }
@@ -130,5 +137,8 @@ public class Hover : MonoBehaviour
         _rb.AddTorque(rotAxis * (rotRadians * _uprightSpringStrength) - (_rb.angularVelocity * _uprightSpringDamper));
     }
 
-
+    public void SetMaintainHeight(bool value)
+    {
+        _shouldMaintainHeight = value;
+    }
 }

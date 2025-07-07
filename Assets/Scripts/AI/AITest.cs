@@ -16,4 +16,5 @@ public class AITest : MonoBehaviour, IInputSource
 
     public Vector2 MovementInput => Vector2.zero;
 
+    public Vector3 HorizontalMovement => new Vector3(MovementInput.x, 0f, MovementInput.y);
 }

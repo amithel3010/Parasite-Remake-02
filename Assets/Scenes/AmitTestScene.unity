@@ -4530,11 +4530,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4087430175363014747, guid: 9cb5e27e49dfa4b17a66bcf17bcab13b, type: 3}
       propertyPath: m_Name
-      value: FlyRefactor
-      objectReference: {fileID: 0}
-    - target: {fileID: 4087430175363014747, guid: 9cb5e27e49dfa4b17a66bcf17bcab13b, type: 3}
-      propertyPath: m_IsActive
-      value: 0
+      value: FlyCat
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4554,7 +4550,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dieOnUnPossess: 1
-  IsPossessedByPlayer: 0
 --- !u!4 &2996568155454403265
 Transform:
   m_ObjectHideFlags: 0
@@ -4724,7 +4719,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1001 &4172161628777454900
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4833,10 +4828,6 @@ PrefabInstance:
     - target: {fileID: 8488956055623732518, guid: b4cbc881dfb214d8a98ec7d79bb7eaa5, type: 3}
       propertyPath: m_Name
       value: Player - Parasite
-      objectReference: {fileID: 0}
-    - target: {fileID: 8488956055623732518, guid: b4cbc881dfb214d8a98ec7d79bb7eaa5, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5544,10 +5535,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Brute
       objectReference: {fileID: 0}
-    - target: {fileID: 6999565424575073364, guid: b2e5d7db94e1a446d8dfe87719c2a3a0, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5842,7 +5829,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dieOnUnPossess: 1
-  IsPossessedByPlayer: 0
 --- !u!4 &7794217830572848523
 Transform:
   m_ObjectHideFlags: 0
@@ -5948,7 +5934,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   _possessRayLength: 1
-  _ejectForce: 40
+  _ejectForce: 65
   _possessionCooldown: 3
   _gfx: {fileID: 72131938112569685}
 --- !u!4 &8325099929973688368
@@ -6014,7 +6000,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1001 &8490235627752513040
 PrefabInstance:
   m_ObjectHideFlags: 0

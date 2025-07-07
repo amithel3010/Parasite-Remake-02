@@ -128,7 +128,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2369493373613017839}
   - component: {fileID: 3862987407808424351}
-  - component: {fileID: 2838654845003535483}
+  - component: {fileID: 7894731083769670282}
+  - component: {fileID: 5035223022648993383}
   - component: {fileID: 8727166655759575032}
   - component: {fileID: 4334227875861224953}
   - component: {fileID: 414202603629821306}
@@ -189,7 +190,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &2838654845003535483
+--- !u!114 &7894731083769670282
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -198,14 +199,110 @@ MonoBehaviour:
   m_GameObject: {fileID: 6999565424575073364}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5afec866e83d04c3d869d6f40ccfceff, type: 3}
+  m_Script: {fileID: 11500000, guid: eb1655f353ae64b118ad5a426c62e403, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _groundCheckerSettings: {fileID: 11400000, guid: 80c83fc7a189643f68a36553329d116d, type: 2}
-  _hoverSettings: {fileID: 11400000, guid: f0e2dd0f83058466cb8f00eb7a6d7cf2, type: 2}
-  _locomotionSettings: {fileID: 11400000, guid: f5d2a1f4739bf4d88a52d41d6c056d3b, type: 2}
-  _enableHover: 1
-  _enableMovement: 1
+  _downDir: {x: 0, y: -1, z: 0}
+  _groundLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  _raycastToGroundLength: 1.2
+  _rideHeight: 1.2
+  _rideSpringStrength: 2000
+  _rideSpringDampingRatio: 0.8
+  _uprightSpringDamper: 300
+  _uprightSpringStrength: 2400
+--- !u!114 &5035223022648993383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6999565424575073364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2daeaca1790604cb18dde43434222bd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inputSourceProvider: {fileID: 0}
+  _knockbackProvider: {fileID: 0}
+  _maxSpeed: 3
+  _acceleration: 10
+  _maxAccelForce: 150
+  _leanFactor: 0.25
+  _accelerationFactorFromDot:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 2
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.5
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _maxAccelerationForceFactorFromDot:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 2
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.5
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _moveForceScale: {x: 1, y: 0, z: 1}
+  _maxJumps: 1
+  _jumpHeight: 2
+  _jumpBuffer: 0.2
+  _coyoteTime: 0.2
+  _isFlying: 0
+  _debugJumpheight: 0
 --- !u!114 &8727166655759575032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,7 +328,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b847e50e90c04cf9862c55cd2033385, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsPossessedByPlayer: 0
   _dieOnUnPossess: 1
 --- !u!114 &414202603629821306
 MonoBehaviour:
@@ -308,7 +404,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  IsKnockedBack: 0
   KnockbackEnabled: 1
 --- !u!114 &7735323138785336167
 MonoBehaviour:
@@ -323,7 +418,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 25
-  ShouldDamageOnCollision: 1
 --- !u!114 &6283027743516186710
 MonoBehaviour:
   m_ObjectHideFlags: 0

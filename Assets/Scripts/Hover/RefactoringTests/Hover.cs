@@ -1,9 +1,11 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Hover : MonoBehaviour
+public class Hover : MonoBehaviour, IPossessionSensitive
 {
     //Maintain Height and Upright with springs
+
+    public bool _isActive { get; private set; } = true;
 
     [Header("Ground Check")]
     [SerializeField] private Vector3 _downDir = Vector3.down;
@@ -52,7 +54,7 @@ public class Hover : MonoBehaviour
             MaintainHeight();
         }
 
-        Vector3 lookDir = Vector3.zero; //temporary
+        Vector3 lookDir = GetStableLookDirection();
         MaintainUpright(lookDir);
     }
 
@@ -137,8 +139,33 @@ public class Hover : MonoBehaviour
         _rb.AddTorque(rotAxis * (rotRadians * _uprightSpringStrength) - (_rb.angularVelocity * _uprightSpringDamper));
     }
 
+    private Vector3 GetStableLookDirection()
+    {
+        Vector3 flatVelocity = new Vector3(_rb.linearVelocity.x, 0f, _rb.linearVelocity.z);
+
+        if (flatVelocity.sqrMagnitude > 0.1f)
+            return flatVelocity.normalized;
+
+        return Vector3.zero;
+    }
+
     public void SetMaintainHeight(bool value)
     {
         _shouldMaintainHeight = value;
+    }
+
+    public void OnPossessed(Parasite playerParasite, IInputSource inputSource)
+    {
+        Debug.Log(this + "OnPossessed");
+        _isActive = true;
+    }
+
+    public void OnUnPossessed(Parasite playerParasite)
+    {
+        Debug.Log(this + "OnUnPossessed");
+        if (playerParasite.gameObject == this.gameObject) //feels wrong
+        {
+            _isActive = false;
+        }
     }
 }

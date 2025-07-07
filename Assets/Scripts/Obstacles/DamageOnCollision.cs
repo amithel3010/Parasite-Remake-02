@@ -1,21 +1,11 @@
+using System.Collections;
 using UnityEngine;
 
-public class DamageOnCollision : MonoBehaviour
+public class DamageOnCollision : MonoBehaviour, IPossessionSensitive
 {
     [SerializeField] float _damage = 25;
 
-    private Possessable _optionalPossessable;
-    public bool ShouldDamageOnCollision = true;
-
-    private void Awake()
-    {
-        _optionalPossessable = GetComponent<Possessable>();
-        if (_optionalPossessable != null)
-        {
-            _optionalPossessable.Possessed += OnPossessed;
-            _optionalPossessable.UnPossessed += OnUnPossessed;
-        }
-    }
+    private bool ShouldDamageOnCollision = true;
 
     private void OnCollisionEnter(Collision other)
     {
@@ -36,12 +26,22 @@ public class DamageOnCollision : MonoBehaviour
         }
     }
 
-    private void OnPossessed(IInputSource inputSource)
+    public void OnPossessed(Parasite playerParasite, IInputSource inputSource)
     {
         ShouldDamageOnCollision = false;
     }
-    private void OnUnPossessed()
+
+    public void OnUnPossessed(Parasite playerParasite)
     {
-        ShouldDamageOnCollision = true;
+        StartCoroutine(WaitBeforeReactivating());
+    }
+
+    private IEnumerator WaitBeforeReactivating() //TODO: kind of a cheat fix
+    {
+        if (ShouldDamageOnCollision == false)
+        {
+            yield return new WaitForSeconds(1);
+            ShouldDamageOnCollision = true;
+        }
     }
 }

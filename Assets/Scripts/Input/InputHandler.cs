@@ -28,7 +28,6 @@ public class InputHandler : MonoBehaviour, IInputSource
 
     void Update()
     {
-        print(_HorizontalMovement);
         ClearInputs();
 
         ProcessInputs();

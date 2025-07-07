@@ -2,13 +2,17 @@ using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Hover))]
-public class InputBasedHoverMovement : MonoBehaviour
+public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive
 {
+    private bool _isActive = true;
 
     [Header("References")]
     [SerializeField] private MonoBehaviour _inputSourceProvider; // for seeing in inspector
+    [SerializeField] private MonoBehaviour _knockbackProvider;
+    private IKnockbackStatus _knockbackStatus;
     private Hover _hover;
     private IInputSource _inputSource;
+    private IInputSource _defaultInputSource;
     private Rigidbody _rb;
 
     [Header("Movement")]
@@ -52,15 +56,25 @@ public class InputBasedHoverMovement : MonoBehaviour
         if (_inputSourceProvider == null)
             _inputSourceProvider = GetComponent<IInputSource>() as MonoBehaviour;
 
-        _inputSource = _inputSourceProvider as IInputSource;
+        if (_knockbackProvider == null)
+            _knockbackProvider = GetComponent<IKnockbackStatus>() as MonoBehaviour;
+        _knockbackStatus = _knockbackProvider as IKnockbackStatus;
 
+        _inputSource = _inputSourceProvider as IInputSource;
+        _defaultInputSource = _inputSource;
+
+
+        if (_knockbackProvider != null && _knockbackStatus == null)
+            Debug.LogWarning($"{name} has a KnockbackProvider that does not implement IKnockbackStatus.");
         if (_inputSource == null)
             Debug.LogError($"{name}: No IInputSource assigned or found.");
     }
 
     void FixedUpdate()
     {
+        if (!_isActive || !_hover._isActive) return;
         if (_inputSource == null) return;
+        if (_knockbackStatus.IsKnockedBack) return;
 
         CharacterMove(_inputSource.HorizontalMovement);
         CharacterJump(_inputSource.JumpPressed);
@@ -130,7 +144,7 @@ public class InputBasedHoverMovement : MonoBehaviour
             //jump height should be fixed somewhere above player, no need for distance from ground// cheat right now we do get ride height
             //calc jump height from current pos
             float adjustedJumpHeight = _jumpHeight - _hover.CurrentDistanceFromGround; //still has small inconsistencies but I cant figure out why, and it's for sure good enough.
-                                                                                              //Debug.Log($"current distance from ground: {groundChecker.CurrentDistanceFromGround}, jump height: {_jumpHeight}, adjusted jump height: {adjustedJumpHeight}");
+                                                                                       //Debug.Log($"current distance from ground: {groundChecker.CurrentDistanceFromGround}, jump height: {_jumpHeight}, adjusted jump height: {adjustedJumpHeight}");
 
 
             //could V0 be regarded as 0? probably not. we need to get the  difference in velocity needed to be applied this frame to reach that height
@@ -161,4 +175,27 @@ public class InputBasedHoverMovement : MonoBehaviour
         }
     }
 
+    public void OnPossessed(Parasite playerParasite, IInputSource inputSource)
+    {
+        if (playerParasite.gameObject == this.gameObject) //feels wrong. asks if we are on possessing the parasite basically
+        {
+            _isActive = true;
+        }
+        else
+        {
+            _inputSource = inputSource;
+        }
+    }
+
+    public void OnUnPossessed(Parasite playerParasite)
+    {
+        if (playerParasite.gameObject == this.gameObject) //feels wrong. asks if we are on possessing the parasite basically
+        {
+            _isActive = false;
+        }
+        else
+        {
+            _inputSource = _defaultInputSource;
+        }
+    }
 }

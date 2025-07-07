@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class KnockbackTest : MonoBehaviour
+public class KnockbackTest : MonoBehaviour, IKnockbackStatus
 {
     [SerializeField] private float _hitDirForce;
     [SerializeField] private float _constForce;
@@ -12,7 +12,8 @@ public class KnockbackTest : MonoBehaviour
 
     [SerializeField] private AnimationCurve _constForceScaleFromDot;
 
-    public bool IsKnockedBack;
+    private bool _isKnockedBack;
+    public bool IsKnockedBack => _isKnockedBack;
     public bool KnockbackEnabled = true;
 
     private Rigidbody _rb;
@@ -59,8 +60,8 @@ public class KnockbackTest : MonoBehaviour
 
     private IEnumerator TriggerKnockbackCooldown()
     {
-        IsKnockedBack = true;
+        _isKnockedBack = true;
         yield return new WaitForSeconds(_timer);
-        IsKnockedBack = false;
+        _isKnockedBack = false;
     }
 }

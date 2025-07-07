@@ -27,9 +27,6 @@ public class Parasite : MonoBehaviour, ICollector
 
     private Possessable _currentlyPossessed;
     private Transform _currentlyPossessedTransform;
-    private Health _currentlyPossessedHealthSystem;
-
-    private HoveringCreatureController _movementScript; //coupled... hard to change
 
     private InputHandler _playerInput;
     private Rigidbody _rb;
@@ -37,7 +34,6 @@ public class Parasite : MonoBehaviour, ICollector
 
     void Awake()
     {
-        _movementScript = GetComponent<HoveringCreatureController>();
         _playerInput = GetComponent<InputHandler>();
         _rb = GetComponent<Rigidbody>();
         _parasiteHealth = GetComponent<Health>();
@@ -54,9 +50,11 @@ public class Parasite : MonoBehaviour, ICollector
 
         if (_playerInput._actionPressed)
         {
-            ExitPossessableOnActionPress();
+            ExitPossessable();
         }
     }
+
+    #region possesion
 
     private void TryPossess()
     {
@@ -70,54 +68,46 @@ public class Parasite : MonoBehaviour, ICollector
             {
                 _currentlyPossessed = target;
                 _currentlyPossessedTransform = target.transform;
-
-                _currentlyPossessedHealthSystem = _currentlyPossessedTransform.GetComponent<Health>();
-                if (_currentlyPossessedHealthSystem != null)
-                {
-                    _currentlyPossessedHealthSystem.OnDeath += StopPossessing;
-                }
-
-                _parasiteHealth.ResetHealth(); // on possess reset health
-
+                //deactivate rb
                 _rb.isKinematic = true;
                 _rb.detectCollisions = false;
-                _movementScript.enabled = false;
+
+                foreach (var sensitive in GetComponents<IPossessionSensitive>())
+                {
+                    sensitive.OnUnPossessed(this);
+                }
+                //disable gfx
                 _gfx.SetActive(false);
 
-                _currentlyPossessed.OnPossess(_playerInput); // on possess update input
+                _currentlyPossessed.OnPossess(this, _playerInput);
                 _canPossess = false;
-
             }
         }
     }
 
-    public void StopPossessing()
+    private void StopPossessing()
     {
         if (_currentlyPossessed == null) return;
 
         Vector3 targetExitPosition = _currentlyPossessedTransform != null
                ? _currentlyPossessedTransform.position + Vector3.up * 1.5f
                : transform.position;
-        _currentlyPossessed.OnUnPossess();
-
-        if (_currentlyPossessedHealthSystem != null)
-        {
-            _currentlyPossessedHealthSystem.OnDeath -= StopPossessing;
-        }
+        _currentlyPossessed.OnUnPossess(this);
 
         _rb.position = targetExitPosition;
 
         _currentlyPossessed = null;
         _currentlyPossessedTransform = null;
-        _currentlyPossessedHealthSystem = null;
-
 
         //this.transform.SetParent(null);
+        foreach (var sensitive in GetComponents<IPossessionSensitive>())
+        {
+            sensitive.OnPossessed(this, _playerInput); //feels weirddd
+        }
 
         _gfx.SetActive(true);
         _rb.isKinematic = false;
         _rb.detectCollisions = true;
-        _movementScript.enabled = true;
 
         _rb.AddForce(Vector3.up * _ejectForce, ForceMode.Impulse); //that's for exiting Possessable with height
         StartCoroutine(PossessionCooldown(_possessionCooldown));
@@ -133,11 +123,11 @@ public class Parasite : MonoBehaviour, ICollector
 
     }
 
-    private void ExitPossessableOnActionPress()
+    public void ExitPossessable()
     {
         if (_currentlyPossessed == null)
         {
-            Debug.Log("Action pressed, but player is controlling parasite");
+            Debug.Log("Action pressed, but parasite is not controlling any possessable");
         }
         else
         {
@@ -149,6 +139,8 @@ public class Parasite : MonoBehaviour, ICollector
     {
         StartCoroutine(PossessionCooldown(CooldownDuration));
     }
+
+    #endregion
 
     public void Collect(Collectable collectable)
     {
@@ -173,11 +165,12 @@ public class Parasite : MonoBehaviour, ICollector
         _rb.angularVelocity = Vector3.zero;
         _rb.position = respawnPos;
 
-        _movementScript.enabled = true;
+        //TODO: _movementScript.enabled = true;
         _gfx.SetActive(true);
         _rb.isKinematic = false;
         _rb.detectCollisions = true;
 
         _parasiteHealth.ResetHealth(); //maybe event? ONRESPAWN?
     }
+
 }

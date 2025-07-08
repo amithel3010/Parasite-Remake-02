@@ -8,7 +8,7 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
 
     [Header("References")]
     [SerializeField] private MonoBehaviour _inputSourceProvider; // for seeing in inspector
-    [SerializeField] private MonoBehaviour _knockbackProvider;
+    [SerializeField] private MonoBehaviour _knockbackProvider; // for seeing in inspector
     private IKnockbackStatus _knockbackStatus;
     private Hover _hover;
     private IInputSource _inputSource;
@@ -45,8 +45,9 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
     public event Action OnLanding;
 
     [Header("Debug")]
-    [SerializeField] private bool _debugJumpheight; //TODO: unimplemented
-
+    [SerializeField] private bool _debugExpectedJumpHeight;
+    private Vector3 _debugAdjustedJumpHeight;
+    private Vector3 _debugJumpApex;
 
     void Awake()
     {
@@ -78,10 +79,20 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
 
         CharacterMove(_inputSource.HorizontalMovement);
         CharacterJump(_inputSource.JumpPressed);
+
+        if (_debugExpectedJumpHeight)
+        {
+
+
+            float adjustedJumpHeight = _jumpHeight - _hover.CurrentDistanceFromGround;
+            _debugJumpApex = _rb.position + Vector3.up * adjustedJumpHeight;
+
+            DrawJumpHeight();
+        }
     }
 
     #region  Movement
-    private void CharacterMove(Vector3 horizontalMoveInput) //might be better if moveInput was a field
+    private void CharacterMove(Vector3 horizontalMoveInput)
     {
         _GoalDirFromInput = horizontalMoveInput.normalized;
 
@@ -143,21 +154,20 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
             _availableJumps--;
 
             //Ypos changing due to spring:
-            //FIRST we have to stop maintaining height!!!! doable with IsJumping Public Bool
-            //jump height should be fixed somewhere above player, no need for distance from ground// cheat right now we do get ride height
+            //jump height should be fixed somewhere above player, no need for distance from ground
             //calc jump height from current pos
             float adjustedJumpHeight = _jumpHeight - _hover.CurrentDistanceFromGround; //still has small inconsistencies but I cant figure out why, and it's for sure good enough.
-                                                                                       //Debug.Log($"current distance from ground: {groundChecker.CurrentDistanceFromGround}, jump height: {_jumpHeight}, adjusted jump height: {adjustedJumpHeight}");
+            _debugAdjustedJumpHeight = _rb.position + Vector3.up * adjustedJumpHeight;                                                                          //Debug.Log($"current distance from ground: {groundChecker.CurrentDistanceFromGround}, jump height: {_jumpHeight}, adjusted jump height: {adjustedJumpHeight}");
 
-
-            //could V0 be regarded as 0? probably not. we need to get the  difference in velocity needed to be applied this frame to reach that height
+            //difference in velocity needed to be applied this frame to reach that height
             float goalVel = Mathf.Sqrt(adjustedJumpHeight * -2 * Physics.gravity.y);
             float currentVel = _rb.linearVelocity.y;
-            //meaning RequiredVel = GoalVel - currentVel 
+
             float requiredVel = goalVel - currentVel;
+
             //then , we need the force needd for that velocity change (acceleration)
-            // jumpForce = RequiredVel * rb.mass
             float jumpForce = requiredVel * _rb.mass;
+
             //add impulse force;
             _rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
 
@@ -199,5 +209,25 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
     {
         _isActive = true;
     }
+    #endregion
+
+    #region  Debug
+    private void DrawJumpHeight()
+    {
+        //float adjustedJumpHeight = _jumpHeight - _hover.CurrentDistanceFromGround;
+        //Vector3 jumpApex = _rb.position + Vector3.up * adjustedJumpHeight;
+        //Vector3 jumpApex = _rb.position + Vector3.up * _debugAdjustedJumpHeight;
+
+        Debug.DrawLine(_rb.position, _debugJumpApex, Color.yellow);
+        DebugUtils.DrawSphere(_debugJumpApex, Color.cyan, 0.2f);
+        DebugUtils.DrawSphere(_debugAdjustedJumpHeight, Color.red, 0.2f);
+
+    }
+
+    private void DrawGroundRay()
+    {
+        //TODO: unimplemented
+    }
+
     #endregion
 }

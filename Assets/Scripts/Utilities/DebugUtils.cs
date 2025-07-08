@@ -20,7 +20,7 @@ public static class DebugUtils
         }
     }
 
-   public static void DrawFilledCircle(Vector3 center, float radius, Material material, int segments = 64)
+    public static void DrawFilledCircle(Vector3 center, float radius, Material material, int segments = 64)
     {
         if (material == null) return;
 
@@ -64,5 +64,46 @@ public static class DebugUtils
         mesh.RecalculateBounds();
 
         return mesh;
-    }   
+    }
+
+    public static void DrawSphere(Vector3 position, Color color, float radius = 1f, float duration = 0f)
+    {
+        //TODO: Duration doesn't really work
+        float angle = 10f;
+        Vector3 lastPoint = position + new Vector3(radius, 0, 0);
+        Vector3 nextPoint = Vector3.zero;
+
+        for (float i = angle; i <= 360; i += angle)
+        {
+            float rad = Mathf.Deg2Rad * i;
+
+            // XY circle
+            nextPoint = position + new Vector3(Mathf.Cos(rad) * radius, Mathf.Sin(rad) * radius, 0);
+            Debug.DrawLine(lastPoint, nextPoint, color, duration);
+            lastPoint = nextPoint;
+        }
+
+        lastPoint = position + new Vector3(radius, 0, 0);
+        for (float i = angle; i <= 360; i += angle)
+        {
+            float rad = Mathf.Deg2Rad * i;
+
+            // XZ circle
+            nextPoint = position + new Vector3(Mathf.Cos(rad) * radius, 0, Mathf.Sin(rad) * radius);
+            Debug.DrawLine(lastPoint, nextPoint, color, duration);
+            lastPoint = nextPoint;
+        }
+
+        lastPoint = position + new Vector3(0, radius, 0);
+        for (float i = angle; i <= 360; i += angle)
+        {
+            float rad = Mathf.Deg2Rad * i;
+
+            // YZ circle
+            nextPoint = position + new Vector3(0, Mathf.Cos(rad) * radius, Mathf.Sin(rad) * radius);
+            Debug.DrawLine(lastPoint, nextPoint, color, duration);
+            lastPoint = nextPoint;
+        }
+    }
 }
+

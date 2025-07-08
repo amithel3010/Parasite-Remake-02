@@ -4825,6 +4825,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7025304015254681039, guid: b4cbc881dfb214d8a98ec7d79bb7eaa5, type: 3}
+      propertyPath: _debugJumpHeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025304015254681039, guid: b4cbc881dfb214d8a98ec7d79bb7eaa5, type: 3}
+      propertyPath: _debugJumpheight
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8488956055623732518, guid: b4cbc881dfb214d8a98ec7d79bb7eaa5, type: 3}
       propertyPath: m_Name
       value: Player - Parasite
@@ -6285,7 +6293,7 @@ MonoBehaviour:
   _jumpBuffer: 0.2
   _coyoteTime: 0.2
   _isFlying: 0
-  _debugJumpheight: 0
+  _debugJumpHeight: 0
 --- !u!54 &8996192090293461523
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6403,7 +6411,7 @@ MonoBehaviour:
   _jumpBuffer: 0.2
   _coyoteTime: 0.2
   _isFlying: 1
-  _debugJumpheight: 0
+  _debugJumpHeight: 0
 --- !u!114 &8996192090293461525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6564,7 +6572,7 @@ MonoBehaviour:
   _jumpBuffer: 0.2
   _coyoteTime: 0.2
   _isFlying: 0
-  _debugJumpheight: 0
+  _debugJumpHeight: 0
 --- !u!114 &9212978007041401365
 MonoBehaviour:
   m_ObjectHideFlags: 0

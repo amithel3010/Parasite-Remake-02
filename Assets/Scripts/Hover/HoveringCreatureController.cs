@@ -1,7 +1,8 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class HoveringCreatureController : MonoBehaviour
+public class HoveringCreatureController : MonoBehaviour,IHasLandedEvent
 {
     //TODO: refactoring idea: Ground Checker and Hover will be one component. locomotion will be antoher. locomotion will use groundchecker settings for checks and stuff.
     //then, only locomotion will need to know about knockback status.
@@ -25,6 +26,8 @@ public class HoveringCreatureController : MonoBehaviour
     private IInputSource _inputSource;
     private IInputSource _defaultInputSource;
 
+    public event Action OnLanding;
+
     //TODO: currently coupled: 
     //1.ride height needs to be shared in hover and ground check
     //2.hover needs to know about locomotion's IsJumping
@@ -41,6 +44,9 @@ public class HoveringCreatureController : MonoBehaviour
         _groundChecker = new GroundChecker(_rb, _groundCheckerSettings, _hoverSettings);
         _hover = new MaintainHeightAndUpright(_rb, _hoverSettings);
         _locomotion = new Locomotion(_rb, _locomotionSettings);
+
+        _locomotion.OnLanding += HandleLanding;
+
     }
 
     void Start()
@@ -51,7 +57,6 @@ public class HoveringCreatureController : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         _groundChecker?.Tick();
@@ -105,6 +110,11 @@ public class HoveringCreatureController : MonoBehaviour
             Debug.Log(this + "make sure raycast length is longer than ride height!");
             _groundCheckerSettings.RaycastToGroundLength = _hoverSettings.RideHeight;
         }
+    }
+
+    private void HandleLanding()
+    {
+        OnLanding?.Invoke();
     }
 
 }

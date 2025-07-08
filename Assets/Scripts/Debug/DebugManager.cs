@@ -30,4 +30,9 @@ public class DebugManager : MonoBehaviour
         _playerHealth.ToggleInvincible();
     }
 
+    public void Restart()
+    {
+        GameManager.Instance.Restart();
+    }
+
 }

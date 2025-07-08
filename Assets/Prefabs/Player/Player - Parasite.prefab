@@ -216,7 +216,8 @@ GameObject:
   - component: {fileID: 2802320372738413308}
   - component: {fileID: 1765445876131992096}
   - component: {fileID: 1540600095081894397}
-  - component: {fileID: 6354353778507984303}
+  - component: {fileID: 3752467527422289307}
+  - component: {fileID: 7025304015254681039}
   - component: {fileID: 6819452192336291955}
   - component: {fileID: 8061695424620454208}
   - component: {fileID: 7347830087019279732}
@@ -293,8 +294,9 @@ MonoBehaviour:
   _actionHeld: 0
   _action2Pressed: 0
   _movementInputs: {x: 0, y: 0}
+  _HorizontalMovement: {x: 0, y: 0, z: 0}
   _debugPressed: 0
---- !u!114 &6354353778507984303
+--- !u!114 &3752467527422289307
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -303,14 +305,110 @@ MonoBehaviour:
   m_GameObject: {fileID: 8488956055623732518}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5afec866e83d04c3d869d6f40ccfceff, type: 3}
+  m_Script: {fileID: 11500000, guid: eb1655f353ae64b118ad5a426c62e403, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hoverSettings: {fileID: 11400000, guid: 92edb2c23df7b47debed337d03135872, type: 2}
-  _locomotionSettings: {fileID: 11400000, guid: 034c90835fbef434f8f436e87a639173, type: 2}
-  _groundCheckerSettings: {fileID: 11400000, guid: b8ac946e539164c458da842a0183c5cc, type: 2}
-  _enableHover: 1
-  _enableMovement: 1
+  _downDir: {x: 0, y: -1, z: 0}
+  _groundLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  _raycastToGroundLength: 1.5
+  _rideHeight: 0.93
+  _rideSpringStrength: 2000
+  _rideSpringDampingRatio: 0.2
+  _uprightSpringDamper: 25
+  _uprightSpringStrength: 800
+--- !u!114 &7025304015254681039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8488956055623732518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2daeaca1790604cb18dde43434222bd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inputSourceProvider: {fileID: 0}
+  _knockbackProvider: {fileID: 0}
+  _maxSpeed: 4
+  _acceleration: 25
+  _maxAccelForce: 150
+  _leanFactor: 0.25
+  _accelerationFactorFromDot:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 2
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.5
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _maxAccelerationForceFactorFromDot:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 2
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.5
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _moveForceScale: {x: 1, y: 0, z: 1}
+  _maxJumps: 1
+  _jumpHeight: 3
+  _jumpBuffer: 0.2
+  _coyoteTime: 0.2
+  _isFlying: 0
+  _debugJumpheight: 0
 --- !u!114 &6819452192336291955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -327,7 +425,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   _possessRayLength: 1
-  _ejectForce: 40
+  _ejectForce: 65
   _possessionCooldown: 3
   _gfx: {fileID: 3386328063030698715}
 --- !u!114 &8061695424620454208
@@ -417,7 +515,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  IsKnockedBack: 0
   KnockbackEnabled: 1
 --- !u!1 &9066669027506558875
 GameObject:

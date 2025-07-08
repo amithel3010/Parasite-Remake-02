@@ -132,15 +132,16 @@ GameObject:
   m_Component:
   - component: {fileID: 2417503504807646526}
   - component: {fileID: 8996192089724172722}
+  - component: {fileID: 4416253014502423623}
+  - component: {fileID: 2389344936115103885}
   - component: {fileID: 7777029705140264105}
-  - component: {fileID: 5566598432016288372}
   - component: {fileID: 7206804757170966531}
   - component: {fileID: 392544222433976915}
   - component: {fileID: 108312557183549641}
   - component: {fileID: 8505040607584686199}
   - component: {fileID: 8120340269073501476}
   m_Layer: 6
-  m_Name: FlyRefactor
+  m_Name: FlyCat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -190,6 +191,119 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &4416253014502423623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4087430175363014747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb1655f353ae64b118ad5a426c62e403, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _downDir: {x: 0, y: -1, z: 0}
+  _groundLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  _raycastToGroundLength: 3
+  _rideHeight: 1.3
+  _rideSpringStrength: 80
+  _rideSpringDampingRatio: 0.5
+  _uprightSpringDamper: 5
+  _uprightSpringStrength: 40
+--- !u!114 &2389344936115103885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4087430175363014747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2daeaca1790604cb18dde43434222bd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inputSourceProvider: {fileID: 0}
+  _knockbackProvider: {fileID: 0}
+  _maxSpeed: 8
+  _acceleration: 200
+  _maxAccelForce: 150
+  _leanFactor: 0.25
+  _accelerationFactorFromDot:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 2
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.5
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _maxAccelerationForceFactorFromDot:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 2
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.5
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _moveForceScale: {x: 1, y: 0, z: 1}
+  _maxJumps: 5
+  _jumpHeight: 4
+  _jumpBuffer: 0.2
+  _coyoteTime: 0.2
+  _isFlying: 1
+  _debugJumpheight: 0
 --- !u!114 &7777029705140264105
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,25 +316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b847e50e90c04cf9862c55cd2033385, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsPossessedByPlayer: 0
   _dieOnUnPossess: 1
---- !u!114 &5566598432016288372
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4087430175363014747}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5afec866e83d04c3d869d6f40ccfceff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _groundCheckerSettings: {fileID: 11400000, guid: 9af1d04aeeda0432d88aaf6a44ccb33b, type: 2}
-  _hoverSettings: {fileID: 11400000, guid: 95a857aa79cad4fb88bb91abb366bf17, type: 2}
-  _locomotionSettings: {fileID: 11400000, guid: ccd41e59d9e29476c8bf8400f7521fe4, type: 2}
-  _enableHover: 1
-  _enableMovement: 1
 --- !u!114 &7206804757170966531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -309,7 +405,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  IsKnockedBack: 0
   KnockbackEnabled: 1
 --- !u!114 &8120340269073501476
 MonoBehaviour:
@@ -324,7 +419,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 25
-  ShouldDamageOnCollision: 1
 --- !u!1 &4581140288191664863
 GameObject:
   m_ObjectHideFlags: 0

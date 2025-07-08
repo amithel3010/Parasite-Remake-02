@@ -82,8 +82,6 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
 
         if (_debugExpectedJumpHeight)
         {
-
-
             float adjustedJumpHeight = _jumpHeight - _hover.CurrentDistanceFromGround;
             _debugJumpApex = _rb.position + Vector3.up * adjustedJumpHeight;
 
@@ -222,11 +220,6 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
         DebugUtils.DrawSphere(_debugJumpApex, Color.cyan, 0.2f);
         DebugUtils.DrawSphere(_debugAdjustedJumpHeight, Color.red, 0.2f);
 
-    }
-
-    private void DrawGroundRay()
-    {
-        //TODO: unimplemented
     }
 
     #endregion

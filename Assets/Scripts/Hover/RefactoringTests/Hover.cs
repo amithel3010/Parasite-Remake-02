@@ -36,6 +36,10 @@ public class Hover : MonoBehaviour, IPossessionSource
 
     private Quaternion _uprightTargetRot = Quaternion.identity;
 
+    [Header("Debug")]
+    [SerializeField] private bool _showGroundRay;
+    [SerializeField] private float _debugRayThickness = 3f;
+
     // --- refs ---
     private Rigidbody _rb;
     private Rigidbody _hitBody;
@@ -47,6 +51,8 @@ public class Hover : MonoBehaviour, IPossessionSource
 
     private void FixedUpdate()
     {
+        if (!_isActive) return;
+
         RaycastToGround();
 
         if (_shouldMaintainHeight)
@@ -56,6 +62,11 @@ public class Hover : MonoBehaviour, IPossessionSource
 
         Vector3 lookDir = GetStableLookDirection();
         MaintainUpright(lookDir);
+
+        if (_showGroundRay)
+        {
+            DrawGroundRay();
+        }
     }
 
     #region Ground Check
@@ -168,5 +179,10 @@ public class Hover : MonoBehaviour, IPossessionSource
     public void OnParasiteUnPossession()
     {
         _isActive = true;
+    }
+
+    private void DrawGroundRay()
+    {
+        DebugUtils.DrawLine(transform.position, transform.position + Vector3.down * _raycastToGroundLength, _debugRayThickness, Color.red);
     }
 }

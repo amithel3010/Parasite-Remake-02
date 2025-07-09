@@ -44,7 +44,10 @@ public class UIManager : MonoBehaviour
 
     public void UpdateHealthBar(float currentHealth, float maxHealth)
     {
-        _healthBar.fillAmount = currentHealth / maxHealth;
+        if (_healthBar != null)
+        {
+            _healthBar.fillAmount = currentHealth / maxHealth;
+        }
     }
 
     public void UpdateCollectableTracker(int collected, int total)

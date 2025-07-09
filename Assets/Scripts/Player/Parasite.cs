@@ -47,11 +47,15 @@ public class Parasite : MonoBehaviour, ICollector
         {
             TryPossess();
         }
+        else if (_currentlyPossessedTransform != null)
+        {
+            _rb.position = _currentlyPossessedTransform.position;
+        }
 
         if (_playerInput._actionPressed)
-        {
-            ExitPossessable();
-        }
+            {
+                ExitPossessable();
+            }
     }
 
     #region possesion

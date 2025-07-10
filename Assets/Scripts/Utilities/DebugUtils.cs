@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 public static class DebugUtils
@@ -20,7 +21,7 @@ public static class DebugUtils
         }
     }
 
-   public static void DrawFilledCircle(Vector3 center, float radius, Material material, int segments = 64)
+    public static void DrawFilledCircle(Vector3 center, float radius, Material material, int segments = 64)
     {
         if (material == null) return;
 
@@ -64,5 +65,86 @@ public static class DebugUtils
         mesh.RecalculateBounds();
 
         return mesh;
-    }   
+    }
+
+    public static void DrawSphere(Vector3 position, Color color, float radius = 1f, float duration = 0f)
+    {
+        //TODO: Duration doesn't really work
+        float angle = 10f;
+        Vector3 lastPoint = position + new Vector3(radius, 0, 0);
+        Vector3 nextPoint = Vector3.zero;
+
+        for (float i = angle; i <= 360; i += angle)
+        {
+            float rad = Mathf.Deg2Rad * i;
+
+            // XY circle
+            nextPoint = position + new Vector3(Mathf.Cos(rad) * radius, Mathf.Sin(rad) * radius, 0);
+            Debug.DrawLine(lastPoint, nextPoint, color, duration);
+            lastPoint = nextPoint;
+        }
+
+        lastPoint = position + new Vector3(radius, 0, 0);
+        for (float i = angle; i <= 360; i += angle)
+        {
+            float rad = Mathf.Deg2Rad * i;
+
+            // XZ circle
+            nextPoint = position + new Vector3(Mathf.Cos(rad) * radius, 0, Mathf.Sin(rad) * radius);
+            Debug.DrawLine(lastPoint, nextPoint, color, duration);
+            lastPoint = nextPoint;
+        }
+
+        lastPoint = position + new Vector3(0, radius, 0);
+        for (float i = angle; i <= 360; i += angle)
+        {
+            float rad = Mathf.Deg2Rad * i;
+
+            // YZ circle
+            nextPoint = position + new Vector3(0, Mathf.Cos(rad) * radius, Mathf.Sin(rad) * radius);
+            Debug.DrawLine(lastPoint, nextPoint, color, duration);
+            lastPoint = nextPoint;
+        }
+    }
+
+    // Last known pixel-ratio of the scene view camera. This represents the world-space distance between each pixel.
+    // This cache gets around an issue where the scene view camera is null on certain editor frames.
+    private static float lastKnownSceneViewPixelRatio = 0.001f;
+
+    // Draws a line in the scene
+    public static void DrawLine(Vector3 start, Vector3 end, float thickness, Color color, float duration = 0f)
+    {
+#if UNITY_EDITOR
+        Vector3 lineDir = (end - start).normalized;
+        Vector3 toCamera = Vector3.back;
+
+        Camera camera = null;
+        // Get the current scene view camera.
+        if (SceneView.currentDrawingSceneView != null)
+        {
+            camera = SceneView.currentDrawingSceneView.camera;
+        }
+
+        if (camera == null)
+        {
+            // Default to the
+            camera = Camera.current;
+        }
+        if (camera != null)
+        {
+            toCamera = (camera.transform.position - start).normalized;
+            lastKnownSceneViewPixelRatio = (camera.orthographicSize * 2f) / camera.pixelHeight;
+        }
+
+        Vector3 orthogonal = Vector3.Cross(lineDir, toCamera).normalized;
+        int pixelThickness = Mathf.CeilToInt(thickness);
+        float totalThick = lastKnownSceneViewPixelRatio * pixelThickness;
+        for (int i = 0; i < pixelThickness; i++)
+        {
+            Vector3 offset = orthogonal * ((i * lastKnownSceneViewPixelRatio) - (totalThick / 2f));
+            Debug.DrawLine(start + offset, end + offset, color, duration);
+        }
+#endif //UNITY_EDITOR
+    }
 }
+

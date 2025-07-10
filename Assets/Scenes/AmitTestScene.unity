@@ -5745,6 +5745,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3752467527422289307, guid: b4cbc881dfb214d8a98ec7d79bb7eaa5, type: 3}
+      propertyPath: _showGroundRay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3752467527422289307, guid: b4cbc881dfb214d8a98ec7d79bb7eaa5, type: 3}
+      propertyPath: _debugRayThickness
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025304015254681039, guid: b4cbc881dfb214d8a98ec7d79bb7eaa5, type: 3}
+      propertyPath: _debugJumpHeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025304015254681039, guid: b4cbc881dfb214d8a98ec7d79bb7eaa5, type: 3}
+      propertyPath: _debugJumpheight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025304015254681039, guid: b4cbc881dfb214d8a98ec7d79bb7eaa5, type: 3}
+      propertyPath: _debugExpectedJumpHeight
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8488956055623732518, guid: b4cbc881dfb214d8a98ec7d79bb7eaa5, type: 3}
       propertyPath: m_Name
       value: Player - Parasite
@@ -7116,6 +7136,8 @@ MonoBehaviour:
   _rideSpringDampingRatio: 0.2
   _uprightSpringDamper: 25
   _uprightSpringStrength: 800
+  _showGroundRay: 0
+  _debugRayThickness: 0
 --- !u!114 &8770797771058636624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7206,7 +7228,7 @@ MonoBehaviour:
   _jumpBuffer: 0.2
   _coyoteTime: 0.2
   _isFlying: 0
-  _debugJumpheight: 0
+  _debugExpectedJumpHeight: 0
 --- !u!54 &8996192090293461523
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7324,7 +7346,7 @@ MonoBehaviour:
   _jumpBuffer: 0.2
   _coyoteTime: 0.2
   _isFlying: 1
-  _debugJumpheight: 0
+  _debugExpectedJumpHeight: 0
 --- !u!114 &8996192090293461525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7347,6 +7369,8 @@ MonoBehaviour:
   _rideSpringDampingRatio: 0.5
   _uprightSpringDamper: 5
   _uprightSpringStrength: 40
+  _showGroundRay: 0
+  _debugRayThickness: 0
 --- !u!4 &9038880122848833484
 Transform:
   m_ObjectHideFlags: 0
@@ -7485,7 +7509,7 @@ MonoBehaviour:
   _jumpBuffer: 0.2
   _coyoteTime: 0.2
   _isFlying: 0
-  _debugJumpheight: 0
+  _debugExpectedJumpHeight: 0
 --- !u!114 &9212978007041401365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7508,6 +7532,8 @@ MonoBehaviour:
   _rideSpringDampingRatio: 0.8
   _uprightSpringDamper: 300
   _uprightSpringStrength: 2400
+  _showGroundRay: 0
+  _debugRayThickness: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

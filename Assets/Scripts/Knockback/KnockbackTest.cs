@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class KnockbackTest : MonoBehaviour, IKnockbackStatus
 {
+    [HideInInspector] public bool KnockbackEnabled = true;
+
     [SerializeField] private float _hitDirForce;
     [SerializeField] private float _constForce;
     [SerializeField] private float _inputForce;
@@ -14,7 +16,6 @@ public class KnockbackTest : MonoBehaviour, IKnockbackStatus
 
     private bool _isKnockedBack;
     public bool IsKnockedBack => _isKnockedBack;
-    public bool KnockbackEnabled = true;
 
     private Rigidbody _rb;
 

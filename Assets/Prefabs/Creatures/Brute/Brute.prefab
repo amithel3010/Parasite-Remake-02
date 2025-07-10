@@ -138,6 +138,7 @@ GameObject:
   - component: {fileID: 7735323138785336167}
   - component: {fileID: 6283027743516186710}
   - component: {fileID: 5132717996803368486}
+  - component: {fileID: 5998991823525685825}
   m_Layer: 6
   m_Name: Brute
   m_TagString: Untagged
@@ -212,6 +213,8 @@ MonoBehaviour:
   _rideSpringDampingRatio: 0.8
   _uprightSpringDamper: 300
   _uprightSpringStrength: 2400
+  _showGroundRay: 0
+  _debugRayThickness: 3
 --- !u!114 &5035223022648993383
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,8 +227,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2daeaca1790604cb18dde43434222bd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputSourceProvider: {fileID: 0}
-  _knockbackProvider: {fileID: 0}
   _maxSpeed: 3
   _acceleration: 10
   _maxAccelForce: 150
@@ -302,7 +303,7 @@ MonoBehaviour:
   _jumpBuffer: 0.2
   _coyoteTime: 0.2
   _isFlying: 0
-  _debugJumpheight: 0
+  _debugExpectedJumpHeight: 0
 --- !u!114 &8727166655759575032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -367,6 +368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8b1a18bb84a94233a30a418b044339a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  KnockbackEnabled: 1
   _hitDirForce: 6
   _constForce: 4
   _inputForce: 0
@@ -404,7 +406,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  KnockbackEnabled: 1
 --- !u!114 &7735323138785336167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -456,6 +457,18 @@ MonoBehaviour:
   _showHitboxInGame: 1
   _debugMaterial: {fileID: 2100000, guid: a701951b68b1a44a7b1d55850e9459f7, type: 2}
   _debugMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &5998991823525685825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6999565424575073364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d864530c10f3490c9c9e87649c3ed06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1618774638222052593
 PrefabInstance:
   m_ObjectHideFlags: 0

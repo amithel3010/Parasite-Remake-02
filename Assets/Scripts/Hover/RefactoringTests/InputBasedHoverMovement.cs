@@ -7,8 +7,8 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
     private bool _isActive = true;
 
     [Header("References")]
-    [SerializeField] private MonoBehaviour _inputSourceProvider; // for seeing in inspector
-    [SerializeField] private MonoBehaviour _knockbackProvider; // for seeing in inspector
+    private MonoBehaviour _inputSourceProvider; // for seeing in inspector
+    private MonoBehaviour _knockbackProvider; // for seeing in inspector
     private IKnockbackStatus _knockbackStatus;
     private Hover _hover;
     private IInputSource _inputSource;
@@ -36,7 +36,6 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
     [SerializeField] private float _coyoteTime = 0.2f;
     [SerializeField] private bool _isFlying = false;
 
-    private bool _isJumping;
     private float _timeSinceJumpPressed = 0.5f; // if it's zero character jumps on start
     private bool _jumpReady = true;
     private int _availableJumps = 1;
@@ -134,7 +133,6 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
         if (_rb.linearVelocity.y < 0)
         {
             _jumpReady = true;
-            _isJumping = false;
             _hover.SetMaintainHeight(true);
         }
 
@@ -147,7 +145,6 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
         {
             //flags
             _jumpReady = false;
-            _isJumping = true;
             _hover.SetMaintainHeight(false);
             _availableJumps--;
 

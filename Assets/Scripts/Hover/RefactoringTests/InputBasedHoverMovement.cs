@@ -36,12 +36,13 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
     [SerializeField] private float _coyoteTime = 0.2f;
     [SerializeField] private bool _isFlying = false;
 
+    private bool _isJumping;
     private float _timeSinceJumpPressed = 0.5f; // if it's zero character jumps on start
     private bool _jumpReady = true;
     private int _availableJumps = 1;
     private bool _wasGrounded;
 
-    public event Action OnLanding;
+    public event Action OnLanding; //more like OnFinishedJump
 
     [Header("Debug")]
     [SerializeField] private bool _debugExpectedJumpHeight;
@@ -122,10 +123,12 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
 
         if (_hover.IsGrounded)
         {
-            if (!_wasGrounded)
+            if (!_wasGrounded && _isJumping)
             {
+                //finished jump
+                _isJumping = false; 
                 OnLanding?.Invoke();
-                Debug.Log("Landed");
+                Debug.Log("Landed from a jump");
             }
             _availableJumps = _maxJumps;
         }
@@ -145,6 +148,7 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
         {
             //flags
             _jumpReady = false;
+            _isJumping = true;
             _hover.SetMaintainHeight(false);
             _availableJumps--;
 

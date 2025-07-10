@@ -9,4 +9,6 @@ public class CatBoxGrab : MonoBehaviour
     //cat should feel heavier when holding box. adjust rb.mass?
     // if already holding box, release it.
 
+    [SerializeField] Transform _holder;
+
 }

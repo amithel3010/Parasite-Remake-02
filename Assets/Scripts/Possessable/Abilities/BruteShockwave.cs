@@ -27,7 +27,7 @@ public class BruteShockwave : MonoBehaviour
 
     void OnEnable()
     {
-        _controller.OnLanding += TriggerShockwave;
+        _controller.OnLanding += TriggerShockwave; // i dont love this... it triggers even if jumping on something regardless of fall distance
     }
     void OnDisable()
     {

@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class KnockbackTest : MonoBehaviour, IKnockbackStatus
 {
     [HideInInspector] public bool KnockbackEnabled = true;
@@ -34,7 +35,7 @@ public class KnockbackTest : MonoBehaviour, IKnockbackStatus
         Vector3 combinedForce;
 
         //TODO: still feels kinda off... maybe i should just set velocity.
-        
+
         float dot = Vector3.Dot(hitDir.normalized, constForceDir.normalized);
         float scale = _constForceScaleFromDot.Evaluate(dot);
 

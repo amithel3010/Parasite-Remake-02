@@ -35,6 +35,7 @@ public class KnockbackTest : MonoBehaviour, IKnockbackStatus
         Vector3 combinedForce;
 
         //TODO: still feels kinda off... maybe i should just set velocity.
+        // i kinda have a vision for a tool that lets knockback be controlled with a spline.
 
         float dot = Vector3.Dot(hitDir.normalized, constForceDir.normalized);
         float scale = _constForceScaleFromDot.Evaluate(dot);

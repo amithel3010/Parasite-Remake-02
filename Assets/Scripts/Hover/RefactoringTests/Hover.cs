@@ -4,6 +4,7 @@ using UnityEngine;
 public class Hover : MonoBehaviour, IPossessionSource
 {
     //Maintain Height and Upright with springs
+    //TODO: make this script independent of mass
 
     public bool _isActive { get; private set; } = true;
 

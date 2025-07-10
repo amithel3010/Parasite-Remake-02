@@ -5656,7 +5656,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7492502842903064131, guid: 2e49c3a3f59bf4ce98a1bf78e61c6627, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5737,6 +5737,10 @@ PrefabInstance:
     - target: {fileID: 4087430175363014747, guid: 9cb5e27e49dfa4b17a66bcf17bcab13b, type: 3}
       propertyPath: m_Name
       value: FlyCat
+      objectReference: {fileID: 0}
+    - target: {fileID: 4087430175363014747, guid: 9cb5e27e49dfa4b17a66bcf17bcab13b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4416253014502423623, guid: 9cb5e27e49dfa4b17a66bcf17bcab13b, type: 3}
       propertyPath: _rideSpringStrength
@@ -6059,6 +6063,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 217411677}
     m_Modifications:
+    - target: {fileID: 1765445876131992096, guid: b4cbc881dfb214d8a98ec7d79bb7eaa5, type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2802320372738413308, guid: b4cbc881dfb214d8a98ec7d79bb7eaa5, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.72
@@ -6099,6 +6107,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3386328063030698715, guid: b4cbc881dfb214d8a98ec7d79bb7eaa5, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3752467527422289307, guid: b4cbc881dfb214d8a98ec7d79bb7eaa5, type: 3}
+      propertyPath: _knockback
+      value: 
+      objectReference: {fileID: 6952988163258591774}
     - target: {fileID: 3752467527422289307, guid: b4cbc881dfb214d8a98ec7d79bb7eaa5, type: 3}
       propertyPath: _showGroundRay
       value: 1
@@ -6106,6 +6122,34 @@ PrefabInstance:
     - target: {fileID: 3752467527422289307, guid: b4cbc881dfb214d8a98ec7d79bb7eaa5, type: 3}
       propertyPath: _debugRayThickness
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3752467527422289307, guid: b4cbc881dfb214d8a98ec7d79bb7eaa5, type: 3}
+      propertyPath: _rideSpringStrength
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 3752467527422289307, guid: b4cbc881dfb214d8a98ec7d79bb7eaa5, type: 3}
+      propertyPath: _uprightSpringDamper
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3752467527422289307, guid: b4cbc881dfb214d8a98ec7d79bb7eaa5, type: 3}
+      propertyPath: _uprightSpringStrength
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 3752467527422289307, guid: b4cbc881dfb214d8a98ec7d79bb7eaa5, type: 3}
+      propertyPath: _knockBackDisablesHover
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4141168042058197973, guid: b4cbc881dfb214d8a98ec7d79bb7eaa5, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4159652694448979906, guid: b4cbc881dfb214d8a98ec7d79bb7eaa5, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025304015254681039, guid: b4cbc881dfb214d8a98ec7d79bb7eaa5, type: 3}
+      propertyPath: _maxAccelForce
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7025304015254681039, guid: b4cbc881dfb214d8a98ec7d79bb7eaa5, type: 3}
       propertyPath: _debugJumpHeight
@@ -6119,9 +6163,21 @@ PrefabInstance:
       propertyPath: _debugExpectedJumpHeight
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7631160233226982225, guid: b4cbc881dfb214d8a98ec7d79bb7eaa5, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 8488956055623732518, guid: b4cbc881dfb214d8a98ec7d79bb7eaa5, type: 3}
       propertyPath: m_Name
       value: Player - Parasite
+      objectReference: {fileID: 0}
+    - target: {fileID: 8488956055623732518, guid: b4cbc881dfb214d8a98ec7d79bb7eaa5, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 9066669027506558875, guid: b4cbc881dfb214d8a98ec7d79bb7eaa5, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6884,6 +6940,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Brute
       objectReference: {fileID: 0}
+    - target: {fileID: 6999565424575073364, guid: b2e5d7db94e1a446d8dfe87719c2a3a0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6954,6 +7014,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a49d384c17c3d4a55849ddceefb4d26b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6952988163258591774 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6216875041698890944, guid: b4cbc881dfb214d8a98ec7d79bb7eaa5, type: 3}
+  m_PrefabInstance: {fileID: 4179270279316620958}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8b1a18bb84a94233a30a418b044339a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!23 &6996128680346068954
@@ -7543,6 +7614,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WoodenBox
       objectReference: {fileID: 0}
+    - target: {fileID: 5324222762690352979, guid: cbabb71f4ea1640438e1a9897d0e08f9, type: 3}
+      propertyPath: m_Mass
+      value: 500
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7622,6 +7697,7 @@ MonoBehaviour:
   _uprightSpringStrength: 800
   _showGroundRay: 0
   _debugRayThickness: 0
+  _knockBackDisablesHover: 0
 --- !u!114 &8770797771058636624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7851,6 +7927,7 @@ MonoBehaviour:
   _uprightSpringStrength: 40
   _showGroundRay: 0
   _debugRayThickness: 0
+  _knockBackDisablesHover: 0
 --- !u!4 &9038880122848833484
 Transform:
   m_ObjectHideFlags: 0
@@ -8025,6 +8102,7 @@ MonoBehaviour:
   _uprightSpringStrength: 2400
   _showGroundRay: 0
   _debugRayThickness: 0
+  _knockBackDisablesHover: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

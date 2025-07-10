@@ -39,14 +39,22 @@ public class Hover : MonoBehaviour, IPossessionSource
     [Header("Debug")]
     [SerializeField] private bool _showGroundRay;
     [SerializeField] private float _debugRayThickness = 3f;
+    [SerializeField] private bool _knockBackDisablesHover = false;
 
     // --- refs ---
     private Rigidbody _rb;
     private Rigidbody _hitBody;
+    private MonoBehaviour _knockbackProvider; // for seeing in inspector
+    private IKnockbackStatus _knockbackStatus;
 
     void Awake()
     {
         _rb = GetComponent<Rigidbody>();
+
+        if (_knockbackProvider == null)
+            _knockbackProvider = GetComponent<IKnockbackStatus>() as MonoBehaviour;
+        _knockbackStatus = _knockbackProvider as IKnockbackStatus;
+
     }
 
     private void FixedUpdate()
@@ -57,7 +65,10 @@ public class Hover : MonoBehaviour, IPossessionSource
 
         if (_shouldMaintainHeight)
         {
-            MaintainHeight();
+            if (!(_knockBackDisablesHover && _knockbackStatus.IsKnockedBack))
+            {
+                MaintainHeight();
+            }
         }
 
         Vector3 lookDir = GetStableLookDirection();

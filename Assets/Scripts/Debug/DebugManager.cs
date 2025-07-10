@@ -1,3 +1,4 @@
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class DebugManager : MonoBehaviour
@@ -6,6 +7,8 @@ public class DebugManager : MonoBehaviour
 
     [SerializeField] Transform _playerTransform;
     [SerializeField] Health _playerHealth;
+
+    private CinemachineOrbitalFollow _debugCam;
     //[SerializeField] GameObject _PossessablePrefab;
 
     void Awake()
@@ -18,6 +21,8 @@ public class DebugManager : MonoBehaviour
         {
             Instance = this;
         }
+
+        _debugCam = FindAnyObjectByType<CinemachineOrbitalFollow>();
     }
 
     public void SpawnPossessable(GameObject PossessablePrefab)
@@ -35,4 +40,8 @@ public class DebugManager : MonoBehaviour
         GameManager.Instance.Restart();
     }
 
+    public void ToggleDebugCam()
+    {
+        _debugCam.VirtualCamera.enabled = !_debugCam.VirtualCamera.enabled;
+    }
 }

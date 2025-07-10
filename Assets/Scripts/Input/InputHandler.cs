@@ -18,8 +18,8 @@ public class InputHandler : MonoBehaviour, IInputSource
 
     public bool _debugPressed;
 
+    [SerializeField] private Transform _orientation;
     private Camera _mainCamera;
-    [SerializeField] Transform _orientation;
     private Vector3 _adjustToCameraTest;
 
     bool readyToClear;
@@ -37,10 +37,10 @@ public class InputHandler : MonoBehaviour, IInputSource
     }
     void Update()
     {
-        AdjustToCamera();
         ClearInputs();
 
         ProcessInputs();
+        AdjustToCamera();
     }
 
     private void FixedUpdate()

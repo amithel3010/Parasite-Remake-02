@@ -1,3 +1,4 @@
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class InputHandler : MonoBehaviour, IInputSource
@@ -17,6 +18,10 @@ public class InputHandler : MonoBehaviour, IInputSource
 
     public bool _debugPressed;
 
+    [SerializeField] private Transform _orientation;
+    private Camera _mainCamera;
+    private Vector3 _adjustToCameraTest;
+
     bool readyToClear;
     bool IInputSource.JumpPressed => _jumpPressed;
     bool IInputSource.JumpHeld => _jumpHeld;
@@ -26,11 +31,16 @@ public class InputHandler : MonoBehaviour, IInputSource
     Vector2 IInputSource.MovementInput => _movementInputs;
     Vector3 IInputSource.HorizontalMovement => _HorizontalMovement;
 
+    void Awake()
+    {
+        _mainCamera = Camera.main;
+    }
     void Update()
     {
         ClearInputs();
 
         ProcessInputs();
+        AdjustToCamera();
     }
 
     private void FixedUpdate()
@@ -77,6 +87,17 @@ public class InputHandler : MonoBehaviour, IInputSource
         _verticalInput = Mathf.Clamp(_verticalInput, -1f, 1f);
 
         _movementInputs = new Vector2(_horizontalInput, _verticalInput);
-        _HorizontalMovement = new Vector3(_movementInputs.x, 0f, _movementInputs.y);
+        //_HorizontalMovement = new Vector3(_movementInputs.x, 0f, _movementInputs.y);
+        _HorizontalMovement = AdjustToCamera();
+    }
+
+    private Vector3 AdjustToCamera()
+    {
+        Vector3 viewDir = transform.position - new Vector3(_mainCamera.transform.position.x, transform.position.y, _mainCamera.transform.position.z);
+        _orientation.forward = viewDir.normalized;
+
+        _adjustToCameraTest = _orientation.forward * _movementInputs.y + _orientation.right * _movementInputs.x;
+
+        return _adjustToCameraTest;
     }
 }

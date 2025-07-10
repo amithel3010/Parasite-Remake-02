@@ -42,6 +42,9 @@ public class DebugManager : MonoBehaviour
 
     public void ToggleDebugCam()
     {
-        _debugCam.VirtualCamera.enabled = !_debugCam.VirtualCamera.enabled;
+        if (_debugCam != null)
+        {
+            _debugCam.VirtualCamera.enabled = !_debugCam.VirtualCamera.enabled;
+        }
     }
 }

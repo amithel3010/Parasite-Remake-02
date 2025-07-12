@@ -82,7 +82,8 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
 
         if (_debugExpectedJumpHeight)
         {
-            float adjustedJumpHeight = _jumpHeight - _hover.CurrentDistanceFromGround;
+            //TODO: must be better way
+            float adjustedJumpHeight = _isFlying ? _jumpHeight : _jumpHeight - _hover.CurrentDistanceFromGround;
             _debugJumpApex = _rb.position + Vector3.up * adjustedJumpHeight;
 
             DrawJumpHeight();
@@ -155,7 +156,7 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
             //Ypos changing due to spring:
             //jump height should be fixed somewhere above player, no need for distance from ground
             //calc jump height from current pos
-            float adjustedJumpHeight = _jumpHeight - _hover.CurrentDistanceFromGround; //still has small inconsistencies but I cant figure out why, and it's for sure good enough.
+            float adjustedJumpHeight = _isFlying? _jumpHeight : _jumpHeight - _hover.CurrentDistanceFromGround; //still has small inconsistencies but I cant figure out why, and it's for sure good enough.
             _debugAdjustedJumpHeight = _rb.position + Vector3.up * adjustedJumpHeight;                                                                          //Debug.Log($"current distance from ground: {groundChecker.CurrentDistanceFromGround}, jump height: {_jumpHeight}, adjusted jump height: {adjustedJumpHeight}");
 
             //difference in velocity needed to be applied this frame to reach that height

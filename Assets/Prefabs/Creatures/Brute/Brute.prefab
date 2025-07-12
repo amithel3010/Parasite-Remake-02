@@ -203,18 +203,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb1655f353ae64b118ad5a426c62e403, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Warning: Please note that for now _uprightSpringDamper, _uprightSpringStrength
+    and _rideSpringStrength require exiting play mode to change properly if cahnging
+    them or thi rigidbody's mass!
   _downDir: {x: 0, y: -1, z: 0}
   _groundLayer:
     serializedVersion: 2
     m_Bits: 256
   _raycastToGroundLength: 1.2
   _rideHeight: 1.2
-  _rideSpringStrength: 2000
+  _rideSpringStrength: 50
   _rideSpringDampingRatio: 0.8
-  _uprightSpringDamper: 300
-  _uprightSpringStrength: 2400
+  _uprightSpringDamper: 7.5
+  _uprightSpringStrength: 60
   _showGroundRay: 0
   _debugRayThickness: 3
+  _knockBackDisablesHover: 0
 --- !u!114 &5035223022648993383
 MonoBehaviour:
   m_ObjectHideFlags: 0

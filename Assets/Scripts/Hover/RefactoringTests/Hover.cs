@@ -27,7 +27,7 @@ public class Hover : MonoBehaviour, IPossessionSource
     public float TimeSinceUngrounded => _timeSinceUngrounded;
 
     [Header("Height Spring Settings")]
-    [SerializeField][Min(0.1f)] private float _rideHeight = 0.93f;
+    [SerializeField][Min(0.1f)] public float _rideHeight = 0.93f; //TODO: should not be public
     [SerializeField][Min(0.1f)] private float _rideSpringStrength = 1000f;
     [Range(0, 1)] public float _rideSpringDampingRatio = 0.5f;
 

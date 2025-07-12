@@ -150,6 +150,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2050600658}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &103692947 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4185032474664527331, guid: cbabb71f4ea1640438e1a9897d0e08f9, type: 3}
+  m_PrefabInstance: {fileID: 8559028398789585912}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &116624236
 GameObject:
   m_ObjectHideFlags: 0
@@ -4194,7 +4199,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2723423154164827868, guid: 7a9201e3c0ab64245a2fec874e7120fc, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4327417041621226411, guid: 7a9201e3c0ab64245a2fec874e7120fc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4472,14 +4477,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1717680553}
     m_Modifications:
-    - target: {fileID: 623719625536758217, guid: 23329cf340e909449b98580ce733f260, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3469120743210788934, guid: 23329cf340e909449b98580ce733f260, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6034423121683378058, guid: 23329cf340e909449b98580ce733f260, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4558,18 +4555,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6034423121683378058, guid: 23329cf340e909449b98580ce733f260, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7510892294769881806, guid: 23329cf340e909449b98580ce733f260, type: 3}
-      propertyPath: m_Type
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7510892294769881806, guid: 23329cf340e909449b98580ce733f260, type: 3}
-      propertyPath: m_FillAmount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7510892294769881806, guid: 23329cf340e909449b98580ce733f260, type: 3}
-      propertyPath: m_FillMethod
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8912195762589418391, guid: 23329cf340e909449b98580ce733f260, type: 3}
@@ -4653,6 +4638,18 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 135831731854324562, guid: cbabb71f4ea1640438e1a9897d0e08f9, type: 3}
   m_PrefabInstance: {fileID: 8559028398789585912}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2038646846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 103692947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60c344db5754242a09a42960d71caa6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2050600657
 GameObject:
   m_ObjectHideFlags: 0
@@ -5744,15 +5741,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4416253014502423623, guid: 9cb5e27e49dfa4b17a66bcf17bcab13b, type: 3}
       propertyPath: _rideSpringStrength
-      value: 800
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 4416253014502423623, guid: 9cb5e27e49dfa4b17a66bcf17bcab13b, type: 3}
       propertyPath: _uprightSpringDamper
-      value: 50
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4416253014502423623, guid: 9cb5e27e49dfa4b17a66bcf17bcab13b, type: 3}
       propertyPath: _uprightSpringStrength
-      value: 400
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 4416253014502423623, guid: 9cb5e27e49dfa4b17a66bcf17bcab13b, type: 3}
       propertyPath: _rideSpringDampingRatio
@@ -6065,7 +6062,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1765445876131992096, guid: b4cbc881dfb214d8a98ec7d79bb7eaa5, type: 3}
       propertyPath: m_Mass
-      value: 1
+      value: 5000
       objectReference: {fileID: 0}
     - target: {fileID: 2802320372738413308, guid: b4cbc881dfb214d8a98ec7d79bb7eaa5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6940,10 +6937,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Brute
       objectReference: {fileID: 0}
-    - target: {fileID: 6999565424575073364, guid: b2e5d7db94e1a446d8dfe87719c2a3a0, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7618,10 +7611,18 @@ PrefabInstance:
       propertyPath: m_Mass
       value: 500
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 5324222762690352979, guid: cbabb71f4ea1640438e1a9897d0e08f9, type: 3}
+      propertyPath: m_LinearDamping
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 2201677399526570644, guid: cbabb71f4ea1640438e1a9897d0e08f9, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4185032474664527331, guid: cbabb71f4ea1640438e1a9897d0e08f9, type: 3}
+      insertIndex: 3
+      addedObject: {fileID: 2038646846}
   m_SourcePrefab: {fileID: 100100000, guid: cbabb71f4ea1640438e1a9897d0e08f9, type: 3}
 --- !u!114 &8770797771058636622
 MonoBehaviour:
@@ -7685,6 +7686,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb1655f353ae64b118ad5a426c62e403, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Warning: Please note that for now _uprightSpringDamper, _uprightSpringStrength
+    and _rideSpringStrength require exiting play mode to change properly if cahnging
+    them or thi rigidbody's mass!
   _downDir: {x: 0, y: -1, z: 0}
   _groundLayer:
     serializedVersion: 2
@@ -7915,6 +7919,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb1655f353ae64b118ad5a426c62e403, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Warning: Please note that for now _uprightSpringDamper, _uprightSpringStrength
+    and _rideSpringStrength require exiting play mode to change properly if cahnging
+    them or thi rigidbody's mass!
   _downDir: {x: 0, y: -1, z: 0}
   _groundLayer:
     serializedVersion: 2
@@ -7975,7 +7982,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4e4bb60b4117476892125c71d708f8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _holder: {fileID: 0}
+  _holder: {fileID: 116624237}
+  _raycastLength: 3
+  _boxLayer:
+    serializedVersion: 2
+    m_Bits: 1
+  _newRideHeight: 2.3
+  _newSpeed: 2
+  _newJumpHeight: 1
 --- !u!114 &9212978007041401363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8090,6 +8104,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb1655f353ae64b118ad5a426c62e403, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Warning: Please note that for now _uprightSpringDamper, _uprightSpringStrength
+    and _rideSpringStrength require exiting play mode to change properly if cahnging
+    them or thi rigidbody's mass!
   _downDir: {x: 0, y: -1, z: 0}
   _groundLayer:
     serializedVersion: 2

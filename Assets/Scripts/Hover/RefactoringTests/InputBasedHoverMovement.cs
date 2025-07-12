@@ -16,7 +16,7 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
     private Rigidbody _rb;
 
     [Header("Movement")]
-    [SerializeField] private float _maxSpeed = 4f;
+    [SerializeField] public float _maxSpeed = 4f; //TODO: should not be public
     [SerializeField] private float _acceleration = 25f;
     [SerializeField] private float _maxAccelForce = 150f;
     [SerializeField] private float _leanFactor = 0.25f;
@@ -31,7 +31,7 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
 
     [Header("Jumping")]
     [SerializeField] private int _maxJumps = 1;
-    [SerializeField] private float _jumpHeight = 5f;
+    [SerializeField] public float _jumpHeight = 5f; //TODO: should not be public
     [SerializeField] private float _jumpBuffer = 0.2f;
     [SerializeField] private float _coyoteTime = 0.2f;
     [SerializeField] private bool _isFlying = false;

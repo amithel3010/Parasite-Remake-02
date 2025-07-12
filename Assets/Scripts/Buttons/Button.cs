@@ -76,6 +76,8 @@ public class Button : MonoBehaviour
 
     private void Update()
     {
+        //TODO: probably not great that this is in update
+
         // Remove any pushers that were destroyed or deactivated
         _pushers.RemoveAll(p => p == null || !p.gameObject.activeInHierarchy);
 

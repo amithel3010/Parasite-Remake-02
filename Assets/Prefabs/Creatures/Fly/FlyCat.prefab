@@ -140,6 +140,7 @@ GameObject:
   - component: {fileID: 108312557183549641}
   - component: {fileID: 8505040607584686199}
   - component: {fileID: 8120340269073501476}
+  - component: {fileID: 4009081939644178535}
   m_Layer: 6
   m_Name: FlyCat
   m_TagString: Untagged
@@ -162,6 +163,7 @@ Transform:
   m_Children:
   - {fileID: 1306547100838064871}
   - {fileID: 8533166265216015631}
+  - {fileID: 5101397048502317808}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &8996192089724172722
@@ -172,7 +174,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4087430175363014747}
   serializedVersion: 5
-  m_Mass: 1
+  m_Mass: 10
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -203,6 +205,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb1655f353ae64b118ad5a426c62e403, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Warning: Please note that for now _uprightSpringDamper, _uprightSpringStrength
+    and _rideSpringStrength require exiting play mode to change properly if cahnging
+    them or thi rigidbody's mass!
   _downDir: {x: 0, y: -1, z: 0}
   _groundLayer:
     serializedVersion: 2
@@ -210,9 +215,12 @@ MonoBehaviour:
   _raycastToGroundLength: 3
   _rideHeight: 1.3
   _rideSpringStrength: 80
-  _rideSpringDampingRatio: 0.5
+  _rideSpringDampingRatio: 0.27
   _uprightSpringDamper: 5
   _uprightSpringStrength: 40
+  _showGroundRay: 0
+  _debugRayThickness: 3
+  _knockBackDisablesHover: 0
 --- !u!114 &2389344936115103885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,8 +233,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2daeaca1790604cb18dde43434222bd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputSourceProvider: {fileID: 0}
-  _knockbackProvider: {fileID: 0}
   _maxSpeed: 8
   _acceleration: 200
   _maxAccelForce: 150
@@ -303,7 +309,7 @@ MonoBehaviour:
   _jumpBuffer: 0.2
   _coyoteTime: 0.2
   _isFlying: 1
-  _debugJumpheight: 0
+  _debugExpectedJumpHeight: 0
 --- !u!114 &7777029705140264105
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -368,6 +374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8b1a18bb84a94233a30a418b044339a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  KnockbackEnabled: 1
   _hitDirForce: 8
   _constForce: 6
   _inputForce: 0
@@ -405,7 +412,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  KnockbackEnabled: 1
 --- !u!114 &8120340269073501476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -419,6 +425,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 25
+--- !u!114 &4009081939644178535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4087430175363014747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4e4bb60b4117476892125c71d708f8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _holder: {fileID: 5101397048502317808}
+  _raycastLength: 3
+  _boxLayer:
+    serializedVersion: 2
+    m_Bits: 1
+  _newRideHeight: 2.3
+  _newSpeed: 2
+  _newJumpHeight: 1
 --- !u!1 &4581140288191664863
 GameObject:
   m_ObjectHideFlags: 0
@@ -850,3 +876,34 @@ CapsuleCollider:
   m_Height: 1.58
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &8777870996006886182
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5101397048502317808}
+  m_Layer: 6
+  m_Name: BoxHolderTf
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5101397048502317808
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8777870996006886182}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1.58, z: 0.08}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2417503504807646526}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

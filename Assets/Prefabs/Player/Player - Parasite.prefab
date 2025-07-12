@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7633685481879324474}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GFX
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8516606508543966852}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Orientation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 4792347371357428024}
   - component: {fileID: 9199217214933750217}
   - component: {fileID: 1130793512370780898}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: DirectionPointer
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -161,7 +161,7 @@ GameObject:
   - component: {fileID: 462487779982692687}
   - component: {fileID: 3312842185618801887}
   - component: {fileID: 4087153316289682360}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Capsule
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -254,7 +254,7 @@ GameObject:
   - component: {fileID: 7347830087019279732}
   - component: {fileID: 8544517279788447810}
   - component: {fileID: 6216875041698890944}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player - Parasite
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -287,7 +287,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8488956055623732518}
   serializedVersion: 5
-  m_Mass: 10
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -341,16 +341,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb1655f353ae64b118ad5a426c62e403, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Warning: Please note that for now _uprightSpringDamper, _uprightSpringStrength
+    and _rideSpringStrength require exiting play mode to change properly if cahnging
+    them or thi rigidbody's mass!
   _downDir: {x: 0, y: -1, z: 0}
   _groundLayer:
     serializedVersion: 2
     m_Bits: 256
   _raycastToGroundLength: 1.5
   _rideHeight: 0.93
-  _rideSpringStrength: 2000
+  _rideSpringStrength: 200
   _rideSpringDampingRatio: 0.2
-  _uprightSpringDamper: 25
-  _uprightSpringStrength: 800
+  _uprightSpringDamper: 2.5
+  _uprightSpringStrength: 80
+  _showGroundRay: 1
+  _debugRayThickness: 3
+  _knockBackDisablesHover: 1
 --- !u!114 &7025304015254681039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -363,11 +369,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2daeaca1790604cb18dde43434222bd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputSourceProvider: {fileID: 0}
-  _knockbackProvider: {fileID: 0}
   _maxSpeed: 4
   _acceleration: 25
-  _maxAccelForce: 150
+  _maxAccelForce: 50
   _leanFactor: 0.25
   _accelerationFactorFromDot:
     serializedVersion: 2
@@ -441,7 +445,7 @@ MonoBehaviour:
   _jumpBuffer: 0.2
   _coyoteTime: 0.2
   _isFlying: 0
-  _debugJumpheight: 0
+  _debugExpectedJumpHeight: 0
 --- !u!114 &6819452192336291955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -458,7 +462,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   _possessRayLength: 1
-  _ejectForce: 65
+  _ejectForce: 6.5
   _possessionCooldown: 3
   _gfx: {fileID: 3386328063030698715}
 --- !u!114 &8061695424620454208
@@ -511,6 +515,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8b1a18bb84a94233a30a418b044339a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  KnockbackEnabled: 1
   _hitDirForce: 8
   _constForce: 6
   _inputForce: 0
@@ -548,7 +553,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  KnockbackEnabled: 1
 --- !u!1 &9066669027506558875
 GameObject:
   m_ObjectHideFlags: 0
@@ -559,7 +563,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8984952796355770792}
   - component: {fileID: 2413655453795836195}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Collider
   m_TagString: Player
   m_Icon: {fileID: 0}

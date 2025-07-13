@@ -7,8 +7,8 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
     private bool _isActive = true;
 
     [Header("References")]
-    [SerializeField] private MonoBehaviour _inputSourceProvider; // for seeing in inspector
-    [SerializeField] private MonoBehaviour _knockbackProvider; // for seeing in inspector
+    private MonoBehaviour _inputSourceProvider; // for seeing in inspector
+    private MonoBehaviour _knockbackProvider; // for seeing in inspector
     private IKnockbackStatus _knockbackStatus;
     private Hover _hover;
     private IInputSource _inputSource;
@@ -16,7 +16,7 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
     private Rigidbody _rb;
 
     [Header("Movement")]
-    [SerializeField] private float _maxSpeed = 4f;
+    [SerializeField] public float _maxSpeed = 4f; //TODO: should not be public
     [SerializeField] private float _acceleration = 25f;
     [SerializeField] private float _maxAccelForce = 150f;
     [SerializeField] private float _leanFactor = 0.25f;
@@ -31,7 +31,7 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
 
     [Header("Jumping")]
     [SerializeField] private int _maxJumps = 1;
-    [SerializeField] private float _jumpHeight = 5f;
+    [SerializeField] public float _jumpHeight = 5f; //TODO: should not be public
     [SerializeField] private float _jumpBuffer = 0.2f;
     [SerializeField] private float _coyoteTime = 0.2f;
     [SerializeField] private bool _isFlying = false;
@@ -42,7 +42,7 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
     private int _availableJumps = 1;
     private bool _wasGrounded;
 
-    public event Action OnLanding;
+    public event Action OnLanding; //more like OnFinishedJump
 
     [Header("Debug")]
     [SerializeField] private bool _debugExpectedJumpHeight;
@@ -82,7 +82,8 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
 
         if (_debugExpectedJumpHeight)
         {
-            float adjustedJumpHeight = _jumpHeight - _hover.CurrentDistanceFromGround;
+            //TODO: must be better way
+            float adjustedJumpHeight = _isFlying ? _jumpHeight : _jumpHeight - _hover.CurrentDistanceFromGround;
             _debugJumpApex = _rb.position + Vector3.up * adjustedJumpHeight;
 
             DrawJumpHeight();
@@ -123,10 +124,12 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
 
         if (_hover.IsGrounded)
         {
-            if (!_wasGrounded)
+            if (!_wasGrounded && _isJumping)
             {
+                //finished jump
+                _isJumping = false; 
                 OnLanding?.Invoke();
-                Debug.Log("Landed");
+                Debug.Log("Landed from a jump");
             }
             _availableJumps = _maxJumps;
         }
@@ -134,7 +137,6 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
         if (_rb.linearVelocity.y < 0)
         {
             _jumpReady = true;
-            _isJumping = false;
             _hover.SetMaintainHeight(true);
         }
 
@@ -154,7 +156,7 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
             //Ypos changing due to spring:
             //jump height should be fixed somewhere above player, no need for distance from ground
             //calc jump height from current pos
-            float adjustedJumpHeight = _jumpHeight - _hover.CurrentDistanceFromGround; //still has small inconsistencies but I cant figure out why, and it's for sure good enough.
+            float adjustedJumpHeight = _isFlying? _jumpHeight : _jumpHeight - _hover.CurrentDistanceFromGround; //still has small inconsistencies but I cant figure out why, and it's for sure good enough.
             _debugAdjustedJumpHeight = _rb.position + Vector3.up * adjustedJumpHeight;                                                                          //Debug.Log($"current distance from ground: {groundChecker.CurrentDistanceFromGround}, jump height: {_jumpHeight}, adjusted jump height: {adjustedJumpHeight}");
 
             //difference in velocity needed to be applied this frame to reach that height

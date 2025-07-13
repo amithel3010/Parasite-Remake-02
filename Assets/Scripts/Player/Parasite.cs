@@ -115,7 +115,7 @@ public class Parasite : MonoBehaviour, ICollector
         _rb.isKinematic = false;
         _rb.detectCollisions = true;
 
-        _rb.AddForce(Vector3.up * _ejectForce, ForceMode.Impulse); //that's for exiting Possessable with height
+        _rb.AddForce(Vector3.up * _ejectForce * _rb.mass, ForceMode.Impulse); //that's for exiting Possessable with height. adjusted for mass
         StartCoroutine(PossessionCooldown(_possessionCooldown));
     }
 

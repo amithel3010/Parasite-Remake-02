@@ -4,6 +4,10 @@ using UnityEngine;
 public class Hover : MonoBehaviour, IPossessionSource
 {
     //Maintain Height and Upright with springs
+    //TODO: make this script independent of mass
+
+    [TextAreaAttribute]
+    public string Warning = "Please note that for now _uprightSpringDamper, _uprightSpringStrength and _rideSpringStrength require exiting play mode to change properly if changing them or the rigidbody's mass!";
 
     public bool _isActive { get; private set; } = true;
 
@@ -23,7 +27,7 @@ public class Hover : MonoBehaviour, IPossessionSource
     public float TimeSinceUngrounded => _timeSinceUngrounded;
 
     [Header("Height Spring Settings")]
-    [SerializeField][Min(0.1f)] private float _rideHeight = 0.93f;
+    [SerializeField][Min(0.1f)] public float _rideHeight = 0.93f; //TODO: should not be public
     [SerializeField][Min(0.1f)] private float _rideSpringStrength = 1000f;
     [Range(0, 1)] public float _rideSpringDampingRatio = 0.5f;
 
@@ -39,25 +43,39 @@ public class Hover : MonoBehaviour, IPossessionSource
     [Header("Debug")]
     [SerializeField] private bool _showGroundRay;
     [SerializeField] private float _debugRayThickness = 3f;
+    [SerializeField] private bool _knockBackDisablesHover = false;
 
     // --- refs ---
     private Rigidbody _rb;
     private Rigidbody _hitBody;
+    private MonoBehaviour _knockbackProvider; // for seeing in inspector
+    private IKnockbackStatus _knockbackStatus;
 
     void Awake()
     {
         _rb = GetComponent<Rigidbody>();
+
+        AdjustSpringValuesToMass();
+
+        if (_knockbackProvider == null)
+            _knockbackProvider = GetComponent<IKnockbackStatus>() as MonoBehaviour;
+        _knockbackStatus = _knockbackProvider as IKnockbackStatus;
+
     }
 
     private void FixedUpdate()
     {
+
         if (!_isActive) return;
 
         RaycastToGround();
 
         if (_shouldMaintainHeight)
         {
-            MaintainHeight();
+            if (!(_knockBackDisablesHover && _knockbackStatus.IsKnockedBack))
+            {
+                MaintainHeight();
+            }
         }
 
         Vector3 lookDir = GetStableLookDirection();
@@ -148,11 +166,21 @@ public class Hover : MonoBehaviour, IPossessionSource
         float rotDegrees;
 
         toGoal.ToAngleAxis(out rotDegrees, out rotAxis);
+
+        // Avoid identity rotation issues
+        //if (rotDegrees < 0.001f || float.IsNaN(rotDegrees) || rotAxis == Vector3.zero) return;
+
         rotAxis.Normalize();
 
         float rotRadians = rotDegrees * Mathf.Deg2Rad;
+        //Debug.LogError($"toGoal: {toGoal}, rotDegrees: {rotDegrees}, rotAxis: {rotAxis}, rotRadians: {rotRadians}");
 
-        _rb.AddTorque(rotAxis * (rotRadians * _uprightSpringStrength) - (_rb.angularVelocity * _uprightSpringDamper));
+        Vector3 torque = rotAxis * (rotRadians * _uprightSpringStrength) - (_rb.angularVelocity * _uprightSpringDamper);
+
+        // Optional final NaN check (for full bulletproofing)
+        //if (float.IsNaN(torque.x) || float.IsNaN(torque.y) || float.IsNaN(torque.z)) return;
+
+        _rb.AddTorque(torque);
     }
 
     private Vector3 GetStableLookDirection()
@@ -163,6 +191,13 @@ public class Hover : MonoBehaviour, IPossessionSource
             return flatVelocity.normalized;
 
         return Vector3.zero;
+    }
+
+    private void AdjustSpringValuesToMass()
+    {
+        _rideSpringStrength = _rideSpringStrength * _rb.mass;
+        _uprightSpringStrength = _uprightSpringStrength * _rb.mass;
+        _uprightSpringDamper = _uprightSpringDamper * _rb.mass;
     }
     #endregion
 

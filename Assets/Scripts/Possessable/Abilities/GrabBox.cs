@@ -12,14 +12,11 @@ public class GrabBox : MonoBehaviour, IPossessionSensitive
     //cat should feel heavier when holding box. adjust rb.mass?
     // if already holding box, release it.
 
-    //TODO: raycast or overlapsphere? for  now it is an overlap sphere
-
     [Header("Pickup Transform")]
     [SerializeField] Transform _holder;
 
     [Header("Raycast Settings")]
     [SerializeField] private Vector3 _raycastDirection = Vector3.down;
-    //[SerializeField] private float _raycastLength = 3f;
     [SerializeField] private float _sphereRadius = 0.3f;
     [SerializeField] private LayerMask _boxLayer;
 
@@ -69,38 +66,6 @@ public class GrabBox : MonoBehaviour, IPossessionSensitive
         }
 
     }
-
-    //private void CheckForBoxes()
-    //{
-    //    Ray ray = new Ray(transform.position, transform.TransformDirection(_raycastDirection));
-    //    if (Physics.Raycast(ray, out RaycastHit hitInfo, _raycastLength, _boxLayer))
-    //    {
-    //        if (hitInfo.transform.TryGetComponent<WoodenBox>(out var hitBox))
-    //        {
-    //            Debug.Log("Found Box");
-    //            if (_inputSource.Action2Pressed)
-    //            {
-    //                //Grab
-    //                _currentBox = hitBox.gameObject;
-    //                _currentBoxRB = _currentBox.GetComponent<Rigidbody>();
-
-    //                //TODO: for now this works but i want to make sure it cant go through walls
-    //                _currentBoxRB.isKinematic = true;
-    //                _currentBoxRB.position = _holder.position;
-
-    //                //change hover and movement values //TODO: this is a bit sensitive...
-    //                _hover._rideHeight = _newRideHeight;
-    //                _movement._maxSpeed = _newSpeed;
-    //                _movement._jumpHeight = _newJumpHeight;
-
-    //                _isHoldingBox = true;
-
-    //            }
-    //        }
-
-    //    }
-
-    //}
 
     private void CheckForBoxesWithOverlapSphere()
     {
@@ -164,11 +129,6 @@ public class GrabBox : MonoBehaviour, IPossessionSensitive
 
     private void OnDrawGizmos()
     {
-        //if (_showRaycast)
-        //{
-        //    Gizmos.DrawRay(transform.position, transform.TransformDirection(_raycastDirection * _raycastLength));
-        //}
-
         if (_showOverlapSphere)
         {
             Gizmos.color = Color.cadetBlue;

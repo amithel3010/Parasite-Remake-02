@@ -5425,10 +5425,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Thorns
       objectReference: {fileID: 0}
-    - target: {fileID: 7492502842903064131, guid: 2e49c3a3f59bf4ce98a1bf78e61c6627, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5504,10 +5500,6 @@ PrefabInstance:
     - target: {fileID: 2417503504807646526, guid: 9cb5e27e49dfa4b17a66bcf17bcab13b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4009081939644178535, guid: 9cb5e27e49dfa4b17a66bcf17bcab13b, type: 3}
-      propertyPath: _boxLayer.m_Bits
-      value: 512
       objectReference: {fileID: 0}
     - target: {fileID: 4009081939644178535, guid: 9cb5e27e49dfa4b17a66bcf17bcab13b, type: 3}
       propertyPath: _showOverlapSphere
@@ -6386,39 +6378,6 @@ MonoBehaviour:
   _constForce: 4
   _inputForce: 0
   _timer: 0.5
-  _constForceScaleFromDot:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: -1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 136
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0
-      value: 1.3
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 136
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 136
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &6339991069942893939
 GameObject:
   m_ObjectHideFlags: 0
@@ -6446,7 +6405,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2338638882686671862, guid: 62846ba83004be24d912ad81643db2c4, type: 3}
       propertyPath: m_Name
-      value: Brute
+      value: Brute(canGrab)
       objectReference: {fileID: 0}
     - target: {fileID: 7040764129166712141, guid: 62846ba83004be24d912ad81643db2c4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7126,39 +7085,6 @@ MonoBehaviour:
   _constForce: 6
   _inputForce: 0
   _timer: 0.3
-  _constForceScaleFromDot:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: -1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 136
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0
-      value: 1.3
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 136
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 136
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!4 &8533166263640442542
 Transform:
   m_ObjectHideFlags: 0
@@ -7248,39 +7174,6 @@ MonoBehaviour:
   _constForce: 6
   _inputForce: 0
   _timer: 0.3
-  _constForceScaleFromDot:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: -1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 136
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0
-      value: 1.3
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 136
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 136
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!114 &8770797771058636623
 MonoBehaviour:
   m_ObjectHideFlags: 0

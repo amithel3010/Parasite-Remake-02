@@ -10,8 +10,6 @@ public class Button : MonoBehaviour
     //Should be able to be pressed by brute standing on it, or a wooden box on it
     //on press, raise a unity event
 
-    //TODO: take into account the possibility of a brute dying while pressing a button
-
     //private CanPushButtons _pusher;
     private bool _isPushed = false;
 

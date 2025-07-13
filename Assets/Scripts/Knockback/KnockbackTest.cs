@@ -13,7 +13,7 @@ public class KnockbackTest : MonoBehaviour, IKnockbackStatus
 
     [SerializeField] private float _timer = 0.5f;
 
-    [SerializeField] private AnimationCurve _constForceScaleFromDot;
+    //[SerializeField] private AnimationCurve _constForceScaleFromDot;
 
     private bool _isKnockedBack;
     public bool IsKnockedBack => _isKnockedBack;
@@ -25,7 +25,7 @@ public class KnockbackTest : MonoBehaviour, IKnockbackStatus
         _rb = GetComponent<Rigidbody>();
     }
 
-    public void Knockback(Vector3 hitDir, Vector3 constForceDir, Vector3 inputDir)
+    public void Knockback(Vector3 hitDirXZ, Vector3 constForceDir, Vector3 inputDir)
     {
         if (IsKnockedBack || !KnockbackEnabled) return;
 
@@ -37,11 +37,11 @@ public class KnockbackTest : MonoBehaviour, IKnockbackStatus
         //TODO: still feels kinda off... maybe i should just set velocity.
         // i kinda have a vision for a tool that lets knockback be controlled with a spline.
 
-        float dot = Vector3.Dot(hitDir.normalized, constForceDir.normalized);
-        float scale = _constForceScaleFromDot.Evaluate(dot);
+        //float dot = Vector3.Dot(hitDirXZ.normalized, constForceDir.normalized);
+        //float scale = _constForceScaleFromDot.Evaluate(dot);
 
-        hitForce = hitDir * _hitDirForce;
-        scaledConstForce = constForceDir * _constForce * scale;
+        hitForce = hitDirXZ * _hitDirForce;
+        scaledConstForce = constForceDir * _constForce; //* scale;
 
         knockbackForce = hitForce + scaledConstForce;
 

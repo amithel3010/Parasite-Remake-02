@@ -27,12 +27,12 @@ public class AITest : MonoBehaviour, IInputSource
 
     private void FixedUpdate()
     {
-        _desiredMoveDir = Vector3.zero; 
+        _desiredMoveDir = Vector3.zero;
 
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, _playerDetectionRadius);
-        foreach(var collider in hitColliders)
+        foreach (var collider in hitColliders)
         {
-            if(collider.transform.parent.gameObject.TryGetComponent<Parasite>(out Parasite parasite))
+            if (collider.transform.parent.gameObject.TryGetComponent<Parasite>(out Parasite parasite))
             {
                 //detected player
                 _desiredMoveDir = (parasite.transform.position - transform.position).normalized;

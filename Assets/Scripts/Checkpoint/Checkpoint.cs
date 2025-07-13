@@ -8,17 +8,37 @@ public class Checkpoint : MonoBehaviour
     [Tooltip("if set to none, it uses the transform.position of this checkpoint")]
     [SerializeField] private Transform _respawnPoint;
 
-    private bool _isActive = false;
 
     [Header("Debugging")]
     private Renderer _renderer;
 
+    private bool _isActive = false;
+    private TriggerChanneler _trigger;
+
+
     void Awake()
     {
         _renderer = GetComponentInChildren<Renderer>();
+        _trigger = GetComponentInChildren<TriggerChanneler>();
     }
 
-    public void OnTriggered(Collider other)
+    void OnEnable()
+    {
+        if (_trigger != null)
+        {
+            _trigger.OnTriggerEnterEvent += HandleTriggerEnter;
+        }
+    }
+
+    void OnDisable()
+    {
+        if (_trigger != null)
+        {
+            _trigger.OnTriggerEnterEvent -= HandleTriggerEnter;
+        }
+    }
+
+    public void HandleTriggerEnter(Collider other)
     {
         if (_isActive) return;
 

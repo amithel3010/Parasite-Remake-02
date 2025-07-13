@@ -15,7 +15,7 @@ public class Button : MonoBehaviour
     //private CanPushButtons _pusher;
     private bool _isPushed = false;
 
-    private TriggerEventHandler _trigger;
+    private TriggerChanneler _trigger;
 
     [SerializeField] private UnityEvent OnButtonPress;
     [SerializeField] private UnityEvent OnButtonUp;
@@ -24,26 +24,8 @@ public class Button : MonoBehaviour
 
     void Awake()
     {
-        _trigger = GetComponentInChildren<TriggerEventHandler>();
+        _trigger = GetComponentInChildren<TriggerChanneler>();
         Debug.Log(_trigger);
-    }
-
-    void OnEnable()
-    {
-        if (_trigger != null)
-        {
-            _trigger.OnTriggerEnterEvent += OnChildTriggerEnter;
-            _trigger.OnTriggerExitEvent += OnChildTriggerExit;
-        }
-    }
-
-    void OnDisable()
-    {
-        if (_trigger != null)
-        {
-            _trigger.OnTriggerEnterEvent -= OnChildTriggerEnter;
-            _trigger.OnTriggerExitEvent -= OnChildTriggerExit;
-        }
     }
 
     public void OnChildTriggerEnter(Collider other)

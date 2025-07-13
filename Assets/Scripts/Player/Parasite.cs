@@ -164,7 +164,7 @@ public class Parasite : MonoBehaviour, ICollector
         return false;
     }
 
-    public void RespawnAt(Vector3 respawnPos)
+    public void TeleportTo(Vector3 respawnPos)
     {
         //reset position and velocity. I wonder if this could cause problems...
         _rb.linearVelocity = Vector3.zero;

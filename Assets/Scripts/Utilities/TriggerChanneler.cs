@@ -1,9 +1,13 @@
 using System;
 using UnityEngine;
     
-public class TriggerEventHandler : MonoBehaviour
+public class TriggerChanneler : MonoBehaviour
 {
-    //TODO: replace trigger script with this generic script
+    /// <summary>
+    /// Used to channel a trigger from a child to it's parent.
+    /// </summary>
+
+    //TODO: requires subscribing on awake and kinda clutters the code
     
     public event Action<Collider> OnTriggerEnterEvent;
     public event Action<Collider> OnTriggerStayEvent;

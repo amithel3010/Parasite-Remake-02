@@ -5461,6 +5461,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1658951701}
     m_Modifications:
+    - target: {fileID: 2389344936115103885, guid: 9cb5e27e49dfa4b17a66bcf17bcab13b, type: 3}
+      propertyPath: _maxSpeed
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 2417503504807646526, guid: 9cb5e27e49dfa4b17a66bcf17bcab13b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.2576501
@@ -5508,6 +5512,10 @@ PrefabInstance:
     - target: {fileID: 4087430175363014747, guid: 9cb5e27e49dfa4b17a66bcf17bcab13b, type: 3}
       propertyPath: m_Name
       value: FlyCat
+      objectReference: {fileID: 0}
+    - target: {fileID: 7206804757170966531, guid: 9cb5e27e49dfa4b17a66bcf17bcab13b, type: 3}
+      propertyPath: _playerDetectionRadius
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6668,6 +6676,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _action2Pressed: 0
+  _playerDetectionRadius: 0
+  _showPlayerDetectionSphere: 0
 --- !u!1 &7220901620151149310
 GameObject:
   m_ObjectHideFlags: 0
@@ -6896,6 +6906,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _action2Pressed: 0
+  _playerDetectionRadius: 0
+  _showPlayerDetectionSphere: 0
 --- !u!4 &7951933457834484109
 Transform:
   m_ObjectHideFlags: 0

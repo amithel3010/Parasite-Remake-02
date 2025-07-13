@@ -19,7 +19,7 @@ public class MaintainHeightAndUpright
     public MaintainHeightAndUpright(Rigidbody rb, HoverSettings settings)
     {
         _rb = rb;
-        _rideHeight = settings.RideHeight; //TODO: ride height should be part of Ground Checker
+        _rideHeight = settings.RideHeight; 
         _springDampingRatio = settings.RideSpringDampingRatio;
         _rideSpringStrength = settings.RideSpringStrength;
 

@@ -115,7 +115,7 @@ public class Parasite : MonoBehaviour, ICollector
         _rb.isKinematic = false;
         _rb.detectCollisions = true;
 
-        _rb.AddForce(Vector3.up * _ejectForce, ForceMode.Impulse); //that's for exiting Possessable with height
+        _rb.AddForce(Vector3.up * _ejectForce * _rb.mass, ForceMode.Impulse); //that's for exiting Possessable with height. adjusted for mass
         StartCoroutine(PossessionCooldown(_possessionCooldown));
     }
 
@@ -164,7 +164,7 @@ public class Parasite : MonoBehaviour, ICollector
         return false;
     }
 
-    public void RespawnAt(Vector3 respawnPos)
+    public void TeleportTo(Vector3 respawnPos)
     {
         //reset position and velocity. I wonder if this could cause problems...
         _rb.linearVelocity = Vector3.zero;

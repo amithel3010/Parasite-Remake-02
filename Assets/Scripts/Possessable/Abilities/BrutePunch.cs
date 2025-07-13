@@ -52,6 +52,12 @@ public class BrutePunch : MonoBehaviour, IPossessionSensitive
             return;
         }
 
+        CheckforHittablesAndPreformHits();
+
+    }
+
+    private void CheckforHittablesAndPreformHits()
+    {
         Collider[] hits = Physics.OverlapSphere(_punchOrigin.position, _hitboxRadius); //sphere?
 
         foreach (var hit in hits)
@@ -61,6 +67,11 @@ public class BrutePunch : MonoBehaviour, IPossessionSensitive
             if (target == gameObject || _alreadyHit.Contains(target)) continue;
 
             _alreadyHit.Add(target);
+
+            if (hit.transform.parent.gameObject.TryGetComponent<WoodenBox>(out WoodenBox box))
+            {
+                return;
+            }
 
             if (hit.transform.parent.gameObject.TryGetComponent<Health>(out Health health))
             {
@@ -81,10 +92,9 @@ public class BrutePunch : MonoBehaviour, IPossessionSensitive
                 }
             }
         }
-
-
     }
 
+    #region Possession Sensitive
     public void OnPossessed(Parasite playerParasite, IInputSource newInputSource)
     {
         _inputSource = newInputSource;
@@ -94,7 +104,9 @@ public class BrutePunch : MonoBehaviour, IPossessionSensitive
     {
         _inputSource = _defaultInputSource;
     }
+    #endregion
 
+    #region Debug
     void LateUpdate()
     {
         RenderDebugHitbox();
@@ -116,6 +128,7 @@ public class BrutePunch : MonoBehaviour, IPossessionSensitive
 
         Graphics.DrawMesh(_debugMesh, Matrix4x4.TRS(_punchOrigin.position, Quaternion.identity, Vector3.one * _hitboxRadius * 2f), _debugMaterial, 0);
     }
+    #endregion
 
 }
 

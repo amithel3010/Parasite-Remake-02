@@ -5,6 +5,9 @@ public class Hover : MonoBehaviour, IPossessionSource
 {
     //Maintain Height and Upright with springs
 
+    [TextAreaAttribute]
+    public string Warning = "Please note that for now _uprightSpringDamper, _uprightSpringStrength and _rideSpringStrength require exiting play mode to change properly if changing them or the rigidbody's mass!";
+
     public bool _isActive { get; private set; } = true;
 
     [Header("Ground Check")]
@@ -27,6 +30,8 @@ public class Hover : MonoBehaviour, IPossessionSource
     [SerializeField][Min(0.1f)] private float _rideSpringStrength = 1000f;
     [Range(0, 1)] public float _rideSpringDampingRatio = 0.5f;
 
+    private float _defaultRideHeight;
+
     private bool _shouldMaintainHeight = true;
     public bool ShouldMaintainHeight => _shouldMaintainHeight; //useless?
 
@@ -43,19 +48,31 @@ public class Hover : MonoBehaviour, IPossessionSource
     // --- refs ---
     private Rigidbody _rb;
     private Rigidbody _hitBody;
+    private MonoBehaviour _knockbackProvider; // for seeing in inspector
+    private IKnockbackStatus _knockbackStatus;
 
     void Awake()
     {
         _rb = GetComponent<Rigidbody>();
+
+        AdjustSpringValuesToMass();
+
+        if (_knockbackProvider == null)
+            _knockbackProvider = GetComponent<IKnockbackStatus>() as MonoBehaviour;
+        _knockbackStatus = _knockbackProvider as IKnockbackStatus;
+
+        _defaultRideHeight = _rideHeight;
+
     }
 
     private void FixedUpdate()
     {
+
         if (!_isActive) return;
 
         RaycastToGround();
 
-        if (_shouldMaintainHeight)
+        if (_shouldMaintainHeight && !_knockbackStatus.IsKnockedBack)
         {
             MaintainHeight();
         }
@@ -148,11 +165,21 @@ public class Hover : MonoBehaviour, IPossessionSource
         float rotDegrees;
 
         toGoal.ToAngleAxis(out rotDegrees, out rotAxis);
+
+        // Avoid identity rotation issues
+        //if (rotDegrees < 0.001f || float.IsNaN(rotDegrees) || rotAxis == Vector3.zero) return;
+
         rotAxis.Normalize();
 
         float rotRadians = rotDegrees * Mathf.Deg2Rad;
+        //Debug.LogError($"toGoal: {toGoal}, rotDegrees: {rotDegrees}, rotAxis: {rotAxis}, rotRadians: {rotRadians}");
 
-        _rb.AddTorque(rotAxis * (rotRadians * _uprightSpringStrength) - (_rb.angularVelocity * _uprightSpringDamper));
+        Vector3 torque = rotAxis * (rotRadians * _uprightSpringStrength) - (_rb.angularVelocity * _uprightSpringDamper);
+
+        // Optional final NaN check (for full bulletproofing)
+        //if (float.IsNaN(torque.x) || float.IsNaN(torque.y) || float.IsNaN(torque.z)) return;
+
+        _rb.AddTorque(torque);
     }
 
     private Vector3 GetStableLookDirection()
@@ -164,11 +191,29 @@ public class Hover : MonoBehaviour, IPossessionSource
 
         return Vector3.zero;
     }
+
+    private void AdjustSpringValuesToMass()
+    {
+        _rideSpringStrength = _rideSpringStrength * _rb.mass;
+        _uprightSpringStrength = _uprightSpringStrength * _rb.mass;
+        _uprightSpringDamper = _uprightSpringDamper * _rb.mass;
+    }
     #endregion
 
     public void SetMaintainHeight(bool value)
     {
         _shouldMaintainHeight = value;
+    }
+
+    public void ChangeRideHeight(float RideHeightChange)
+    {
+        //TODO: check if after change ride height makes sense
+        _rideHeight += RideHeightChange;
+    }
+
+    public void ResetRideHeight()
+    {
+        _rideHeight = _defaultRideHeight;
     }
 
     public void OnParasitePossession()

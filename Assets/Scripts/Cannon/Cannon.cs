@@ -9,11 +9,14 @@ public class Cannon : MonoBehaviour
 
     [SerializeField] private Transform _endPoint;
 
-    private TriggerEventHandler _trigger;
+    [Header("Debug")]
+    [SerializeField] private bool _showEndPoint = true;
+
+    private TriggerChanneler _trigger;
 
     void Awake()
     {
-        _trigger = GetComponentInChildren<TriggerEventHandler>();
+        _trigger = GetComponentInChildren<TriggerChanneler>();
     }
 
     void OnEnable()
@@ -36,14 +39,24 @@ public class Cannon : MonoBehaviour
 
     private void OnChildTriggerEnter(Collider other)
     {
-        if(other.transform.parent.TryGetComponent<Parasite>(out var parasite))
+        if (other.transform.parent.TryGetComponent<Parasite>(out var parasite))
         {
-            parasite.RespawnAt(_endPoint.position);
+            parasite.TeleportTo(_endPoint.position);
         }
     }
 
     private void OnChildTriggerExit(Collider other)
     {
+        //nothing
+    }
 
+    private void OnDrawGizmosSelected()
+    {
+        //TODO: make it so that it shows only when is selecteed, or children selected
+        if (_showEndPoint)
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawSphere(_endPoint.position, 0.3f);
+        }
     }
 }

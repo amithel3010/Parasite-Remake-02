@@ -54,6 +54,7 @@ public class PlayerHealthHandler : MonoBehaviour, IPossessionSource
     public void HandleRespawn() //TODO: called in respawn in game manager, is this fine?
     {
         _knockback.KnockbackEnabled = true;
+        _health.ResetHealth();
     }
 
     private IEnumerator DamageFlash(float IFramesDuration)

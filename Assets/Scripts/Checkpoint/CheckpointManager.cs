@@ -54,7 +54,7 @@ public class CheckpointManager : MonoBehaviour
             return;
         }
 
-        _playerParasite.RespawnAt(GetRespawnPoint());
+        _playerParasite.TeleportTo(GetRespawnPoint());
     }
 
     public Parasite GetParasite()

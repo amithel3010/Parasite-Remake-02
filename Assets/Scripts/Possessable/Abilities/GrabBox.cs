@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public class CatBoxGrab : MonoBehaviour, IPossessionSensitive
+
+[RequireComponent(typeof(Hover))]
+[RequireComponent(typeof(InputBasedHoverMovement))]
+public class GrabBox : MonoBehaviour, IPossessionSensitive
 {
     //On action press, if the cat is near a wooden box,
     //snap the box to a holdingPos,
@@ -9,16 +12,8 @@ public class CatBoxGrab : MonoBehaviour, IPossessionSensitive
     //cat should feel heavier when holding box. adjust rb.mass?
     // if already holding box, release it.
 
-    private IInputSource _inputSource;
-    private IInputSource _defaultInputSource;
-    private Possessable _possessable;
-    private Hover _hover;
-    private InputBasedHoverMovement _movement;
 
-    private GameObject _currentBox;
-    private Rigidbody _currentBoxRB;
-
-
+    [Header("Pickup Transform")]
     [SerializeField] Transform _holder;
 
     [Header("Raycast Settings")]
@@ -30,6 +25,14 @@ public class CatBoxGrab : MonoBehaviour, IPossessionSensitive
     [SerializeField][Min(0)] private float _newRideHeight = 2.3f;
     [SerializeField] private float _newSpeed = 2f;
     [SerializeField] private float _newJumpHeight = 2f;
+
+    private IInputSource _inputSource;
+    private IInputSource _defaultInputSource;
+    private Hover _hover;
+    private InputBasedHoverMovement _movement;
+
+    private GameObject _currentBox;
+    private Rigidbody _currentBoxRB;
 
     private float _defaultRideHeight;
     private float _defaultSpeed;

@@ -211,7 +211,7 @@ MonoBehaviour:
   _downDir: {x: 0, y: -1, z: 0}
   _groundLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 768
   _raycastToGroundLength: 3
   _rideHeight: 1.3
   _rideSpringStrength: 80
@@ -438,13 +438,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _holder: {fileID: 5101397048502317808}
-  _raycastLength: 3
+  _raycastDirection: {x: 0, y: -1, z: 0}
+  _sphereRadius: 0.3
   _boxLayer:
     serializedVersion: 2
     m_Bits: 1
   _newRideHeight: 2.3
   _newSpeed: 2
   _newJumpHeight: 1
+  _showOverlapSphere: 0
 --- !u!1 &4581140288191664863
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,19 +12,25 @@ public class GrabBox : MonoBehaviour, IPossessionSensitive
     //cat should feel heavier when holding box. adjust rb.mass?
     // if already holding box, release it.
 
+    //TODO: raycast or overlapsphere? for  now it is an overlap sphere
 
     [Header("Pickup Transform")]
     [SerializeField] Transform _holder;
 
     [Header("Raycast Settings")]
-    //[SerializeField] private float _overlapSphereRadius = 2f;
-    [SerializeField] private float _raycastLength = 3f;
+    [SerializeField] private Vector3 _raycastDirection = Vector3.down;
+    //[SerializeField] private float _raycastLength = 3f;
+    [SerializeField] private float _sphereRadius = 0.3f;
     [SerializeField] private LayerMask _boxLayer;
 
     [Header("Movement Changes On Box Pickup")]
-    [SerializeField][Min(0)] private float _newRideHeight = 2.3f;
-    [SerializeField] private float _newSpeed = 2f;
-    [SerializeField] private float _newJumpHeight = 2f;
+    [SerializeField][Min(0)] private float _rideHeightChange = 1f;
+    [SerializeField][Max(0)] private float _maxSpeedChange = -6f;
+    [SerializeField][Max(0)] private float _jumpHeightChange = -3f;
+
+    [Header("Debug")]
+    //[SerializeField] private bool _showRaycast;
+    [SerializeField] private bool _showOverlapSphere;
 
     private IInputSource _inputSource;
     private IInputSource _defaultInputSource;
@@ -34,20 +40,13 @@ public class GrabBox : MonoBehaviour, IPossessionSensitive
     private GameObject _currentBox;
     private Rigidbody _currentBoxRB;
 
-    private float _defaultRideHeight;
-    private float _defaultSpeed;
-    private float _defaultJumpHeight;
-
     private bool _isHoldingBox;
 
 
     private void Awake()
     {
         _hover = GetComponent<Hover>();
-        _defaultRideHeight = _hover._rideHeight;
         _movement = GetComponent<InputBasedHoverMovement>();
-        _defaultSpeed = _movement._maxSpeed;
-        _defaultJumpHeight = _movement._jumpHeight;
 
         _defaultInputSource = GetComponent<IInputSource>();
         _inputSource = _defaultInputSource;
@@ -57,13 +56,13 @@ public class GrabBox : MonoBehaviour, IPossessionSensitive
     {
         if (_currentBox == null && _currentBoxRB == null && !_isHoldingBox)
         {
-            CheckForBoxes();
+            CheckForBoxesWithOverlapSphere();
         }
         else if (_currentBox != null && _currentBoxRB != null && _isHoldingBox)
         {
             _currentBoxRB.position = _holder.position;
 
-            if(_inputSource.Action2Pressed)
+            if (_inputSource.Action2Pressed)
             {
                 ReleaseBox();
             }
@@ -71,47 +70,77 @@ public class GrabBox : MonoBehaviour, IPossessionSensitive
 
     }
 
-    private void CheckForBoxes()
+    //private void CheckForBoxes()
+    //{
+    //    Ray ray = new Ray(transform.position, transform.TransformDirection(_raycastDirection));
+    //    if (Physics.Raycast(ray, out RaycastHit hitInfo, _raycastLength, _boxLayer))
+    //    {
+    //        if (hitInfo.transform.TryGetComponent<WoodenBox>(out var hitBox))
+    //        {
+    //            Debug.Log("Found Box");
+    //            if (_inputSource.Action2Pressed)
+    //            {
+    //                //Grab
+    //                _currentBox = hitBox.gameObject;
+    //                _currentBoxRB = _currentBox.GetComponent<Rigidbody>();
+
+    //                //TODO: for now this works but i want to make sure it cant go through walls
+    //                _currentBoxRB.isKinematic = true;
+    //                _currentBoxRB.position = _holder.position;
+
+    //                //change hover and movement values //TODO: this is a bit sensitive...
+    //                _hover._rideHeight = _newRideHeight;
+    //                _movement._maxSpeed = _newSpeed;
+    //                _movement._jumpHeight = _newJumpHeight;
+
+    //                _isHoldingBox = true;
+
+    //            }
+    //        }
+
+    //    }
+
+    //}
+
+    private void CheckForBoxesWithOverlapSphere()
     {
-        Ray ray = new Ray(transform.position, -transform.up);
-        if (Physics.Raycast(ray, out RaycastHit hitInfo, _raycastLength, _boxLayer))
+        if (_inputSource.Action2Pressed)
         {
-            if (hitInfo.transform.TryGetComponent<WoodenBox>(out var hitBox))
+            Collider[] hitColliders = Physics.OverlapSphere(_holder.position, _sphereRadius, _boxLayer);
+            foreach (var collider in hitColliders)
             {
-                Debug.Log("Found Box");
-                if (_inputSource.Action2Pressed)
+                if (collider.transform.parent.gameObject.TryGetComponent<WoodenBox>(out var hitBox))
                 {
+                    Debug.Log("Found Box");
                     //Grab
                     _currentBox = hitBox.gameObject;
                     _currentBoxRB = _currentBox.GetComponent<Rigidbody>();
 
                     //TODO: for now this works but i want to make sure it cant go through walls
                     _currentBoxRB.isKinematic = true;
+                    _currentBoxRB.detectCollisions = false;
                     _currentBoxRB.position = _holder.position;
 
-                    //change hover and movement values //TODO: this is a bit sensitive...
-                    _hover._rideHeight = _newRideHeight;
-                    _movement._maxSpeed = _newSpeed;
-                    _movement._jumpHeight = _newJumpHeight;
+                    _hover.ChangeRideHeight(_rideHeightChange);
+                    _movement.ChangeMovementParams(_maxSpeedChange, _jumpHeightChange);
 
                     _isHoldingBox = true;
 
+                    return;
+
                 }
             }
-
         }
-
     }
 
     private void ReleaseBox()
     {
         Debug.Log("Releasing Box");
         _currentBoxRB.isKinematic = false;
+        _currentBoxRB.detectCollisions = true;
 
-        //change hover and movement values //TODO: this is a bit sensitive...
-        _hover._rideHeight = _defaultRideHeight;
-        _movement._maxSpeed = _defaultSpeed;
-        _movement._jumpHeight = _defaultJumpHeight;
+        _hover.ResetRideHeight();
+        _movement.ResetMovementParams();
 
         _currentBox = null;
         _currentBoxRB = null;
@@ -131,5 +160,19 @@ public class GrabBox : MonoBehaviour, IPossessionSensitive
             ReleaseBox();
         }
         _inputSource = _defaultInputSource;
+    }
+
+    private void OnDrawGizmos()
+    {
+        //if (_showRaycast)
+        //{
+        //    Gizmos.DrawRay(transform.position, transform.TransformDirection(_raycastDirection * _raycastLength));
+        //}
+
+        if (_showOverlapSphere)
+        {
+            Gizmos.color = Color.cadetBlue;
+            Gizmos.DrawWireSphere(_holder.position, _sphereRadius);
+        }
     }
 }

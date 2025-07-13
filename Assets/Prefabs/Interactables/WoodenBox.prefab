@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3938352912035288705}
   - component: {fileID: 8202710165649559307}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -66,7 +66,7 @@ GameObject:
   - component: {fileID: 1920690814840600507}
   - component: {fileID: 533136000649731591}
   - component: {fileID: 5324222762690352979}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: WoodenBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -202,7 +202,7 @@ GameObject:
   - component: {fileID: 2110155755678032071}
   - component: {fileID: 2485399783125387881}
   - component: {fileID: 7290740403353048318}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -286,7 +286,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8990861077263281095}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Gfx
   m_TagString: Untagged
   m_Icon: {fileID: 0}

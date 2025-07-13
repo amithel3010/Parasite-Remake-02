@@ -16,7 +16,7 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
     private Rigidbody _rb;
 
     [Header("Movement")]
-    [SerializeField] public float _maxSpeed = 4f; //TODO: should not be public
+    [SerializeField] private float _maxSpeed = 4f; 
     [SerializeField] private float _acceleration = 25f;
     [SerializeField] private float _maxAccelForce = 150f;
     [SerializeField] private float _leanFactor = 0.25f;
@@ -24,6 +24,7 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
     [SerializeField] private AnimationCurve _maxAccelerationForceFactorFromDot;
     [SerializeField] private Vector3 _moveForceScale = new Vector3(1f, 0f, 1f);
 
+    private float _defaultMaxSpeed;
     private Vector3 _GoalDirFromInput;
     private Vector3 _GoalVel;
     private float _speedFactor = 1f; //Does nothing?
@@ -31,11 +32,12 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
 
     [Header("Jumping")]
     [SerializeField] private int _maxJumps = 1;
-    [SerializeField] public float _jumpHeight = 5f; //TODO: should not be public
+    [SerializeField] private float _jumpHeight = 5f; 
     [SerializeField] private float _jumpBuffer = 0.2f;
     [SerializeField] private float _coyoteTime = 0.2f;
     [SerializeField] private bool _isFlying = false;
 
+    private float _defaultJumpHeight;
     private bool _isJumping;
     private float _timeSinceJumpPressed = 0.5f; // if it's zero character jumps on start
     private bool _jumpReady = true;
@@ -64,11 +66,13 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
         _inputSource = _inputSourceProvider as IInputSource;
         _defaultInputSource = _inputSource;
 
-
         if (_knockbackProvider != null && _knockbackStatus == null)
             Debug.LogWarning($"{name} has a KnockbackProvider that does not implement IKnockbackStatus.");
         if (_inputSource == null)
             Debug.LogError($"{name}: No IInputSource assigned or found.");
+
+        _defaultMaxSpeed = _maxSpeed;
+        _defaultJumpHeight = _jumpHeight;
     }
 
     void FixedUpdate()
@@ -127,7 +131,7 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
             if (!_wasGrounded && _isJumping)
             {
                 //finished jump
-                _isJumping = false; 
+                _isJumping = false;
                 OnLanding?.Invoke();
                 Debug.Log("Landed from a jump");
             }
@@ -156,7 +160,7 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
             //Ypos changing due to spring:
             //jump height should be fixed somewhere above player, no need for distance from ground
             //calc jump height from current pos
-            float adjustedJumpHeight = _isFlying? _jumpHeight : _jumpHeight - _hover.CurrentDistanceFromGround; //still has small inconsistencies but I cant figure out why, and it's for sure good enough.
+            float adjustedJumpHeight = _isFlying ? _jumpHeight : _jumpHeight - _hover.CurrentDistanceFromGround; //still has small inconsistencies but I cant figure out why, and it's for sure good enough.
             _debugAdjustedJumpHeight = _rb.position + Vector3.up * adjustedJumpHeight;                                                                          //Debug.Log($"current distance from ground: {groundChecker.CurrentDistanceFromGround}, jump height: {_jumpHeight}, adjusted jump height: {adjustedJumpHeight}");
 
             //difference in velocity needed to be applied this frame to reach that height
@@ -210,6 +214,19 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
         _isActive = true;
     }
     #endregion
+
+    public void ChangeMovementParams(float maxSpeedChange, float jumpHeightChange)
+    {
+        //TODO: check if after change ride height makes sense
+        _maxSpeed += maxSpeedChange;
+        _jumpHeight += jumpHeightChange;
+    }
+
+    public void ResetMovementParams()
+    {
+        _maxSpeed = _defaultMaxSpeed;
+        _jumpHeight = _defaultJumpHeight;
+    }
 
     #region  Debug
     private void DrawJumpHeight()

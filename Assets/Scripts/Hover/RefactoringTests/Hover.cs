@@ -4,7 +4,6 @@ using UnityEngine;
 public class Hover : MonoBehaviour, IPossessionSource
 {
     //Maintain Height and Upright with springs
-    //TODO: make this script independent of mass
 
     [TextAreaAttribute]
     public string Warning = "Please note that for now _uprightSpringDamper, _uprightSpringStrength and _rideSpringStrength require exiting play mode to change properly if changing them or the rigidbody's mass!";
@@ -27,9 +26,11 @@ public class Hover : MonoBehaviour, IPossessionSource
     public float TimeSinceUngrounded => _timeSinceUngrounded;
 
     [Header("Height Spring Settings")]
-    [SerializeField][Min(0.1f)] public float _rideHeight = 0.93f; //TODO: should not be public
+    [SerializeField][Min(0.1f)] private float _rideHeight = 0.93f;
     [SerializeField][Min(0.1f)] private float _rideSpringStrength = 1000f;
     [Range(0, 1)] public float _rideSpringDampingRatio = 0.5f;
+
+    private float _defaultRideHeight;
 
     private bool _shouldMaintainHeight = true;
     public bool ShouldMaintainHeight => _shouldMaintainHeight; //useless?
@@ -60,6 +61,8 @@ public class Hover : MonoBehaviour, IPossessionSource
         if (_knockbackProvider == null)
             _knockbackProvider = GetComponent<IKnockbackStatus>() as MonoBehaviour;
         _knockbackStatus = _knockbackProvider as IKnockbackStatus;
+
+        _defaultRideHeight = _rideHeight;
 
     }
 
@@ -204,6 +207,17 @@ public class Hover : MonoBehaviour, IPossessionSource
     public void SetMaintainHeight(bool value)
     {
         _shouldMaintainHeight = value;
+    }
+
+    public void ChangeRideHeight(float RideHeightChange)
+    {
+        //TODO: check if after change ride height makes sense
+        _rideHeight += RideHeightChange;
+    }
+
+    public void ResetRideHeight()
+    {
+        _rideHeight = _defaultRideHeight;
     }
 
     public void OnParasitePossession()

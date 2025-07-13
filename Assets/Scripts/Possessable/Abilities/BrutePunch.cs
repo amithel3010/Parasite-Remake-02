@@ -68,6 +68,11 @@ public class BrutePunch : MonoBehaviour, IPossessionSensitive
 
             _alreadyHit.Add(target);
 
+            if (hit.transform.parent.gameObject.TryGetComponent<WoodenBox>(out WoodenBox box))
+            {
+                return;
+            }
+
             if (hit.transform.parent.gameObject.TryGetComponent<Health>(out Health health))
             {
                 Debug.Log("Damaged" + hit.gameObject.name);

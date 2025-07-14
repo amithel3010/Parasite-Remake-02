@@ -1,19 +1,17 @@
 using System.Collections;
-using Unity.VisualScripting;
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class Parasite : MonoBehaviour, ICollector
 {
-    //assumes haveing Health, rigidbody, hover controller, input handler.
-
-    //TODO: maybe should be a singleton?
+    //assumes haveing Health, rigidbody, input handler.
 
     //will check downwards for possessables
     // if found, will possess
     //when possess, stop checking disable hover script, and give reference to player input
 
     [Header("Raycast")]
-    [SerializeField] private LayerMask _possessableLayer;
+    [SerializeField] private LayerMask _possessableLayer; //might be useless because of LayerUtils
     [SerializeField] private float _possessRayLength;
 
     [Header("On UnPossession")]
@@ -55,12 +53,12 @@ public class Parasite : MonoBehaviour, ICollector
         }
 
         if (_playerInput._actionPressed)
-            {
-                ExitPossessable();
-            }
+        {
+            ExitPossessable();
+        }
     }
 
-    #region possesion
+    #region Possesion
 
     private void TryPossess()
     {
@@ -74,6 +72,9 @@ public class Parasite : MonoBehaviour, ICollector
             {
                 _currentlyPossessed = target;
                 _currentlyPossessedTransform = target.transform;
+
+                _currentlyPossessed.gameObject.layer = this.gameObject.layer;
+
                 //deactivate rb
                 _rb.isKinematic = true;
                 _rb.detectCollisions = false;
@@ -82,8 +83,11 @@ public class Parasite : MonoBehaviour, ICollector
                 {
                     sensitive.OnParasitePossession();
                 }
+
                 //disable gfx
                 _gfx.SetActive(false);
+
+                CameraManager.Instance.ChangeCameraTarget(_currentlyPossessedTransform);
 
                 _currentlyPossessed.OnPossess(this, _playerInput);
                 _canPossess = false;
@@ -110,6 +114,8 @@ public class Parasite : MonoBehaviour, ICollector
         {
             sensitive.OnParasiteUnPossession(); //feels weirddd
         }
+
+        CameraManager.Instance.ChangeCameraTarget(this.transform);
 
         _gfx.SetActive(true);
         _rb.isKinematic = false;
@@ -150,18 +156,8 @@ public class Parasite : MonoBehaviour, ICollector
 
     public void Collect(Collectable collectable)
     {
+        //TODO: maybe should be called in collectable? and then this is just visual
         CollectableManager.Instance.CollectCollectable(collectable);
-    }
-
-    public bool IsControlling(GameObject obj)
-    {
-        //is the parasite controlling this object?
-        if (obj == this.gameObject) return true; //the object is the parrasite itself
-
-        if (_currentlyPossessedTransform != null && _currentlyPossessedTransform.gameObject == obj)
-            return true;
-
-        return false;
     }
 
     public void TeleportTo(Vector3 respawnPos)

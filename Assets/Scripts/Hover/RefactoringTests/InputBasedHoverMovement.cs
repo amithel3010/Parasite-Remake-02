@@ -16,7 +16,7 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
     private Rigidbody _rb;
 
     [Header("Movement")]
-    [SerializeField] private float _maxSpeed = 4f; 
+    [SerializeField] private float _maxSpeed = 4f;
     [SerializeField] private float _acceleration = 25f;
     [SerializeField] private float _maxAccelForce = 150f;
     [SerializeField] private float _leanFactor = 0.25f;
@@ -32,7 +32,7 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
 
     [Header("Jumping")]
     [SerializeField] private int _maxJumps = 1;
-    [SerializeField] private float _jumpHeight = 5f; 
+    [SerializeField] private float _jumpHeight = 5f;
     [SerializeField] private float _jumpBuffer = 0.2f;
     [SerializeField] private float _coyoteTime = 0.2f;
     [SerializeField] private bool _isFlying = false;
@@ -217,9 +217,22 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
 
     public void ChangeMovementParams(float maxSpeedChange, float jumpHeightChange)
     {
-        //TODO: check if after change ride height makes sense
-        _maxSpeed += maxSpeedChange;
-        _jumpHeight += jumpHeightChange;
+        //check if after change params makes sense
+        if (_maxSpeed + maxSpeedChange <= 0)
+        {
+            Debug.LogWarning("max speed change is too large, defaulting to max speed = 1");
+            _maxSpeed = 1;
+        }
+        else if (_jumpHeight + jumpHeightChange <= 0)
+        {
+            Debug.LogWarning("jump height change is too large, defaulting to jump height = 1");
+            _jumpHeight = 1;
+        }
+        else
+        {
+            _maxSpeed += maxSpeedChange;
+            _jumpHeight += jumpHeightChange;
+        }
     }
 
     public void ResetMovementParams()

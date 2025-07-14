@@ -16,7 +16,6 @@ public class GrabBox : MonoBehaviour, IPossessionSensitive
     [SerializeField] Transform _holder;
 
     [Header("Raycast Settings")]
-    [SerializeField] private Vector3 _raycastDirection = Vector3.down;
     [SerializeField] private float _sphereRadius = 0.3f;
     [SerializeField] private LayerMask _boxLayer;
 

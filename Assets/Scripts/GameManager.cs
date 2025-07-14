@@ -24,6 +24,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
     public void TogglePause()
     {
         Time.timeScale = 0f;
@@ -44,5 +50,4 @@ public class GameManager : MonoBehaviour
         _playerHealthHandler.HandleRespawn();
         _isPaused = false;
     }
-
 }

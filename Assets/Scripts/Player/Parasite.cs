@@ -60,7 +60,7 @@ public class Parasite : MonoBehaviour, ICollector
             }
     }
 
-    #region possesion
+    #region Possesion
 
     private void TryPossess()
     {
@@ -74,6 +74,9 @@ public class Parasite : MonoBehaviour, ICollector
             {
                 _currentlyPossessed = target;
                 _currentlyPossessedTransform = target.transform;
+
+                _currentlyPossessed.gameObject.layer = this.gameObject.layer;
+
                 //deactivate rb
                 _rb.isKinematic = true;
                 _rb.detectCollisions = false;
@@ -82,6 +85,7 @@ public class Parasite : MonoBehaviour, ICollector
                 {
                     sensitive.OnParasitePossession();
                 }
+
                 //disable gfx
                 _gfx.SetActive(false);
 

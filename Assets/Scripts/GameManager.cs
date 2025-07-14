@@ -4,7 +4,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    [SerializeField] private PlayerHealthHandler _playerHealthHandler; //TODO: can't be interface, is thi sthe right way to do it?
+    [SerializeField] private PlayerHealthHandler _playerHealthHandler; //TODO: can't be interface, is this the right way to do it?
 
     private bool _isPaused;
     public bool IsPaused => _isPaused;

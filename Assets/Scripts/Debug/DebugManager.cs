@@ -9,7 +9,6 @@ public class DebugManager : MonoBehaviour
     [SerializeField] Health _playerHealth;
 
     private CinemachineOrbitalFollow _debugCam;
-    //[SerializeField] GameObject _PossessablePrefab;
 
     void Awake()
     {
@@ -21,8 +20,6 @@ public class DebugManager : MonoBehaviour
         {
             Instance = this;
         }
-
-        _debugCam = FindAnyObjectByType<CinemachineOrbitalFollow>();
     }
 
     public void SpawnPossessable(GameObject PossessablePrefab)
@@ -42,9 +39,6 @@ public class DebugManager : MonoBehaviour
 
     public void ToggleDebugCam()
     {
-        if (_debugCam != null)
-        {
-            _debugCam.VirtualCamera.enabled = !_debugCam.VirtualCamera.enabled;
-        }
+        CameraManager.Instance.ToggleActiveCamera();
     }
 }

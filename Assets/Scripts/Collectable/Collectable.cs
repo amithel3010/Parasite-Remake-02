@@ -41,6 +41,8 @@ public class Collectable : MonoBehaviour
 
     public void HandleTriggerEnter(Collider other)
     {
+        //refactor to use player controlled layer:
+
         if (other.transform.parent.TryGetComponent<ICollector>(out var collector))
         {
             collector.Collect(this);

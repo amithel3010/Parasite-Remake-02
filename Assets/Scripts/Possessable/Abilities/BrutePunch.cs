@@ -78,11 +78,11 @@ public class BrutePunch : MonoBehaviour, IPossessionSensitive
                 Debug.Log("Damaged" + hit.gameObject.name);
                 health.ChangeHealth(-_damage);
             }
-            if (hit.transform.parent.gameObject.TryGetComponent<KnockbackTest>(out KnockbackTest knockback))
+            if (hit.transform.parent.gameObject.TryGetComponent<Knockback>(out Knockback knockback))
             {
                 Debug.Log("trying to knockback" + knockback.gameObject.name);
                 Vector3 hitDir = (hit.transform.position - _punchOrigin.position).normalized;
-                knockback.Knockback(hitDir, Vector3.up, Vector3.zero);
+                knockback.ApplyKnockback(hitDir, Vector3.up, Vector3.zero);
             }
             if (hit.transform.parent.gameObject.TryGetComponent<Breakable>(out Breakable breakable))
             {

@@ -1,14 +1,14 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Hover : MonoBehaviour, IPossessionSource
+public class Hover : MonoBehaviour, IPossessionSource, IDeathResponse
 {
     //Maintain Height and Upright with springs
 
     [TextAreaAttribute]
     public string Warning = "Please note that for now _uprightSpringDamper, _uprightSpringStrength and _rideSpringStrength require exiting play mode to change properly if changing them or the rigidbody's mass!";
 
-    public bool _isActive { get; private set; } = true;
+    public bool IsActive { get; private set; } = true;
 
     [Header("Ground Check")]
     [SerializeField] private Vector3 _downDir = Vector3.down;
@@ -68,7 +68,7 @@ public class Hover : MonoBehaviour, IPossessionSource
     private void FixedUpdate()
     {
 
-        if (!_isActive) return;
+        if (!IsActive) return;
 
         RaycastToGround();
 
@@ -218,16 +218,21 @@ public class Hover : MonoBehaviour, IPossessionSource
 
     public void OnParasitePossession()
     {
-        _isActive = false;
+        IsActive = false;
     }
 
     public void OnParasiteUnPossession()
     {
-        _isActive = true;
+        IsActive = true;
+    }
+    public void OnDeath()
+    {
+        IsActive = false;
     }
 
     private void DrawGroundRay()
     {
         DebugUtils.DrawLine(transform.position, transform.position + Vector3.down * _raycastToGroundLength, _debugRayThickness, Color.red);
     }
+
 }

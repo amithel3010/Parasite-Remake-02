@@ -36,9 +36,9 @@ public class DamageOnCollision : MonoBehaviour, IPossessionSensitive
             Debug.Log(this.name + " damaged " + health + " for" + _damage);
         }
 
-        if (DamageTarget.TryGetComponent<KnockbackTest>(out KnockbackTest knockback))
+        if (DamageTarget.TryGetComponent<Knockback>(out Knockback knockback))
         {
-            knockback.Knockback(hitDirXZ, Vector3.up, Vector3.zero);
+            knockback.ApplyKnockback(hitDirXZ, Vector3.up, Vector3.zero);
         }
     }
 

@@ -141,6 +141,7 @@ GameObject:
   - component: {fileID: 8505040607584686199}
   - component: {fileID: 8120340269073501476}
   - component: {fileID: 4009081939644178535}
+  - component: {fileID: 6001059940551028262}
   m_Layer: 6
   m_Name: FlyCat
   m_TagString: Untagged
@@ -232,7 +233,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2daeaca1790604cb18dde43434222bd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxSpeed: 8
+  _maxSpeed: 5
   _acceleration: 200
   _maxAccelForce: 150
   _leanFactor: 0.25
@@ -335,8 +336,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _action2Pressed: 0
-  _playerDetectionRadius: 0
-  _showPlayerDetectionSphere: 0
+  _playerDetectionRadius: 0.79
+  _showPlayerDetectionSphere: 1
 --- !u!114 &392544222433976915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -380,6 +381,7 @@ MonoBehaviour:
   _constForce: 7
   _inputForce: 0
   _timer: 0.3
+  _disableKnockBackOnDeath: 0
 --- !u!114 &8120340269073501476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -406,7 +408,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _holder: {fileID: 5101397048502317808}
-  _raycastDirection: {x: 0, y: -1, z: 0}
   _sphereRadius: 0.3
   _boxLayer:
     serializedVersion: 2
@@ -415,6 +416,18 @@ MonoBehaviour:
   _maxSpeedChange: -6
   _jumpHeightChange: -3
   _showOverlapSphere: 0
+--- !u!114 &6001059940551028262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4087430175363014747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aee40af9abd650a498108b373f7013cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4581140288191664863
 GameObject:
   m_ObjectHideFlags: 0

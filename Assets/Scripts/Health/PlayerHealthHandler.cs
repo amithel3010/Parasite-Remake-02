@@ -4,20 +4,10 @@ using UnityEngine;
 public class PlayerHealthHandler : MonoBehaviour, IPossessionSource
 {
     private Health _health;
-    private KnockbackTest _knockback; //TODO: this feels coupled. i use this to disable knockback on death
-
-    private Renderer _renderer;
-    private Color _defaultColor;
-    private Color _hitColor = Color.red;
-    //on hit Iframes, visual flickering, cant possess take the same time
 
     void Awake()
     {
         _health = GetComponent<Health>();
-        _knockback = GetComponent<KnockbackTest>();
-
-        _renderer = GetComponentInChildren<Renderer>();
-        _defaultColor = _renderer.material.GetColor("_BaseColor");
     }
 
     void OnEnable()
@@ -35,9 +25,13 @@ public class PlayerHealthHandler : MonoBehaviour, IPossessionSource
     private void HandleDeath()
     {
         Debug.Log("Player Died!");
+        //for each IDeathReactor ReactToDeath().
+        foreach (var deathResponse in GetComponents<IDeathResponse>())
+        {
+            deathResponse.OnDeath();
+        }
         //play animation,
         //stop control,
-        _knockback.KnockbackEnabled = false;
         //show game over screen
         GameManager.Instance.GameOver();
     }
@@ -45,23 +39,13 @@ public class PlayerHealthHandler : MonoBehaviour, IPossessionSource
     private void HandleDamage(float IFramesDuration)
     {
         Debug.Log("player got hit");
+        foreach (var damageResponse in GetComponents<IDamageResponse>())
+        {
+            damageResponse.OnDamage(IFramesDuration);
+        }
+
         //play animation
-        StartCoroutine(DamageFlash(IFramesDuration));
         //mostly visual stuff
-        //Knockback happens in attacker
-    }
-
-    public void HandleRespawn() //TODO: called in respawn in game manager, is this fine?
-    {
-        _knockback.KnockbackEnabled = true;
-        _health.ResetHealth();
-    }
-
-    private IEnumerator DamageFlash(float IFramesDuration)
-    {
-        _renderer.material.SetColor("_BaseColor", _hitColor);
-        yield return new WaitForSeconds(IFramesDuration);
-        _renderer.material.SetColor("_BaseColor", _defaultColor);
     }
 
     public void OnParasitePossession()

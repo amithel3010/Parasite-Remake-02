@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class KnockbackTest : MonoBehaviour, IKnockbackStatus
+public class Knockback : MonoBehaviour, IKnockbackStatus, IDeathResponse
 {
     [HideInInspector] public bool KnockbackEnabled = true;
 
@@ -12,6 +12,8 @@ public class KnockbackTest : MonoBehaviour, IKnockbackStatus
     [SerializeField] private float _inputForce;
 
     [SerializeField] private float _timer = 0.5f;
+
+    [SerializeField] private bool _disableKnockBackOnDeath = true; //TODO: not the most elegant solution
 
     //[SerializeField] private AnimationCurve _constForceScaleFromDot;
 
@@ -25,7 +27,7 @@ public class KnockbackTest : MonoBehaviour, IKnockbackStatus
         _rb = GetComponent<Rigidbody>();
     }
 
-    public void Knockback(Vector3 hitDirXZ, Vector3 constForceDir, Vector3 inputDir)
+    public void ApplyKnockback(Vector3 hitDirXZ, Vector3 constForceDir, Vector3 inputDir)
     {
         if (IsKnockedBack || !KnockbackEnabled) return;
 
@@ -66,5 +68,11 @@ public class KnockbackTest : MonoBehaviour, IKnockbackStatus
         _isKnockedBack = true;
         yield return new WaitForSeconds(_timer);
         _isKnockedBack = false;
+    }
+
+    public void OnDeath()
+    {
+        if(_disableKnockBackOnDeath)
+            _isKnockedBack = false;
     }
 }

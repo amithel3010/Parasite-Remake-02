@@ -54,8 +54,7 @@ public class Health : MonoBehaviour
 
     public void ResetHealth()
     {
-        _currentHealth = _maxHealth;
-        OnHealthChanged?.Invoke(_currentHealth, _maxHealth);
+        ChangeHealth(_maxHealth);
     }
 
     private IEnumerator IFrameCooldown()

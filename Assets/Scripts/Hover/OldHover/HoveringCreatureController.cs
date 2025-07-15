@@ -20,7 +20,7 @@ public class HoveringCreatureController : MonoBehaviour,IHasLandedEvent
     private MaintainHeightAndUpright _hover; //must
     private Locomotion _locomotion;
 
-    private KnockbackTest _knockback; //TODO: NOTGOOD! not every hovering creature will have knockback
+    private Knockback _knockback; //TODO: NOTGOOD! not every hovering creature will have knockback
 
     private Rigidbody _rb;
     private IInputSource _inputSource;
@@ -40,7 +40,7 @@ public class HoveringCreatureController : MonoBehaviour,IHasLandedEvent
         _inputSource = _defaultInputSource;
 
         _rb = GetComponent<Rigidbody>();
-        _knockback = GetComponent<KnockbackTest>();
+        _knockback = GetComponent<Knockback>();
         _groundChecker = new GroundChecker(_rb, _groundCheckerSettings, _hoverSettings);
         _hover = new MaintainHeightAndUpright(_rb, _hoverSettings);
         _locomotion = new Locomotion(_rb, _locomotionSettings);

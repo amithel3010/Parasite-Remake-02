@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Hover))]
-public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPossessionSource, IHasLandedEvent
+public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPossessionSource, IHasLandedEvent, IDeathResponse
 {
     private bool _isActive = true;
 
@@ -77,7 +77,7 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
 
     void FixedUpdate()
     {
-        if (!_isActive || !_hover._isActive) return;
+        if (!_isActive || !_hover.IsActive) return;
         if (_inputSource == null) return;
         if (_knockbackStatus.IsKnockedBack) return;
 
@@ -215,6 +215,7 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
     }
     #endregion
 
+    #region Change Movement Parameters
     public void ChangeMovementParams(float maxSpeedChange, float jumpHeightChange)
     {
         //check if after change params makes sense
@@ -240,6 +241,14 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
         _maxSpeed = _defaultMaxSpeed;
         _jumpHeight = _defaultJumpHeight;
     }
+    #endregion
+
+    #region On Death
+    public void OnDeath()
+    {
+        _isActive = false;
+    }
+    #endregion
 
     #region  Debug
     private void DrawJumpHeight()
@@ -253,6 +262,7 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
         DebugUtils.DrawSphere(_debugAdjustedJumpHeight, Color.red, 0.2f);
 
     }
+
 
     #endregion
 }

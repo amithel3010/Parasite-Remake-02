@@ -24,10 +24,12 @@ public class AITest : MonoBehaviour, IInputSource
     [SerializeField] private bool _showPlayerDetectionSphere;
 
     private Vector3 _desiredMoveDir;
+    private bool _detectedPlayer;
 
     private void FixedUpdate()
     {
         _desiredMoveDir = Vector3.zero;
+        _detectedPlayer = false;
 
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, _playerDetectionRadius);
         foreach (var collider in hitColliders)
@@ -35,6 +37,7 @@ public class AITest : MonoBehaviour, IInputSource
             if (collider.transform.parent.gameObject.TryGetComponent<Parasite>(out Parasite parasite))
             {
                 //detected player
+                _detectedPlayer = true;
                 _desiredMoveDir = (parasite.transform.position - transform.position).normalized;
                 return;
             }
@@ -45,8 +48,8 @@ public class AITest : MonoBehaviour, IInputSource
     {
         if (_showPlayerDetectionSphere)
         {
-            Gizmos.color = Color.blue;
-            Gizmos.DrawSphere(transform.position, _playerDetectionRadius);
+            Gizmos.color = _detectedPlayer ? Color.green : Color.red;
+            Gizmos.DrawWireSphere(transform.position, _playerDetectionRadius);
         }
     }
 }

@@ -59,6 +59,8 @@ public class UIManager : MonoBehaviour
     public void ShowGameOverScreen()
     {
         _deathScreenCanvas.enabled = true;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     private void ToggleDebugMenu()

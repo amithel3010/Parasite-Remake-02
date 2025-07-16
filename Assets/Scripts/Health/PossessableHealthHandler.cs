@@ -46,6 +46,7 @@ public class PossessableHealthHandler : MonoBehaviour, IPossessionSensitive
 
     public void OnPossessed(Parasite playerParasite, IInputSource inputSource)
     {
+        _health.ResetHealth();
         //TODO: unclear code!!! baiscally means on death, exit possessable. sounds like a death response to me
         _health.OnDeath += playerParasite.ExitPossessable;
     }

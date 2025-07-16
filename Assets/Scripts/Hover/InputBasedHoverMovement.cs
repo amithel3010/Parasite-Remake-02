@@ -7,12 +7,12 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
     private bool _isActive = true;
 
     [Header("References")]
-    private MonoBehaviour _inputSourceProvider; // for seeing in inspector
     private MonoBehaviour _knockbackProvider; // for seeing in inspector
     private IKnockbackStatus _knockbackStatus;
-    private Hover _hover;
+    private MonoBehaviour _inputSourceProvider; // for seeing in inspector
     private IInputSource _inputSource;
     private IInputSource _defaultInputSource;
+    private Hover _hover;
     private Rigidbody _rb;
 
     [Header("Movement")]
@@ -45,9 +45,11 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
     private bool _wasGrounded;
 
     public event Action OnLanding; //more like OnFinishedJump
+    public event Action OnJumpStarted;
 
     [Header("Debug")]
     [SerializeField] private bool _debugExpectedJumpHeight;
+
     private Vector3 _debugAdjustedJumpHeight;
     private Vector3 _debugJumpApex;
 
@@ -158,7 +160,7 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
             _availableJumps--;
 
             //Ypos changing due to spring:
-            //jump height should be fixed somewhere above player, no need for distance from ground
+            //jump height should be fixed somewhere above player
             //calc jump height from current pos
             float adjustedJumpHeight = _isFlying ? _jumpHeight : _jumpHeight - _hover.CurrentDistanceFromGround; //still has small inconsistencies but I cant figure out why, and it's for sure good enough.
             _debugAdjustedJumpHeight = _rb.position + Vector3.up * adjustedJumpHeight;                                                                          //Debug.Log($"current distance from ground: {groundChecker.CurrentDistanceFromGround}, jump height: {_jumpHeight}, adjusted jump height: {adjustedJumpHeight}");
@@ -169,11 +171,12 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
 
             float requiredVel = goalVel - currentVel;
 
-            //then , we need the force needd for that velocity change (acceleration)
+            //then , we need the force need for that velocity change (acceleration)
             float jumpForce = requiredVel * _rb.mass;
 
             //add impulse force;
             _rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            OnJumpStarted.Invoke();
 
             _timeSinceJumpPressed = _jumpBuffer; //to make sure jump only happens once per input
         }

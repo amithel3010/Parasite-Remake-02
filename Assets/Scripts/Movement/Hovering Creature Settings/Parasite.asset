@@ -9,12 +9,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1aec25a5e25254b91a1038327858f8b7, type: 3}
-  m_Name: FlyLocomotion
+  m_Script: {fileID: 11500000, guid: 8c1a51893a778f041ad3c2b54ebd7850, type: 3}
+  m_Name: Parasite
   m_EditorClassIdentifier: 
-  MaxSpeed: 8
-  Acceleration: 200
-  MaxAccelForce: 150
+  DownDIr: {x: 0, y: -1, z: 0}
+  GroundLayer:
+    serializedVersion: 2
+    m_Bits: 768
+  RaycastToGroundLength: 1.5
+  RideHeight: 0.93
+  RideSpringStrength: 200
+  RideSpringDampingRatio: 0.2
+  UprightSpringDamper: 2.5
+  UprightSpringStrength: 80
+  MaxSpeed: 4
+  Acceleration: 25
+  MaxAccelForce: 50
   LeanFactor: 0.25
   AccelerationFactorFromDot:
     serializedVersion: 2
@@ -83,8 +93,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   MoveForceScale: {x: 1, y: 0, z: 1}
-  MaxJumps: 5
-  JumpHeight: 4
+  MaxJumps: 1
+  JumpHeight: 3
   JumpBuffer: 0.2
   CoyoteTime: 0.2
-  IsFlying: 1

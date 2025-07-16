@@ -33,19 +33,19 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
     private float _speedFactor = 1f; //Does nothing?
     private float _maxAccelForceFactor = 1f; //also does nothin?
 
-    [Header("Jumping")]
-    [SerializeField] private int _maxJumps = 1;
-    [SerializeField] private float _jumpHeight = 5f;
-    [SerializeField] private float _jumpBuffer = 0.2f;
-    [SerializeField] private float _coyoteTime = 0.2f;
-    [SerializeField] private bool _isFlying = false;
+    //[Header("Jumping")]
+    //[SerializeField] private int _maxJumps = 1;
+    //[SerializeField] private float _jumpHeight = 5f;
+    //[SerializeField] private float _jumpBuffer = 0.2f;
+    //[SerializeField] private float _coyoteTime = 0.2f;
+    //[SerializeField] private bool _isFlying = false;
 
-    private float _defaultJumpHeight;
-    private bool _isJumping;
-    private float _timeSinceJumpPressed = 0.5f; // if it's zero character jumps on start
-    private bool _jumpReady = true;
-    private int _availableJumps = 1;
-    private bool _wasGrounded;
+    //private float _defaultJumpHeight;
+    //private bool _isJumping;
+    //private float _timeSinceJumpPressed = 0.5f; // if it's zero character jumps on start
+    //private bool _jumpReady = true;
+    //private int _availableJumps = 1;
+    //private bool _wasGrounded;
 
     public event Action OnLanding; //more like OnFinishedJump
     public event Action OnJumpStarted;
@@ -59,6 +59,14 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
     void Awake()
     {
         if(_settings != null)
+        {
+            _maxSpeed = _settings.MaxSpeed;
+            _acceleration = _settings.Acceleration;
+            _maxAccelForce = _settings.MaxAccelForce;
+            _leanFactor = _settings.LeanFactor;
+            _accelerationFactorFromDot = _settings.AccelerationFactorFromDot;
+            _maxAccelerationForceFactorFromDot = _settings.MaxAccelerationForceFactorFromDot;
+        }
 
         _hover = GetComponent<Hover>();
         _rb = GetComponent<Rigidbody>(); // TODO: should get ref from hover?
@@ -79,7 +87,7 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
             Debug.LogError($"{name}: No IInputSource assigned or found.");
 
         _defaultMaxSpeed = _maxSpeed;
-        _defaultJumpHeight = _jumpHeight;
+        //_defaultJumpHeight = _jumpHeight;
     }
 
     void FixedUpdate()
@@ -89,16 +97,16 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
         if (_knockbackStatus.IsKnockedBack) return;
 
         CharacterMove(_inputSource.HorizontalMovement);
-        CharacterJump(_inputSource.JumpPressed);
+        //CharacterJump(_inputSource.JumpPressed);
 
-        if (_debugExpectedJumpHeight)
-        {
-            //TODO: must be better way
-            float adjustedJumpHeight = _isFlying ? _jumpHeight : _jumpHeight - _hover.CurrentDistanceFromGround;
-            _debugJumpApex = _rb.position + Vector3.up * adjustedJumpHeight;
+        //if (_debugExpectedJumpHeight)
+        //{
+        //    //TODO: must be better way
+        //    float adjustedJumpHeight = _isFlying ? _jumpHeight : _jumpHeight - _hover.CurrentDistanceFromGround;
+        //    _debugJumpApex = _rb.position + Vector3.up * adjustedJumpHeight;
 
-            DrawJumpHeight();
-        }
+        //    DrawJumpHeight();
+        //}
     }
 
     #region  Movement
@@ -128,77 +136,77 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
     #endregion
 
     #region Jumping
-    private void CharacterJump(bool jumpPressed)
-    {
+    //private void CharacterJump(bool jumpPressed)
+    //{
 
-        _timeSinceJumpPressed += Time.fixedDeltaTime;
+    //    _timeSinceJumpPressed += Time.fixedDeltaTime;
 
-        if (_hover.IsGrounded)
-        {
-            if (!_wasGrounded && _isJumping)
-            {
-                //finished jump
-                _isJumping = false;
-                OnLanding?.Invoke();
-                Debug.Log("Landed from a jump");
-            }
-            _availableJumps = _maxJumps;
-        }
+    //    if (_hover.IsGrounded)
+    //    {
+    //        if (!_wasGrounded && _isJumping)
+    //        {
+    //            //finished jump
+    //            _isJumping = false;
+    //            OnLanding?.Invoke();
+    //            Debug.Log("Landed from a jump");
+    //        }
+    //        _availableJumps = _maxJumps;
+    //    }
 
-        if (_rb.linearVelocity.y < 0)
-        {
-            _jumpReady = true;
-            _hover.SetMaintainHeight(true);
-        }
+    //    if (_rb.linearVelocity.y < 0)
+    //    {
+    //        _jumpReady = true;
+    //        _hover.SetMaintainHeight(true);
+    //    }
 
-        if (jumpPressed)
-        {
-            _timeSinceJumpPressed = 0f;
-        }
+    //    if (jumpPressed)
+    //    {
+    //        _timeSinceJumpPressed = 0f;
+    //    }
 
-        if (CanJump())
-        {
-            //flags
-            _jumpReady = false;
-            _isJumping = true;
-            _hover.SetMaintainHeight(false);
-            _availableJumps--;
+    //    if (CanJump())
+    //    {
+    //        //flags
+    //        _jumpReady = false;
+    //        _isJumping = true;
+    //        _hover.SetMaintainHeight(false);
+    //        _availableJumps--;
 
-            //Ypos changing due to spring:
-            //jump height should be fixed somewhere above player
-            //calc jump height from current pos
-            float adjustedJumpHeight = _isFlying ? _jumpHeight : _jumpHeight - _hover.CurrentDistanceFromGround; //still has small inconsistencies but I cant figure out why, and it's for sure good enough.
-            _debugAdjustedJumpHeight = _rb.position + Vector3.up * adjustedJumpHeight;                                                                          //Debug.Log($"current distance from ground: {groundChecker.CurrentDistanceFromGround}, jump height: {_jumpHeight}, adjusted jump height: {adjustedJumpHeight}");
+    //        //Ypos changing due to spring:
+    //        //jump height should be fixed somewhere above player
+    //        //calc jump height from current pos
+    //        float adjustedJumpHeight = _isFlying ? _jumpHeight : _jumpHeight - _hover.CurrentDistanceFromGround; //still has small inconsistencies but I cant figure out why, and it's for sure good enough.
+    //        _debugAdjustedJumpHeight = _rb.position + Vector3.up * adjustedJumpHeight;                                                                          //Debug.Log($"current distance from ground: {groundChecker.CurrentDistanceFromGround}, jump height: {_jumpHeight}, adjusted jump height: {adjustedJumpHeight}");
 
-            //difference in velocity needed to be applied this frame to reach that height
-            float goalVel = Mathf.Sqrt(adjustedJumpHeight * -2 * Physics.gravity.y);
-            float currentVel = _rb.linearVelocity.y;
+    //        //difference in velocity needed to be applied this frame to reach that height
+    //        float goalVel = Mathf.Sqrt(adjustedJumpHeight * -2 * Physics.gravity.y);
+    //        float currentVel = _rb.linearVelocity.y;
 
-            float requiredVel = goalVel - currentVel;
+    //        float requiredVel = goalVel - currentVel;
 
-            //then , we need the force need for that velocity change (acceleration)
-            float jumpForce = requiredVel * _rb.mass;
+    //        //then , we need the force need for that velocity change (acceleration)
+    //        float jumpForce = requiredVel * _rb.mass;
 
-            //add impulse force;
-            _rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            OnJumpStarted.Invoke();
+    //        //add impulse force;
+    //        _rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+    //        OnJumpStarted.Invoke();
 
-            _timeSinceJumpPressed = _jumpBuffer; //to make sure jump only happens once per input
-        }
-        _wasGrounded = _hover.IsGrounded;
-    }
+    //        _timeSinceJumpPressed = _jumpBuffer; //to make sure jump only happens once per input
+    //    }
+    //    _wasGrounded = _hover.IsGrounded;
+    //}
 
-    private bool CanJump()
-    {
-        if (!_isFlying)
-        {
-            return _timeSinceJumpPressed < _jumpBuffer && _hover.TimeSinceUngrounded < _coyoteTime && _jumpReady && _availableJumps > 0;
-        }
-        else
-        {
-            return _timeSinceJumpPressed < _jumpBuffer && _jumpReady && _availableJumps > 0;
-        }
-    }
+    //private bool CanJump()
+    //{
+    //    if (!_isFlying)
+    //    {
+    //        return _timeSinceJumpPressed < _jumpBuffer && _hover.TimeSinceUngrounded < _coyoteTime && _jumpReady && _availableJumps > 0;
+    //    }
+    //    else
+    //    {
+    //        return _timeSinceJumpPressed < _jumpBuffer && _jumpReady && _availableJumps > 0;
+    //    }
+    //}
     #endregion
 
     #region Possesion Sensitive
@@ -232,22 +240,22 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
             Debug.LogWarning("max speed change is too large, defaulting to max speed = 1");
             _maxSpeed = 1;
         }
-        else if (_jumpHeight + jumpHeightChange <= 0)
-        {
-            Debug.LogWarning("jump height change is too large, defaulting to jump height = 1");
-            _jumpHeight = 1;
-        }
+        //else if (_jumpHeight + jumpHeightChange <= 0)
+        //{
+        //    Debug.LogWarning("jump height change is too large, defaulting to jump height = 1");
+        //    //_jumpHeight = 1;
+        //}
         else
         {
             _maxSpeed += maxSpeedChange;
-            _jumpHeight += jumpHeightChange;
+            //_jumpHeight += jumpHeightChange;
         }
     }
 
     public void ResetMovementParams()
     {
         _maxSpeed = _defaultMaxSpeed;
-        _jumpHeight = _defaultJumpHeight;
+        //_jumpHeight = _defaultJumpHeight;
     }
     #endregion
 

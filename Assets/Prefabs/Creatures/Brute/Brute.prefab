@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 3862987407808424351}
   - component: {fileID: 7894731083769670282}
   - component: {fileID: 5035223022648993383}
+  - component: {fileID: 3767042002030581333}
   - component: {fileID: 8727166655759575032}
   - component: {fileID: 4334227875861224953}
   - component: {fileID: 414202603629821306}
@@ -208,6 +209,7 @@ MonoBehaviour:
   Warning: Please note that for now _uprightSpringDamper, _uprightSpringStrength
     and _rideSpringStrength require exiting play mode to change properly if cahnging
     them or thi rigidbody's mass!
+  _settings: {fileID: 0}
   _downDir: {x: 0, y: -1, z: 0}
   _groundLayer:
     serializedVersion: 2
@@ -232,6 +234,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2daeaca1790604cb18dde43434222bd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _settings: {fileID: 0}
   _maxSpeed: 3
   _acceleration: 10
   _maxAccelForce: 150
@@ -303,12 +306,24 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _moveForceScale: {x: 1, y: 0, z: 1}
-  _maxJumps: 1
-  _jumpHeight: 2
+  _debugExpectedJumpHeight: 0
+--- !u!114 &3767042002030581333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6999565424575073364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 406526d8e80dbae4ba0463f82a10ac2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settings: {fileID: 11400000, guid: 217262c6b9cca7046998ae525395b0c1, type: 2}
+  _jumpHeight: 5
   _jumpBuffer: 0.2
   _coyoteTime: 0.2
-  _isFlying: 0
-  _debugExpectedJumpHeight: 0
+  _showExcpectedJumpHeight: 0
 --- !u!114 &8727166655759575032
 MonoBehaviour:
   m_ObjectHideFlags: 0

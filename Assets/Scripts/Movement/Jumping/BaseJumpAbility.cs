@@ -1,48 +1,53 @@
 using System;
 using UnityEngine;
 
-public class JumpAbility : MonoBehaviour, IPossessionSensitive, IPossessionSource, IHasLandedEvent, IDeathResponse, IPlayerRespawnListener
+public class BaseJumpAbility : MonoBehaviour, IPossessionSensitive, IPossessionSource, IHasLandedEvent, IDeathResponse, IPlayerRespawnListener
 {
     [Header("Settings")]
-    [SerializeField] private HoveringCreatureSettings settings;
+    [Tooltip("Adds a layer of security to changes. Leave empty if testing and want to change settings often.")]
+    [SerializeField] protected HoveringCreatureSettings settings;
 
-    [Header("Jumping")]
-    [SerializeField] private int _maxJumps = 1;
-    [SerializeField] private float _jumpHeight = 5f;
-    [SerializeField] private float _jumpBuffer = 0.2f;
-    [SerializeField] private float _coyoteTime = 0.2f;
+    [Header("Jump Settings")]
+    [SerializeField] protected float _jumpHeight = 5f;
+    [SerializeField] protected float _jumpBuffer = 0.2f;
+    [SerializeField] protected float _coyoteTime = 0.2f;
 
-    private float _defaultJumpHeight;
-    private bool _isJumping;
-    private float _timeSinceJumpPressed = 0.5f; // if it's zero character jumps on start
-    private bool _jumpReady = true;
-    private int _availableJumps = 1;
-    private bool _wasGrounded;
+    [Header("Debug")]
+    [SerializeField] protected bool _showExcpectedJumpHeight;
+    protected Vector3 _debugAdjustedJumpHeight;
+    protected Vector3 _debugJumpApex;
+
+    protected virtual int MaxJumps => 1;
+
+    protected float _defaultJumpHeight;
+    protected bool _isJumping;
+    protected float _timeSinceJumpPressed = 0.5f; // if it's zero character jumps on start
+    protected bool _jumpReady = true;
+    protected int _availableJumps = 1;
+    protected bool _wasGrounded;
 
     public event Action OnLanding; //more like OnFinishedJump
     public event Action OnJumpStarted;
 
-    private bool _isActive = true;
+    protected bool _isActive = true;
 
     //refs
-    private Rigidbody _rb;
-    private Hover _hover;
-    private MonoBehaviour _inputSourceProvider; // for seeing in inspector
-    private IInputSource _inputSource;
-    private IInputSource _defaultInputSource;
-    private MonoBehaviour _knockbackProvider; // for seeing in inspector
-    private IKnockbackStatus _knockbackStatus;
+    protected Rigidbody _rb;
+    protected Hover _hover;
+    protected MonoBehaviour _inputSourceProvider; // for seeing in inspector
+    protected IInputSource _inputSource;
+    protected IInputSource _defaultInputSource;
+    protected MonoBehaviour _knockbackProvider; // for seeing in inspector
+    protected IKnockbackStatus _knockbackStatus;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Awake()
+    protected virtual void Awake()
     {
         if (settings != null)
         {
-            _maxJumps = settings.MaxJumps;
             _jumpHeight = settings.JumpHeight;
             _jumpBuffer = settings.JumpBuffer;
-            _coyoteTime = settings.CoyoteTime;
         }
 
         _rb = GetComponent<Rigidbody>();
@@ -61,20 +66,29 @@ public class JumpAbility : MonoBehaviour, IPossessionSensitive, IPossessionSourc
             _knockbackStatus = _knockbackProvider as IKnockbackStatus;
         }
 
+        _availableJumps = MaxJumps;
         _defaultJumpHeight = _jumpHeight;
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         if (!_isActive || !_hover.IsActive) return;
         if (_inputSource == null) return;
         if (_knockbackStatus.IsKnockedBack) return;
 
         CharacterJump(_inputSource.JumpPressed);
+
+        if (_showExcpectedJumpHeight)
+        {
+            //TODO: must be better way
+           
+
+            DrawJumpHeight();
+        }
     }
 
-    private void CharacterJump(bool jumpPressed)
+    protected virtual void CharacterJump(bool jumpPressed)
     {
 
         _timeSinceJumpPressed += Time.fixedDeltaTime;
@@ -86,9 +100,9 @@ public class JumpAbility : MonoBehaviour, IPossessionSensitive, IPossessionSourc
                 //finished jump
                 _isJumping = false;
                 OnLanding?.Invoke();
+            _availableJumps = MaxJumps;
                 Debug.Log("Landed from a jump");
             }
-            _availableJumps = _maxJumps;
         }
 
         if (_rb.linearVelocity.y < 0)
@@ -109,12 +123,14 @@ public class JumpAbility : MonoBehaviour, IPossessionSensitive, IPossessionSourc
         _wasGrounded = _hover.IsGrounded;
     }
 
-    private bool CanJump()
+    protected virtual bool CanJump()
     {
-        return _timeSinceJumpPressed < _jumpBuffer && _hover.TimeSinceUngrounded < _coyoteTime && _jumpReady && _availableJumps > 0;
+        return _timeSinceJumpPressed < _jumpBuffer &&
+            _jumpReady &&
+            _availableJumps > 0;
     }
 
-    private void PerformJump()
+    protected virtual void PerformJump()
     {
         //flags
         _jumpReady = false;
@@ -123,7 +139,8 @@ public class JumpAbility : MonoBehaviour, IPossessionSensitive, IPossessionSourc
         _availableJumps--;
 
         //calc jump height from current pos
-        float adjustedJumpHeight = _jumpHeight - _hover.CurrentDistanceFromGround; //still has small inconsistencies but I cant figure out why, and it's for sure good enough.
+        float adjustedJumpHeight = CalcAdjustedJumpHeight();
+        _debugAdjustedJumpHeight = _rb.position + Vector3.up * adjustedJumpHeight;
 
         //difference in velocity needed to be applied this frame to reach that height
         float goalVel = Mathf.Sqrt(adjustedJumpHeight * -2 * Physics.gravity.y);
@@ -139,6 +156,12 @@ public class JumpAbility : MonoBehaviour, IPossessionSensitive, IPossessionSourc
         OnJumpStarted?.Invoke();
 
         _timeSinceJumpPressed = _jumpBuffer; //to make sure jump only happens once per input
+    }
+
+    protected virtual float CalcAdjustedJumpHeight()
+    {
+        return _jumpHeight - _hover.CurrentDistanceFromGround;
+        //still has small inconsistencies but I cant figure out why, and it's for sure good enough.
     }
 
     public void ChangeJumpHeight(float jumpHeightChange)
@@ -189,5 +212,15 @@ public class JumpAbility : MonoBehaviour, IPossessionSensitive, IPossessionSourc
     public void OnPlayerRespawn()
     {
         _isActive = true;
+    }
+
+    protected virtual void DrawJumpHeight()
+    {
+        float adjustedJumpHeight = CalcAdjustedJumpHeight(); //can't get this from the other var?
+        _debugJumpApex = _rb.position + Vector3.up * adjustedJumpHeight;
+
+        Debug.DrawLine(_rb.position, _debugJumpApex, Color.yellow);
+        DebugUtils.DrawSphere(_debugJumpApex, Color.cyan, 0.2f);
+        DebugUtils.DrawSphere(_debugAdjustedJumpHeight, Color.red, 0.2f);
     }
 }

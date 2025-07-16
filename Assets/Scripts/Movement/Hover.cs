@@ -3,13 +3,16 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Hover : MonoBehaviour, IPossessionSource, IDeathResponse, IPlayerRespawnListener
 {
-    //Maintain Height and Upright with springs
+    /// <summary>
+    /// Maintain height and upright rotation using simulated springs
+    /// </summary>
 
     [TextAreaAttribute]
     public string Warning = "Please note that for now _uprightSpringDamper, _uprightSpringStrength and _rideSpringStrength require exiting play mode to change properly if changing them or the rigidbody's mass!";
     public bool IsActive { get; private set; } = true;
 
     [Header("Settings")]
+    [Tooltip("Adds a layer of security to changes. Leave empty if testing and want to change settings often.")]
     [SerializeField] private HoveringCreatureSettings _settings;
 
     [Header("Ground Check")]

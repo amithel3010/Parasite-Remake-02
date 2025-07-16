@@ -18,12 +18,10 @@ public class FlyJumpStamina : MonoBehaviour, IPossessionSensitive
 
     private void OnEnable()
     {
-        _movementScript.OnJumpStarted += DealDamageOnJump;
     }
 
     private void OnDisable()
     {
-        _movementScript.OnJumpStarted -= DealDamageOnJump;
 
     }
 

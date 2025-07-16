@@ -32,6 +32,7 @@ public class GrabBox : MonoBehaviour, IPossessionSensitive
     private IInputSource _defaultInputSource;
     private Hover _hover;
     private InputBasedHoverMovement _movement;
+    private BaseJumpAbility _jumpAbility;
 
     private GameObject _currentBox;
     private Rigidbody _currentBoxRB;
@@ -43,6 +44,7 @@ public class GrabBox : MonoBehaviour, IPossessionSensitive
     {
         _hover = GetComponent<Hover>();
         _movement = GetComponent<InputBasedHoverMovement>();
+        _jumpAbility = GetComponent<BaseJumpAbility>();
 
         _defaultInputSource = GetComponent<IInputSource>();
         _inputSource = _defaultInputSource;
@@ -86,7 +88,8 @@ public class GrabBox : MonoBehaviour, IPossessionSensitive
                     _currentBoxRB.position = _holder.position;
 
                     _hover.ChangeRideHeight(_rideHeightChange);
-                    _movement.ChangeMovementParams(_maxSpeedChange, _jumpHeightChange);
+                    _movement.ChangeMovementParams(_maxSpeedChange);
+                    _jumpAbility.ChangeJumpHeight(_jumpHeightChange);
 
                     _isHoldingBox = true;
 
@@ -105,6 +108,7 @@ public class GrabBox : MonoBehaviour, IPossessionSensitive
 
         _hover.ResetRideHeight();
         _movement.ResetMovementParams();
+        _jumpAbility.ResetJumpHeight();
 
         _currentBox = null;
         _currentBoxRB = null;

@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class BruteShockwave : MonoBehaviour
 {
+    [Header("General Settings")]
     [SerializeField] private BreakableType _canBreak;
     [SerializeField] private float _damage = 25f;
+
+    [Header("Hitbox Settings")]
     [SerializeField] private float _hitboxRadius = 1f;
     [SerializeField] private float _duration = 0.2f;
 
@@ -18,20 +21,20 @@ public class BruteShockwave : MonoBehaviour
     private HashSet<GameObject> _alreadyHit = new HashSet<GameObject>();
 
     //Refs
-    private IHasLandedEvent _controller;
+    private IHasLandedEvent _LandingEventRaiser;
 
     void Awake()
     {
-        _controller = GetComponent<IHasLandedEvent>();
+        _LandingEventRaiser = GetComponent<IHasLandedEvent>();
     }
 
     void OnEnable()
     {
-        _controller.OnLanding += TriggerShockwave; // i dont love this... it triggers even if jumping on something regardless of fall distance
+        _LandingEventRaiser.OnLanding += TriggerShockwave; // i dont love this... it triggers even if jumping on something regardless of fall distance
     }
     void OnDisable()
     {
-        _controller.OnLanding -= TriggerShockwave;
+        _LandingEventRaiser.OnLanding -= TriggerShockwave;
     }
 
     void FixedUpdate()

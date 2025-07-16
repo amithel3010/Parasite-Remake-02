@@ -8,8 +8,7 @@ public class UIManager : MonoBehaviour
 
     public static UIManager Instance;
 
-    [SerializeField] InputHandler _playerInput;
-
+    [Header("UI Elements")]
     [SerializeField] private Image _healthBar;
     [SerializeField] private Image _collectableTracker;
     [SerializeField] private TMP_Text _collectableText;
@@ -17,6 +16,8 @@ public class UIManager : MonoBehaviour
     [Header("Canvases")]
     [SerializeField] private Canvas _deathScreenCanvas;
     [SerializeField] private Canvas _DebugCanvas;
+
+    InputHandler _playerInput;
 
     private bool _lastDebugPressed;
 
@@ -29,6 +30,11 @@ public class UIManager : MonoBehaviour
         else
         {
             Instance = this;
+        }
+
+        if (_playerInput == null)
+        {
+            _playerInput = GetComponent<InputHandler>();
         }
     }
 
@@ -65,6 +71,6 @@ public class UIManager : MonoBehaviour
 
     private void ToggleDebugMenu()
     {
-            _DebugCanvas.enabled = !_DebugCanvas.enabled;
+        _DebugCanvas.enabled = !_DebugCanvas.enabled;
     }
 }

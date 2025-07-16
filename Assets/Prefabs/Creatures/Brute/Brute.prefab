@@ -139,6 +139,8 @@ GameObject:
   - component: {fileID: 6283027743516186710}
   - component: {fileID: 5132717996803368486}
   - component: {fileID: 5998991823525685825}
+  - component: {fileID: 2887896241101446907}
+  - component: {fileID: -6022139922784088569}
   m_Layer: 6
   m_Name: Brute
   m_TagString: Untagged
@@ -378,6 +380,7 @@ MonoBehaviour:
   _constForce: 4
   _inputForce: 0
   _timer: 0.5
+  _disableKnockBackOnDeath: 0
 --- !u!114 &7735323138785336167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -441,6 +444,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d864530c10f3490c9c9e87649c3ed06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2887896241101446907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6999565424575073364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29a8a9a7fbbdaf841a2cb82cd286f623, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _deathColor: {r: 0, g: 0, b: 0, a: 1}
+--- !u!114 &-6022139922784088569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6999565424575073364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aee40af9abd650a498108b373f7013cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hitColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1001 &1618774638222052593
 PrefabInstance:
   m_ObjectHideFlags: 0

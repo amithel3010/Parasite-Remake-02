@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Knockback : MonoBehaviour, IKnockbackStatus, IDeathResponse
+public class Knockback : MonoBehaviour, IKnockbackStatus, IDeathResponse, IPlayerRespawnListener
 {
     [HideInInspector] public bool KnockbackEnabled = true;
 
@@ -73,6 +73,15 @@ public class Knockback : MonoBehaviour, IKnockbackStatus, IDeathResponse
     public void OnDeath()
     {
         if(_disableKnockBackOnDeath)
-            _isKnockedBack = false;
+        {
+            StopAllCoroutines();
+            KnockbackEnabled = false;
+        }
+    }
+
+    public void OnPlayerRespawn()
+    {
+        //TODO: on scripts like this that are generic and not specific to the player this feels cluttered and messy. IPossessionSource is the same way.
+        KnockbackEnabled = true;
     }
 }

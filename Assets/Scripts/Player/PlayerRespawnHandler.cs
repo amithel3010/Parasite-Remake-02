@@ -2,19 +2,18 @@ using UnityEngine;
 
 public class PlayerRespawnHandler : MonoBehaviour
 {
-    private Knockback _knockback;
-    private Health _health;
+    private IPlayerRespawnListener[] _listeners;
 
     void Awake()
     {
-        _knockback = GetComponent<Knockback>();
-        _health = GetComponent<Health>();
+        _listeners = GetComponents<IPlayerRespawnListener>(); //does this initialize the array?
     }
 
     public void OnRespawn()
     {
-        //TODO: maybe an on respawn event? listeners?
-        _knockback.KnockbackEnabled = true;
-        _health.ResetHealth();
+        foreach(var listener in _listeners )
+        {
+            listener.OnPlayerRespawn();
+        }
     }    
 }

@@ -3,11 +3,10 @@ using UnityEngine;
 
 public class FlashOnDamage : MonoBehaviour, IDamageResponse
 {
+    [SerializeField] private Color _hitColor = Color.red;
 
     private Renderer _renderer;
     private Color _defaultColor;
-
-       [SerializeField] private Color _hitColor = Color.red;
 
     public void OnDamage(float IFramesDuration)
     {

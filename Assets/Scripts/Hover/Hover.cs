@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Hover : MonoBehaviour, IPossessionSource, IDeathResponse
+public class Hover : MonoBehaviour, IPossessionSource, IDeathResponse, IPlayerRespawnListener
 {
     //Maintain Height and Upright with springs
 
@@ -200,6 +200,7 @@ public class Hover : MonoBehaviour, IPossessionSource, IDeathResponse
     }
     #endregion
 
+    #region Change Movement Parameters
     public void SetMaintainHeight(bool value)
     {
         _shouldMaintainHeight = value;
@@ -216,6 +217,9 @@ public class Hover : MonoBehaviour, IPossessionSource, IDeathResponse
         _rideHeight = _defaultRideHeight;
     }
 
+    #endregion
+
+    #region Reaction Interfaces
     public void OnParasitePossession()
     {
         IsActive = false;
@@ -229,10 +233,20 @@ public class Hover : MonoBehaviour, IPossessionSource, IDeathResponse
     {
         IsActive = false;
     }
+    public void OnPlayerRespawn()
+    {
+        IsActive = true;
+    }
+
+    #endregion
+
+    #region Debug
 
     private void DrawGroundRay()
     {
         DebugUtils.DrawLine(transform.position, transform.position + Vector3.down * _raycastToGroundLength, _debugRayThickness, Color.red);
     }
+
+    #endregion
 
 }

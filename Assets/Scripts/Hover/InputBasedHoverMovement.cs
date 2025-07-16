@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Hover))]
-public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPossessionSource, IHasLandedEvent, IDeathResponse
+public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPossessionSource, IHasLandedEvent, IDeathResponse, IPlayerRespawnListener
 {
     private bool _isActive = true;
 
@@ -250,6 +250,14 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
     }
     #endregion
 
+    #region On Player Respawn
+    public void OnPlayerRespawn()
+    {
+        _isActive = true;
+    }
+
+    #endregion
+
     #region  Debug
     private void DrawJumpHeight()
     {
@@ -262,7 +270,6 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
         DebugUtils.DrawSphere(_debugAdjustedJumpHeight, Color.red, 0.2f);
 
     }
-
 
     #endregion
 }

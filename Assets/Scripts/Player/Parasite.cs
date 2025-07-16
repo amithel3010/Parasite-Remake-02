@@ -167,12 +167,9 @@ public class Parasite : MonoBehaviour, ICollector
         _rb.angularVelocity = Vector3.zero;
         _rb.position = respawnPos;
 
-        //TODO: _movementScript.enabled = true;
         _gfx.SetActive(true);
         _rb.isKinematic = false;
         _rb.detectCollisions = true;
-
-        _parasiteHealth.ResetHealth(); //maybe event? ONRESPAWN?
     }
 
 }

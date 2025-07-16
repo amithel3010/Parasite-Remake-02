@@ -1,8 +1,11 @@
 using System.Collections;
 using UnityEngine;
 
-public class PlayerHealthHandler : MonoBehaviour, IPossessionSource
+public class PlayerHealthHandler : MonoBehaviour, IPossessionSource, IPlayerRespawnListener
 {
+
+    [SerializeField] private float _timeBeforeGameOver;
+
     private Health _health;
 
     void Awake()
@@ -33,7 +36,8 @@ public class PlayerHealthHandler : MonoBehaviour, IPossessionSource
         //play animation,
         //stop control,
         //show game over screen
-        GameManager.Instance.GameOver();
+        StartCoroutine(WaitBeforeGameOver(_timeBeforeGameOver));
+
     }
 
     private void HandleDamage(float IFramesDuration)
@@ -46,6 +50,7 @@ public class PlayerHealthHandler : MonoBehaviour, IPossessionSource
 
         //play animation
         //mostly visual stuff
+
     }
 
     public void OnParasitePossession()
@@ -56,5 +61,16 @@ public class PlayerHealthHandler : MonoBehaviour, IPossessionSource
     public void OnParasiteUnPossession()
     {
         //nothing required
+    }
+
+    public void OnPlayerRespawn()
+    {
+        _health.ResetHealth();
+    }
+
+    private IEnumerator WaitBeforeGameOver(float _timeBeforeGameOver)
+    {
+        yield return new WaitForSeconds(_timeBeforeGameOver);
+        GameManager.Instance.GameOver();
     }
 }

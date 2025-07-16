@@ -4,7 +4,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    [SerializeField] private PlayerRespawnHandler _playerRespawnHandler; //TODO: can't be interface, is this the right way to do it?
+    private PlayerRespawnHandler _playerRespawnHandler;
 
     private bool _isPaused;
     public bool IsPaused => _isPaused;
@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
         }
+
+        _playerRespawnHandler = FindAnyObjectByType<PlayerRespawnHandler>();
     }
 
     private void Start()
@@ -48,6 +50,8 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         CheckpointManager.Instance.RespawnParasite();
         _playerRespawnHandler.OnRespawn();
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         _isPaused = false;
     }
 }

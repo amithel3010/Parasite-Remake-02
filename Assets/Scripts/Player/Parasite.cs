@@ -99,6 +99,7 @@ public class Parasite : MonoBehaviour, ICollector
     {
         if (_currentlyPossessed == null) return;
 
+        //TODO: fix magic number
         Vector3 targetExitPosition = _currentlyPossessedTransform != null
                ? _currentlyPossessedTransform.position + Vector3.up * 1.5f
                : transform.position;

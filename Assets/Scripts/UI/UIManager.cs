@@ -34,7 +34,7 @@ public class UIManager : MonoBehaviour
 
         if (_playerInput == null)
         {
-            _playerInput = GetComponent<InputHandler>();
+            _playerInput = FindAnyObjectByType<InputHandler>();
         }
     }
 
@@ -48,6 +48,10 @@ public class UIManager : MonoBehaviour
         _lastDebugPressed = _playerInput._debugPressed;
     }
 
+    public void ChangeHealthBarImage(Image newImage)
+    {
+        _healthBar = newImage;  
+    }
     public void UpdateHealthBar(float currentHealth, float maxHealth)
     {
         if (_healthBar != null)

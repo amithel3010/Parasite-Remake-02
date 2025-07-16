@@ -7,8 +7,10 @@ public class Hover : MonoBehaviour, IPossessionSource, IDeathResponse, IPlayerRe
 
     [TextAreaAttribute]
     public string Warning = "Please note that for now _uprightSpringDamper, _uprightSpringStrength and _rideSpringStrength require exiting play mode to change properly if changing them or the rigidbody's mass!";
-
     public bool IsActive { get; private set; } = true;
+
+    [Header("Settings")]
+    [SerializeField] private HoveringCreatureSettings _settings;
 
     [Header("Ground Check")]
     [SerializeField] private Vector3 _downDir = Vector3.down;
@@ -53,6 +55,20 @@ public class Hover : MonoBehaviour, IPossessionSource, IDeathResponse, IPlayerRe
 
     void Awake()
     {
+        if(_settings != null)
+        {
+            _downDir = _settings.DownDIr;
+            _groundLayer = _settings.GroundLayer;   
+            _raycastToGroundLength = _settings.RaycastToGroundLength;
+
+            _rideHeight = _settings.RideHeight;
+            _rideSpringStrength = _settings.RideSpringStrength;
+            _rideSpringDampingRatio = _settings.RideSpringDampingRatio;
+
+            _uprightSpringDamper = _settings.UprightSpringDamper;
+            _uprightSpringStrength = _settings.UprightSpringStrength;
+        }
+
         _rb = GetComponent<Rigidbody>();
 
         AdjustSpringValuesToMass();

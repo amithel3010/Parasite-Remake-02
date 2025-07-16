@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class JumpAbility : MonoBehaviour, IPossessionSensitive, IPossessionSource, IHasLandedEvent, IDeathResponse, IPlayerRespawnListener
 {
+    [Header("Settings")]
+    [SerializeField] private HoveringCreatureSettings settings;
+
     [Header("Jumping")]
     [SerializeField] private int _maxJumps = 1;
     [SerializeField] private float _jumpHeight = 5f;
@@ -21,7 +24,6 @@ public class JumpAbility : MonoBehaviour, IPossessionSensitive, IPossessionSourc
 
     private bool _isActive = true;
 
-
     //refs
     private Rigidbody _rb;
     private Hover _hover;
@@ -31,9 +33,18 @@ public class JumpAbility : MonoBehaviour, IPossessionSensitive, IPossessionSourc
     private MonoBehaviour _knockbackProvider; // for seeing in inspector
     private IKnockbackStatus _knockbackStatus;
 
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
+        if (settings != null)
+        {
+            _maxJumps = settings.MaxJumps;
+            _jumpHeight = settings.JumpHeight;
+            _jumpBuffer = settings.JumpBuffer;
+            _coyoteTime = settings.CoyoteTime;
+        }
+
         _rb = GetComponent<Rigidbody>();
         _hover = GetComponent<Hover>();
 

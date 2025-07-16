@@ -6,6 +6,9 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
 {
     private bool _isActive = true;
 
+    [Header("Settings")]
+    [SerializeField] private HoveringCreatureSettings _settings;
+
     [Header("References")]
     private MonoBehaviour _knockbackProvider; // for seeing in inspector
     private IKnockbackStatus _knockbackStatus;
@@ -55,6 +58,8 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
 
     void Awake()
     {
+        if(_settings != null)
+
         _hover = GetComponent<Hover>();
         _rb = GetComponent<Rigidbody>(); // TODO: should get ref from hover?
 

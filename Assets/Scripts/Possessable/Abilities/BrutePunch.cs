@@ -10,16 +10,21 @@ public class BrutePunch : MonoBehaviour, IPossessionSensitive
     private IInputSource _defaultInputSource;
     private Possessable _possessable;
 
+    [Header("Punch Settings")]
     [SerializeField] private BreakableType _canBreak;
     [SerializeField] private float _damage;
     [SerializeField] private float _hitboxRadius = 1;
     [SerializeField] private float _duration = 0.2f;
+    [SerializeField] private float _punchCost = 5f;
     [SerializeField] private Transform _punchOrigin;
 
+    [Header("Debug")]
     [SerializeField] private bool _showHitboxInGame = true;
     [SerializeField] private Material _debugMaterial; // A transparent material for visualization
     [SerializeField] private Mesh _debugMesh; // Optional: default to a Sphere mesh
 
+    private Health _bruteHealth;
+    private bool _shouldConsumeHealth;
     private bool _isPunching;
     private bool _isActive;
     private float _timer;
@@ -30,6 +35,7 @@ public class BrutePunch : MonoBehaviour, IPossessionSensitive
         _defaultInputSource = GetComponent<IInputSource>();
         _inputSource = _defaultInputSource;
         _possessable = GetComponent<Possessable>();
+        _bruteHealth = GetComponent<Health>();
     }
 
     void FixedUpdate()
@@ -78,11 +84,11 @@ public class BrutePunch : MonoBehaviour, IPossessionSensitive
                 Debug.Log("Damaged" + hit.gameObject.name);
                 health.ChangeHealth(-_damage);
             }
-            if (hit.transform.parent.gameObject.TryGetComponent<KnockbackTest>(out KnockbackTest knockback))
+            if (hit.transform.parent.gameObject.TryGetComponent<Knockback>(out Knockback knockback))
             {
                 Debug.Log("trying to knockback" + knockback.gameObject.name);
                 Vector3 hitDir = (hit.transform.position - _punchOrigin.position).normalized;
-                knockback.Knockback(hitDir, Vector3.up, Vector3.zero);
+                knockback.ApplyKnockback(hitDir, Vector3.up, Vector3.zero);
             }
             if (hit.transform.parent.gameObject.TryGetComponent<Breakable>(out Breakable breakable))
             {
@@ -92,16 +98,23 @@ public class BrutePunch : MonoBehaviour, IPossessionSensitive
                 }
             }
         }
+
+        if (_shouldConsumeHealth)
+            {
+                _bruteHealth.ChangeHealth(-_punchCost);
+            }
     }
 
     #region Possession Sensitive
     public void OnPossessed(Parasite playerParasite, IInputSource newInputSource)
     {
+        _shouldConsumeHealth = true;
         _inputSource = newInputSource;
     }
 
     public void OnUnPossessed(Parasite playerParasite)
     {
+        _shouldConsumeHealth = false;
         _inputSource = _defaultInputSource;
     }
     #endregion

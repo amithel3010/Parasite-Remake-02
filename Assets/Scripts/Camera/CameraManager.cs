@@ -31,7 +31,7 @@ public class CameraManager : MonoBehaviour
         //safety check if both cameras are the same state
         if ((_debugCam.enabled && _inGameCam.enabled) || (!_debugCam.enabled && !_inGameCam.enabled))
         {
-            Debug.LogWarning("Both cameras were enabled or sidabled on start. defaulting to ingame camera");
+            Debug.LogWarning("Both cameras were enabled or disabled on start. defaulting to ingame camera");
             _inGameCam.enabled = true;
             _debugCam.enabled = false;
         }
@@ -44,7 +44,7 @@ public class CameraManager : MonoBehaviour
         _inGameCam.Target.TrackingTarget = newTarget;
     }
 
-    public void ToggleActiveCamera() //TODO: later when i have a bunch of cameras this won't do. probably need an enum. also this is super breakable if both cameras are enabled on start
+    public void ToggleActiveCamera() //TODO: later when i have a bunch of cameras this won't do. probably need a list of cameras
     {
         _debugCam.enabled = !_debugCam.enabled;
         _inGameCam.enabled = !_inGameCam.enabled;

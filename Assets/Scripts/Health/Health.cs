@@ -6,23 +6,22 @@ public class Health : MonoBehaviour
 {
     //class responsible for managing a creature health
     //creature with health can: take damage, heal and die
-    //should also update UI if relevant
+    //raises events for other scripts to listen to
+
+    [SerializeField] private float _maxHealth = 100f;
+    [SerializeField] private float _iFramesDuration = 0.3f;
 
     public event Action<float, float> OnHealthChanged;
     public event Action<float> OnDamaged;
     public event Action OnFinshedIFrames;
     public event Action OnDeath;
 
-    [SerializeField] private float _maxHealth = 100f;
-    [SerializeField] private float _iFramesDuration = 0.3f;
-
-    private bool _isInvincible = false;
     private float _currentHealth;
     private bool _isHittable = true;
+    private bool _isInvincible = false;
 
     public float CurrentHealth => _currentHealth;
     public float MaxHealth => _maxHealth;
-
 
     void Awake()
     {
@@ -39,23 +38,21 @@ public class Health : MonoBehaviour
 
         OnHealthChanged?.Invoke(_currentHealth, _maxHealth);
 
-        if (_currentHealth < oldHealth)
+        if (_currentHealth <= 0)
+        {
+            OnDeath?.Invoke();
+        }
+        else if (_currentHealth < oldHealth)
         {
             OnDamaged?.Invoke(_iFramesDuration);
             _isHittable = false;
             StartCoroutine(IFrameCooldown());
         }
-
-        if (_currentHealth <= 0)
-        {
-            OnDeath?.Invoke();
-        }
     }
 
     public void ResetHealth()
     {
-        _currentHealth = _maxHealth;
-        OnHealthChanged?.Invoke(_currentHealth, _maxHealth);
+        ChangeHealth(_maxHealth);
     }
 
     private IEnumerator IFrameCooldown()

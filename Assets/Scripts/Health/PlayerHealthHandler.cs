@@ -1,23 +1,16 @@
 using System.Collections;
 using UnityEngine;
 
-public class PlayerHealthHandler : MonoBehaviour, IPossessionSource
+public class PlayerHealthHandler : MonoBehaviour, IPossessionSource, IPlayerRespawnListener
 {
-    private Health _health;
-    private KnockbackTest _knockback; //TODO: this feels coupled. i use this to disable knockback on death
 
-    private Renderer _renderer;
-    private Color _defaultColor;
-    private Color _hitColor = Color.red;
-    //on hit Iframes, visual flickering, cant possess take the same time
+    [SerializeField] private float _timeBeforeGameOver;
+
+    private Health _health;
 
     void Awake()
     {
         _health = GetComponent<Health>();
-        _knockback = GetComponent<KnockbackTest>();
-
-        _renderer = GetComponentInChildren<Renderer>();
-        _defaultColor = _renderer.material.GetColor("_BaseColor");
     }
 
     void OnEnable()
@@ -35,33 +28,29 @@ public class PlayerHealthHandler : MonoBehaviour, IPossessionSource
     private void HandleDeath()
     {
         Debug.Log("Player Died!");
+        //for each IDeathReactor ReactToDeath().
+        foreach (var deathResponse in GetComponents<IDeathResponse>())
+        {
+            deathResponse.OnDeath();
+        }
         //play animation,
         //stop control,
-        _knockback.KnockbackEnabled = false;
         //show game over screen
-        GameManager.Instance.GameOver();
+        StartCoroutine(WaitBeforeGameOver(_timeBeforeGameOver));
+
     }
 
     private void HandleDamage(float IFramesDuration)
     {
         Debug.Log("player got hit");
+        foreach (var damageResponse in GetComponents<IDamageResponse>())
+        {
+            damageResponse.OnDamage(IFramesDuration);
+        }
+
         //play animation
-        StartCoroutine(DamageFlash(IFramesDuration));
         //mostly visual stuff
-        //Knockback happens in attacker
-    }
 
-    public void HandleRespawn() //TODO: called in respawn in game manager, is this fine?
-    {
-        _knockback.KnockbackEnabled = true;
-        _health.ResetHealth();
-    }
-
-    private IEnumerator DamageFlash(float IFramesDuration)
-    {
-        _renderer.material.SetColor("_BaseColor", _hitColor);
-        yield return new WaitForSeconds(IFramesDuration);
-        _renderer.material.SetColor("_BaseColor", _defaultColor);
     }
 
     public void OnParasitePossession()
@@ -72,5 +61,16 @@ public class PlayerHealthHandler : MonoBehaviour, IPossessionSource
     public void OnParasiteUnPossession()
     {
         //nothing required
+    }
+
+    public void OnPlayerRespawn()
+    {
+        _health.ResetHealth();
+    }
+
+    private IEnumerator WaitBeforeGameOver(float _timeBeforeGameOver)
+    {
+        yield return new WaitForSeconds(_timeBeforeGameOver);
+        GameManager.Instance.GameOver();
     }
 }

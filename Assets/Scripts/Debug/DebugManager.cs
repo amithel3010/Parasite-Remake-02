@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -5,8 +6,8 @@ public class DebugManager : MonoBehaviour
 {
     public static DebugManager Instance { get; private set; }
 
-    [SerializeField] Transform _playerTransform;
-    [SerializeField] Health _playerHealth;
+    Transform _playerTransform;
+    Health _playerHealth;
 
     private CinemachineOrbitalFollow _debugCam;
 
@@ -20,6 +21,10 @@ public class DebugManager : MonoBehaviour
         {
             Instance = this;
         }
+
+        Parasite playerObj = FindAnyObjectByType<Parasite>();
+        _playerTransform = playerObj.transform;
+        _playerHealth =  playerObj.GetComponent<Health>();
     }
 
     public void SpawnPossessable(GameObject PossessablePrefab)

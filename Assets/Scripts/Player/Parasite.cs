@@ -73,8 +73,6 @@ public class Parasite : MonoBehaviour, ICollector
                 _currentlyPossessed = target;
                 _currentlyPossessedTransform = target.transform;
 
-                _currentlyPossessed.gameObject.layer = this.gameObject.layer;
-
                 //deactivate rb
                 _rb.isKinematic = true;
                 _rb.detectCollisions = false;
@@ -99,6 +97,7 @@ public class Parasite : MonoBehaviour, ICollector
     {
         if (_currentlyPossessed == null) return;
 
+        //TODO: fix magic number
         Vector3 targetExitPosition = _currentlyPossessedTransform != null
                ? _currentlyPossessedTransform.position + Vector3.up * 1.5f
                : transform.position;
@@ -167,12 +166,9 @@ public class Parasite : MonoBehaviour, ICollector
         _rb.angularVelocity = Vector3.zero;
         _rb.position = respawnPos;
 
-        //TODO: _movementScript.enabled = true;
         _gfx.SetActive(true);
         _rb.isKinematic = false;
         _rb.detectCollisions = true;
-
-        _parasiteHealth.ResetHealth(); //maybe event? ONRESPAWN?
     }
 
 }

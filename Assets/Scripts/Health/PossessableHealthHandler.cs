@@ -1,28 +1,35 @@
 using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(Health))]
 public class PossessableHealthHandler : MonoBehaviour, IPossessionSensitive
 {
     private Health _health;
 
-    private Renderer _renderer;
-    private Color _defaultColor;
-    private Color _hitColor = Color.red;
-
     void Awake()
     {
         _health = GetComponent<Health>();
-        _renderer = GetComponentInChildren<Renderer>();
-        _defaultColor = _renderer.material.GetColor("_BaseColor");
+    }
 
+    private void OnEnable()
+    {
         _health.OnDamaged += HandleDamage;
         _health.OnDeath += HandleDeath;
+    }
+
+    private void OnDisable()
+    {
+        _health.OnDamaged -= HandleDamage;
+        _health.OnDeath -= HandleDeath;
     }
 
     private void HandleDamage(float IFramesDuration)
     {
         Debug.Log(this + "possessable got hit, it's current health is now" + _health.CurrentHealth);
-        StartCoroutine(DamageFlash(IFramesDuration));
+        foreach (var damageResponse in GetComponents<IDamageResponse>())
+        {
+            damageResponse.OnDamage(IFramesDuration);
+        }
         //play animation
     }
 
@@ -30,20 +37,17 @@ public class PossessableHealthHandler : MonoBehaviour, IPossessionSensitive
     {
         Debug.Log(this + "has died");
         //animation
-        StopAllCoroutines();
-        _renderer.material.SetColor("_BaseColor", Color.black);
-        Destroy(gameObject, 1f);
-    }
-
-    private IEnumerator DamageFlash(float IFramesDuration)
-    {
-        _renderer.material.SetColor("_BaseColor", _hitColor);
-        yield return new WaitForSeconds(IFramesDuration);
-        _renderer.material.SetColor("_BaseColor", _defaultColor);
+        foreach (var deathResponse in GetComponents<IDeathResponse>())
+        {
+            deathResponse.OnDeath();
+        }
+        Destroy(gameObject, 3f);
     }
 
     public void OnPossessed(Parasite playerParasite, IInputSource inputSource)
     {
+        _health.ResetHealth();
+        //TODO: unclear code!!! baiscally means on death, exit possessable. sounds like a death response to me
         _health.OnDeath += playerParasite.ExitPossessable;
     }
 

@@ -76,5 +76,7 @@ public class UIManager : MonoBehaviour
     private void ToggleDebugMenu()
     {
         _DebugCanvas.enabled = !_DebugCanvas.enabled;
+        Cursor.visible = !Cursor.visible;
+        Cursor.lockState = Cursor.lockState == CursorLockMode.Locked ? CursorLockMode.None : CursorLockMode.Locked;
     }
 }

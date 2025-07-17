@@ -44,6 +44,6 @@ public class DebugManager : MonoBehaviour
 
     public void ToggleDebugCam()
     {
-        CameraManager.Instance.ToggleActiveCamera();
+        CameraManager.Instance.ToggleDebugCamera();
     }
 }

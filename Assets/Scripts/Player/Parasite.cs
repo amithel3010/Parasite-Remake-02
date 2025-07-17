@@ -85,7 +85,7 @@ public class Parasite : MonoBehaviour, ICollector
                 //disable gfx
                 _gfx.SetActive(false);
 
-                CameraManager.Instance.ChangeCameraTarget(_currentlyPossessedTransform);
+                CameraManager.Instance.ChangeAllCamerasTarget(_currentlyPossessedTransform);
 
                 _currentlyPossessed.OnPossess(this, _playerInput);
                 _canPossess = false;
@@ -114,7 +114,7 @@ public class Parasite : MonoBehaviour, ICollector
             sensitive.OnParasiteUnPossession(); //feels weirddd
         }
 
-        CameraManager.Instance.ChangeCameraTarget(this.transform);
+        CameraManager.Instance.ChangeAllCamerasTarget(this.transform);
 
         _gfx.SetActive(true);
         _rb.isKinematic = false;

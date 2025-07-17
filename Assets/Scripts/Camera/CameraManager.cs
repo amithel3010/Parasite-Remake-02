@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -6,7 +7,8 @@ public class CameraManager : MonoBehaviour
     public static CameraManager Instance;
 
     [SerializeField] private CinemachineCamera _debugCam;
-    [SerializeField] private CinemachineCamera _inGameCam;
+
+    [SerializeField] private List<CinemachineCamera> _allCameras = new();
 
     private void Awake()
     {
@@ -19,34 +21,36 @@ public class CameraManager : MonoBehaviour
             Instance = this;
         }
 
-        if (_debugCam == null || _inGameCam == null)
+        if (_debugCam == null)
         {
-            Debug.LogError("Camera Manager is missing references!!!");
+            Debug.LogError("did not set debug cam");
         }
 
     }
 
     private void Start()
     {
-        //safety check if both cameras are the same state
-        if ((_debugCam.enabled && _inGameCam.enabled) || (!_debugCam.enabled && !_inGameCam.enabled))
+        if (_debugCam.enabled == true)
         {
-            Debug.LogWarning("Both cameras were enabled or disabled on start. defaulting to ingame camera");
-            _inGameCam.enabled = true;
-            _debugCam.enabled = false;
+            Debug.LogWarning("note that debug cam is active on start. it has priority over other cameras");
         }
     }
 
-
-    public void ChangeCameraTarget(Transform newTarget)
+    public void InitCamera(CinemachineCamera cinemachineCamera)
     {
-        _debugCam.Target.TrackingTarget = newTarget;
-        _inGameCam.Target.TrackingTarget = newTarget;
+        _allCameras.Add(cinemachineCamera);
     }
 
-    public void ToggleActiveCamera() //TODO: later when i have a bunch of cameras this won't do. probably need a list of cameras
+    public void ChangeAllCamerasTarget(Transform newTarget)
+    {
+        foreach (var camera in _allCameras)
+        {
+            camera.Target.TrackingTarget = newTarget;
+        }
+    }
+
+    public void ToggleDebugCamera() 
     {
         _debugCam.enabled = !_debugCam.enabled;
-        _inGameCam.enabled = !_inGameCam.enabled;
     }
 }

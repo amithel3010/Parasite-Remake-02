@@ -114,15 +114,10 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
         _inputSource = inputSource;
     }
 
-    public void OnUnPossessed(Parasite playerParasite)
-    {
-        _inputSource = _defaultInputSource;
-    }
+    public void OnUnPossessed(Parasite playerParasite) => _inputSource = _defaultInputSource;
 
-    public void OnParasitePossession()
-    {
-        _isActive = false;
-    }
+    public void OnParasitePossession() => _isActive = false;
+
 
     public void OnParasiteUnPossession()
     {

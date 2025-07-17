@@ -223,7 +223,7 @@ public class Hover : MonoBehaviour, IPossessionSource, IDeathResponse, IPlayerRe
     public void SetMaintainHeight(bool value)
     {
         if (_shouldMaintainHeight = value) return;
-        
+
         else _shouldMaintainHeight = value;
         
     }

@@ -24,7 +24,6 @@ public class Cannon : MonoBehaviour
         if (_trigger != null)
         {
             _trigger.OnTriggerEnterEvent += OnChildTriggerEnter;
-            _trigger.OnTriggerExitEvent += OnChildTriggerExit;
         }
     }
 
@@ -33,7 +32,6 @@ public class Cannon : MonoBehaviour
         if (_trigger != null)
         {
             _trigger.OnTriggerEnterEvent -= OnChildTriggerEnter;
-            _trigger.OnTriggerExitEvent -= OnChildTriggerExit;
         }
     }
 
@@ -43,11 +41,6 @@ public class Cannon : MonoBehaviour
         {
             parasite.TeleportTo(_endPoint.position);
         }
-    }
-
-    private void OnChildTriggerExit(Collider other)
-    {
-        //nothing
     }
 
     private void OnDrawGizmosSelected()

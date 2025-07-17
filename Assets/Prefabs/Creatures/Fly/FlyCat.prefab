@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 8996192089724172722}
   - component: {fileID: 4416253014502423623}
   - component: {fileID: 2389344936115103885}
+  - component: {fileID: 6432461370895955941}
   - component: {fileID: 7777029705140264105}
   - component: {fileID: 7206804757170966531}
   - component: {fileID: 392544222433976915}
@@ -141,6 +142,9 @@ GameObject:
   - component: {fileID: 8505040607584686199}
   - component: {fileID: 8120340269073501476}
   - component: {fileID: 4009081939644178535}
+  - component: {fileID: 6001059940551028262}
+  - component: {fileID: 8731389846034988876}
+  - component: {fileID: 3590339646337613631}
   m_Layer: 6
   m_Name: FlyCat
   m_TagString: Untagged
@@ -190,7 +194,7 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!114 &4416253014502423623
@@ -208,6 +212,7 @@ MonoBehaviour:
   Warning: Please note that for now _uprightSpringDamper, _uprightSpringStrength
     and _rideSpringStrength require exiting play mode to change properly if cahnging
     them or thi rigidbody's mass!
+  _settings: {fileID: 0}
   _downDir: {x: 0, y: -1, z: 0}
   _groundLayer:
     serializedVersion: 2
@@ -220,7 +225,6 @@ MonoBehaviour:
   _uprightSpringStrength: 40
   _showGroundRay: 0
   _debugRayThickness: 3
-  _knockBackDisablesHover: 0
 --- !u!114 &2389344936115103885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,7 +237,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2daeaca1790604cb18dde43434222bd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxSpeed: 8
+  _settings: {fileID: 0}
+  _maxSpeed: 5
   _acceleration: 200
   _maxAccelForce: 150
   _leanFactor: 0.25
@@ -304,12 +309,27 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _moveForceScale: {x: 1, y: 0, z: 1}
-  _maxJumps: 5
+  _debugExpectedJumpHeight: 0
+--- !u!114 &6432461370895955941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4087430175363014747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c82c7456e1c5d745bb52966d7623dcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settings: {fileID: 11400000, guid: f8c8d02c1e4868c4da35ae8461ead2c8, type: 2}
   _jumpHeight: 4
   _jumpBuffer: 0.2
   _coyoteTime: 0.2
-  _isFlying: 1
-  _debugExpectedJumpHeight: 0
+  _showExcpectedJumpHeight: 0
+  _flyMaxJumps: 5
+  _jumpCost: 10
+  _jumpResource: 100
 --- !u!114 &7777029705140264105
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -336,6 +356,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _action2Pressed: 0
+  _playerDetectionRadius: 0.79
+  _showPlayerDetectionSphere: 1
 --- !u!114 &392544222433976915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -379,6 +401,7 @@ MonoBehaviour:
   _constForce: 7
   _inputForce: 0
   _timer: 0.3
+  _disableKnockBackOnDeath: 0
 --- !u!114 &8120340269073501476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -405,7 +428,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _holder: {fileID: 5101397048502317808}
-  _raycastDirection: {x: 0, y: -1, z: 0}
   _sphereRadius: 0.3
   _boxLayer:
     serializedVersion: 2
@@ -414,6 +436,45 @@ MonoBehaviour:
   _maxSpeedChange: -6
   _jumpHeightChange: -3
   _showOverlapSphere: 0
+--- !u!114 &6001059940551028262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4087430175363014747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aee40af9abd650a498108b373f7013cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hitColor: {r: 1, g: 0, b: 0, a: 1}
+--- !u!114 &8731389846034988876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4087430175363014747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29a8a9a7fbbdaf841a2cb82cd286f623, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _deathColor: {r: 0, g: 0, b: 0, a: 1}
+--- !u!114 &3590339646337613631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4087430175363014747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eacbd0515fe0a4a19aab6e1b073c552e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isPlayerOnStart: 0
 --- !u!1 &4581140288191664863
 GameObject:
   m_ObjectHideFlags: 0

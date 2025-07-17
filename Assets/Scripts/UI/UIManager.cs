@@ -8,8 +8,7 @@ public class UIManager : MonoBehaviour
 
     public static UIManager Instance;
 
-    [SerializeField] InputHandler _playerInput;
-
+    [Header("UI Elements")]
     [SerializeField] private Image _healthBar;
     [SerializeField] private Image _collectableTracker;
     [SerializeField] private TMP_Text _collectableText;
@@ -17,6 +16,8 @@ public class UIManager : MonoBehaviour
     [Header("Canvases")]
     [SerializeField] private Canvas _deathScreenCanvas;
     [SerializeField] private Canvas _DebugCanvas;
+
+    InputHandler _playerInput;
 
     private bool _lastDebugPressed;
 
@@ -30,6 +31,11 @@ public class UIManager : MonoBehaviour
         {
             Instance = this;
         }
+
+        if (_playerInput == null)
+        {
+            _playerInput = FindAnyObjectByType<InputHandler>();
+        }
     }
 
     private void Update()
@@ -42,6 +48,10 @@ public class UIManager : MonoBehaviour
         _lastDebugPressed = _playerInput._debugPressed;
     }
 
+    public void ChangeHealthBarImage(Image newImage)
+    {
+        _healthBar = newImage;  
+    }
     public void UpdateHealthBar(float currentHealth, float maxHealth)
     {
         if (_healthBar != null)
@@ -59,10 +69,14 @@ public class UIManager : MonoBehaviour
     public void ShowGameOverScreen()
     {
         _deathScreenCanvas.enabled = true;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     private void ToggleDebugMenu()
     {
-            _DebugCanvas.enabled = !_DebugCanvas.enabled;
+        _DebugCanvas.enabled = !_DebugCanvas.enabled;
+        Cursor.visible = !Cursor.visible;
+        Cursor.lockState = Cursor.lockState == CursorLockMode.Locked ? CursorLockMode.None : CursorLockMode.Locked;
     }
 }

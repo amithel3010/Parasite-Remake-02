@@ -20,6 +20,11 @@ public class Checkpoint : MonoBehaviour
     {
         _renderer = GetComponentInChildren<Renderer>();
         _trigger = GetComponentInChildren<TriggerChanneler>();
+
+        if (_trigger == null)
+        {
+            Debug.LogError("No Channeler In Child");
+        }
     }
 
     void OnEnable()

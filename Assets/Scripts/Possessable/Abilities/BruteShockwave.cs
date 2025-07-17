@@ -2,11 +2,15 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class BruteShockwave : MonoBehaviour
+public class BruteShockwave : MonoBehaviour, IPossessionSensitive
 {
+
+    //TODO: this should maybe inherent from jump.
+
     [Header("General Settings")]
     [SerializeField] private BreakableType _canBreak;
     [SerializeField] private float _damage = 25f;
+    [SerializeField] private float _ShockwaveCost = 5f;
 
     [Header("Hitbox Settings")]
     [SerializeField] private float _hitboxRadius = 1f;
@@ -15,16 +19,19 @@ public class BruteShockwave : MonoBehaviour
     [Header("Debug")]
     [SerializeField] private Material _circleDebugMaterial;
     [SerializeField] private bool _showDebugCircleInGame = true;
-
+    
     private bool _isActive;
+    private bool _shouldConsumeHealth;
     private float _timer;
     private HashSet<GameObject> _alreadyHit = new HashSet<GameObject>();
 
     //Refs
     private IHasLandedEvent _LandingEventRaiser;
+    private Health _health;
 
     void Awake()
     {
+        _health = GetComponent<Health>();
         _LandingEventRaiser = GetComponent<IHasLandedEvent>();
     }
 
@@ -95,6 +102,11 @@ public class BruteShockwave : MonoBehaviour
                     breakable.Break();
                 }
             }
+
+            if (_shouldConsumeHealth)
+            {
+                _health.ChangeHealth(-_ShockwaveCost);
+            }
         }
     }
 
@@ -115,6 +127,16 @@ public class BruteShockwave : MonoBehaviour
         {
             DebugUtils.DrawCircle(transform.position, _hitboxRadius, Color.white);
         }
+    }
+
+    public void OnPossessed(Parasite playerParasite, IInputSource inputSource)
+    {
+        _shouldConsumeHealth = true;
+    }
+
+    public void OnUnPossessed(Parasite playerParasite)
+    {
+        _shouldConsumeHealth = false;
     }
 }
 

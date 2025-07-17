@@ -144,6 +144,7 @@ GameObject:
   - component: {fileID: 4009081939644178535}
   - component: {fileID: 6001059940551028262}
   - component: {fileID: 8731389846034988876}
+  - component: {fileID: 3590339646337613631}
   m_Layer: 6
   m_Name: FlyCat
   m_TagString: Untagged
@@ -461,6 +462,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _deathColor: {r: 0, g: 0, b: 0, a: 1}
+--- !u!114 &3590339646337613631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4087430175363014747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eacbd0515fe0a4a19aab6e1b073c552e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isPlayerOnStart: 0
 --- !u!1 &4581140288191664863
 GameObject:
   m_ObjectHideFlags: 0

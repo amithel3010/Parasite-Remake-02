@@ -222,7 +222,10 @@ public class Hover : MonoBehaviour, IPossessionSource, IDeathResponse, IPlayerRe
     #region Change Movement Parameters
     public void SetMaintainHeight(bool value)
     {
-        _shouldMaintainHeight = value;
+        if (_shouldMaintainHeight = value) return;
+        
+        else _shouldMaintainHeight = value;
+        
     }
 
     public void ChangeRideHeight(float RideHeightChange)

@@ -73,8 +73,6 @@ public class Parasite : MonoBehaviour, ICollector
                 _currentlyPossessed = target;
                 _currentlyPossessedTransform = target.transform;
 
-                _currentlyPossessed.gameObject.layer = this.gameObject.layer;
-
                 //deactivate rb
                 _rb.isKinematic = true;
                 _rb.detectCollisions = false;

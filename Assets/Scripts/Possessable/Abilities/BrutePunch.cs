@@ -10,16 +10,21 @@ public class BrutePunch : MonoBehaviour, IPossessionSensitive
     private IInputSource _defaultInputSource;
     private Possessable _possessable;
 
+    [Header("Punch Settings")]
     [SerializeField] private BreakableType _canBreak;
     [SerializeField] private float _damage;
     [SerializeField] private float _hitboxRadius = 1;
     [SerializeField] private float _duration = 0.2f;
+    [SerializeField] private float _punchCost = 5f;
     [SerializeField] private Transform _punchOrigin;
 
+    [Header("Debug")]
     [SerializeField] private bool _showHitboxInGame = true;
     [SerializeField] private Material _debugMaterial; // A transparent material for visualization
     [SerializeField] private Mesh _debugMesh; // Optional: default to a Sphere mesh
 
+    private Health _bruteHealth;
+    private bool _shouldConsumeHealth;
     private bool _isPunching;
     private bool _isActive;
     private float _timer;
@@ -30,6 +35,7 @@ public class BrutePunch : MonoBehaviour, IPossessionSensitive
         _defaultInputSource = GetComponent<IInputSource>();
         _inputSource = _defaultInputSource;
         _possessable = GetComponent<Possessable>();
+        _bruteHealth = GetComponent<Health>();
     }
 
     void FixedUpdate()
@@ -92,16 +98,23 @@ public class BrutePunch : MonoBehaviour, IPossessionSensitive
                 }
             }
         }
+
+        if (_shouldConsumeHealth)
+            {
+                _bruteHealth.ChangeHealth(-_punchCost);
+            }
     }
 
     #region Possession Sensitive
     public void OnPossessed(Parasite playerParasite, IInputSource newInputSource)
     {
+        _shouldConsumeHealth = true;
         _inputSource = newInputSource;
     }
 
     public void OnUnPossessed(Parasite playerParasite)
     {
+        _shouldConsumeHealth = false;
         _inputSource = _defaultInputSource;
     }
     #endregion

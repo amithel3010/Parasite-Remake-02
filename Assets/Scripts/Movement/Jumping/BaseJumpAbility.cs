@@ -25,6 +25,7 @@ public class BaseJumpAbility : MonoBehaviour, IPossessionSensitive, IPossessionS
     protected bool _jumpReady = true;
     protected int _availableJumps = 1;
     protected bool _wasGrounded;
+    protected float _prevYVelocity;
 
     public event Action OnLanding; //more like OnFinishedJump
     public event Action OnJumpStarted;
@@ -82,7 +83,7 @@ public class BaseJumpAbility : MonoBehaviour, IPossessionSensitive, IPossessionS
         if (_showExcpectedJumpHeight)
         {
             //TODO: must be better way
-           
+
 
             DrawJumpHeight();
         }
@@ -100,15 +101,20 @@ public class BaseJumpAbility : MonoBehaviour, IPossessionSensitive, IPossessionS
                 //finished jump
                 _isJumping = false;
                 OnLanding?.Invoke();
-            _availableJumps = MaxJumps;
+                _availableJumps = MaxJumps;
                 Debug.Log("Landed from a jump");
             }
         }
 
         if (_rb.linearVelocity.y < 0)
         {
-            _jumpReady = true;
-            _hover.SetMaintainHeight(true);
+            if (_prevYVelocity >= 0 && _jumpReady == false)
+            {
+                //reached apex
+                _hover.SetMaintainHeight(true);
+                OnReachedJumpApex();
+                _jumpReady = true;
+            }
         }
 
         if (jumpPressed)
@@ -121,6 +127,7 @@ public class BaseJumpAbility : MonoBehaviour, IPossessionSensitive, IPossessionS
             PerformJump();
         }
         _wasGrounded = _hover.IsGrounded;
+        _prevYVelocity = _rb.linearVelocity.y;
     }
 
     protected virtual bool CanJump()
@@ -177,17 +184,22 @@ public class BaseJumpAbility : MonoBehaviour, IPossessionSensitive, IPossessionS
         }
     }
 
+    protected virtual void OnReachedJumpApex()
+    {
+        //relevant only to cat?
+    }
+
     public void ResetJumpHeight()
     {
         _jumpHeight = _defaultJumpHeight;
     }
 
-    public void OnPossessed(Parasite playerParasite, IInputSource inputSource)
+    public virtual void OnPossessed(Parasite playerParasite, IInputSource inputSource)
     {
         _inputSource = inputSource;
     }
 
-    public void OnUnPossessed(Parasite playerParasite)
+    public virtual void OnUnPossessed(Parasite playerParasite)
     {
         _inputSource = _defaultInputSource;
     }

@@ -8,7 +8,13 @@ public class CameraManager : MonoBehaviour
 
     [SerializeField] private GameObject _debugCam;
 
-    [SerializeField] private List<CinemachineCamera> _allActiveCameras = new();
+    [SerializeField] private CinemachineCamera[] _allActiveCameras;
+
+    public CinemachineCamera CurrentLiveCamera { get; private set; }
+
+    private CinemachineBrain _brain;
+    private ICinemachineCamera _lastCamera;
+
 
     private void Awake()
     {
@@ -26,6 +32,18 @@ public class CameraManager : MonoBehaviour
             Debug.LogError("did not set debug cam");
         }
 
+        _brain = FindAnyObjectByType<CinemachineBrain>();
+
+    }
+
+    private void Update()
+    {
+        var currentCam = _brain.ActiveVirtualCamera;
+        if (currentCam != _lastCamera)
+        {
+            Debug.Log($"Switched to: {currentCam.Name}");
+            _lastCamera = currentCam;
+        }
     }
 
     private void Start()
@@ -34,22 +52,9 @@ public class CameraManager : MonoBehaviour
         {
             Debug.LogWarning("note that debug cam is active on start. it has priority over other cameras");
         }
-    }
-
-    public void RegisterActiveCamera(CinemachineCamera cinemachineCamera)
-    {
-        _allActiveCameras.Add(cinemachineCamera);
-    }
-
-    public void DeRegisterActiveCamera(CinemachineCamera cinemachineCamera)
-    {
-        if(!_allActiveCameras.Contains(cinemachineCamera))
-        {
-            Debug.Log("Trying to remove a camera that isnt active from all active cameras list");
-        }
-        _allActiveCameras.Remove(cinemachineCamera);
 
     }
+
 
     public void ChangeActiveCamerasTarget(Transform newTarget)
     {
@@ -63,5 +68,16 @@ public class CameraManager : MonoBehaviour
     {
         //according to cinemachine docs, the correct way to switch cameras is disabling and enabling the whole game object
         _debugCam.SetActive(!_debugCam.activeSelf);
+    }
+
+    void OnCameraChanged(ICinemachineCamera newCam, ICinemachineCamera prevCam)
+    {
+        CurrentLiveCamera = newCam as CinemachineCamera;
+    }
+
+    [ContextMenu("Get All Cinemachine Cameras In Scene")]
+    private void GetAllCinemachineCamerasInScene()
+    {
+        _allActiveCameras = FindObjectsByType<CinemachineCamera>(FindObjectsSortMode.None);
     }
 }

@@ -23,10 +23,27 @@ public class Button : MonoBehaviour
     void Awake()
     {
         _trigger = GetComponentInChildren<TriggerChanneler>();
-        Debug.Log(_trigger);
     }
 
-    public void OnChildTriggerEnter(Collider other)
+    void OnEnable()
+    {
+        if (_trigger != null)
+        {
+            _trigger.OnTriggerEnterEvent += HandleTriggerEnter;
+            _trigger.OnTriggerExitEvent += HandleTriggerExit;
+        }
+    }
+
+    void OnDisable()
+    {
+        if (_trigger != null)
+        {
+            _trigger.OnTriggerEnterEvent -= HandleTriggerEnter;
+            _trigger.OnTriggerExitEvent -= HandleTriggerExit;
+        }
+    }
+
+    public void HandleTriggerEnter(Collider other)
     {
         if (other.transform.parent.TryGetComponent(out CanPushButtons pusher))
         {
@@ -42,7 +59,7 @@ public class Button : MonoBehaviour
         }
     }
 
-    public void OnChildTriggerExit(Collider other)
+    public void HandleTriggerExit(Collider other)
     {
         if (other.transform.parent.TryGetComponent(out CanPushButtons pusher))
         {

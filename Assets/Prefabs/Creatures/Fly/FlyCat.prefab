@@ -329,7 +329,6 @@ MonoBehaviour:
   _showExcpectedJumpHeight: 0
   _flyMaxJumps: 5
   _jumpCost: 10
-  _jumpResource: 100
 --- !u!114 &7777029705140264105
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -433,7 +432,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   _rideHeightChange: 1
-  _maxSpeedChange: -6
+  _maxSpeedChange: -4
   _jumpHeightChange: -3
   _showOverlapSphere: 0
 --- !u!114 &6001059940551028262

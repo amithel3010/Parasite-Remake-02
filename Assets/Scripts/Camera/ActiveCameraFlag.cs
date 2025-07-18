@@ -22,7 +22,7 @@ public class ActiveCameraFlag : MonoBehaviour
 
     private void OnDisable()
     {
-        
+        CameraManager.Instance.DeRegisterActiveCamera(_camera);
     }
 
 }

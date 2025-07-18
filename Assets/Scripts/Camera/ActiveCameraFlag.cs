@@ -2,7 +2,7 @@ using Unity.Cinemachine;
 using UnityEngine;
 
 [RequireComponent(typeof(CinemachineCamera))]
-public class CamerainItilaizer : MonoBehaviour
+public class ActiveCameraFlag : MonoBehaviour
 {
     private CinemachineCamera _camera;
 
@@ -17,12 +17,12 @@ public class CamerainItilaizer : MonoBehaviour
         {
             Debug.LogError("Camera manager is null");
         }
-        CameraManager.Instance.InitCamera(_camera);
+        CameraManager.Instance.RegisterActiveCamera(_camera);
     }
 
-    public void SetActive(bool IsActive)
+    private void OnDisable()
     {
-        _camera.enabled = IsActive;
+        
     }
 
 }

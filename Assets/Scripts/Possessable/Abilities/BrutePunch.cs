@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using System.Threading;
-using UnityEditor.ShaderGraph;
 using UnityEngine;
 
 public class BrutePunch : MonoBehaviour, IPossessionSensitive

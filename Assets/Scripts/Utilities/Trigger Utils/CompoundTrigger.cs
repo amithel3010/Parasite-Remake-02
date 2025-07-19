@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +13,9 @@ public class CompoundTrigger : MonoBehaviour
     [SerializeField] private bool _isInside; //for seeing in inspector
 
     private Dictionary<Collider, bool> triggers;
+
+    public event Action OnEnter;
+    public event Action OnExit;
 
     private void Awake()
     {
@@ -43,14 +47,18 @@ public class CompoundTrigger : MonoBehaviour
     /// </summary>
     private void CheckInside()
     {
+        //TODO: need to setup events properly
         _isInside = false;
         foreach (var trigger in triggers)
         {
             if (trigger.Value)
             {
                 _isInside = true;
+                Debug.Log("OnEnter");
                 break;
             }
         }
+        if (!_isInside)
+            Debug.Log("OnExit");
     }
 }

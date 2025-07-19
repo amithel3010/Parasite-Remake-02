@@ -6,6 +6,8 @@ public class DebugManager : MonoBehaviour
 {
     public static DebugManager Instance { get; private set; }
 
+    [SerializeField] private DebugStatsOverlay _statsOverlay;
+
     Transform _playerTransform;
     Health _playerHealth;
 
@@ -45,5 +47,10 @@ public class DebugManager : MonoBehaviour
     public void ToggleDebugCam()
     {
         CameraManager.Instance.ToggleDebugCamera();
+    }
+
+    public void ToggleDebugStats()
+    {
+        _statsOverlay.ToggleDebugStats();
     }
 }

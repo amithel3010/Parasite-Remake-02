@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class CameraManager : MonoBehaviour
 {
@@ -8,13 +11,13 @@ public class CameraManager : MonoBehaviour
 
     [SerializeField] private GameObject _debugCam;
 
-    [SerializeField] private CinemachineCamera[] _allActiveCameras;
+    [SerializeField] private CinemachineCamera[] _allCameras;
+    [SerializeField] private GameObject[] _allCameraHolders;
 
     public CinemachineCamera CurrentLiveCamera { get; private set; }
 
     private CinemachineBrain _brain;
     private ICinemachineCamera _lastCamera;
-
 
     private void Awake()
     {
@@ -36,16 +39,6 @@ public class CameraManager : MonoBehaviour
 
     }
 
-    private void Update()
-    {
-        var currentCam = _brain.ActiveVirtualCamera;
-        if (currentCam != _lastCamera)
-        {
-            Debug.Log($"Switched to: {currentCam.Name}");
-            _lastCamera = currentCam;
-        }
-    }
-
     private void Start()
     {
         if (_debugCam.activeSelf == true)
@@ -55,10 +48,9 @@ public class CameraManager : MonoBehaviour
 
     }
 
-
     public void ChangeActiveCamerasTarget(Transform newTarget)
     {
-        foreach (var camera in _allActiveCameras)
+        foreach (var camera in _allCameras)
         {
             camera.Target.TrackingTarget = newTarget;
         }
@@ -70,14 +62,46 @@ public class CameraManager : MonoBehaviour
         _debugCam.SetActive(!_debugCam.activeSelf);
     }
 
-    void OnCameraChanged(ICinemachineCamera newCam, ICinemachineCamera prevCam)
-    {
-        CurrentLiveCamera = newCam as CinemachineCamera;
-    }
-
     [ContextMenu("Get All Cinemachine Cameras In Scene")]
     private void GetAllCinemachineCamerasInScene()
     {
-        _allActiveCameras = FindObjectsByType<CinemachineCamera>(FindObjectsSortMode.None);
+        _allCameras = FindObjectsByType<CinemachineCamera>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+    }
+
+    [ContextMenu("Get CameraHolders In Scene")]
+    private void GetAllCameraHoldersInScene()
+    {
+
+        if (_allCameras == null || _allCameras.Length == 0)
+        {
+            Debug.LogWarning("No cameras found. Run 'Get All Cinemachine Cameras In Scene' first.");
+            return;
+        }
+
+        var holders = new List<GameObject>();
+
+        foreach (var cam in _allCameras)
+        {
+            if (cam != null && cam.transform.parent != null && cam.gameObject != _debugCam)
+            {
+                holders.Add(cam.transform.parent.gameObject);
+            }
+        }
+
+        _allCameraHolders = holders.ToArray();
+    }
+
+    public void EnableAllCameraHolders()
+    {
+        foreach (var holder in _allCameraHolders)
+            if (holder != null)
+                holder.SetActive(true);
+    }
+
+    public void DisableAllCameraHolders()
+    {
+        foreach (var holder in _allCameraHolders)
+            if (holder != null)
+                holder.SetActive(false);
     }
 }

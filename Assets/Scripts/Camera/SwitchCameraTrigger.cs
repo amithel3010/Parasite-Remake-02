@@ -1,16 +1,17 @@
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class SwitchCameraTrigger : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField] GameObject _CameraHolderToSwitchTo;
 
-    // Update is called once per frame
-    void Update()
+    private CinemachineBrain _brain;
+
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if(other.gameObject.layer == LayerUtils.PlayerControlledLayer)
+        {
+            CameraManager.Instance.ChangeCamera(_CameraHolderToSwitchTo);
+        }
     }
 }

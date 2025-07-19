@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
 #if UNITY_EDITOR
-using UnityEditor;
 #endif
 
 public class CameraManager : MonoBehaviour
@@ -53,6 +52,19 @@ public class CameraManager : MonoBehaviour
         foreach (var camera in _allCameras)
         {
             camera.Target.TrackingTarget = newTarget;
+        }
+    }
+
+    public void ChangeCamera(GameObject cameraHolder)
+    {
+        cameraHolder.SetActive(true);
+        foreach (var camHolder in _allCameraHolders)
+        {
+            if (camHolder.activeSelf)
+            {
+                camHolder.SetActive(false);
+            }
+            ;
         }
     }
 

@@ -6725,7 +6725,7 @@ MonoBehaviour:
   SkipFirst: 0
   Repeating: 1
   OnObjectEnter:
-    Action: 1
+    Action: 2
     Target: {fileID: 2089304156}
     BoostAmount: 10
     StartTime: 0
@@ -6734,7 +6734,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   OnObjectExit:
-    Action: 1
+    Action: 3
     Target: {fileID: 2089304156}
     BoostAmount: -10
     StartTime: 0
@@ -7222,7 +7222,7 @@ MonoBehaviour:
     Enabled: 0
     m_Value: 0
   OutputChannel: 1
-  StandbyUpdate: 2
+  StandbyUpdate: 0
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
@@ -7865,7 +7865,7 @@ MonoBehaviour:
   SkipFirst: 0
   Repeating: 1
   OnObjectEnter:
-    Action: 1
+    Action: 2
     Target: {fileID: 911711190}
     BoostAmount: 10
     StartTime: 0
@@ -7874,7 +7874,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   OnObjectExit:
-    Action: 1
+    Action: 3
     Target: {fileID: 911711190}
     BoostAmount: -10
     StartTime: 0
@@ -12129,7 +12129,7 @@ MonoBehaviour:
     Enabled: 0
     m_Value: 0
   OutputChannel: 1
-  StandbyUpdate: 2
+  StandbyUpdate: 0
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
@@ -13578,7 +13578,7 @@ MonoBehaviour:
     Enabled: 0
     m_Value: 11
   OutputChannel: 1
-  StandbyUpdate: 2
+  StandbyUpdate: 0
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
@@ -17494,7 +17494,7 @@ MonoBehaviour:
     Enabled: 0
     m_Value: 0
   OutputChannel: 1
-  StandbyUpdate: 2
+  StandbyUpdate: 0
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
@@ -17841,7 +17841,7 @@ MonoBehaviour:
     Enabled: 0
     m_Value: 0
   OutputChannel: 1
-  StandbyUpdate: 2
+  StandbyUpdate: 0
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
@@ -23656,7 +23656,7 @@ MonoBehaviour:
     Enabled: 0
     m_Value: 0
   OutputChannel: 1
-  StandbyUpdate: 2
+  StandbyUpdate: 0
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
@@ -24924,7 +24924,7 @@ MonoBehaviour:
   SkipFirst: 0
   Repeating: 1
   OnObjectEnter:
-    Action: 1
+    Action: 2
     Target: {fileID: 1852944309}
     BoostAmount: 10
     StartTime: 0
@@ -24933,7 +24933,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   OnObjectExit:
-    Action: 1
+    Action: 3
     Target: {fileID: 1852944309}
     BoostAmount: -10
     StartTime: 0
@@ -27756,7 +27756,7 @@ MonoBehaviour:
     Enabled: 0
     m_Value: 0
   OutputChannel: 1
-  StandbyUpdate: 2
+  StandbyUpdate: 0
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
@@ -30717,8 +30717,8 @@ MonoBehaviour:
   SkipFirst: 0
   Repeating: 1
   OnObjectEnter:
-    Action: 1
-    Target: {fileID: 1058528981}
+    Action: 2
+    Target: {fileID: 940915496}
     BoostAmount: 10
     StartTime: 0
     Mode: 0
@@ -30726,8 +30726,8 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   OnObjectExit:
-    Action: 1
-    Target: {fileID: 1058528981}
+    Action: 3
+    Target: {fileID: 940915496}
     BoostAmount: -10
     StartTime: 0
     Mode: 0
@@ -34018,7 +34018,7 @@ MonoBehaviour:
   SkipFirst: 0
   Repeating: 1
   OnObjectEnter:
-    Action: 1
+    Action: 2
     Target: {fileID: 225700291}
     BoostAmount: 10
     StartTime: 0
@@ -34027,7 +34027,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   OnObjectExit:
-    Action: 1
+    Action: 3
     Target: {fileID: 225700291}
     BoostAmount: -10
     StartTime: 0
@@ -35390,7 +35390,7 @@ MonoBehaviour:
   SkipFirst: 0
   Repeating: 1
   OnObjectEnter:
-    Action: 1
+    Action: 2
     Target: {fileID: 1582137346}
     BoostAmount: 10
     StartTime: 0
@@ -35399,7 +35399,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   OnObjectExit:
-    Action: 1
+    Action: 3
     Target: {fileID: 1582137346}
     BoostAmount: -10
     StartTime: 0
@@ -36442,6 +36442,7 @@ Transform:
   - {fileID: 1316628833}
   - {fileID: 1904163625}
   - {fileID: 1270331322}
+  - {fileID: 2109022284}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1342881527
@@ -43434,7 +43435,7 @@ MonoBehaviour:
     Enabled: 0
     m_Value: 0
   OutputChannel: 1
-  StandbyUpdate: 2
+  StandbyUpdate: 0
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
@@ -53038,7 +53039,7 @@ MonoBehaviour:
     Enabled: 0
     m_Value: 0
   OutputChannel: 1
-  StandbyUpdate: 2
+  StandbyUpdate: 0
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
@@ -54977,7 +54978,7 @@ MonoBehaviour:
     Enabled: 0
     m_Value: 0
   OutputChannel: 1
-  StandbyUpdate: 2
+  StandbyUpdate: 0
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
@@ -55236,7 +55237,7 @@ MonoBehaviour:
   SkipFirst: 0
   Repeating: 1
   OnObjectEnter:
-    Action: 1
+    Action: 2
     Target: {fileID: 666910719}
     BoostAmount: 10
     StartTime: 0
@@ -55245,7 +55246,7 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   OnObjectExit:
-    Action: 1
+    Action: 3
     Target: {fileID: 666910719}
     BoostAmount: -10
     StartTime: 0
@@ -60852,7 +60853,7 @@ MonoBehaviour:
     Enabled: 0
     m_Value: 0
   OutputChannel: 1
-  StandbyUpdate: 2
+  StandbyUpdate: 0
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
@@ -61842,6 +61843,73 @@ Transform:
   m_Children: []
   m_Father: {fileID: 24613131}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2109022283
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2109022284}
+  - component: {fileID: 2109022285}
+  - component: {fileID: 2109022286}
+  m_Layer: 0
+  m_Name: SwitchTo_FirstPathCamera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2109022284
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2109022283}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1342815941}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2109022285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2109022283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ecad5242e9eea448b390e41666c8710, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _CameraHolderToSwitchTo: {fileID: 0}
+--- !u!65 &2109022286
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2109022283}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2109179873
 GameObject:
   m_ObjectHideFlags: 0

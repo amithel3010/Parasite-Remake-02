@@ -249,7 +249,6 @@ GameObject:
   - component: {fileID: 7620758089356152762}
   - component: {fileID: 6829692446846330950}
   - component: {fileID: 2355416366301637319}
-  - component: {fileID: 4801541573458735893}
   m_Layer: 0
   m_Name: Debug Camera
   m_TagString: Untagged
@@ -482,15 +481,3 @@ MonoBehaviour:
         DecelTime: 0
   PlayerIndex: -1
   AutoEnableInputs: 1
---- !u!114 &4801541573458735893
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8757017002033276585}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e2e27a3618c44213afc39c3309427e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

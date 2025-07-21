@@ -10,6 +10,7 @@ public class CameraManager : MonoBehaviour
     public static CameraManager Instance;
 
     [SerializeField] private GameObject _debugCam;
+    [SerializeField] private GameObject _firstActiveCamera;
 
     [SerializeField] private CinemachineCamera[] _allCameras;
     [SerializeField] private GameObject[] _allCameraHolders;
@@ -42,6 +43,8 @@ public class CameraManager : MonoBehaviour
             Debug.LogWarning("note that debug cam is active on start. it has priority over other cameras");
         }
 
+        GetAllCinemachineCamerasInScene();
+        GetAllCameraHoldersInScene();
     }
 
     public void ChangeActiveCamerasTarget(Transform newTarget)
@@ -141,7 +144,7 @@ public class CameraManager : MonoBehaviour
     public void DisableAllCameraHolders()
     {
         foreach (var holder in _allCameraHolders)
-            if (holder != null)
+            if (holder != null && holder != _firstActiveCamera)
                 holder.SetActive(false);
     }
 }

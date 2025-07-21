@@ -84,7 +84,7 @@ MonoBehaviour:
   _maxAmountToSpawn: 2
   _spawnPoint: {fileID: 1756014731769839391}
   _spawnRadius: 10
-  _spawnTime: 5
+  _timeBetweenSpawns: 5
   _timerVisualizer: {fileID: 813813773293187938}
   SpawnedObjectsList: []
 --- !u!1 &4717352827144857237
@@ -187,4 +187,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc01f59be8474bd40a100ce688c1681c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alignNotLook: 1

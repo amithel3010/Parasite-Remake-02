@@ -9,27 +9,24 @@ public class Spawner : MonoBehaviour
 
     [SerializeField] private List<SpawnableData> _configurations;
 
-    [SerializeField] private int _maxAmountToSpawn;
+    [SerializeField] private int _maxAmountToSpawn = 2;
     [SerializeField] private Transform _spawnPoint;
-    [SerializeField] private float _spawnRadius;
-    [SerializeField] private float _spawnTime;
+    [SerializeField] private float _spawnRadius = 2f;
+    [SerializeField] private float _timeBetweenSpawns = 5f;
 
     [SerializeField] private SpriteRenderer _timerVisualizer;
     private float _timerVisualizerMaxYSize;
 
+    public List<GameObject> SpawnedObjectsList = new();
 
     private SpawnableData SelectedConfig =>
-       _configurations.Find(cfg => cfg.type == _selectedType); //ChatGPT type code
-
-    private float _timer;
-
+       _configurations.Find(cfg => cfg.type == _selectedType); //ChatGPT type code, i don't like it
 
     private GameObject _objToSpawn => SelectedConfig?.prefab;
     private Color _gizmoColor => SelectedConfig?.gizmoColor ?? Color.white;
 
-    public List<GameObject> SpawnedObjectsList = new();
+    private float _timer;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {     
         if (_objToSpawn == null)
@@ -47,11 +44,9 @@ public class Spawner : MonoBehaviour
                 SpawnObj();
             }
         }
-
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (SpawnedObjectsList.Count >= _maxAmountToSpawn) return;
@@ -61,9 +56,9 @@ public class Spawner : MonoBehaviour
         {
             _timerVisualizer.enabled = true;
         }
-        _timerVisualizer.size = new Vector2(_timerVisualizer.size.x, Mathf.Lerp(0, _timerVisualizerMaxYSize, _timer / _spawnTime));
+        _timerVisualizer.size = new Vector2(_timerVisualizer.size.x, Mathf.Lerp(0, _timerVisualizerMaxYSize, _timer / _timeBetweenSpawns));
 
-        if (_timer > _spawnTime)
+        if (_timer > _timeBetweenSpawns)
         {
             SpawnObj();
             _timer = 0;

@@ -1,18 +1,19 @@
 using UnityEngine;
 
+[RequireComponent(typeof(ColorChangeHandler))]
 public class ChangeColorOnDeath : MonoBehaviour, IDeathResponse
 {
     [SerializeField] private Color _deathColor = Color.black;
 
-    private Renderer _renderer;
+    private ColorChangeHandler _handler;
 
     private void Awake()
     {
-        _renderer = GetComponentInChildren<Renderer>();
+        _handler = GetComponent<ColorChangeHandler>();
     }
 
     public void OnDeath()
     {
-        _renderer.material.SetColor("_BaseColor", _deathColor);
+        _handler.ChangeColor(_deathColor);
     }
 }

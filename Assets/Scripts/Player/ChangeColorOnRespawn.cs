@@ -1,18 +1,17 @@
 using UnityEngine;
 
+[RequireComponent(typeof(ColorChangeHandler))]
 public class ChangeColorOnRespawn : MonoBehaviour, IPlayerRespawnListener
 {
-    private Renderer _renderer;
-    private Color _defaultColor;
+    private ColorChangeHandler _handler;
 
     private void Awake()
     {
-        _renderer = GetComponentInChildren<Renderer>();
-        _defaultColor = _renderer.material.GetColor("_BaseColor");
+        _handler = GetComponent<ColorChangeHandler>();
     }
 
     public void OnPlayerRespawn()
     {
-        _renderer.material.SetColor("_BaseColor", _defaultColor);
+        _handler.ResetColor();
     }
 }

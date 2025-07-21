@@ -14,6 +14,10 @@ public class Spawner : MonoBehaviour
     [SerializeField] private float _spawnRadius;
     [SerializeField] private float _spawnTime;
 
+    [SerializeField] private SpriteRenderer _timerVisualizer;
+    private float _timerVisualizerMaxYSize;
+
+
     private SpawnableData SelectedConfig =>
        _configurations.Find(cfg => cfg.type == _selectedType); //ChatGPT type code
 
@@ -27,7 +31,7 @@ public class Spawner : MonoBehaviour
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
-    {
+    {     
         if (_objToSpawn == null)
         {
             Debug.LogWarning($"No Object to spawn was given to: {this.gameObject}, Destroying it!");
@@ -35,11 +39,16 @@ public class Spawner : MonoBehaviour
         }
         else
         {
+            _timerVisualizer.color = _gizmoColor;
+            _timerVisualizerMaxYSize = _timerVisualizer.size.y;
+            _timerVisualizer.enabled = false;
             for (int i = 0; i < _maxAmountToSpawn; i++)
             {
                 SpawnObj();
             }
         }
+
+        
     }
 
     // Update is called once per frame
@@ -48,12 +57,20 @@ public class Spawner : MonoBehaviour
         if (SpawnedObjectsList.Count >= _maxAmountToSpawn) return;
 
         _timer += Time.deltaTime;
+        if(_timerVisualizer.enabled == false)
+        {
+            _timerVisualizer.enabled = true;
+        }
+        _timerVisualizer.size = new Vector2(_timerVisualizer.size.x, Mathf.Lerp(0, _timerVisualizerMaxYSize, _timer / _spawnTime));
 
         if (_timer > _spawnTime)
         {
             SpawnObj();
             _timer = 0;
+            _timerVisualizer.enabled = false;
         }
+
+        
     }
 
     private void SpawnObj()

@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84d4eb137fd120c429e71dd7e8acb9b5, type: 3}
+  m_Name: FlyCatSpawnable
+  m_EditorClassIdentifier: 
+  type: 1
+  prefab: {fileID: 4087430175363014747, guid: 9cb5e27e49dfa4b17a66bcf17bcab13b, type: 3}
+  gizmoColor: {r: 0.9901843, g: 0, b: 1, a: 1}

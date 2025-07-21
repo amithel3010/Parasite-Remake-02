@@ -81,6 +81,7 @@ MonoBehaviour:
   _configurations:
   - {fileID: 11400000, guid: 2a982adbcde7a914a8bec886a542c0c0, type: 2}
   - {fileID: 11400000, guid: 09e7785a6d32be5488a0bc8bb43be0cf, type: 2}
+  - {fileID: 11400000, guid: cad1836d4970cb946992543582c1823e, type: 2}
   _maxAmountToSpawn: 2
   _spawnPoint: {fileID: 1756014731769839391}
   _spawnRadius: 10

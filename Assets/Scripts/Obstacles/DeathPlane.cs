@@ -3,7 +3,7 @@ using UnityEngine;
 public class DeathPlane : MonoBehaviour
 {
     [Header("Debugging")]
-    [SerializeField] private bool _showCollider;
+    [SerializeField] private bool _showCollider; //TODO: not implemented
 
 
     //TODO: add debug mode to see colliders
@@ -39,6 +39,7 @@ public class DeathPlane : MonoBehaviour
 
     public void HandleTriggerEnter(Collider other)
     {
+        Debug.Log(other.name);
         if (other.transform.parent.gameObject.TryGetComponent<Health>(out Health health))
         {
             health.Killimmediately();

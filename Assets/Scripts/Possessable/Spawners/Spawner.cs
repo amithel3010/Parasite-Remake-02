@@ -5,7 +5,7 @@ public class Spawner : MonoBehaviour
 {
     //TODO: this will be way beter with an object pooler.
 
-    [SerializeField] private SpawnableType _selectedType;
+    [SerializeField] private SpawnableTypeEnum _selectedType;
 
     [SerializeField] private List<SpawnableData> _configurations;
 

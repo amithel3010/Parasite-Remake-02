@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 84d4eb137fd120c429e71dd7e8acb9b5, type: 3}
-  m_Name: BruteSpawnable
+  m_Name: BruteNoGrabSpawnable
   m_EditorClassIdentifier: 
-  type: 2
-  prefab: {fileID: 2338638882686671862, guid: 62846ba83004be24d912ad81643db2c4, type: 3}
+  type: 3
+  prefab: {fileID: 6999565424575073364, guid: b2e5d7db94e1a446d8dfe87719c2a3a0, type: 3}
   gizmoColor: {r: 0, g: 0.49427915, b: 1, a: 1}

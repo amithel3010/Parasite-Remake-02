@@ -2,22 +2,16 @@ using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Serialization;
 
+[RequireComponent(typeof(CompoundTrigger))]
 public class CameraArea : MonoBehaviour
 {
     [SerializeField] private LayerMask _layerMask;
 
     private CompoundTrigger _compoundTrigger;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Awake()
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        _compoundTrigger = GetComponent<CompoundTrigger>();
     }
 
     private bool Filter(GameObject other)
@@ -29,4 +23,6 @@ public class CameraArea : MonoBehaviour
 
         return true;
     }
+
+
 }

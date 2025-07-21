@@ -1,11 +1,13 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CompoundTrigger : MonoBehaviour
 {
     //Credit to: Ruchir on unity forums
 
+
+    [SerializeField] private LayerMask _layerMask;
 
     /// <summary>
     /// Tells if player is inside the Trigger Area
@@ -14,8 +16,8 @@ public class CompoundTrigger : MonoBehaviour
 
     private Dictionary<Collider, bool> triggers;
 
-    public event Action OnEnter;
-    public event Action OnExit;
+    public UnityEvent OnEnter;
+    public UnityEvent OnExit;
 
     private void Awake()
     {
@@ -26,20 +28,26 @@ public class CompoundTrigger : MonoBehaviour
     /// Call this function when player enters the area
     /// </summary>
     /// <param name="sender"></param>
-    public void PlayerEntered(Collider sender)
+    public void ObjectEntered(Collider sender, Collider other)
     {
-        triggers[sender] = true;
-        CheckInside();
+        if (Filter(other.gameObject))
+        {
+            triggers[sender] = true;
+            CheckInside();
+        }
     }
 
     /// <summary>
     /// Call this function when player leaves the area
     /// </summary>
     /// <param name="sender"></param>
-    public void PlayerExit(Collider sender)
+    public void ObjectExited(Collider sender, Collider other)
     {
-        triggers[sender] = false;
-        CheckInside();
+        if (Filter(other.gameObject))
+        {
+            triggers[sender] = false;
+            CheckInside();
+        }
     }
 
     /// <summary>
@@ -47,18 +55,43 @@ public class CompoundTrigger : MonoBehaviour
     /// </summary>
     private void CheckInside()
     {
-        //TODO: need to setup events properly
+        bool _lastState = _isInside;
+
         _isInside = false;
         foreach (var trigger in triggers)
         {
             if (trigger.Value)
             {
                 _isInside = true;
-                Debug.Log("OnEnter");
                 break;
             }
         }
-        if (!_isInside)
-            Debug.Log("OnExit");
+        if (_lastState != _isInside)
+        {
+            if (_isInside)
+            {
+                Debug.Log("entered");
+                OnEnter?.Invoke();
+            }
+            else
+            {
+                Debug.Log("exited");
+
+                OnExit?.Invoke();
+            }
+        }
+    }
+
+    private bool Filter(GameObject other)
+    {
+        //Debug.Log($"Checking layer: {other.layer} ({LayerMask.LayerToName(other.layer)})");
+        //Debug.Log($"LayerMask value: {_layerMask.value} | Bit check result: {(1 << other.layer) & _layerMask.value}");
+
+        if (!enabled)
+            return false;
+        if (((1 << other.layer) & _layerMask) == 0)
+            return false;
+
+        return true;
     }
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class CompoundTriggerChild : MonoBehaviour
 {
+    //TODO: make this more generic
+
     private CompoundTrigger _compoundTrigger;
     private Collider _thisTrigger;
 
@@ -15,13 +17,13 @@ public class CompoundTriggerChild : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == LayerUtils.PlayerControlledLayer)
-            _compoundTrigger.PlayerEntered(_thisTrigger);
+        //if (other.gameObject.layer == LayerUtils.PlayerControlledLayer)
+            _compoundTrigger.ObjectEntered(_thisTrigger, other);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.layer == LayerUtils.PlayerControlledLayer)
-            _compoundTrigger.PlayerExit(_thisTrigger);
+        //if (other.gameObject.layer == LayerUtils.PlayerControlledLayer)
+            _compoundTrigger.ObjectExited(_thisTrigger, other);
     }
 }

@@ -41,7 +41,7 @@ public class DeathPlane : MonoBehaviour
     {
         if (other.transform.parent.gameObject.TryGetComponent<Health>(out Health health))
         {
-            health.ChangeHealth(-health.MaxHealth);
+            health.Killimmediately();
         }
     }
 

@@ -34,7 +34,7 @@ public class Possessable : MonoBehaviour, ICollector
 
         if (_dieOnUnPossess)
         {
-            _healthSystem.ChangeHealth(-_healthSystem.CurrentHealth); //die
+            _healthSystem.Killimmediately();
         }
     }
 

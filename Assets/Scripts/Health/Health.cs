@@ -55,6 +55,13 @@ public class Health : MonoBehaviour
         ChangeHealth(_maxHealth);
     }
 
+    public void Killimmediately()
+    {
+        StopAllCoroutines();
+        _isHittable = true;
+        ChangeHealth(-_maxHealth);
+    }
+
     private IEnumerator IFrameCooldown()
     {
         if (_isHittable == false)

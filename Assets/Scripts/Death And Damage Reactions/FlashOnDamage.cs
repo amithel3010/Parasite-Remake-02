@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class FlashOnDamage : MonoBehaviour, IDamageResponse
 {
+    //BUG: when dies with die immedietly, change color on damage overwrites changecolor on death
+    //potential fix: merge into one component
+
     [SerializeField] private Color _hitColor = Color.red;
 
     private Renderer _renderer;

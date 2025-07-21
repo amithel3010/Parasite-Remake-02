@@ -7519,7 +7519,6 @@ GameObject:
   - component: {fileID: 225700292}
   - component: {fileID: 225700295}
   - component: {fileID: 225700294}
-  - component: {fileID: 225700293}
   m_Layer: 0
   m_Name: StaticCam_ButterflyTut_Button
   m_TagString: Untagged
@@ -7535,25 +7534,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 225700291}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.029591875, y: 0.92957556, z: -0.076542325, w: 0.35938132}
+  m_LocalRotation: {x: 0.027829153, y: 0.110230036, z: -0.0030876403, w: 0.9935117}
   m_LocalPosition: {x: -15.639999, y: 1.7299995, z: -90.12999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1802701709}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &225700293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 225700291}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e2e27a3618c44213afc39c3309427e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &225700294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28386,7 +28373,6 @@ GameObject:
   - component: {fileID: 1058528982}
   - component: {fileID: 1058528985}
   - component: {fileID: 1058528984}
-  - component: {fileID: 1058528983}
   m_Layer: 0
   m_Name: StaticCamera_01
   m_TagString: Untagged
@@ -28402,25 +28388,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1058528981}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0024324525, y: -0.27109134, z: -0.0006850726, w: 0.96255034}
+  m_LocalRotation: {x: -0.03909709, y: -0.11166697, z: -0.0043967776, w: 0.9929666}
   m_LocalPosition: {x: 21.879997, y: -5.3899994, z: -120.58}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 940915497}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1058528983
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1058528981}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e2e27a3618c44213afc39c3309427e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1058528984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -53349,15 +53323,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 554632672431731233, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 554632672431731233, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -10.8
+      value: 3.8
       objectReference: {fileID: 0}
     - target: {fileID: 554632672431731233, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.9
+      value: -6.97
       objectReference: {fileID: 0}
     - target: {fileID: 672422801090740972, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
       propertyPath: m_text
@@ -53749,63 +53723,67 @@ PrefabInstance:
       objectReference: {fileID: 1536519458}
     - target: {fileID: 4791510506337353704, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
       propertyPath: _allCameras.Array.size
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 4791510506337353704, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
       propertyPath: '_allCameras.Array.data[0]'
       value: 
-      objectReference: {fileID: 466247928}
+      objectReference: {fileID: 397613267}
     - target: {fileID: 4791510506337353704, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
       propertyPath: '_allCameras.Array.data[1]'
       value: 
-      objectReference: {fileID: 911711194}
+      objectReference: {fileID: 666910723}
     - target: {fileID: 4791510506337353704, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
       propertyPath: '_allCameras.Array.data[2]'
       value: 
-      objectReference: {fileID: 683674171}
+      objectReference: {fileID: 58261984}
     - target: {fileID: 4791510506337353704, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
       propertyPath: '_allCameras.Array.data[3]'
       value: 
-      objectReference: {fileID: 2089304160}
+      objectReference: {fileID: 15353120}
     - target: {fileID: 4791510506337353704, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
       propertyPath: '_allCameras.Array.data[4]'
       value: 
-      objectReference: {fileID: 1058528985}
+      objectReference: {fileID: 1852944312}
     - target: {fileID: 4791510506337353704, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
       propertyPath: '_allCameras.Array.data[5]'
       value: 
-      objectReference: {fileID: 666910723}
+      objectReference: {fileID: 2089304160}
     - target: {fileID: 4791510506337353704, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
       propertyPath: '_allCameras.Array.data[6]'
       value: 
-      objectReference: {fileID: 397613267}
+      objectReference: {fileID: 225700295}
     - target: {fileID: 4791510506337353704, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
       propertyPath: '_allCameras.Array.data[7]'
       value: 
-      objectReference: {fileID: 15353120}
+      objectReference: {fileID: 911711194}
     - target: {fileID: 4791510506337353704, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
       propertyPath: '_allCameras.Array.data[8]'
       value: 
-      objectReference: {fileID: 1852944312}
+      objectReference: {fileID: 1058528985}
     - target: {fileID: 4791510506337353704, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
       propertyPath: '_allCameras.Array.data[9]'
       value: 
-      objectReference: {fileID: 225700295}
+      objectReference: {fileID: 1897392132}
     - target: {fileID: 4791510506337353704, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
       propertyPath: '_allCameras.Array.data[10]'
       value: 
-      objectReference: {fileID: 1582137351}
+      objectReference: {fileID: 466247928}
     - target: {fileID: 4791510506337353704, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
       propertyPath: '_allCameras.Array.data[11]'
       value: 
-      objectReference: {fileID: 1897392132}
+      objectReference: {fileID: 1582137351}
+    - target: {fileID: 4791510506337353704, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
+      propertyPath: '_allCameras.Array.data[12]'
+      value: 
+      objectReference: {fileID: 683674171}
     - target: {fileID: 4791510506337353704, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
       propertyPath: _allActiveCameras.Array.size
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4791510506337353704, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
       propertyPath: _allCameraHolders.Array.size
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4791510506337353704, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
       propertyPath: '_allActiveCameras.Array.data[0]'
@@ -53850,43 +53828,43 @@ PrefabInstance:
     - target: {fileID: 4791510506337353704, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
       propertyPath: '_allCameraHolders.Array.data[0]'
       value: 
-      objectReference: {fileID: 1536519458}
+      objectReference: {fileID: 865965179}
     - target: {fileID: 4791510506337353704, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
       propertyPath: '_allCameraHolders.Array.data[1]'
       value: 
-      objectReference: {fileID: 1530660247}
+      objectReference: {fileID: 151567057}
     - target: {fileID: 4791510506337353704, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
       propertyPath: '_allCameraHolders.Array.data[2]'
       value: 
-      objectReference: {fileID: 372076774}
+      objectReference: {fileID: 20535607}
     - target: {fileID: 4791510506337353704, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
       propertyPath: '_allCameraHolders.Array.data[3]'
       value: 
-      objectReference: {fileID: 993518018}
+      objectReference: {fileID: 844716291}
     - target: {fileID: 4791510506337353704, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
       propertyPath: '_allCameraHolders.Array.data[4]'
       value: 
-      objectReference: {fileID: 940915496}
+      objectReference: {fileID: 993518018}
     - target: {fileID: 4791510506337353704, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
       propertyPath: '_allCameraHolders.Array.data[5]'
       value: 
-      objectReference: {fileID: 151567057}
+      objectReference: {fileID: 1802701708}
     - target: {fileID: 4791510506337353704, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
       propertyPath: '_allCameraHolders.Array.data[6]'
       value: 
-      objectReference: {fileID: 865965179}
+      objectReference: {fileID: 1530660247}
     - target: {fileID: 4791510506337353704, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
       propertyPath: '_allCameraHolders.Array.data[7]'
       value: 
-      objectReference: {fileID: 844716291}
+      objectReference: {fileID: 940915496}
     - target: {fileID: 4791510506337353704, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
       propertyPath: '_allCameraHolders.Array.data[8]'
       value: 
-      objectReference: {fileID: 1802701708}
+      objectReference: {fileID: 1503032904}
     - target: {fileID: 4791510506337353704, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
       propertyPath: '_allCameraHolders.Array.data[9]'
       value: 
-      objectReference: {fileID: 1847372558}
+      objectReference: {fileID: 1536519458}
     - target: {fileID: 4791510506337353704, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
       propertyPath: '_allActiveCameras.Array.data[10]'
       value: 
@@ -53894,11 +53872,11 @@ PrefabInstance:
     - target: {fileID: 4791510506337353704, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
       propertyPath: '_allCameraHolders.Array.data[10]'
       value: 
-      objectReference: {fileID: 1503032904}
+      objectReference: {fileID: 1847372558}
     - target: {fileID: 4791510506337353704, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
       propertyPath: '_allCameraHolders.Array.data[11]'
       value: 
-      objectReference: {fileID: 1503032904}
+      objectReference: {fileID: 372076774}
     - target: {fileID: 4823349291200281360, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
       propertyPath: m_LocalPosition.x
       value: 13.276749

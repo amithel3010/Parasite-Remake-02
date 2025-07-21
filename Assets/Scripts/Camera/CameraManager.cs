@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
+
+    //TODO: this whole script fells very un optimized
+
     public static CameraManager Instance;
 
     [SerializeField] private GameObject _debugCam;
@@ -13,10 +16,7 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private CinemachineCamera[] _allCameras;
     [SerializeField] private GameObject[] _allCameraHolders;
 
-    public CinemachineCamera CurrentLiveCamera { get; private set; }
-
     private CinemachineBrain _brain;
-    private ICinemachineCamera _lastCamera;
 
     private void Awake()
     {
@@ -35,7 +35,6 @@ public class CameraManager : MonoBehaviour
         }
 
         _brain = FindAnyObjectByType<CinemachineBrain>();
-
     }
 
     private void Start()
@@ -55,17 +54,48 @@ public class CameraManager : MonoBehaviour
         }
     }
 
-    public void ChangeCamera(GameObject cameraHolder)
+    public void ActivateCamera(GameObject cameraToActivate)
     {
-        cameraHolder.SetActive(true);
+        cameraToActivate.SetActive(true);
+
+        foreach (var cameraHolder in _allCameraHolders)
+        {
+            if (cameraHolder == cameraToActivate)
+                continue;
+
+            if(cameraHolder.activeSelf == true)
+            {
+                cameraHolder.SetActive(false);
+            }
+        }
+    }
+
+    public void TryToDeactivateCamera(GameObject cameraToDeactivate)
+    {
+        if (!OtherValidCameraExists(cameraToDeactivate))
+        {
+            Debug.LogWarning($"Tried to deactivate {cameraToDeactivate}, but if it will be deactivated there would be no cameras to switch to");
+            return;
+        }
+        cameraToDeactivate.SetActive(false);
+
+    }
+
+    private bool OtherValidCameraExists(GameObject toDeactivate)
+    {
+        if (toDeactivate == null || _brain == null)
+            return true;
+
         foreach (var camHolder in _allCameraHolders)
         {
-            if (camHolder.activeSelf)
-            {
-                camHolder.SetActive(false);
-            }
-            ;
+            if (camHolder == null || camHolder.gameObject == toDeactivate)
+                continue;
+
+            if (camHolder.activeInHierarchy)
+                return true; // Something else will take over
         }
+
+        return false; // Nothing else valid to take over
     }
 
     public void ToggleDebugCamera()

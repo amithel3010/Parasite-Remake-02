@@ -70,13 +70,10 @@ public class CompoundTrigger : MonoBehaviour
         {
             if (_isInside)
             {
-                Debug.Log("entered");
                 OnEnter?.Invoke();
             }
             else
             {
-                Debug.Log("exited");
-
                 OnExit?.Invoke();
             }
         }

@@ -1,55 +1,70 @@
 using UnityEngine;
 
-public class AITest : MonoBehaviour, IInputSource
+namespace AI
 {
-    [SerializeField] bool _action2Pressed = false; //for debugging
-
-    public bool JumpPressed => false;
-
-    public bool JumpHeld => false;
-
-    public bool ActionPressed => false;
-
-    public bool ActionHeld => false;
-
-    public bool Action2Pressed => _action2Pressed;
-
-    public Vector2 MovementInput => Vector2.zero;
-
-    public Vector3 HorizontalMovement => _desiredMoveDir;
-
-    [SerializeField] private float _playerDetectionRadius;
-
-    [Header("Debug")]
-    [SerializeField] private bool _showPlayerDetectionSphere;
-
-    private Vector3 _desiredMoveDir;
-    private bool _detectedPlayer;
-
-    private void FixedUpdate()
+    public class AITest : MonoBehaviour, IInputSource, IPossessionSensitive
     {
-        _desiredMoveDir = Vector3.zero;
-        _detectedPlayer = false;
+        [SerializeField] bool _action2Pressed = false; //for debugging
+        private bool _isPossessedByPlayer;
 
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, _playerDetectionRadius);
-        foreach (var collider in hitColliders)
+        public bool JumpPressed => false;
+
+        public bool JumpHeld => false;
+
+        public bool ActionPressed => false;
+
+        public bool ActionHeld => false;
+
+        public bool Action2Pressed => _action2Pressed;
+
+        public Vector2 MovementInput => Vector2.zero;
+
+        public Vector3 HorizontalMovementVector => _desiredMoveDir;
+
+        [SerializeField] private float _playerDetectionRadius;
+
+        [Header("Debug")] [SerializeField] private bool _showPlayerDetectionSphere;
+
+        private Vector3 _desiredMoveDir;
+        private bool _detectedPlayer;
+
+        private void FixedUpdate()
         {
-            if (collider.transform.parent.gameObject.TryGetComponent<Parasite>(out Parasite parasite))
+            if (_isPossessedByPlayer) return;
+            
+            _desiredMoveDir = Vector3.zero;
+            _detectedPlayer = false;
+
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, _playerDetectionRadius);
+            foreach (var collider in hitColliders)
             {
-                //detected player
-                _detectedPlayer = true;
-                _desiredMoveDir = (parasite.transform.position - transform.position).normalized;
-                return;
+                if (collider.transform.parent.gameObject.TryGetComponent<Parasite>(out Parasite parasite))
+                {
+                    //detected player
+                    _detectedPlayer = true;
+                    _desiredMoveDir = (parasite.transform.position - transform.position).normalized;
+                    return;
+                }
             }
         }
-    }
 
-    private void OnDrawGizmos()
-    {
-        if (_showPlayerDetectionSphere)
+        private void OnDrawGizmos()
         {
-            Gizmos.color = _detectedPlayer ? Color.green : Color.red;
-            Gizmos.DrawWireSphere(transform.position, _playerDetectionRadius);
+            if (_showPlayerDetectionSphere)
+            {
+                Gizmos.color = _detectedPlayer ? Color.green : Color.red;
+                Gizmos.DrawWireSphere(transform.position, _playerDetectionRadius);
+            }
+        }
+
+        public void OnPossessed(Parasite playerParasite, IInputSource inputSource)
+        {
+            _isPossessedByPlayer = true;
+        }
+
+        public void OnUnPossessed(Parasite playerParasite)
+        {
+            _isPossessedByPlayer = false;
         }
     }
 }

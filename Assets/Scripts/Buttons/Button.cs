@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 public class Button : MonoBehaviour
 {
@@ -15,35 +16,33 @@ public class Button : MonoBehaviour
 
     private TriggerChanneler _trigger;
 
-    [SerializeField] private UnityEvent OnButtonPress;
-    [SerializeField] private UnityEvent OnButtonUp;
+    [FormerlySerializedAs("OnButtonPress")] [SerializeField] private UnityEvent _onButtonPress;
+    [FormerlySerializedAs("OnButtonUp")] [SerializeField] private UnityEvent _onButtonUp;
 
-    private List<CanPushButtons> _pushers = new List<CanPushButtons>();
+    private readonly List<CanPushButtons> _pushers = new List<CanPushButtons>(); //what does it mean that this is readonly?
 
-    void Awake()
+    private void Awake()
     {
         _trigger = GetComponentInChildren<TriggerChanneler>();
     }
 
-    void OnEnable()
+    private void OnEnable()
     {
-        if (_trigger != null)
-        {
-            _trigger.OnTriggerEnterEvent += HandleTriggerEnter;
-            _trigger.OnTriggerExitEvent += HandleTriggerExit;
-        }
+        if (_trigger == null) return;
+        
+        _trigger.OnTriggerEnterEvent += HandleTriggerEnter;
+        _trigger.OnTriggerExitEvent += HandleTriggerExit;
     }
 
-    void OnDisable()
+    private void OnDisable()
     {
-        if (_trigger != null)
-        {
-            _trigger.OnTriggerEnterEvent -= HandleTriggerEnter;
-            _trigger.OnTriggerExitEvent -= HandleTriggerExit;
-        }
+        if (_trigger == null) return;
+        
+        _trigger.OnTriggerEnterEvent -= HandleTriggerEnter;
+        _trigger.OnTriggerExitEvent -= HandleTriggerExit;
     }
 
-    public void HandleTriggerEnter(Collider other)
+    private void HandleTriggerEnter(Collider other)
     {
         if (other.transform.parent.TryGetComponent(out CanPushButtons pusher))
         {
@@ -52,23 +51,19 @@ public class Button : MonoBehaviour
                 _pushers.Add(pusher);
                 if (_pushers.Count == 1)
                 {
-                    OnButtonPress?.Invoke();
+                    _onButtonPress?.Invoke();
                     Debug.Log("Button Pushed");
                 }
             }
         }
     }
 
-    public void HandleTriggerExit(Collider other)
+    private void HandleTriggerExit(Collider other)
     {
-        if (other.transform.parent.TryGetComponent(out CanPushButtons pusher))
-        {
-            if (_pushers.Remove(pusher) && _pushers.Count == 0)
-            {
-                OnButtonUp?.Invoke();
-                Debug.Log("Button Released");
-            }
-        }
+        if (!other.transform.parent.TryGetComponent(out CanPushButtons pusher)) return;
+        if (!_pushers.Remove(pusher) || _pushers.Count != 0) return;
+        
+        _onButtonUp?.Invoke();
     }
 
     private void Update()
@@ -81,14 +76,14 @@ public class Button : MonoBehaviour
         if (_isPushed && _pushers.Count == 0)
         {
             _isPushed = false;
-            OnButtonUp?.Invoke();
+            _onButtonUp?.Invoke();
             Debug.Log("Button Released (via update cleanup)");
         }
 
         if (!_isPushed && _pushers.Count > 0)
         {
             _isPushed = true;
-            OnButtonPress?.Invoke();
+            _onButtonPress?.Invoke();
             Debug.Log("Button Pushed (via update cleanup)");
         }
     }

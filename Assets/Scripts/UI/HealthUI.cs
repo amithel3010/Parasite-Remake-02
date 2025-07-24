@@ -23,7 +23,7 @@ public class HealthUI : MonoBehaviour, IPossessionSensitive, IPossessionSource
         _health.OnHealthChanged += UpdateHealthBar;
     }
 
-    void OnDisable() //not sure why i would ever disable this but i guess this is good practice
+    void OnDisable() 
     {
         _health.OnHealthChanged -= UpdateHealthBar;
     }

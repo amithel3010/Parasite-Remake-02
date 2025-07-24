@@ -1,4 +1,4 @@
-using System.Collections;
+
 using UnityEngine;
 
 [RequireComponent(typeof(ColorChangeHandler))]
@@ -13,9 +13,9 @@ public class FlashOnDamage : MonoBehaviour, IDamageResponse
         _colorChangeHandler = GetComponent<ColorChangeHandler>();
     }
 
-    public void OnDamage(float IFramesDuration)
+    public void OnDamage(float iFramesDuration)
     {
-        _colorChangeHandler.ChangeColor(_hitColor, IFramesDuration);
+        _colorChangeHandler.ChangeColor(_hitColor, iFramesDuration);
     }
 
 }

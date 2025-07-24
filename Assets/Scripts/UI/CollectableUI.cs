@@ -9,7 +9,7 @@ public class CollectableUI : MonoBehaviour
         {
             manager.OnCollectionProgressChanged += UpdateCollectableUI;
             // Force update in case initial event already happened before subscribing
-            UpdateCollectableUI(manager.TotalCollected, manager.TotalCollecteblesInScene);
+            UpdateCollectableUI(manager.TotalCollected, manager.TotalCollectablesInScene);
         }
 
     }

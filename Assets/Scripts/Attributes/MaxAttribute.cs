@@ -1,12 +1,15 @@
 using UnityEngine;
 
-public class MaxAttribute : PropertyAttribute
+namespace Attributes
 {
-    public float max;
-
-    public MaxAttribute(float max)
+    public class MaxAttribute : PropertyAttribute
     {
-        this.max = max;
+        public float Max;
+
+        public MaxAttribute(float max)
+        {
+            this.Max = max;
+        }
     }
 }
 

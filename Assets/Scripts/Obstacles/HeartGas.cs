@@ -1,11 +1,10 @@
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class HeartGas : MonoBehaviour
 {
     private TriggerChanneler _trigger;
 
-    void Awake()
+    private void Awake()
     {
         _trigger = GetComponentInChildren<TriggerChanneler>();
 
@@ -15,7 +14,7 @@ public class HeartGas : MonoBehaviour
         }
     }
 
-    void OnEnable()
+    private void OnEnable()
     {
         if (_trigger != null)
         {
@@ -23,7 +22,7 @@ public class HeartGas : MonoBehaviour
         }
     }
 
-    void OnDisable()
+    private void OnDisable()
     {
         if (_trigger != null)
         {
@@ -31,18 +30,16 @@ public class HeartGas : MonoBehaviour
         }
     }
 
-    public void HandleTriggerEnter(Collider other)
+    private void HandleTriggerEnter(Collider other)
     {
         Transform target = other.transform.parent;
-        if (target.TryGetComponent<Possessable>(out Possessable possessable))
+
+        if (!target.TryGetComponent(out Possessable _)) return;
+
+        if (target.TryGetComponent(out Health health))
         {
-            if(target.TryGetComponent<Health>(out Health health))
-            {
-                health.ChangeHealth(-health.MaxHealth);
-                Debug.Log("Heart Gas Killed" + target.name);
-            }
+            health.ChangeHealth(-health.MaxHealth);
+            Debug.Log("Heart Gas Killed" + target.name);
         }
-
-
     }
 }

@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class FlyJumpStamina : MonoBehaviour, IPossessionSensitive
 {
+    //TODO: incomplete script! need to change to generic stamina
     
     [SerializeField] private float _damageOnJump = 20f;
 

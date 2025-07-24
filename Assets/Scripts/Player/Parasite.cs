@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Parasite : MonoBehaviour, ICollector
 {
-    //assumes haveing Health, rigidbody, input handler.
+    //assumes having Health, rigidbody, input handler.
 
     //will check downwards for possessables
     // if found, will possess
-    //when possess, stop checking disable hover script, and give reference to player input
+    //when you possess, stop checking disable hover script, and give reference to player input
 
     [Header("Raycast")]
     [SerializeField] private LayerMask _possessableLayer; //might be useless because of LayerUtils
@@ -26,12 +26,15 @@ public class Parasite : MonoBehaviour, ICollector
     private Possessable _currentlyPossessed;
     private Transform _currentlyPossessedTransform;
 
-    private InputHandler _playerInput;
+    private IInputSource _playerInput;
     private Rigidbody _rb;
     private Health _parasiteHealth;
+    
+    private IPossessionSource[] _possessionSources; //TODO: rename
 
-    void Awake()
+    private void Awake()
     {
+        _possessionSources = GetComponents<IPossessionSource>();
         _playerInput = GetComponent<InputHandler>();
         _rb = GetComponent<Rigidbody>();
         _parasiteHealth = GetComponent<Health>();
@@ -39,20 +42,21 @@ public class Parasite : MonoBehaviour, ICollector
         _parasiteHealth.OnDamaged += TriggerPossessionCooldown; //TODO: this feels wrong
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         if (_currentlyPossessed == null && _canPossess && _rb.linearVelocity.y < -0.2f)
         {
             TryPossess();
         }
-        else if (_currentlyPossessedTransform != null)
-        {
-            //TODO: better way?
-            _rb.position = _currentlyPossessedTransform.position;
-            _rb.rotation = _currentlyPossessedTransform.rotation;
-        }
+        
+        // else if (_currentlyPossessedTransform != null) // i swear i removed this 
+        // {
+        //     //TODO: better way?
+        //     _rb.position = _currentlyPossessedTransform.position;
+        //     _rb.rotation = _currentlyPossessedTransform.rotation;
+        // }
 
-        if (_playerInput._actionPressed)
+        if (_playerInput.ActionPressed)
         {
             ExitPossessable();
         }
@@ -62,8 +66,8 @@ public class Parasite : MonoBehaviour, ICollector
 
     private void TryPossess()
     {
-        Ray PossessCheckRay = new(transform.position, -transform.up);
-        if (Physics.Raycast(PossessCheckRay, out RaycastHit hitInfo, _possessRayLength, _possessableLayer))
+        Ray possessCheckRay = new(transform.position, -transform.up);
+        if (Physics.Raycast(possessCheckRay, out RaycastHit hitInfo, _possessRayLength, _possessableLayer))
         {
             Debug.Log("Trying to possess" + hitInfo.transform.name);
 
@@ -77,7 +81,7 @@ public class Parasite : MonoBehaviour, ICollector
                 _rb.isKinematic = true;
                 _rb.detectCollisions = false;
 
-                foreach (var sensitive in GetComponents<IPossessionSource>())
+                foreach (var sensitive in _possessionSources)
                 {
                     sensitive.OnParasitePossession();
                 }
@@ -109,7 +113,7 @@ public class Parasite : MonoBehaviour, ICollector
         _currentlyPossessedTransform = null;
 
         //this.transform.SetParent(null);
-        foreach (var sensitive in GetComponents<IPossessionSource>())
+        foreach (var sensitive in _possessionSources)
         {
             sensitive.OnParasiteUnPossession(); //feels weirddd
         }
@@ -120,16 +124,16 @@ public class Parasite : MonoBehaviour, ICollector
         _rb.isKinematic = false;
         _rb.detectCollisions = true;
 
-        _rb.AddForce(Vector3.up * _ejectForce * _rb.mass, ForceMode.Impulse); //that's for exiting Possessable with height. adjusted for mass
+        _rb.AddForce(Vector3.up * (_ejectForce * _rb.mass), ForceMode.Impulse); //that's for exiting Possessable with height. adjusted for mass
         StartCoroutine(PossessionCooldown(_possessionCooldown));
     }
 
-    private IEnumerator PossessionCooldown(float CooldownDuration)
+    private IEnumerator PossessionCooldown(float cooldownDuration)
     {
-        if (_canPossess == true)
+        if (_canPossess)
             _canPossess = false;
 
-        yield return new WaitForSeconds(CooldownDuration);
+        yield return new WaitForSeconds(cooldownDuration);
         _canPossess = true;
 
     }
@@ -146,9 +150,9 @@ public class Parasite : MonoBehaviour, ICollector
         }
     }
 
-    private void TriggerPossessionCooldown(float CooldownDuration)
+    private void TriggerPossessionCooldown(float cooldownDuration)
     {
-        StartCoroutine(PossessionCooldown(CooldownDuration));
+        StartCoroutine(PossessionCooldown(cooldownDuration));
     }
 
     #endregion

@@ -15,8 +15,9 @@ public class Checkpoint : MonoBehaviour
     private bool _isActive = false;
     private TriggerChanneler _trigger;
 
+    private static readonly int BaseColor = Shader.PropertyToID("_BaseColor");
 
-    void Awake()
+    private void Awake()
     {
         _renderer = GetComponentInChildren<Renderer>();
         _trigger = GetComponentInChildren<TriggerChanneler>();
@@ -27,7 +28,7 @@ public class Checkpoint : MonoBehaviour
         }
     }
 
-    void OnEnable()
+    private void OnEnable()
     {
         if (_trigger != null)
         {
@@ -35,7 +36,7 @@ public class Checkpoint : MonoBehaviour
         }
     }
 
-    void OnDisable()
+    private void OnDisable()
     {
         if (_trigger != null)
         {
@@ -43,28 +44,25 @@ public class Checkpoint : MonoBehaviour
         }
     }
 
-    public void HandleTriggerEnter(Collider other)
+    private void HandleTriggerEnter(Collider other)
     {
         if (_isActive) return;
-
-        if(other.gameObject.layer == LayerUtils.PlayerControlledLayer)
-        {
-            Debug.Log("Checkpoint triggered by" + other.transform.parent.gameObject.name);
-            CheckpointManager.Instance.SetActiveCheckpoint(this);
-        }
+        if (other.gameObject.layer != LayerUtils.PlayerControlledLayer) return; //Checks only for player. not versatile
+        
+        CheckpointManager.Instance.SetActiveCheckpoint(this);
 
     }
 
     public void SetActive(Color activeColor) //called from manager
     {
         _isActive = true;
-        _renderer.material.SetColor("_BaseColor", activeColor);
+        _renderer.material.SetColor(BaseColor, activeColor);
     }
 
     public void SetInactive(Color inactiveColor) // called from manager
     {
         _isActive = false;
-        _renderer.material.SetColor("_BaseColor", inactiveColor);
+        _renderer.material.SetColor(BaseColor, inactiveColor);
     }
 
     public Vector3 GetRespawnPoint()

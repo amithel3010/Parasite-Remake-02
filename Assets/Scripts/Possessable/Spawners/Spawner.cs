@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Spawner : MonoBehaviour
 {
-    //TODO: this will be way beter with an object pooler.
+    //TODO: this will be way better with an object pooler.
 
     [SerializeField] private SpawnableTypeEnum _selectedType;
 
@@ -17,26 +18,26 @@ public class Spawner : MonoBehaviour
     [SerializeField] private SpriteRenderer _timerVisualizer;
     private float _timerVisualizerMaxYSize;
 
-    public List<GameObject> SpawnedObjectsList = new();
+    [FormerlySerializedAs("SpawnedObjectsList")] public List<GameObject> _spawnedObjectsList = new();
 
     private SpawnableData SelectedConfig =>
-       _configurations.Find(cfg => cfg.type == _selectedType); //ChatGPT type code, i don't like it
+       _configurations.Find(cfg => cfg.type == _selectedType); //ChatGPT type code, I don't like it
 
-    private GameObject _objToSpawn => SelectedConfig?.prefab;
-    private Color _gizmoColor => SelectedConfig?.gizmoColor ?? Color.white;
+    private GameObject ObjToSpawn => SelectedConfig?.prefab;
+    private Color GizmoColor => SelectedConfig?.gizmoColor ?? Color.white;
 
     private float _timer;
 
     void Start()
     {     
-        if (_objToSpawn == null)
+        if (ObjToSpawn == null)
         {
             Debug.LogWarning($"No Object to spawn was given to: {this.gameObject}, Destroying it!");
             Destroy(gameObject);
         }
         else
         {
-            _timerVisualizer.color = _gizmoColor;
+            _timerVisualizer.color = GizmoColor;
             _timerVisualizerMaxYSize = _timerVisualizer.size.y;
             _timerVisualizer.enabled = false;
             for (int i = 0; i < _maxAmountToSpawn; i++)
@@ -49,7 +50,7 @@ public class Spawner : MonoBehaviour
 
     void Update()
     {
-        if (SpawnedObjectsList.Count >= _maxAmountToSpawn) return;
+        if (_spawnedObjectsList.Count >= _maxAmountToSpawn) return;
 
         _timer += Time.deltaTime;
         if(_timerVisualizer.enabled == false)
@@ -71,21 +72,20 @@ public class Spawner : MonoBehaviour
     private void SpawnObj()
     {
 
-        Vector3 randomSpawnPoint = new Vector3(_spawnPoint.position.x + randomOffset(), transform.position.y, _spawnPoint.position.z + randomOffset()); //TODO: this is more than radius
-        GameObject spawnedObj = Instantiate(_objToSpawn, randomSpawnPoint, Quaternion.identity);
-        Debug.Log("Spawned " + spawnedObj);
+        Vector3 randomSpawnPoint = new Vector3(_spawnPoint.position.x + RandomOffset(), transform.position.y, _spawnPoint.position.z + RandomOffset()); //TODO: this is more than radius
+        GameObject spawnedObj = Instantiate(ObjToSpawn, randomSpawnPoint, Quaternion.identity);
         spawnedObj.AddComponent<SpawnedFromSpawner>().Init(this);
 
     }
 
-    private float randomOffset()
+    private float RandomOffset()
     {
-        return UnityEngine.Random.Range(-_spawnRadius, _spawnRadius);
+        return Random.Range(-_spawnRadius, _spawnRadius);
     }
 
     private void OnDrawGizmos()
     {
-        DebugUtils.DrawCircle(_spawnPoint.position, _spawnRadius, _gizmoColor);
+        DebugUtils.DrawCircle(_spawnPoint.position, _spawnRadius, GizmoColor);
     }
 }
 

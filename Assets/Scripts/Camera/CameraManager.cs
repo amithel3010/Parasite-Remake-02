@@ -6,6 +6,8 @@ public class CameraManager : MonoBehaviour
 {
 
     //TODO: this whole script fells very un optimized
+    
+    //TODO: Because this is a static class anything it references is not deleted! this is what causes the leak
 
     public static CameraManager Instance;
 
@@ -49,9 +51,9 @@ public class CameraManager : MonoBehaviour
 
     public void ChangeActiveCamerasTarget(Transform newTarget)
     {
-        foreach (var camera in _allCameras)
+        foreach (var cinemachineCamera in _allCameras)
         {
-            camera.Target.TrackingTarget = newTarget;
+            cinemachineCamera.Target.TrackingTarget = newTarget;
         }
     }
 
@@ -137,8 +139,9 @@ public class CameraManager : MonoBehaviour
     public void EnableAllCameraHolders()
     {
         foreach (var holder in _allCameraHolders)
-            if (holder != null)
-                holder.SetActive(true);
+        {
+            holder?.SetActive(true);
+        }
     }
 
     public void DisableAllCameraHolders()

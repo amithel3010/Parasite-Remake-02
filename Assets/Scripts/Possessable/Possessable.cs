@@ -5,18 +5,19 @@ public class Possessable : MonoBehaviour, ICollector
     [SerializeField] private bool _dieOnUnPossess = true;
 
     private Health _healthSystem;
+    private IPossessionSensitive[] _possessionSensitive;
 
     void Awake()
     {
+        _possessionSensitive = GetComponents<IPossessionSensitive>();
         _healthSystem = GetComponent<Health>();
     }
 
     public void OnPossess(Parasite playerParasite, IInputSource inputSource)
     {
-        MiscUtils.SetLayerAllChildren(this.transform, LayerUtils.PlayerControlledLayer);
+        LayerUtils.SetLayerAllChildren(this.transform, LayerUtils.PlayerControlledLayer);
 
-        IPossessionSensitive[] possessionSensitive = GetComponents<IPossessionSensitive>();
-        foreach (var sensitive in possessionSensitive)
+        foreach (var sensitive in _possessionSensitive)
         {
             sensitive.OnPossessed(playerParasite, inputSource);
         }
@@ -24,9 +25,9 @@ public class Possessable : MonoBehaviour, ICollector
 
     public void OnUnPossess(Parasite playerParasite)
     {
-        MiscUtils.SetLayerAllChildren(this.transform, LayerUtils.PossessableLayer);
+        LayerUtils.SetLayerAllChildren(this.transform, LayerUtils.PossessableLayer);
 
-        IPossessionSensitive[] possessionSensitive = GetComponents<IPossessionSensitive>();
+        IPossessionSensitive[] possessionSensitive = _possessionSensitive;
         foreach (var sensitive in possessionSensitive)
         {
             sensitive.OnUnPossessed(playerParasite);
@@ -34,7 +35,7 @@ public class Possessable : MonoBehaviour, ICollector
 
         if (_dieOnUnPossess)
         {
-            _healthSystem.Killimmediately();
+            _healthSystem.KillImmediately();
         }
     }
 

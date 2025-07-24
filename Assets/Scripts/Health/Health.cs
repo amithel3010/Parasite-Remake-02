@@ -13,7 +13,6 @@ public class Health : MonoBehaviour
 
     public event Action<float, float> OnHealthChanged;
     public event Action<float> OnDamaged;
-    public event Action OnFinshedIFrames;
     public event Action OnDeath;
 
     private float _currentHealth;
@@ -55,7 +54,7 @@ public class Health : MonoBehaviour
         ChangeHealth(_maxHealth);
     }
 
-    public void Killimmediately()
+    public void KillImmediately()
     {
         StopAllCoroutines();
         _isHittable = true;
@@ -64,24 +63,24 @@ public class Health : MonoBehaviour
 
     private IEnumerator IFrameCooldown()
     {
-        if (_isHittable == false)
-        {
-            yield return new WaitForSeconds(_iFramesDuration);
-            OnFinshedIFrames?.Invoke();
-            _isHittable = true;
-        }
+        if (_isHittable) yield break;
+        
+        yield return new WaitForSeconds(_iFramesDuration);
+        _isHittable = true;
     }
 
     public void ToggleInvincible() // for debugging
     {
         _isInvincible = !_isInvincible;
-        if (_isInvincible)
+        
+        switch (_isInvincible)
         {
-            Debug.Log("Parasite is now INVINCIBLE");
-        }
-        else if (!_isInvincible)
-        {
-            Debug.Log("Parasite is now HITTABLE");
+            case true:
+                Debug.Log("Parasite is now INVINCIBLE");
+                break;
+            case false:
+                Debug.Log("Parasite is now HITTABLE");
+                break;
         }
     }
 

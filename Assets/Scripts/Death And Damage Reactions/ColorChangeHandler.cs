@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class ColorChangeHandler : MonoBehaviour
 {
+
     /// <summary>
     /// Class responsible for coordinating multiple color changes on the same object.
     /// </summary>
@@ -11,17 +12,18 @@ public class ColorChangeHandler : MonoBehaviour
     private Material _material;
     private Color _defaultColor;
 
+    private static readonly int BaseColor = Shader.PropertyToID("_BaseColor");
+    
     private void Awake()
     {
         _renderer = GetComponentInChildren<Renderer>();
         if (_renderer == null)
         {
             Debug.Log(this + "Has No Renderer in children");
-            return;
         }
         else
         {
-            _defaultColor = _renderer.material.GetColor("_BaseColor");
+            _defaultColor = _renderer.material.GetColor(BaseColor);
             _material = _renderer.material;
         }
     }
@@ -34,7 +36,7 @@ public class ColorChangeHandler : MonoBehaviour
     public void ChangeColor(Color color, float duration)
     {
         StopAllCoroutines();
-        _material.SetColor("_BaseColor", _defaultColor);
+        _material.SetColor(BaseColor, _defaultColor);
         StartCoroutine(ChangeColorCoroutine(color, duration));
     }
 
@@ -45,20 +47,20 @@ public class ColorChangeHandler : MonoBehaviour
     public void ChangeColor(Color color)
     {
         StopAllCoroutines();
-        _material.SetColor("_BaseColor", color);
+        _material.SetColor(BaseColor, color);
     }
 
     public void ResetColor()
     {
         StopAllCoroutines();
-        _material.SetColor("_BaseColor", _defaultColor);
+        _material.SetColor(BaseColor, _defaultColor);
     }
 
     private IEnumerator ChangeColorCoroutine(Color colorToChangeTo, float duration)
     {
-        _renderer.material.SetColor("_BaseColor", colorToChangeTo);
+        _renderer.material.SetColor(BaseColor, colorToChangeTo);
         yield return new WaitForSeconds(duration);
-        _renderer.material.SetColor("_BaseColor", _defaultColor);
+        _renderer.material.SetColor(BaseColor, _defaultColor);
     }
 
 }

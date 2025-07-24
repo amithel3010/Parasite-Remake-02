@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 public class CompoundTrigger : MonoBehaviour
 {
@@ -14,25 +15,26 @@ public class CompoundTrigger : MonoBehaviour
     /// </summary>
     [SerializeField] private bool _isInside; //for seeing in inspector
 
-    private Dictionary<Collider, bool> triggers;
+    private Dictionary<Collider, bool> _triggers;
 
-    public UnityEvent OnEnter;
-    public UnityEvent OnExit;
+    [FormerlySerializedAs("OnEnter")] public UnityEvent _onEnter;
+    [FormerlySerializedAs("OnExit")] public UnityEvent _onExit;
 
     private void Awake()
     {
-        triggers = new Dictionary<Collider, bool>();
+        _triggers = new Dictionary<Collider, bool>();
     }
 
     /// <summary>
     /// Call this function when player enters the area
     /// </summary>
     /// <param name="sender"></param>
+    /// <param name="other"></param>
     public void ObjectEntered(Collider sender, Collider other)
     {
         if (Filter(other.gameObject))
         {
-            triggers[sender] = true;
+            _triggers[sender] = true;
             CheckInside();
         }
     }
@@ -41,11 +43,12 @@ public class CompoundTrigger : MonoBehaviour
     /// Call this function when player leaves the area
     /// </summary>
     /// <param name="sender"></param>
+    /// <param name="other"></param>
     public void ObjectExited(Collider sender, Collider other)
     {
         if (Filter(other.gameObject))
         {
-            triggers[sender] = false;
+            _triggers[sender] = false;
             CheckInside();
         }
     }
@@ -55,10 +58,10 @@ public class CompoundTrigger : MonoBehaviour
     /// </summary>
     private void CheckInside()
     {
-        bool _lastState = _isInside;
+        bool lastState = _isInside;
 
         _isInside = false;
-        foreach (var trigger in triggers)
+        foreach (var trigger in _triggers)
         {
             if (trigger.Value)
             {
@@ -66,15 +69,15 @@ public class CompoundTrigger : MonoBehaviour
                 break;
             }
         }
-        if (_lastState != _isInside)
+        if (lastState != _isInside)
         {
             if (_isInside)
             {
-                OnEnter?.Invoke();
+                _onEnter?.Invoke();
             }
             else
             {
-                OnExit?.Invoke();
+                _onExit?.Invoke();
             }
         }
     }

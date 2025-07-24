@@ -7,19 +7,15 @@ public class SpawnedFromSpawner : MonoBehaviour
     public void Init(Spawner spawnedFrom)
     {
         _spawnedFrom = spawnedFrom;
-        if (_spawnedFrom != null && !_spawnedFrom.SpawnedObjectsList.Contains(this.gameObject))
+        if (_spawnedFrom != null && !_spawnedFrom._spawnedObjectsList.Contains(this.gameObject))
         {
-            _spawnedFrom.SpawnedObjectsList.Add(this.gameObject);
-            Debug.Log($"Added {this.gameObject} to {_spawnedFrom}'s list");
+            _spawnedFrom._spawnedObjectsList.Add(this.gameObject);
         }
     }
 
     private void OnDisable()
     {
-        if (_spawnedFrom != null && _spawnedFrom.SpawnedObjectsList.Contains(this.gameObject))
-        {
-            _spawnedFrom.SpawnedObjectsList.Remove(this.gameObject);
-            Debug.Log($"Removed {this.gameObject} from {_spawnedFrom}'s list");
-        }
+        if (_spawnedFrom == null || !_spawnedFrom._spawnedObjectsList.Contains(this.gameObject)) return;
+        _spawnedFrom._spawnedObjectsList.Remove(this.gameObject);
     }
 }

@@ -3,21 +3,20 @@ using UnityEngine;
 
 public class BrutePunch : MonoBehaviour, IPossessionSensitive
 {
-    //assumes having posssessable and input source
+    //assumes having possessable and input source
     private IInputSource _inputSource;
     private IInputSource _defaultInputSource;
-    private Possessable _possessable;
 
-    [Header("Punch Settings")]
-    [SerializeField] private BreakableType _canBreak;
+    [Header("Punch Settings")] [SerializeField]
+    private BreakableType _canBreak;
+
     [SerializeField] private float _damage;
     [SerializeField] private float _hitboxRadius = 1;
     [SerializeField] private float _duration = 0.2f;
     [SerializeField] private float _punchCost = 5f;
     [SerializeField] private Transform _punchOrigin;
 
-    [Header("Debug")]
-    [SerializeField] private bool _showHitboxInGame = true;
+    [Header("Debug")] [SerializeField] private bool _showHitboxInGame = true;
     [SerializeField] private Material _debugMaterial; // A transparent material for visualization
     [SerializeField] private Mesh _debugMesh; // Optional: default to a Sphere mesh
 
@@ -26,13 +25,12 @@ public class BrutePunch : MonoBehaviour, IPossessionSensitive
     private bool _isPunching;
     private bool _isActive;
     private float _timer;
-    private HashSet<GameObject> _alreadyHit = new HashSet<GameObject>();
+    private readonly HashSet<GameObject> _alreadyHit = new();
 
     void Awake()
     {
         _defaultInputSource = GetComponent<IInputSource>();
         _inputSource = _defaultInputSource;
-        _possessable = GetComponent<Possessable>();
         _bruteHealth = GetComponent<Health>();
     }
 
@@ -56,13 +54,12 @@ public class BrutePunch : MonoBehaviour, IPossessionSensitive
             return;
         }
 
-        CheckforHittablesAndPreformHits();
-
+        CheckForHittablesAndPreformHits();
     }
 
-    private void CheckforHittablesAndPreformHits()
+    private void CheckForHittablesAndPreformHits()
     {
-        Collider[] hits = Physics.OverlapSphere(_punchOrigin.position, _hitboxRadius); //sphere?
+        Collider[] hits = Physics.OverlapSphere(_punchOrigin.position, _hitboxRadius); //TODO: use non alloc
 
         foreach (var hit in hits)
         {
@@ -72,23 +69,26 @@ public class BrutePunch : MonoBehaviour, IPossessionSensitive
 
             _alreadyHit.Add(target);
 
-            if (hit.transform.parent.gameObject.TryGetComponent<WoodenBox>(out WoodenBox box))
+            if (hit.transform.parent.gameObject.TryGetComponent(out WoodenBox _))
             {
+                //TODO: this doesnt work very well
                 return;
             }
 
-            if (hit.transform.parent.gameObject.TryGetComponent<Health>(out Health health))
+            if (hit.transform.parent.gameObject.TryGetComponent(out Health health))
             {
                 Debug.Log("Damaged" + hit.gameObject.name);
                 health.ChangeHealth(-_damage);
             }
-            if (hit.transform.parent.gameObject.TryGetComponent<Knockback>(out Knockback knockback))
+
+            if (hit.transform.parent.gameObject.TryGetComponent(out Knockback knockback))
             {
                 Debug.Log("trying to knockback" + knockback.gameObject.name);
                 Vector3 hitDir = (hit.transform.position - _punchOrigin.position).normalized;
                 knockback.ApplyKnockback(hitDir, Vector3.up, Vector3.zero);
             }
-            if (hit.transform.parent.gameObject.TryGetComponent<Breakable>(out Breakable breakable))
+
+            if (hit.transform.parent.gameObject.TryGetComponent(out Breakable breakable))
             {
                 if (breakable._type == this._canBreak)
                 {
@@ -98,12 +98,13 @@ public class BrutePunch : MonoBehaviour, IPossessionSensitive
         }
 
         if (_shouldConsumeHealth)
-            {
-                _bruteHealth.ChangeHealth(-_punchCost);
-            }
+        {
+            _bruteHealth.ChangeHealth(-_punchCost);
+        }
     }
 
     #region Possession Sensitive
+
     public void OnPossessed(Parasite playerParasite, IInputSource newInputSource)
     {
         _shouldConsumeHealth = true;
@@ -115,9 +116,11 @@ public class BrutePunch : MonoBehaviour, IPossessionSensitive
         _shouldConsumeHealth = false;
         _inputSource = _defaultInputSource;
     }
+
     #endregion
 
     #region Debug
+
     void LateUpdate()
     {
         RenderDebugHitbox();
@@ -129,6 +132,7 @@ public class BrutePunch : MonoBehaviour, IPossessionSensitive
         {
             Gizmos.color = Color.red;
         }
+
         Gizmos.DrawWireSphere(_punchOrigin.position, _hitboxRadius);
     }
 
@@ -137,9 +141,10 @@ public class BrutePunch : MonoBehaviour, IPossessionSensitive
         if (!_showHitboxInGame || !_isActive) return;
         if (_debugMaterial == null || _debugMesh == null) return;
 
-        Graphics.DrawMesh(_debugMesh, Matrix4x4.TRS(_punchOrigin.position, Quaternion.identity, Vector3.one * _hitboxRadius * 2f), _debugMaterial, 0);
+        Graphics.DrawMesh(_debugMesh,
+            Matrix4x4.TRS(_punchOrigin.position, Quaternion.identity, Vector3.one * (_hitboxRadius * 2f)), _debugMaterial,
+            0);
     }
+
     #endregion
-
 }
-

@@ -44,7 +44,7 @@ public class CheckpointManager : MonoBehaviour
         _currentActiveCheckpoint = checkpoint;
     }
 
-    public Vector3 GetRespawnPoint()
+    private Vector3 GetRespawnPoint()
     {
         return _currentActiveCheckpoint != null ? _currentActiveCheckpoint.GetRespawnPoint() : _defaultRespawnPoint.position;
     }
@@ -53,7 +53,7 @@ public class CheckpointManager : MonoBehaviour
     {
         if (_playerParasite == null || (_currentActiveCheckpoint == null && _defaultRespawnPoint == null))
         {
-            Debug.LogError("Can't respawn. missing parasite or spawnpos reference");
+            Debug.LogError("Can't respawn. missing parasite or spawn pos reference");
             return;
         }
 

@@ -7,12 +7,12 @@ public class DeathPlane : MonoBehaviour
 
 
     //TODO: add debug mode to see colliders
-    private Renderer _renderer;
+    //private Renderer _renderer;
     private TriggerChanneler _trigger;
 
-    void Awake()
+    private void Awake()
     {
-        _renderer = GetComponentInChildren<Renderer>();
+        //_renderer = GetComponentInChildren<Renderer>();
         _trigger = GetComponentInChildren<TriggerChanneler>();
 
         if (_trigger == null)
@@ -21,7 +21,7 @@ public class DeathPlane : MonoBehaviour
         }
     }
 
-    void OnEnable()
+    private void OnEnable()
     {
         if (_trigger != null)
         {
@@ -29,7 +29,7 @@ public class DeathPlane : MonoBehaviour
         }
     }
 
-    void OnDisable()
+    private void OnDisable()
     {
         if (_trigger != null)
         {
@@ -37,12 +37,12 @@ public class DeathPlane : MonoBehaviour
         }
     }
 
-    public void HandleTriggerEnter(Collider other)
+    private void HandleTriggerEnter(Collider other)
     {
         Debug.Log(other.name);
-        if (other.transform.parent.gameObject.TryGetComponent<Health>(out Health health))
+        if (other.transform.parent.gameObject.TryGetComponent(out Health health))
         {
-            health.Killimmediately();
+            health.KillImmediately();
         }
     }
 

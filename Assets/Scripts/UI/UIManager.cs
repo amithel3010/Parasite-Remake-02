@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
@@ -15,7 +16,7 @@ public class UIManager : MonoBehaviour
 
     [Header("Canvases")]
     [SerializeField] private Canvas _deathScreenCanvas;
-    [SerializeField] private Canvas _DebugCanvas;
+    [FormerlySerializedAs("_DebugCanvas")] [SerializeField] private Canvas _debugCanvas;
 
     InputHandler _playerInput;
 
@@ -40,12 +41,12 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        if (_playerInput._debugPressed && !_lastDebugPressed)
+        if (_playerInput.DebugPressed && !_lastDebugPressed)
         {
             ToggleDebugMenu();
         }
 
-        _lastDebugPressed = _playerInput._debugPressed;
+        _lastDebugPressed = _playerInput.DebugPressed;
     }
 
     public void ChangeHealthBarImage(Image newImage)
@@ -75,7 +76,7 @@ public class UIManager : MonoBehaviour
 
     private void ToggleDebugMenu()
     {
-        _DebugCanvas.enabled = !_DebugCanvas.enabled;
+        _debugCanvas.enabled = !_debugCanvas.enabled;
         Cursor.visible = !Cursor.visible;
         Cursor.lockState = Cursor.lockState == CursorLockMode.Locked ? CursorLockMode.None : CursorLockMode.Locked;
     }

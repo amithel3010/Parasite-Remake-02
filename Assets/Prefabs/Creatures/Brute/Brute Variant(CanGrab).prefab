@@ -112,7 +112,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _holder: {fileID: 8212683257204644165}
-  _raycastDirection: {x: 0, y: 0, z: 1}
   _sphereRadius: 0.3
   _boxLayer:
     serializedVersion: 2

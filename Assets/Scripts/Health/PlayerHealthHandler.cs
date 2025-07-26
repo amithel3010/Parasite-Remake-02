@@ -7,19 +7,23 @@ public class PlayerHealthHandler : MonoBehaviour, IPossessionSource, IPlayerResp
     [SerializeField] private float _timeBeforeGameOver;
 
     private Health _health;
+    private IDamageResponse[] _damageResponsers;
+    private IDeathResponse[] _deathResponses;
 
-    void Awake()
+    private void Awake()
     {
         _health = GetComponent<Health>();
+        _damageResponsers = GetComponents<IDamageResponse>(); //does this properly catch all damage responses?
+        _deathResponses = GetComponents<IDeathResponse>(); 
     }
 
-    void OnEnable()
+    private void OnEnable()
     {
         _health.OnDamaged += HandleDamage;
         _health.OnDeath += HandleDeath;
     }
 
-    void OnDisable()
+    private void OnDisable()
     {
         _health.OnDamaged -= HandleDamage;
         _health.OnDeath -= HandleDeath;
@@ -29,7 +33,7 @@ public class PlayerHealthHandler : MonoBehaviour, IPossessionSource, IPlayerResp
     {
         Debug.Log("Player Died!");
         //for each IDeathReactor ReactToDeath().
-        foreach (var deathResponse in GetComponents<IDeathResponse>())
+        foreach (var deathResponse in _deathResponses)
         {
             deathResponse.OnDeath();
         }
@@ -40,12 +44,13 @@ public class PlayerHealthHandler : MonoBehaviour, IPossessionSource, IPlayerResp
 
     }
 
-    private void HandleDamage(float IFramesDuration)
+    private void HandleDamage(float iFramesDuration)
     {
         Debug.Log("player got hit");
-        foreach (var damageResponse in GetComponents<IDamageResponse>())
+        
+        foreach (var damageResponse in _damageResponsers)
         {
-            damageResponse.OnDamage(IFramesDuration);
+            damageResponse.OnDamage(iFramesDuration);
         }
 
         //play animation
@@ -68,9 +73,9 @@ public class PlayerHealthHandler : MonoBehaviour, IPossessionSource, IPlayerResp
         _health.ResetHealth();
     }
 
-    private IEnumerator WaitBeforeGameOver(float _timeBeforeGameOver)
+    private IEnumerator WaitBeforeGameOver(float timeBeforeGameOver)
     {
-        yield return new WaitForSeconds(_timeBeforeGameOver);
+        yield return new WaitForSeconds(timeBeforeGameOver);
         GameManager.Instance.GameOver();
     }
 }

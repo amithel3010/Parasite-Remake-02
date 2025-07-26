@@ -1,3 +1,4 @@
+using Attributes;
 using UnityEngine;
 
 
@@ -35,7 +36,7 @@ public class GrabBox : MonoBehaviour, IPossessionSensitive
     private BaseJumpAbility _jumpAbility;
 
     private GameObject _currentBox;
-    private Rigidbody _currentBoxRB;
+    private Rigidbody _currentBoxRb;
 
     private bool _isHoldingBox;
 
@@ -52,13 +53,13 @@ public class GrabBox : MonoBehaviour, IPossessionSensitive
 
     private void FixedUpdate()
     {
-        if (_currentBox == null && _currentBoxRB == null && !_isHoldingBox)
+        if (_currentBox == null && _currentBoxRb == null && !_isHoldingBox)
         {
             CheckForBoxesWithOverlapSphere();
         }
-        else if (_currentBox != null && _currentBoxRB != null && _isHoldingBox)
+        else if (_currentBox != null && _currentBoxRb != null && _isHoldingBox)
         {
-            _currentBoxRB.position = _holder.position;
+            _currentBoxRb.position = _holder.position;
 
             if (_inputSource.Action2Pressed)
             {
@@ -73,19 +74,19 @@ public class GrabBox : MonoBehaviour, IPossessionSensitive
         if (_inputSource.Action2Pressed)
         {
             Collider[] hitColliders = Physics.OverlapSphere(_holder.position, _sphereRadius, _boxLayer);
-            foreach (var collider in hitColliders)
+            foreach (var hitCollider in hitColliders)
             {
-                if (collider.transform.parent.gameObject.TryGetComponent<WoodenBox>(out var hitBox))
+                if (hitCollider.transform.parent.gameObject.TryGetComponent<WoodenBox>(out var hitBox))
                 {
                     Debug.Log("Found Box");
                     //Grab
                     _currentBox = hitBox.gameObject;
-                    _currentBoxRB = _currentBox.GetComponent<Rigidbody>();
+                    _currentBoxRb = _currentBox.GetComponent<Rigidbody>();
 
                     //TODO: for now this works but i want to make sure it cant go through walls
-                    _currentBoxRB.isKinematic = true;
-                    _currentBoxRB.detectCollisions = false;
-                    _currentBoxRB.position = _holder.position;
+                    _currentBoxRb.isKinematic = true;
+                    _currentBoxRb.detectCollisions = false;
+                    _currentBoxRb.position = _holder.position;
 
                     _hover.ChangeRideHeight(_rideHeightChange);
                     _movement.ChangeMovementParams(_maxSpeedChange);
@@ -102,16 +103,15 @@ public class GrabBox : MonoBehaviour, IPossessionSensitive
 
     private void ReleaseBox()
     {
-        Debug.Log("Releasing Box");
-        _currentBoxRB.isKinematic = false;
-        _currentBoxRB.detectCollisions = true;
+        _currentBoxRb.isKinematic = false;
+        _currentBoxRb.detectCollisions = true;
 
         _hover.ResetRideHeight();
         _movement.ResetMovementParams();
         _jumpAbility.ResetJumpHeight();
 
         _currentBox = null;
-        _currentBoxRB = null;
+        _currentBoxRb = null;
 
         _isHoldingBox = false;
     }
@@ -132,10 +132,9 @@ public class GrabBox : MonoBehaviour, IPossessionSensitive
 
     private void OnDrawGizmos()
     {
-        if (_showOverlapSphere)
-        {
-            Gizmos.color = Color.cadetBlue;
-            Gizmos.DrawWireSphere(_holder.position, _sphereRadius);
-        }
+        if (!_showOverlapSphere) return;
+        
+        Gizmos.color = Color.cadetBlue;
+        Gizmos.DrawWireSphere(_holder.position, _sphereRadius);
     }
 }

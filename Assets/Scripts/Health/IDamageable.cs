@@ -1,9 +1,8 @@
 using System;
-using UnityEngine;
 
-public interface IDamagable
+public interface IDamageable
 {
-    //TODO: i think this is useless beacuse i'm using only 1 implementation of health
+    //TODO: i think this is useless because i'm using only 1 implementation of health
     public void ChangeHealth(float amount);
     
     public void ResetHealth();

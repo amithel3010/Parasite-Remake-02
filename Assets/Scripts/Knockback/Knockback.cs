@@ -1,11 +1,10 @@
-
 using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Knockback : MonoBehaviour, IKnockbackStatus, IDeathResponse, IPlayerRespawnListener
 {
-    [HideInInspector] public bool KnockbackEnabled = true;
+    private bool KnockbackEnabled { get; set; } = true;
 
     [SerializeField] private float _hitDirForce;
     [SerializeField] private float _constForce;
@@ -31,22 +30,18 @@ public class Knockback : MonoBehaviour, IKnockbackStatus, IDeathResponse, IPlaye
     {
         if (IsKnockedBack || !KnockbackEnabled) return;
 
-        Vector3 hitForce;
-        Vector3 scaledConstForce;
-        Vector3 knockbackForce;
-        Vector3 combinedForce;
 
         //TODO: still feels kinda off... maybe i should just set velocity.
         // i kinda have a vision for a tool that lets knockback be controlled with a spline.
-
         //float dot = Vector3.Dot(hitDirXZ.normalized, constForceDir.normalized);
         //float scale = _constForceScaleFromDot.Evaluate(dot);
+        var hitForce = hitDirXZ * _hitDirForce;
+        var scaledConstForce = constForceDir * _constForce; //* scale;
 
-        hitForce = hitDirXZ * _hitDirForce;
-        scaledConstForce = constForceDir * _constForce; //* scale;
+        var knockbackForce = hitForce + scaledConstForce;
 
-        knockbackForce = hitForce + scaledConstForce;
-
+        Vector3 combinedForce;
+        
         if (inputDir != Vector3.zero)
         {
             combinedForce = knockbackForce + inputDir;
@@ -60,7 +55,6 @@ public class Knockback : MonoBehaviour, IKnockbackStatus, IDeathResponse, IPlaye
 
         StartCoroutine(TriggerKnockbackCooldown());
         _rb.AddForce(finalForce, ForceMode.Impulse);
-
     }
 
     private IEnumerator TriggerKnockbackCooldown()
@@ -72,7 +66,7 @@ public class Knockback : MonoBehaviour, IKnockbackStatus, IDeathResponse, IPlaye
 
     public void OnDeath()
     {
-        if(_disableKnockBackOnDeath)
+        if (_disableKnockBackOnDeath)
         {
             StopAllCoroutines();
             KnockbackEnabled = false;

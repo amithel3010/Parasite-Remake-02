@@ -8,7 +8,8 @@ public class FlyAbility : BaseJumpAbility
 
     [Header("Health Cost")]
     [SerializeField] private float _jumpCost = 10f;
-    private Health _health;
+    
+    private Health _health; //TODO: Change to stamina, or even more flexible - resource
 
     private bool _shouldConsumeHealth;
 

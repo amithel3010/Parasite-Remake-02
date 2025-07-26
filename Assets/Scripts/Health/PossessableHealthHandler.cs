@@ -5,9 +5,13 @@ using UnityEngine;
 public class PossessableHealthHandler : MonoBehaviour, IPossessionSensitive
 {
     private Health _health;
+    private IDamageResponse[] _damageResponsers;
+    private IDeathResponse[] _deathResponsers;
 
     void Awake()
     {
+        _deathResponsers = GetComponents<IDeathResponse>();
+        _damageResponsers = GetComponents<IDamageResponse>();
         _health = GetComponent<Health>();
     }
 
@@ -23,12 +27,12 @@ public class PossessableHealthHandler : MonoBehaviour, IPossessionSensitive
         _health.OnDeath -= HandleDeath;
     }
 
-    private void HandleDamage(float IFramesDuration)
+    private void HandleDamage(float iFramesDuration)
     {
         Debug.Log(this + "possessable got hit, it's current health is now" + _health.CurrentHealth);
-        foreach (var damageResponse in GetComponents<IDamageResponse>())
+        foreach (var damageResponse in _damageResponsers)
         {
-            damageResponse.OnDamage(IFramesDuration);
+            damageResponse.OnDamage(iFramesDuration);
         }
         //play animation
     }
@@ -37,7 +41,7 @@ public class PossessableHealthHandler : MonoBehaviour, IPossessionSensitive
     {
         Debug.Log(this + "has died");
         //animation
-        foreach (var deathResponse in GetComponents<IDeathResponse>())
+        foreach (var deathResponse in _deathResponsers)
         {
             deathResponse.OnDeath();
         }

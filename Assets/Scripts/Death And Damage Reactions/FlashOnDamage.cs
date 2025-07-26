@@ -1,34 +1,21 @@
-using System.Collections;
+
 using UnityEngine;
 
+[RequireComponent(typeof(ColorChangeHandler))]
 public class FlashOnDamage : MonoBehaviour, IDamageResponse
 {
     [SerializeField] private Color _hitColor = Color.red;
 
-    private Renderer _renderer;
-    private Color _defaultColor;
-
-    public void OnDamage(float IFramesDuration)
-    {
-        Flash(IFramesDuration);
-    }
+    private ColorChangeHandler _colorChangeHandler;
 
     private void Awake()
     {
-        _renderer = GetComponentInChildren<Renderer>();
-        _defaultColor = _renderer.material.GetColor("_BaseColor");
+        _colorChangeHandler = GetComponent<ColorChangeHandler>();
     }
 
-    private IEnumerator FlashRoutine(float duration)
+    public void OnDamage(float iFramesDuration)
     {
-        _renderer.material.SetColor("_BaseColor", _hitColor);
-        yield return new WaitForSeconds(duration);
-        _renderer.material.SetColor("_BaseColor", _defaultColor);
-    }
-    private void Flash(float duration)
-    {
-        StopAllCoroutines();
-        StartCoroutine(FlashRoutine(duration));
+        _colorChangeHandler.ChangeColor(_hitColor, iFramesDuration);
     }
 
 }

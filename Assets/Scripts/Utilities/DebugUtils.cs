@@ -72,7 +72,7 @@ public static class DebugUtils
         //TODO: Duration doesn't really work
         float angle = 10f;
         Vector3 lastPoint = position + new Vector3(radius, 0, 0);
-        Vector3 nextPoint = Vector3.zero;
+        Vector3 nextPoint;
 
         for (float i = angle; i <= 360; i += angle)
         {
@@ -109,7 +109,7 @@ public static class DebugUtils
 
     // Last known pixel-ratio of the scene view camera. This represents the world-space distance between each pixel.
     // This cache gets around an issue where the scene view camera is null on certain editor frames.
-    private static float lastKnownSceneViewPixelRatio = 0.001f;
+    private static float _lastKnownSceneViewPixelRatio = 0.001f;
 
     // Draws a line in the scene
     public static void DrawLine(Vector3 start, Vector3 end, float thickness, Color color, float duration = 0f)
@@ -133,15 +133,15 @@ public static class DebugUtils
         if (camera != null)
         {
             toCamera = (camera.transform.position - start).normalized;
-            lastKnownSceneViewPixelRatio = (camera.orthographicSize * 2f) / camera.pixelHeight;
+            _lastKnownSceneViewPixelRatio = (camera.orthographicSize * 2f) / camera.pixelHeight;
         }
 
         Vector3 orthogonal = Vector3.Cross(lineDir, toCamera).normalized;
         int pixelThickness = Mathf.CeilToInt(thickness);
-        float totalThick = lastKnownSceneViewPixelRatio * pixelThickness;
+        float totalThick = _lastKnownSceneViewPixelRatio * pixelThickness;
         for (int i = 0; i < pixelThickness; i++)
         {
-            Vector3 offset = orthogonal * ((i * lastKnownSceneViewPixelRatio) - (totalThick / 2f));
+            Vector3 offset = orthogonal * ((i * _lastKnownSceneViewPixelRatio) - (totalThick / 2f));
             Debug.DrawLine(start + offset, end + offset, color, duration);
         }
 #endif //UNITY_EDITOR

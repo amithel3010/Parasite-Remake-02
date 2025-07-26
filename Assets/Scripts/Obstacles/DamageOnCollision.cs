@@ -5,38 +5,40 @@ public class DamageOnCollision : MonoBehaviour, IPossessionSensitive
 {
     [SerializeField] float _damage = 25;
 
-    private bool ShouldDamageOnCollision = true;
+    private bool _shouldDamageOnCollision = true;
 
-    private GameObject _Possessor;
-    private float _safeDuration = 1f;
+    private GameObject _possessor;
+    private readonly float _safeDurationAfterUnPossession = 1f; //what does it mean that this is readonly
     private float _timeOfUnpossess = -999f;
 
     private void OnCollisionEnter(Collision other)
     {
-        if (!ShouldDamageOnCollision) return;
+        if (!_shouldDamageOnCollision) return;
 
-        GameObject DamageTarget = other.gameObject;
+        GameObject damageTarget = other.gameObject;
 
-        if (DamageTarget == _Possessor && Time.time - _timeOfUnpossess < _safeDuration)
+
+//TODO: this is kinda hard to read
+        if (damageTarget == _possessor && Time.time - _timeOfUnpossess < _safeDurationAfterUnPossession)
         {
             return;
         }
         else
         {
-            _Possessor = null;
+            _possessor = null;
         }
 
-        //TODO: check if hitdirXZ is better?
+        //TODO: check if hitDirXZ is better?
         Vector3 hitDir = (other.transform.position - transform.position).normalized;
         Vector3 hitDirXZ = new Vector3(hitDir.x, 0f, hitDir.z).normalized;
 
-        if (DamageTarget.TryGetComponent<Health>(out Health health))
+        if (damageTarget.TryGetComponent(out Health health))
         {
             health.ChangeHealth(-_damage);
             Debug.Log(this.name + " damaged " + health + " for" + _damage);
         }
 
-        if (DamageTarget.TryGetComponent<Knockback>(out Knockback knockback))
+        if (damageTarget.TryGetComponent(out Knockback knockback))
         {
             knockback.ApplyKnockback(hitDirXZ, Vector3.up, Vector3.zero);
         }
@@ -44,14 +46,12 @@ public class DamageOnCollision : MonoBehaviour, IPossessionSensitive
 
     public void OnPossessed(Parasite playerParasite, IInputSource inputSource)
     {
-        ShouldDamageOnCollision = false;
+        _shouldDamageOnCollision = false;
     }
 
     public void OnUnPossessed(Parasite playerParasite)
     {
         _timeOfUnpossess = Time.time;
-        _Possessor = playerParasite.gameObject;
+        _possessor = playerParasite.gameObject;
     }
-
-
 }

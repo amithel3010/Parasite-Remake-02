@@ -8,5 +8,5 @@ public interface IInputSource
     public bool ActionHeld { get; }
     public bool Action2Pressed { get; }
     public Vector2 MovementInput { get; }
-    public Vector3 HorizontalMovement { get; }
+    public Vector3 HorizontalMovementVector { get; }
 }

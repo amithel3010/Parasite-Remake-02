@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class BruteShockwave : MonoBehaviour, IPossessionSensitive
 {
@@ -10,7 +11,7 @@ public class BruteShockwave : MonoBehaviour, IPossessionSensitive
     [Header("General Settings")]
     [SerializeField] private BreakableType _canBreak;
     [SerializeField] private float _damage = 25f;
-    [SerializeField] private float _ShockwaveCost = 5f;
+    [FormerlySerializedAs("_ShockwaveCost")] [SerializeField] private float _shockwaveCost = 5f;
 
     [Header("Hitbox Settings")]
     [SerializeField] private float _hitboxRadius = 1f;
@@ -23,25 +24,25 @@ public class BruteShockwave : MonoBehaviour, IPossessionSensitive
     private bool _isActive;
     private bool _shouldConsumeHealth;
     private float _timer;
-    private HashSet<GameObject> _alreadyHit = new HashSet<GameObject>();
+    private readonly HashSet<GameObject> _alreadyHit = new();
 
     //Refs
-    private IHasLandedEvent _LandingEventRaiser;
+    private IHasLandedEvent _landingEventRaiser;
     private Health _health;
 
     void Awake()
     {
         _health = GetComponent<Health>();
-        _LandingEventRaiser = GetComponent<IHasLandedEvent>();
+        _landingEventRaiser = GetComponent<IHasLandedEvent>();
     }
 
     void OnEnable()
     {
-        _LandingEventRaiser.OnLanding += TriggerShockwave; // i dont love this... it triggers even if jumping on something regardless of fall distance
+        _landingEventRaiser.OnLanding += TriggerShockwave; // I don't love this... it triggers even if jumping on something regardless of fall distance
     }
     void OnDisable()
     {
-        _LandingEventRaiser.OnLanding -= TriggerShockwave;
+        _landingEventRaiser.OnLanding -= TriggerShockwave;
     }
 
     void FixedUpdate()
@@ -84,18 +85,18 @@ public class BruteShockwave : MonoBehaviour, IPossessionSensitive
 
                 _alreadyHit.Add(target);
 
-            if (target.TryGetComponent<Health>(out Health health))
+            if (target.TryGetComponent(out Health health))
             {
                 //Debug.Log("Damaged" + hit.gameObject.name);
                 health.ChangeHealth(-_damage);
             }
-            if (target.TryGetComponent<Knockback>(out Knockback knockback))
+            if (target.TryGetComponent(out Knockback knockback))
             {
                 //Debug.Log("trying to knockback" + knockback.gameObject.name);
                 Vector3 hitDir = (hit.transform.position - transform.position).normalized;
                 knockback.ApplyKnockback(hitDir, Vector3.up, Vector3.zero);
             }
-            if (hit.transform.parent.gameObject.TryGetComponent<Breakable>(out Breakable breakable))
+            if (hit.transform.parent.gameObject.TryGetComponent(out Breakable breakable))
             {
                 if (breakable._type == this._canBreak)
                 {
@@ -105,7 +106,7 @@ public class BruteShockwave : MonoBehaviour, IPossessionSensitive
 
             if (_shouldConsumeHealth)
             {
-                _health.ChangeHealth(-_ShockwaveCost);
+                _health.ChangeHealth(-_shockwaveCost);
             }
         }
     }
@@ -119,14 +120,7 @@ public class BruteShockwave : MonoBehaviour, IPossessionSensitive
 
     private void OnDrawGizmosSelected()
     {
-        if (_isActive)
-        {
-            DebugUtils.DrawCircle(transform.position, _hitboxRadius, Color.red);
-        }
-        else
-        {
-            DebugUtils.DrawCircle(transform.position, _hitboxRadius, Color.white);
-        }
+        DebugUtils.DrawCircle(transform.position, _hitboxRadius, _isActive ? Color.red : Color.white);
     }
 
     public void OnPossessed(Parasite playerParasite, IInputSource inputSource)

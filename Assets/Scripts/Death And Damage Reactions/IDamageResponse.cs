@@ -1,6 +1,5 @@
-using UnityEngine;
 
 public interface IDamageResponse
 {
-    public void OnDamage(float IFramesDuration);
+    public void OnDamage(float iFramesDuration);
 }

@@ -14,12 +14,12 @@ public class Cannon : MonoBehaviour
 
     private TriggerChanneler _trigger;
 
-    void Awake()
+    private void Awake()
     {
         _trigger = GetComponentInChildren<TriggerChanneler>();
     }
 
-    void OnEnable()
+    private void OnEnable()
     {
         if (_trigger != null)
         {
@@ -27,7 +27,7 @@ public class Cannon : MonoBehaviour
         }
     }
 
-    void OnDisable()
+    private void OnDisable()
     {
         if (_trigger != null)
         {
@@ -45,11 +45,10 @@ public class Cannon : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        //TODO: make it so that it shows only when is selecteed, or children selected
-        if (_showEndPoint)
-        {
-            Gizmos.color = Color.blue;
-            Gizmos.DrawSphere(_endPoint.position, 0.3f);
-        }
+        //TODO: make it so that it shows only when is selected, or children selected
+        if (!_showEndPoint) return;
+        
+        Gizmos.color = Color.blue;
+        Gizmos.DrawSphere(_endPoint.position, 0.3f);
     }
 }

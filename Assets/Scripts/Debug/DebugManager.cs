@@ -1,14 +1,17 @@
+using System.Runtime.CompilerServices;
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class DebugManager : MonoBehaviour
 {
-    //TODO: a better approach would be with events and listeners.
-
     public static DebugManager Instance { get; private set; }
 
-    [SerializeField] Transform _playerTransform;
-    [SerializeField] Health _playerHealth;
-    //[SerializeField] GameObject _PossessablePrefab;
+    [SerializeField] private DebugStatsOverlay _statsOverlay;
+
+    Transform _playerTransform;
+    Health _playerHealth;
+
+    private CinemachineOrbitalFollow _debugCam;
 
     void Awake()
     {
@@ -20,6 +23,10 @@ public class DebugManager : MonoBehaviour
         {
             Instance = this;
         }
+
+        Parasite playerObj = FindAnyObjectByType<Parasite>();
+        _playerTransform = playerObj.transform;
+        _playerHealth =  playerObj.GetComponent<Health>();
     }
 
     public void SpawnPossessable(GameObject PossessablePrefab)
@@ -32,4 +39,18 @@ public class DebugManager : MonoBehaviour
         _playerHealth.ToggleInvincible();
     }
 
+    public void Restart()
+    {
+        GameManager.Instance.Restart();
+    }
+
+    public void ToggleDebugCam()
+    {
+        CameraManager.Instance.ToggleDebugCamera();
+    }
+
+    public void ToggleDebugStats()
+    {
+        _statsOverlay.ToggleDebugStats();
+    }
 }

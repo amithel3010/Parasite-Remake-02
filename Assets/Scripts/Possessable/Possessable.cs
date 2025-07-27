@@ -1,61 +1,46 @@
 using UnityEngine;
 
-public class Possessable : MonoBehaviour, IPossessable, ICollector
+public class Possessable : MonoBehaviour, ICollector
 {
-    [HideInInspector] public bool IsPossessedByPlayer = false;
-
     [SerializeField] private bool _dieOnUnPossess = true;
 
-    private HoveringCreatureController _controller; //might need to make this an interface
-    private IDamagable _healthSystem;
+    private Health _healthSystem;
+    private IPossessionSensitive[] _possessionSensitive;
 
     void Awake()
     {
-        _controller = GetComponent<HoveringCreatureController>();
-        _healthSystem = GetComponent<IDamagable>();
+        _possessionSensitive = GetComponents<IPossessionSensitive>();
+        _healthSystem = GetComponent<Health>();
     }
 
-    public void OnPossess(IInputSource inputSource)
+    public void OnPossess(Parasite playerParasite, IInputSource inputSource)
     {
-        _controller.OnPossess(inputSource);
-        IsPossessedByPlayer = true;
+        LayerUtils.SetLayerAllChildren(this.transform, LayerUtils.PlayerControlledLayer);
 
-        if (TryGetComponent<DamageOnCollision>(out var damageOnCollision)) //could make a PossessoionSensitive interface to make it easier to enable and disable all scripts that are sensitive to player possession
+        foreach (var sensitive in _possessionSensitive)
         {
-            if (damageOnCollision.enabled)
-            {
-                damageOnCollision.enabled = false;
-            }
+            sensitive.OnPossessed(playerParasite, inputSource);
         }
     }
 
-    public void OnUnPossess()
+    public void OnUnPossess(Parasite playerParasite)
     {
-        _controller.OnUnPossess();
-        IsPossessedByPlayer = false;
+        LayerUtils.SetLayerAllChildren(this.transform, LayerUtils.PossessableLayer);
+
+        IPossessionSensitive[] possessionSensitive = _possessionSensitive;
+        foreach (var sensitive in possessionSensitive)
+        {
+            sensitive.OnUnPossessed(playerParasite);
+        }
 
         if (_dieOnUnPossess)
         {
-            _healthSystem.ChangeHealth(-_healthSystem.CurrentHealth); //die
-        }
-        else
-        {
-            if (TryGetComponent<DamageOnCollision>(out var damageOnCollision))
-            {
-                if (!damageOnCollision.enabled)
-                {
-                    damageOnCollision.enabled = true;
-                }
-            }
+            _healthSystem.KillImmediately();
         }
     }
 
-    public void Collect(Collectable collectable)
-    {
-        if (IsPossessedByPlayer)
-        {
-            //TODO: Vfx and Sfx
-            Debug.Log("Collected" + collectable);
-        }
+    public void Collect(Collectable collectable) // called only if controlled by player
+    {     
+            CollectableManager.Instance.CollectCollectable(collectable);      
     }
 }

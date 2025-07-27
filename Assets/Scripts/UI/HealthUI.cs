@@ -1,27 +1,60 @@
 using UnityEngine;
 
-public class HealthUI : MonoBehaviour
+public class HealthUI : MonoBehaviour, IPossessionSensitive, IPossessionSource
 {
-    private IDamagable _healthSystem;
+    //TODO: manager class changes value, Health UI on possess give ui manager values and sprite
+
+    [SerializeField] private bool _isPlayerOnStart;
+    private Health _health;
+
+    private bool _isCurrentUITarget;
 
     void Awake()
     {
-        _healthSystem = GetComponent<IDamagable>();
+        _health = GetComponent<Health>();
+        if (_isPlayerOnStart)
+        {
+            _isCurrentUITarget = true;
+        }
     }
 
     void OnEnable()
     {
-        _healthSystem.OnHealthChanged += UpdateHealthBar;
+        _health.OnHealthChanged += UpdateHealthBar;
     }
 
-    void OnDisable() //not sure why i would ever disable this but i guess this is good practice
+    void OnDisable() 
     {
-        _healthSystem.OnHealthChanged -= UpdateHealthBar;
+        _health.OnHealthChanged -= UpdateHealthBar;
     }
 
     private void UpdateHealthBar(float current, float max)
     {
-        //this is only for player currently
-        UIManager.Instance.UpdateHealthBar(current, max);
+        if (_isCurrentUITarget)
+        {
+            UIManager.Instance.UpdateHealthBar(current, max);
+        }
+    }
+
+    public void OnPossessed(Parasite playerParasite, IInputSource inputSource)
+    {
+        _isCurrentUITarget = true;
+        UpdateHealthBar(_health.CurrentHealth, _health.MaxHealth);
+    }
+
+    public void OnUnPossessed(Parasite playerParasite)
+    {
+        _isCurrentUITarget = false;
+    }
+
+    public void OnParasitePossession()
+    {
+        _isCurrentUITarget = false;
+    }
+
+    public void OnParasiteUnPossession()
+    {
+        _isCurrentUITarget = true;
+        UpdateHealthBar(_health.CurrentHealth, _health.MaxHealth);
     }
 }

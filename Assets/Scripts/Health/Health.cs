@@ -2,26 +2,25 @@ using UnityEngine;
 using System;
 using System.Collections;
 
-public class Health : MonoBehaviour, IDamagable
+public class Health : MonoBehaviour
 {
     //class responsible for managing a creature health
     //creature with health can: take damage, heal and die
-    //should also update UI if relevant
-
-    public event Action<float, float> OnHealthChanged; //TODO: watch pavel's lesson on events
-    public event Action OnDamaged;
-    public event Action OnDeath;
+    //raises events for other scripts to listen to
 
     [SerializeField] private float _maxHealth = 100f;
     [SerializeField] private float _iFramesDuration = 0.3f;
 
-    private bool _isInvincible = false;
+    public event Action<float, float> OnHealthChanged;
+    public event Action<float> OnDamaged;
+    public event Action OnDeath;
+
     private float _currentHealth;
     private bool _isHittable = true;
+    private bool _isInvincible = false;
 
     public float CurrentHealth => _currentHealth;
     public float MaxHealth => _maxHealth;
-
 
     void Awake()
     {
@@ -38,44 +37,50 @@ public class Health : MonoBehaviour, IDamagable
 
         OnHealthChanged?.Invoke(_currentHealth, _maxHealth);
 
-        if (_currentHealth < oldHealth)
-        {
-            OnDamaged?.Invoke();
-            _isHittable = false;
-            StartCoroutine(IFrameCooldown());
-        }
-
         if (_currentHealth <= 0)
         {
             OnDeath?.Invoke();
+        }
+        else if (_currentHealth < oldHealth)
+        {
+            OnDamaged?.Invoke(_iFramesDuration);
+            _isHittable = false;
+            StartCoroutine(IFrameCooldown());
         }
     }
 
     public void ResetHealth()
     {
-        _currentHealth = _maxHealth;
-        OnHealthChanged?.Invoke(_currentHealth, _maxHealth);
+        ChangeHealth(_maxHealth);
+    }
+
+    public void KillImmediately()
+    {
+        StopAllCoroutines();
+        _isHittable = true;
+        ChangeHealth(-_maxHealth);
     }
 
     private IEnumerator IFrameCooldown()
     {
-        if (_isHittable == false)
-        {
-            yield return new WaitForSeconds(_iFramesDuration);
-            _isHittable = true;
-        }
+        if (_isHittable) yield break;
+        
+        yield return new WaitForSeconds(_iFramesDuration);
+        _isHittable = true;
     }
 
-    public void ToggleInvincible()
+    public void ToggleInvincible() // for debugging
     {
         _isInvincible = !_isInvincible;
-        if (_isInvincible)
+        
+        switch (_isInvincible)
         {
-            Debug.Log("Parasite is now INVINCIBLE");
-        }
-        else if (!_isInvincible)
-        {
-            Debug.Log("Parasite is now HITTABLE");
+            case true:
+                Debug.Log("Parasite is now INVINCIBLE");
+                break;
+            case false:
+                Debug.Log("Parasite is now HITTABLE");
+                break;
         }
     }
 

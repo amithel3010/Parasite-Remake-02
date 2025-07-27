@@ -1,16 +1,15 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class CollectableManager : MonoBehaviour
 {
     public static CollectableManager Instance { get; private set; }
 
     private readonly HashSet<Collectable> _allCollectables = new(); //readonly makes sure there is only one assignment
-    private readonly HashSet<Collectable> _collected = new(); //needed? i only need the number i think
+    private readonly HashSet<Collectable> _collected = new(); //needed? I only need the number I think
 
-    public int TotalCollecteblesInScene => _allCollectables.Count;
+    public int TotalCollectablesInScene => _allCollectables.Count;
     public int TotalCollected => _collected.Count;
 
     public event Action<int, int> OnCollectionProgressChanged;
@@ -31,18 +30,28 @@ public class CollectableManager : MonoBehaviour
     {
         if (_allCollectables.Add(collectable))
         {
-            OnCollectionProgressChanged?.Invoke(TotalCollected, TotalCollecteblesInScene);
+            OnCollectionProgressChanged?.Invoke(TotalCollected, TotalCollectablesInScene);
         }
     }
 
-    public void MarkAsCollected(Collectable collectable)
+    public void CollectCollectable(Collectable collectable)
+    {
+        MarkAsCollected(collectable);
+        Destroy(collectable.gameObject);
+
+        // Vfx and Sfx
+        Debug.Log("Collected" + collectable);
+    }
+
+    private void MarkAsCollected(Collectable collectable)
     {
         //should I remove it from _allCollectibles?
 
         if (_collected.Add(collectable))
         {
             //Update UI
-            OnCollectionProgressChanged?.Invoke(TotalCollected, TotalCollecteblesInScene);
+            OnCollectionProgressChanged?.Invoke(TotalCollected, TotalCollectablesInScene);
         }
     }
+
 }

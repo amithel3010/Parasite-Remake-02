@@ -4,13 +4,14 @@ public class CheckpointManager : MonoBehaviour
 {
     public static CheckpointManager Instance { get; private set; }
 
-    [SerializeField] Parasite _playerParasite;
+    [Header("DefaultRespawnPoint")]
     [SerializeField] private Transform _defaultRespawnPoint;
 
     [Header("Debugging")]
     [SerializeField] private Color _inactiveColor;
     [SerializeField] private Color _activeColor;
 
+    Parasite _playerParasite;
     private Checkpoint _currentActiveCheckpoint;
 
     void Awake()
@@ -28,6 +29,8 @@ public class CheckpointManager : MonoBehaviour
         {
             Debug.LogError("please set default respawn point");
         }
+
+        _playerParasite = FindAnyObjectByType<Parasite>();
     }
 
     public void SetActiveCheckpoint(Checkpoint checkpoint)
@@ -41,7 +44,7 @@ public class CheckpointManager : MonoBehaviour
         _currentActiveCheckpoint = checkpoint;
     }
 
-    public Vector3 GetRespawnPoint()
+    private Vector3 GetRespawnPoint()
     {
         return _currentActiveCheckpoint != null ? _currentActiveCheckpoint.GetRespawnPoint() : _defaultRespawnPoint.position;
     }
@@ -50,11 +53,11 @@ public class CheckpointManager : MonoBehaviour
     {
         if (_playerParasite == null || (_currentActiveCheckpoint == null && _defaultRespawnPoint == null))
         {
-            Debug.LogError("Can't respawn. missing parasite or spawnpos reference");
+            Debug.LogError("Can't respawn. missing parasite or spawn pos reference");
             return;
         }
 
-        _playerParasite.RespawnAt(GetRespawnPoint());
+        _playerParasite.TeleportTo(GetRespawnPoint());
     }
 
     public Parasite GetParasite()

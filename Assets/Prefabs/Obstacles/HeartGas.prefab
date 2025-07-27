@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5207347741426716008}
   - component: {fileID: 5199319055322893108}
-  - component: {fileID: 6873750408320181850}
   m_Layer: 0
   m_Name: HeartGas
   m_TagString: Untagged
@@ -47,33 +46,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e49b4f3f100b49de9961452d3e675ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!54 &6873750408320181850
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1247666243985152584}
-  serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &1677016409988441405
 GameObject:
   m_ObjectHideFlags: 0
@@ -116,6 +88,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4076900243275856291}
   - component: {fileID: 502545463483046509}
+  - component: {fileID: 9121365995667993632}
   m_Layer: 0
   m_Name: Collider
   m_TagString: Untagged
@@ -159,6 +132,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &9121365995667993632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6040057974197411200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31ab7077c4ab3754cab8a8e75d1b9d2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8507372601900266748
 GameObject:
   m_ObjectHideFlags: 0

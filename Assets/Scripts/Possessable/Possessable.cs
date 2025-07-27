@@ -1,10 +1,8 @@
-using System;
 using UnityEngine;
 
 public class Possessable : MonoBehaviour, ICollector
 {
     [SerializeField] private bool _dieOnUnPossess = true;
-    private bool IsPossessedByPlayer = false;
 
     private Health _healthSystem;
 
@@ -15,7 +13,7 @@ public class Possessable : MonoBehaviour, ICollector
 
     public void OnPossess(Parasite playerParasite, IInputSource inputSource)
     {
-        IsPossessedByPlayer = true;
+        MiscUtils.SetLayerAllChildren(this.transform, LayerUtils.PlayerControlledLayer);
 
         IPossessionSensitive[] possessionSensitive = GetComponents<IPossessionSensitive>();
         foreach (var sensitive in possessionSensitive)
@@ -26,7 +24,7 @@ public class Possessable : MonoBehaviour, ICollector
 
     public void OnUnPossess(Parasite playerParasite)
     {
-        IsPossessedByPlayer = false;
+        MiscUtils.SetLayerAllChildren(this.transform, LayerUtils.PossessableLayer);
 
         IPossessionSensitive[] possessionSensitive = GetComponents<IPossessionSensitive>();
         foreach (var sensitive in possessionSensitive)
@@ -40,12 +38,8 @@ public class Possessable : MonoBehaviour, ICollector
         }
     }
 
-    public void Collect(Collectable collectable)
-    {
-        if (IsPossessedByPlayer)
-        {
-            //TODO: basically the same implementation as in parasite. do i really need an interface? might be a global way of checking what the player is controlling
-            CollectableManager.Instance.CollectCollectable(collectable);
-        }
+    public void Collect(Collectable collectable) // called only if controlled by player
+    {     
+            CollectableManager.Instance.CollectCollectable(collectable);      
     }
 }

@@ -7,12 +7,23 @@ public class Collectable : MonoBehaviour
     //also, total amount in scene should be tracked somewhere
     //and collected amount
 
+    private TriggerChanneler _trigger;
+
+    void Awake()
+    {
+        _trigger = GetComponentInChildren<TriggerChanneler>();
+    }
 
     void OnEnable()
     {
         if (CollectableManager.Instance != null)
         {
             CollectableManager.Instance.InitCollectable(this);
+
+            if (_trigger != null)
+            {
+                _trigger.OnTriggerEnterEvent += HandleTriggerEnter;
+            }
         }
         else
         {
@@ -20,11 +31,21 @@ public class Collectable : MonoBehaviour
         }
     }
 
-    public void OnTriggered(Collider other)
+    private void OnDisable()
     {
-        if (other.transform.parent.TryGetComponent<ICollector>(out var collector))
+        if (_trigger != null)
         {
-            collector.Collect(this);
+            _trigger.OnTriggerEnterEvent -= HandleTriggerEnter;
+        }
+    }
+
+    public void HandleTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == LayerUtils.PlayerControlledLayer)
+        {
+            other.transform.parent.TryGetComponent<ICollector>(out var collector);
+        
+            collector?.Collect(this);
         }
     }
 }

@@ -26,7 +26,9 @@ public class DamageOnCollision : MonoBehaviour, IPossessionSensitive
             _Possessor = null;
         }
 
+        //TODO: check if hitdirXZ is better?
         Vector3 hitDir = (other.transform.position - transform.position).normalized;
+        Vector3 hitDirXZ = new Vector3(hitDir.x, 0f, hitDir.z).normalized;
 
         if (DamageTarget.TryGetComponent<Health>(out Health health))
         {
@@ -34,9 +36,9 @@ public class DamageOnCollision : MonoBehaviour, IPossessionSensitive
             Debug.Log(this.name + " damaged " + health + " for" + _damage);
         }
 
-        if (DamageTarget.TryGetComponent<KnockbackTest>(out KnockbackTest knockback))
+        if (DamageTarget.TryGetComponent<Knockback>(out Knockback knockback))
         {
-            knockback.Knockback(hitDir, Vector3.up, Vector3.zero);
+            knockback.ApplyKnockback(hitDirXZ, Vector3.up, Vector3.zero);
         }
     }
 

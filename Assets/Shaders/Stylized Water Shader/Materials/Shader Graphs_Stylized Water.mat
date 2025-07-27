@@ -85,13 +85,13 @@ Material:
     - _Wave_Speed: 0.16
     - _Wave_Steepness: 0.088
     m_Colors:
-    - _Deep_Color: {r: 0.04298683, g: 0.4339623, b: 0.26702088, a: 0.36862746}
+    - _Deep_Color: {r: 0.060742266, g: 0.3301887, b: 0.10443459, a: 0.36862746}
     - _Diffuse_Color: {r: 1, g: 0, b: 0, a: 1}
     - _Foam_Color: {r: 0, g: 1, b: 0.46160954, a: 0.4392157}
     - _Horizon_Color: {r: 0.011614448, g: 0.2735849, b: 0.1836822, a: 1}
     - _Intersection_Foam_Color: {r: 1, g: 1, b: 1, a: 1}
     - _Refraction_Movement: {r: 0, g: 0, b: 0, a: 0}
-    - _Shallow_Color: {r: 0.45768058, g: 0.8018868, b: 0.7984465, a: 0.43137255}
+    - _Shallow_Color: {r: 0.37126204, g: 0.764151, b: 0.4087363, a: 0.43137255}
     - _Shore_Color: {r: 0, g: 0, b: 0, a: 0}
     - _Specular_Color: {r: 1, g: 1, b: 1, a: 0.1764706}
     - _Surface_Foam_Color: {r: 1, g: 1, b: 1, a: 0}

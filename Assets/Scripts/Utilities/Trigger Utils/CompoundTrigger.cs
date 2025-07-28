@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -19,6 +20,10 @@ public class CompoundTrigger : MonoBehaviour
 
     [FormerlySerializedAs("OnEnter")] public UnityEvent _onEnter;
     [FormerlySerializedAs("OnExit")] public UnityEvent _onExit;
+    
+    //TODO: confusing naming
+    public event Action onEnter;
+    public event Action onExit;
 
     private void Awake()
     {
@@ -74,10 +79,12 @@ public class CompoundTrigger : MonoBehaviour
             if (_isInside)
             {
                 _onEnter?.Invoke();
+                onEnter?.Invoke();
             }
             else
             {
                 _onExit?.Invoke();
+                onExit?.Invoke();
             }
         }
     }

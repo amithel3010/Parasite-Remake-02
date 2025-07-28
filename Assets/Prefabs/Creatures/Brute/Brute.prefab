@@ -308,7 +308,6 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _moveForceScale: {x: 1, y: 0, z: 1}
-  _debugExpectedJumpHeight: 0
 --- !u!114 &3767042002030581333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -405,7 +404,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8b1a18bb84a94233a30a418b044339a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  KnockbackEnabled: 1
   _hitDirForce: 6
   _constForce: 4
   _inputForce: 0
@@ -438,7 +436,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canBreak: 1
   _damage: 25
-  _ShockwaveCost: 5
+  _shockwaveCost: 5
   _hitboxRadius: 2.55
   _duration: 0.2
   _circleDebugMaterial: {fileID: 2100000, guid: a701951b68b1a44a7b1d55850e9459f7, type: 2}

@@ -20,7 +20,7 @@ public class InputHandler : MonoBehaviour, IInputSource
 
     public bool DebugPressed { get; private set; }
 
-    [SerializeField] private Transform _orientation;
+    
     private Camera _mainCamera;
     private Vector3 _adjustToCameraTest;
 
@@ -90,19 +90,32 @@ public class InputHandler : MonoBehaviour, IInputSource
 
         _movementInputs = new Vector2(_horizontalInput, _verticalInput);
         //_HorizontalMovement = new Vector3(_movementInputs.x, 0f, _movementInputs.y);
+        //_horizontalMovementVector = AdjustToCamera(_movementInputs);
         _horizontalMovementVector = AdjustToCamera(_movementInputs);
     }
-
-    private Vector3 AdjustToCamera(Vector2 vectorToAdjust)
+    
+    private Vector3 AdjustToCamera(Vector2 input)
     {
-        Vector3 viewDir = transform.position - new Vector3(Camera.main.transform.position.x, transform.position.y, Camera.main.transform.position.z);
-        
-        //set orientation to view direction in XZ plane
-        _orientation.forward = viewDir.normalized;
+        if (_mainCamera == null)
+            _mainCamera = Camera.main;
+    
+        if (_mainCamera == null)
+            return Vector3.zero;
 
-        //adjusted vector according to orientation and input
-        Vector3 adjustedVector = _orientation.forward * vectorToAdjust.y + _orientation.right * vectorToAdjust.x;
+        // Get camera forward and right directions
+        Vector3 camForward = _mainCamera.transform.forward;
+        Vector3 camRight = _mainCamera.transform.right;
 
-        return adjustedVector;
+        // Project onto horizontal plane
+        camForward.y = 0f;
+        camRight.y = 0f;
+        camForward.Normalize();
+        camRight.Normalize();
+
+        // Combine directions with input
+        Vector3 adjusted = camForward * input.y + camRight * input.x;
+        return adjusted;
     }
+
+
 }

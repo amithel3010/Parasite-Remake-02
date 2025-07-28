@@ -1,3 +1,4 @@
+using System;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -5,7 +6,8 @@ using UnityEngine.Serialization;
 [RequireComponent(typeof(CompoundTrigger))]
 public class CameraArea : MonoBehaviour
 {
-    [SerializeField] private LayerMask _layerMask;
+    //TODO: make this script a simple script for camera areas that automatically calls for activate camera and mark for de activation, so it requires almost no setup in inspector.
+    [SerializeField] private CameraHolder _cameraForArea;
 
     private CompoundTrigger _compoundTrigger;
 
@@ -14,15 +16,25 @@ public class CameraArea : MonoBehaviour
         _compoundTrigger = GetComponent<CompoundTrigger>();
     }
 
-    private bool Filter(GameObject other)
+    private void OnEnable()
     {
-        if (!enabled)
-            return false;
-        if (((1 << other.layer) & _layerMask) == 0)
-            return false;
-
-        return true;
+        _compoundTrigger.onEnter += ActivateCamera;
+        _compoundTrigger.onExit += MarkForDeactivation;
     }
 
+    private void OnDisable()
+    {
+        _compoundTrigger.onEnter -= ActivateCamera;
+        _compoundTrigger.onExit -= MarkForDeactivation;
+    }
 
+    private void ActivateCamera()
+    {
+        CameraManager.Instance.ActivateCamera(_cameraForArea);
+    }
+
+    private void MarkForDeactivation()
+    {
+        CameraManager.Instance.MarkCameraForDeactivation(_cameraForArea);
+    }
 }

@@ -322,12 +322,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c82c7456e1c5d745bb52966d7623dcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settings: {fileID: 11400000, guid: f8c8d02c1e4868c4da35ae8461ead2c8, type: 2}
-  _jumpHeight: 4
+  settings: {fileID: 0}
+  _jumpHeight: 2.5
   _jumpBuffer: 0.2
   _coyoteTime: 0.2
   _showExcpectedJumpHeight: 0
-  _flyMaxJumps: 5
+  _flyMaxJumps: 4
   _jumpCost: 10
 --- !u!114 &7777029705140264105
 MonoBehaviour:
@@ -445,7 +445,7 @@ MonoBehaviour:
     m_Bits: 512
   _rideHeightChange: 1.2
   _maxSpeedChange: -2
-  _jumpHeightChange: -2
+  _jumpHeightChange: -1
   _showOverlapSphere: 0
 --- !u!114 &9080652240057910512
 MonoBehaviour:

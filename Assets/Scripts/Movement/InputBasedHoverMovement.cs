@@ -11,7 +11,8 @@ public class InputBasedHoverMovement : MonoBehaviour, IPossessionSensitive, IPos
     [SerializeField]
     private HoveringCreatureSettings _settings;
 
-    [Header("References")] private MonoBehaviour _knockbackProvider; // for seeing in inspector
+    [Header("References")] 
+    private MonoBehaviour _knockbackProvider; // for seeing in inspector
     private IKnockbackStatus _knockbackStatus;
     private MonoBehaviour _inputSourceProvider; // for seeing in inspector
     private IInputSource _inputSource;

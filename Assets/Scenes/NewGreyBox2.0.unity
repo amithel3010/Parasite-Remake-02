@@ -959,6 +959,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 20535608}
+  - component: {fileID: 20535609}
   m_Layer: 0
   m_Name: 'StaticHolder_UnderBridge '
   m_TagString: Untagged
@@ -983,6 +984,18 @@ Transform:
   - {fileID: 299606041}
   m_Father: {fileID: 1782857592}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &20535609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 20535607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25fe2040d1cfed34e82c9393f7c15326, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &21447397
 GameObject:
   m_ObjectHideFlags: 0
@@ -4341,6 +4354,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 151567058}
+  - component: {fileID: 151567059}
   m_Layer: 0
   m_Name: FollowHolder_ButterflyTut_Floor02
   m_TagString: Untagged
@@ -4364,6 +4378,18 @@ Transform:
   - {fileID: 666910720}
   m_Father: {fileID: 777137506}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &151567059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 151567057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25fe2040d1cfed34e82c9393f7c15326, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &152534321
 GameObject:
   m_ObjectHideFlags: 0
@@ -9059,6 +9085,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 372076775}
+  - component: {fileID: 372076776}
   m_Layer: 0
   m_Name: FollowHolder_BruteTut
   m_TagString: Untagged
@@ -9082,6 +9109,18 @@ Transform:
   - {fileID: 683674168}
   m_Father: {fileID: 1069781865}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &372076776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 372076774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25fe2040d1cfed34e82c9393f7c15326, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &379710179
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17179,6 +17218,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 844716292}
+  - component: {fileID: 844716293}
   m_Layer: 0
   m_Name: DollyHolder_IntroLog
   m_TagString: Untagged
@@ -17203,6 +17243,18 @@ Transform:
   - {fileID: 1027590360}
   m_Father: {fileID: 1096929696}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &844716293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 844716291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25fe2040d1cfed34e82c9393f7c15326, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &845917359
 GameObject:
   m_ObjectHideFlags: 0
@@ -17696,6 +17748,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 865965180}
+  - component: {fileID: 865965181}
   m_Layer: 0
   m_Name: DollyHolder_ButterflyTut_Floor02
   m_TagString: Untagged
@@ -17720,6 +17773,18 @@ Transform:
   - {fileID: 1487898995}
   m_Father: {fileID: 1096929696}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &865965181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 865965179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25fe2040d1cfed34e82c9393f7c15326, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &866372798
 GameObject:
   m_ObjectHideFlags: 0
@@ -19399,6 +19464,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 940915497}
+  - component: {fileID: 940915498}
   m_Layer: 0
   m_Name: StaticHolder_IntroRiver
   m_TagString: Untagged
@@ -19422,6 +19488,18 @@ Transform:
   - {fileID: 1058528982}
   m_Father: {fileID: 191631318}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &940915498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 940915496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25fe2040d1cfed34e82c9393f7c15326, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &950132905
 GameObject:
   m_ObjectHideFlags: 0
@@ -20330,6 +20408,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 993518019}
+  - component: {fileID: 993518020}
   m_Layer: 0
   m_Name: StaticHolder_ButterflyTut_Start
   m_TagString: Untagged
@@ -20353,6 +20432,18 @@ Transform:
   - {fileID: 2089304157}
   m_Father: {fileID: 191631318}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &993518020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 993518018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25fe2040d1cfed34e82c9393f7c15326, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &998116407
 GameObject:
   m_ObjectHideFlags: 0
@@ -32901,6 +32992,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1503032905}
+  - component: {fileID: 1503032906}
   m_Layer: 0
   m_Name: DollyHolder_FirstPath
   m_TagString: Untagged
@@ -32925,6 +33017,18 @@ Transform:
   - {fileID: 1400788619}
   m_Father: {fileID: 1096929696}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1503032906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503032904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25fe2040d1cfed34e82c9393f7c15326, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1503232185
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33359,6 +33463,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1530660248}
+  - component: {fileID: 1530660249}
   m_Layer: 0
   m_Name: DollyHolder_ButterflyTut_Floor01_Mid
   m_TagString: Untagged
@@ -33383,6 +33488,18 @@ Transform:
   - {fileID: 137551468}
   m_Father: {fileID: 1096929696}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1530660249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1530660247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25fe2040d1cfed34e82c9393f7c15326, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1531403037
 GameObject:
   m_ObjectHideFlags: 0
@@ -33562,6 +33679,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1536519459}
+  - component: {fileID: 1536519460}
   m_Layer: 0
   m_Name: DollyHolder_Start
   m_TagString: Untagged
@@ -33586,6 +33704,18 @@ Transform:
   - {fileID: 1766554165}
   m_Father: {fileID: 1096929696}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1536519460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1536519458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25fe2040d1cfed34e82c9393f7c15326, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1540068119
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -40025,6 +40155,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1802701709}
+  - component: {fileID: 1802701710}
   m_Layer: 0
   m_Name: StaticHolder_ButterflyTut_Button
   m_TagString: Untagged
@@ -40048,6 +40179,18 @@ Transform:
   - {fileID: 225700292}
   m_Father: {fileID: 191631318}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1802701710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1802701708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25fe2040d1cfed34e82c9393f7c15326, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1803182005
 GameObject:
   m_ObjectHideFlags: 0
@@ -41858,6 +42001,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1847372559}
+  - component: {fileID: 1847372560}
   m_Layer: 0
   m_Name: DollyHolder_ButterflyTut_Floor01_Collectable
   m_TagString: Untagged
@@ -41882,6 +42026,18 @@ Transform:
   - {fileID: 1301427074}
   m_Father: {fileID: 1096929696}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1847372560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1847372558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25fe2040d1cfed34e82c9393f7c15326, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1850564404 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6627212580744140713, guid: 6d6ffea430a324855ad63b36f2dc1dc5, type: 3}
@@ -47860,11 +48016,23 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4259737155542351679, guid: 37f269bf96f96fb4dbcfd6bd527d382d, type: 3}
+      propertyPath: _onExit.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4259737155542351679, guid: 37f269bf96f96fb4dbcfd6bd527d382d, type: 3}
       propertyPath: OnExit.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1033371774}
     - target: {fileID: 4259737155542351679, guid: 37f269bf96f96fb4dbcfd6bd527d382d, type: 3}
       propertyPath: OnEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1033371774}
+    - target: {fileID: 4259737155542351679, guid: 37f269bf96f96fb4dbcfd6bd527d382d, type: 3}
+      propertyPath: _onExit.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1033371774}
+    - target: {fileID: 4259737155542351679, guid: 37f269bf96f96fb4dbcfd6bd527d382d, type: 3}
+      propertyPath: _onEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1033371774}
     - target: {fileID: 4259737155542351679, guid: 37f269bf96f96fb4dbcfd6bd527d382d, type: 3}
@@ -47884,11 +48052,19 @@ PrefabInstance:
       value: ActivateCamera
       objectReference: {fileID: 0}
     - target: {fileID: 4259737155542351679, guid: 37f269bf96f96fb4dbcfd6bd527d382d, type: 3}
+      propertyPath: _onExit.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: TryToDeactivateCamera
+      objectReference: {fileID: 0}
+    - target: {fileID: 4259737155542351679, guid: 37f269bf96f96fb4dbcfd6bd527d382d, type: 3}
       propertyPath: OnExit.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: CameraManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4259737155542351679, guid: 37f269bf96f96fb4dbcfd6bd527d382d, type: 3}
       propertyPath: OnEnter.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CameraManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4259737155542351679, guid: 37f269bf96f96fb4dbcfd6bd527d382d, type: 3}
+      propertyPath: _onExit.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: CameraManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4259737155542351679, guid: 37f269bf96f96fb4dbcfd6bd527d382d, type: 3}
@@ -47904,12 +48080,28 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1536519458}
     - target: {fileID: 4259737155542351679, guid: 37f269bf96f96fb4dbcfd6bd527d382d, type: 3}
+      propertyPath: _onExit.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 1536519460}
+    - target: {fileID: 4259737155542351679, guid: 37f269bf96f96fb4dbcfd6bd527d382d, type: 3}
+      propertyPath: _onEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 1536519460}
+    - target: {fileID: 4259737155542351679, guid: 37f269bf96f96fb4dbcfd6bd527d382d, type: 3}
       propertyPath: OnExit.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.GameObject, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 4259737155542351679, guid: 37f269bf96f96fb4dbcfd6bd527d382d, type: 3}
       propertyPath: OnEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4259737155542351679, guid: 37f269bf96f96fb4dbcfd6bd527d382d, type: 3}
+      propertyPath: _onExit.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: CameraHolder, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4259737155542351679, guid: 37f269bf96f96fb4dbcfd6bd527d382d, type: 3}
+      propertyPath: _onEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: CameraHolder, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6399560072559388929, guid: 37f269bf96f96fb4dbcfd6bd527d382d, type: 3}
       propertyPath: m_LocalPosition.x

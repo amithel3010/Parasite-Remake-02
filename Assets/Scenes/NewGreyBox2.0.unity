@@ -21351,6 +21351,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1031259431}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!95 &1031301401 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2761184326256458513, guid: 2bf96832019324b4b8b66dd384314179, type: 3}
+  m_PrefabInstance: {fileID: 1422154110604580597}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1032188974
 GameObject:
   m_ObjectHideFlags: 0
@@ -50459,6 +50464,74 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 487778930736152570, guid: 2bf96832019324b4b8b66dd384314179, type: 3}
+      propertyPath: _onButtonUp.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 487778930736152570, guid: 2bf96832019324b4b8b66dd384314179, type: 3}
+      propertyPath: _onButtonPress.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 487778930736152570, guid: 2bf96832019324b4b8b66dd384314179, type: 3}
+      propertyPath: _onButtonUp.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 487778930736152570, guid: 2bf96832019324b4b8b66dd384314179, type: 3}
+      propertyPath: _onButtonUp.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1031301401}
+    - target: {fileID: 487778930736152570, guid: 2bf96832019324b4b8b66dd384314179, type: 3}
+      propertyPath: _onButtonPress.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 487778930736152570, guid: 2bf96832019324b4b8b66dd384314179, type: 3}
+      propertyPath: _onButtonPress.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1031301401}
+    - target: {fileID: 487778930736152570, guid: 2bf96832019324b4b8b66dd384314179, type: 3}
+      propertyPath: _onButtonUp.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 487778930736152570, guid: 2bf96832019324b4b8b66dd384314179, type: 3}
+      propertyPath: _onButtonUp.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SetTrigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 487778930736152570, guid: 2bf96832019324b4b8b66dd384314179, type: 3}
+      propertyPath: _onButtonPress.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 487778930736152570, guid: 2bf96832019324b4b8b66dd384314179, type: 3}
+      propertyPath: _onButtonPress.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SetTrigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 487778930736152570, guid: 2bf96832019324b4b8b66dd384314179, type: 3}
+      propertyPath: _onButtonUp.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UnityEngine.Animator, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 487778930736152570, guid: 2bf96832019324b4b8b66dd384314179, type: 3}
+      propertyPath: _onButtonUp.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 487778930736152570, guid: 2bf96832019324b4b8b66dd384314179, type: 3}
+      propertyPath: _onButtonPress.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UnityEngine.Animator, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 487778930736152570, guid: 2bf96832019324b4b8b66dd384314179, type: 3}
+      propertyPath: _onButtonUp.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: DoorClose
+      objectReference: {fileID: 0}
+    - target: {fileID: 487778930736152570, guid: 2bf96832019324b4b8b66dd384314179, type: 3}
+      propertyPath: _onButtonPress.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: DoorOpen
+      objectReference: {fileID: 0}
+    - target: {fileID: 487778930736152570, guid: 2bf96832019324b4b8b66dd384314179, type: 3}
+      propertyPath: _onButtonUp.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 487778930736152570, guid: 2bf96832019324b4b8b66dd384314179, type: 3}
+      propertyPath: _onButtonPress.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 648264620264557381, guid: 2bf96832019324b4b8b66dd384314179, type: 3}
       propertyPath: m_LocalPosition.x
       value: -60.296017
@@ -50545,13 +50618,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7955764507826712238, guid: 2bf96832019324b4b8b66dd384314179, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -43.714
+      value: -43.5
       objectReference: {fileID: 0}
     - target: {fileID: 8327274548763401319, guid: 2bf96832019324b4b8b66dd384314179, type: 3}
       propertyPath: m_Name
       value: ----TutorialArea----
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5558010851782422334, guid: 2bf96832019324b4b8b66dd384314179, type: 3}
     m_RemovedGameObjects:
     - {fileID: 5418075988813081122, guid: 2bf96832019324b4b8b66dd384314179, type: 3}
     - {fileID: 680284978106340395, guid: 2bf96832019324b4b8b66dd384314179, type: 3}

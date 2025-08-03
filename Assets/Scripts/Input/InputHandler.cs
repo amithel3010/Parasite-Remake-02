@@ -78,10 +78,10 @@ public class InputHandler : MonoBehaviour, IInputSource
         _jumpPressed = _jumpPressed || Input.GetButtonDown("Jump");
         _jumpHeld = _jumpHeld || Input.GetButton("Jump");
 
-        _actionPressed = _actionPressed || Input.GetKeyDown(KeyCode.E);
-        _actionHeld = _actionHeld || Input.GetKey(KeyCode.E);
+        _actionPressed = _actionPressed || Input.GetKeyDown(KeyCode.X);
+        _actionHeld = _actionHeld || Input.GetKey(KeyCode.X);
 
-        _action2Pressed = _action2Pressed || Input.GetKeyDown(KeyCode.F);
+        _action2Pressed = _action2Pressed || Input.GetKeyDown(KeyCode.C);
 
         DebugPressed = DebugPressed || Input.GetKeyDown(KeyCode.Alpha0);
 

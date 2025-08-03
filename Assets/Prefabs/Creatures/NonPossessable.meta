@@ -1,6 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scenes/ModelTests.unity.meta
+guid: d480ec72f0ed54e4ba8a178d8a63f575
+========
 guid: 9034d581fd33bd340b1162dc34959c6e
 folderAsset: yes
+>>>>>>>> origin/main:Assets/Prefabs/Creatures/NonPossessable.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

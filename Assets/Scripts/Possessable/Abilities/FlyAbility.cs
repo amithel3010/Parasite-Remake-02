@@ -2,28 +2,34 @@ using UnityEngine;
 
 public class FlyAbility : BaseJumpAbility
 {
-    //TODO: custom inspector
-    [Header("Fly Specific")]
-    [SerializeField] private int _flyMaxJumps = 5;
+    [Header("Fly Specific")] [SerializeField]
+    private int _flyMaxJumps = 5;
 
-    [Header("Health Cost")]
-    [SerializeField] private float _jumpCost = 10f;
-    
-    private Health _health; //TODO: Change to stamina, or even more flexible - resource
+    [Header("Resource Cost")] [SerializeField]
+    private float _jumpCost = 10f;
 
-    private bool _shouldConsumeHealth;
+    private IResource _resource;
+
+    private bool _shouldConsumeResource;
 
     protected override int MaxJumps => _flyMaxJumps;
 
     protected override void Awake()
     {
-        _health = GetComponent<Health>();
+        _resource = GetComponent<Stamina>() as IResource; //Can be changed if needed.
+        if (_resource == null)
+        {
+            Debug.LogWarning($"{name} has no IResource component. FlyAbility won't consume any resource.");
+        }
+
         if (settings != null)
         {
             _flyMaxJumps = settings.MaxJumps;
         }
+
         base.Awake();
     }
+
     protected override bool CanJump()
     {
         return _timeSinceJumpPressed < _jumpBuffer &&
@@ -34,18 +40,23 @@ public class FlyAbility : BaseJumpAbility
     protected override void PerformJump()
     {
         base.PerformJump();
-        if (_shouldConsumeHealth)
+        if (_shouldConsumeResource && _resource != null)
         {
-            _health.ChangeHealth(-_jumpCost);
-            //TODO: make it subscribe to jump apex event
+            if (_resource.CanAfford(_jumpCost))
+            {
+                _resource.Change(-_jumpCost);
+            }
+            else
+            {
+                //TODO: wait for jump to finish and then:
+                _resource.Change(-_jumpCost);
+                
+            }
         }
-
     }
 
     protected override void OnReachedJumpApex()
     {
-
-
     }
 
     protected override float CalcAdjustedJumpHeight()
@@ -55,13 +66,13 @@ public class FlyAbility : BaseJumpAbility
 
     public override void OnPossessed(Parasite playerParasite, IInputSource inputSource)
     {
-        _shouldConsumeHealth = true;
+        _shouldConsumeResource = true;
         base.OnPossessed(playerParasite, inputSource);
     }
 
     public override void OnUnPossessed(Parasite playerParasite)
     {
-        _shouldConsumeHealth = false;
+        _shouldConsumeResource = false;
         base.OnUnPossessed(playerParasite);
     }
 }

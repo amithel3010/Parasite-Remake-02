@@ -58,7 +58,7 @@ public class FillUi : MonoBehaviour, IPossessionSensitive
         float fillAngle = (1f - percent) * 360f; // invert the fill
 
         //_fillMaterial.SetFloat(_fillPropertyName, fillAngle);
-        _fillMaterial.DOFloat(fillAngle, _fillPropertyName, 0.8f).SetEase(Ease.InOutCubic);
+        _fillMaterial.DOFloat(fillAngle, _fillPropertyName, 0.8f).SetEase(Ease.OutCubic);
     }
 
     public void OnPossessed(Parasite playerParasite, IInputSource inputSource)

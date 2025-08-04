@@ -34,6 +34,6 @@ Material:
     - _Arc1: 100
     - _Arc2: 0
     m_Colors:
-    - _Color: {r: 0.128649, g: 0.5566038, b: 0.18116067, a: 1}
+    - _Color: {r: 0, g: 0.9528302, b: 0.11364028, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

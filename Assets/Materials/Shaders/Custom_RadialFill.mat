@@ -31,7 +31,7 @@ Material:
     m_Floats:
     - PixelSnap: 0
     - _Angle: 90
-    - _Arc1: 0
+    - _Arc1: 100
     - _Arc2: 0
     m_Colors:
     - _Color: {r: 0.128649, g: 0.5566038, b: 0.18116067, a: 1}

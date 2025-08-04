@@ -28,11 +28,11 @@ public class BruteShockwave : MonoBehaviour, IPossessionSensitive
 
     //Refs
     private IHasLandedEvent _landingEventRaiser;
-    private Health _health;
+    private IResource _resource;
 
     void Awake()
     {
-        _health = GetComponent<Health>();
+        _resource = GetComponent<Stamina>(); //Can be changed if needed
         _landingEventRaiser = GetComponent<IHasLandedEvent>();
     }
 
@@ -106,7 +106,7 @@ public class BruteShockwave : MonoBehaviour, IPossessionSensitive
 
             if (_shouldConsumeHealth)
             {
-                _health.ChangeHealth(-_shockwaveCost);
+                _resource.Change(-_shockwaveCost);
             }
         }
     }

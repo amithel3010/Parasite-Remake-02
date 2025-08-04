@@ -56,7 +56,6 @@ public class FillUi : MonoBehaviour, IPossessionSensitive
         float percent = Mathf.Clamp01(current / max);
         float fillAngle = (1f - percent) * 360f; // invert the fill
 
-        Debug.Log($"[StaminaUIFill] Updating fill: current={current}, max={max}, angle={fillAngle}");
         _fillMaterial.SetFloat(_fillPropertyName, fillAngle);
     }
 

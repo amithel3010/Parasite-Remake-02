@@ -92,7 +92,7 @@ Material:
     - _Horizon_Color: {r: 1, g: 0.46949857, b: 0, a: 1}
     - _Intersection_Foam_Color: {r: 1, g: 1, b: 1, a: 1}
     - _Refraction_Movement: {r: 0, g: 0, b: 0, a: 0}
-    - _Shallow_Color: {r: 0.45768058, g: 0.8018868, b: 0.7984465, a: 0.43137255}
+    - _Shallow_Color: {r: 0.37126204, g: 0.764151, b: 0.4087363, a: 0.43137255}
     - _Shore_Color: {r: 0, g: 0, b: 0, a: 0}
     - _Specular_Color: {r: 1, g: 1, b: 1, a: 0.1764706}
     - _Surface_Foam_Color: {r: 1, g: 1, b: 1, a: 0}

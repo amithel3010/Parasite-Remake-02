@@ -1,3 +1,4 @@
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -9,14 +10,16 @@ public class UIManager : MonoBehaviour
 
     public static UIManager Instance;
 
-    [Header("UI Elements")]
-    [SerializeField] private Image _healthBar;
+    [Header("UI Elements")] [SerializeField]
+    private Image _healthBar;
+
     [SerializeField] private Image _collectableTracker;
     [SerializeField] private TMP_Text _collectableText;
 
-    [Header("Canvases")]
-    [SerializeField] private Canvas _deathScreenCanvas;
-    [FormerlySerializedAs("_DebugCanvas")] [SerializeField] private Canvas _debugCanvas;
+    [Header("Canvases")] [SerializeField] private Canvas _deathScreenCanvas;
+
+    [FormerlySerializedAs("_DebugCanvas")] [SerializeField]
+    private Canvas _debugCanvas;
 
     InputHandler _playerInput;
 
@@ -51,19 +54,25 @@ public class UIManager : MonoBehaviour
 
     public void ChangeHealthBarImage(Image newImage)
     {
-        _healthBar = newImage;  
+        _healthBar = newImage;
     }
+
     public void UpdateHealthBar(float currentHealth, float maxHealth)
     {
         if (_healthBar != null)
         {
-            _healthBar.fillAmount = currentHealth / maxHealth;
+            //_healthBar.fillAmount = currentHealth / maxHealth;
+
+            _healthBar.DOFillAmount(currentHealth / maxHealth, 1f).SetEase(Ease.OutCubic);
         }
     }
 
     public void UpdateCollectableTracker(int collected, int total)
     {
-        _collectableTracker.fillAmount = (float)collected / total;
+        //_collectableTracker.fillAmount = (float)collected / total;
+        if (total == 0) return;
+
+        _collectableTracker.DOFillAmount((float)collected / total, 1f).SetEase(Ease.OutCubic);
         _collectableText.text = $"{collected} / {total}";
     }
 

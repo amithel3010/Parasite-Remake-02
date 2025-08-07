@@ -145,10 +145,11 @@ GameObject:
   - component: {fileID: 4009081939644178535}
   - component: {fileID: 9080652240057910512}
   - component: {fileID: 6001059940551028262}
-  - component: {fileID: 8731389846034988876}
   - component: {fileID: 4807968747101287878}
   - component: {fileID: 3660980270533049842}
   - component: {fileID: 4779562977708027517}
+  - component: {fileID: 5025745558779639040}
+  - component: {fileID: 4638277098448194021}
   m_Layer: 6
   m_Name: FlyCat
   m_TagString: Untagged
@@ -401,6 +402,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf151c3c8779e48748aa183d917105a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _deathParticles: {fileID: 3096024168161478439, guid: e1d9d9cdc7e0c384dabcacc2f61b4232, type: 3}
 --- !u!114 &8505040607584686199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -477,19 +479,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hitColor: {r: 1, g: 0, b: 0, a: 1}
---- !u!114 &8731389846034988876
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4087430175363014747}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29a8a9a7fbbdaf841a2cb82cd286f623, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _deathColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!114 &4807968747101287878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -530,6 +519,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _staminaBar: {fileID: 9138776193771340666}
+--- !u!114 &5025745558779639040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4087430175363014747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 399335c946cb6134fbc76f01cb42ae72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gfxToDisable: {fileID: 4677507590183858204}
+--- !u!114 &4638277098448194021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4087430175363014747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 630ba03ceb82b784f9a414c5d9dfe399, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _colliderToDisable: {fileID: 3637557849164476620}
 --- !u!1 &4581140288191664863
 GameObject:
   m_ObjectHideFlags: 0

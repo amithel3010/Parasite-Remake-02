@@ -7,7 +7,7 @@ public class FillUi : MonoBehaviour, IPossessionSensitive
 {
     [SerializeField] private SpriteRenderer _staminaBar;
 
-    private string _fillPropertyName = "_Arc1";
+    private readonly string _fillPropertyName = "_Arc1";
 
     private IResource _resource;
 
@@ -70,7 +70,10 @@ public class FillUi : MonoBehaviour, IPossessionSensitive
 
     public void OnUnPossessed(Parasite playerParasite)
     {
-        _staminaBar.transform.DOScale(0f, 2f).SetEase(Ease.InOutCubic);
-        _staminaBar.enabled = false;
+        //TODO: stamina bar gets destroyed before it has a chance to tween
+        if (_staminaBar != null)
+        {
+            _staminaBar.transform.DOScale(0f, 2f).SetEase(Ease.InOutCubic).onComplete += () => _staminaBar.enabled = false;
+        }
     }
 }

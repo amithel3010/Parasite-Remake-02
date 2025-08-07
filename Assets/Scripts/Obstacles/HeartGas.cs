@@ -1,25 +1,47 @@
+using System;
 using UnityEngine;
 
 public class HeartGas : MonoBehaviour
 {
-    private TriggerChanneler _trigger;
+    [SerializeField] private Vector3 _size = Vector3.one;
     
-    private ParticleSystem _heartGasParticles;
+    [Header("References")]
+    [SerializeField] private ParticleSystem _heartGasParticles;
+    [SerializeField] private Transform _triggerObject;
+    [SerializeField] private GameObject _colliderVisualizer;
+    
+    [Header("Debug")]
+    [SerializeField] private bool _showCollider = false;
+    
+    //refs
+    private TriggerChanneler _trigger;
     private BoxCollider _collider;
+    
 
     private void Awake()
     {
-        _trigger = GetComponentInChildren<TriggerChanneler>();
+        if (_triggerObject != null)
+        {
+            _trigger = _triggerObject.GetComponent<TriggerChanneler>();
+            _collider = _triggerObject.GetComponent<BoxCollider>();
+        }
         
-        
-        //Must be a better way
-        _collider = GetComponentInChildren<BoxCollider>();
-        _heartGasParticles = GetComponentInChildren<ParticleSystem>();
+        if (_collider != null)
+        {
+            _collider.size = _size;
+            _collider.center = Vector3.zero;
+            _collider.isTrigger = true;
+        }
 
-        if (_collider != null && _heartGasParticles != null)
+        if (_heartGasParticles != null)
         {
             var shape = _heartGasParticles.shape;
-            shape.scale = _collider.size;
+            shape.scale = _size;
+        }
+        
+        if (_colliderVisualizer != null)
+        {
+            _colliderVisualizer.transform.localScale = _size;
         }
         
         if (_trigger == null)
@@ -54,6 +76,29 @@ public class HeartGas : MonoBehaviour
         {
             health.ChangeHealth(-health.MaxHealth);
             Debug.Log("Heart Gas Killed" + target.name);
+        }
+    }
+
+    private void OnValidate()
+    {
+        if (_collider == null && _triggerObject != null)
+        {
+            _collider = _triggerObject.GetComponent<BoxCollider>();
+        }
+        
+        if (_collider != null)
+            _collider.size = _size;
+        
+        if (_heartGasParticles != null)
+        {
+            var shape = _heartGasParticles.shape;
+            shape.scale = _size;
+        }
+        
+        if (_colliderVisualizer != null)
+        {
+            _colliderVisualizer.transform.localScale = _size;
+            _colliderVisualizer.SetActive(_showCollider);
         }
     }
 }

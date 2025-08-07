@@ -418,6 +418,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 137270486500400911, guid: b2e5d7db94e1a446d8dfe87719c2a3a0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 769128634948519349, guid: b2e5d7db94e1a446d8dfe87719c2a3a0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 769128634948519349, guid: b2e5d7db94e1a446d8dfe87719c2a3a0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 769128634948519349, guid: b2e5d7db94e1a446d8dfe87719c2a3a0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 2369493373613017839, guid: b2e5d7db94e1a446d8dfe87719c2a3a0, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.28
@@ -474,6 +490,10 @@ PrefabInstance:
       propertyPath: m_Center.y
       value: 1.3678515
       objectReference: {fileID: 0}
+    - target: {fileID: 4334227875861224953, guid: b2e5d7db94e1a446d8dfe87719c2a3a0, type: 3}
+      propertyPath: _defaultGfx
+      value: 
+      objectReference: {fileID: 7073713451097900918}
     - target: {fileID: 6999565424575073364, guid: b2e5d7db94e1a446d8dfe87719c2a3a0, type: 3}
       propertyPath: m_Name
       value: Brute Variant(CanGrab)
@@ -486,7 +506,7 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 8212683257204644165}
     - targetCorrespondingSourceObject: {fileID: 6049368566672579025, guid: b2e5d7db94e1a446d8dfe87719c2a3a0, type: 3}
-      insertIndex: -1
+      insertIndex: 0
       addedObject: {fileID: 7593403546698489292}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6999565424575073364, guid: b2e5d7db94e1a446d8dfe87719c2a3a0, type: 3}

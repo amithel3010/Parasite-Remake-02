@@ -3187,7 +3187,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b847e50e90c04cf9862c55cd2033385, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dieOnUnPossess: 1
+  _defaultGfx: {fileID: 0}
+  _possessedGfx: {fileID: 0}
 --- !u!1 &3263319249378391182
 GameObject:
   m_ObjectHideFlags: 0
@@ -4571,7 +4572,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b847e50e90c04cf9862c55cd2033385, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dieOnUnPossess: 1
+  _defaultGfx: {fileID: 0}
+  _possessedGfx: {fileID: 0}
 --- !u!4 &7794217830572848523
 Transform:
   m_ObjectHideFlags: 0

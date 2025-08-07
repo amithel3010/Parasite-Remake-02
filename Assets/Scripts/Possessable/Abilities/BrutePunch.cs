@@ -43,6 +43,11 @@ public class BrutePunch : MonoBehaviour, IPossessionSensitive
             _isActive = true;
             _timer = _duration;
             _alreadyHit.Clear();
+            
+            if (_shouldConsumeResource)
+            {
+                _stamina.Change(-_punchCost);
+            }
         }
 
         if (!_isActive) return;
@@ -95,11 +100,6 @@ public class BrutePunch : MonoBehaviour, IPossessionSensitive
                     breakable.Break();
                 }
             }
-        }
-
-        if (_shouldConsumeResource)
-        {
-            _stamina.Change(-_punchCost);
         }
     }
 

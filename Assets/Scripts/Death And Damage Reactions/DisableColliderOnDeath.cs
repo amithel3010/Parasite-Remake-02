@@ -5,6 +5,6 @@ public class DisableColliderOnDeath : MonoBehaviour, IDeathResponse
     [SerializeField] private Collider _colliderToDisable;
     public void OnDeath()
     {
-        _colliderToDisable.enabled = false;
+        _colliderToDisable.isTrigger = true;
     }
 }

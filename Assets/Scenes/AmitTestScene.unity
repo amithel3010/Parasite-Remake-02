@@ -882,6 +882,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 628702370}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &638939085 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5713760092388963642, guid: 48c38730993faf04580e4f0d2b4da5ee, type: 3}
+  m_PrefabInstance: {fileID: 7661440747657544061}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &650005718 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7544597291487443766, guid: ae972c98b11de43099d27d66f1349499, type: 3}
@@ -2472,7 +2477,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2097046064}
   m_Layer: 0
-  m_Name: ---DeathParticlesTests---
+  m_Name: ---Particletests---
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2492,6 +2497,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1945509735}
+  - {fileID: 638939085}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2105923968
@@ -3881,6 +3887,8 @@ MonoBehaviour:
   _shockwaveCost: 5
   _hitboxRadius: 2.55
   _duration: 0.2
+  _shockwaveParticles: {fileID: 0}
+  _shockwaveParticlesTransform: {fileID: 0}
   _circleDebugMaterial: {fileID: 2100000, guid: a701951b68b1a44a7b1d55850e9459f7, type: 2}
   _showDebugCircleInGame: 1
 --- !u!4 &5148139318089769125
@@ -4615,6 +4623,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1889313969843676785}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &7661440747657544061
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2097046064}
+    m_Modifications:
+    - target: {fileID: 2400253153650599887, guid: 48c38730993faf04580e4f0d2b4da5ee, type: 3}
+      propertyPath: m_Name
+      value: Shockwave
+      objectReference: {fileID: 0}
+    - target: {fileID: 5713760092388963642, guid: 48c38730993faf04580e4f0d2b4da5ee, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5713760092388963642, guid: 48c38730993faf04580e4f0d2b4da5ee, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5713760092388963642, guid: 48c38730993faf04580e4f0d2b4da5ee, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5713760092388963642, guid: 48c38730993faf04580e4f0d2b4da5ee, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5713760092388963642, guid: 48c38730993faf04580e4f0d2b4da5ee, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5713760092388963642, guid: 48c38730993faf04580e4f0d2b4da5ee, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5713760092388963642, guid: 48c38730993faf04580e4f0d2b4da5ee, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5713760092388963642, guid: 48c38730993faf04580e4f0d2b4da5ee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 5713760092388963642, guid: 48c38730993faf04580e4f0d2b4da5ee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5713760092388963642, guid: 48c38730993faf04580e4f0d2b4da5ee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 48c38730993faf04580e4f0d2b4da5ee, type: 3}
 --- !u!23 &7733856218051794680
 MeshRenderer:
   m_ObjectHideFlags: 0

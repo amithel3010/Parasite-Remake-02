@@ -434,6 +434,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 2134877211376529441, guid: b2e5d7db94e1a446d8dfe87719c2a3a0, type: 3}
+      propertyPath: _gfxToDisable
+      value: 
+      objectReference: {fileID: 2048587210584212199}
     - target: {fileID: 2369493373613017839, guid: b2e5d7db94e1a446d8dfe87719c2a3a0, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.28
@@ -516,6 +520,11 @@ PrefabInstance:
 --- !u!4 &1343300492842569331 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6049368566672579025, guid: b2e5d7db94e1a446d8dfe87719c2a3a0, type: 3}
+  m_PrefabInstance: {fileID: 4708495849596114850}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2048587210584212199 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6717676509753251141, guid: b2e5d7db94e1a446d8dfe87719c2a3a0, type: 3}
   m_PrefabInstance: {fileID: 4708495849596114850}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2338638882686671862 stripped

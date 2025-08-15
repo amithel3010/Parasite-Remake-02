@@ -20,8 +20,8 @@ public class BrutePunch : MonoBehaviour, IPossessionSensitive
     [SerializeField] private Material _debugMaterial; // A transparent material for visualization
     [SerializeField] private Mesh _debugMesh; // Optional: default to a Sphere mesh
 
-    private Health _bruteHealth;
-    private bool _shouldConsumeHealth;
+    private IResource _stamina;
+    private bool _shouldConsumeResource;
     private bool _isPunching;
     private bool _isActive;
     private float _timer;
@@ -31,7 +31,7 @@ public class BrutePunch : MonoBehaviour, IPossessionSensitive
     {
         _defaultInputSource = GetComponent<IInputSource>();
         _inputSource = _defaultInputSource;
-        _bruteHealth = GetComponent<Health>();
+        _stamina = GetComponent<Stamina>(); //can be changed if needed
     }
 
     void FixedUpdate()
@@ -43,6 +43,11 @@ public class BrutePunch : MonoBehaviour, IPossessionSensitive
             _isActive = true;
             _timer = _duration;
             _alreadyHit.Clear();
+            
+            if (_shouldConsumeResource)
+            {
+                _stamina.Change(-_punchCost);
+            }
         }
 
         if (!_isActive) return;
@@ -96,24 +101,19 @@ public class BrutePunch : MonoBehaviour, IPossessionSensitive
                 }
             }
         }
-
-        if (_shouldConsumeHealth)
-        {
-            _bruteHealth.ChangeHealth(-_punchCost);
-        }
     }
 
     #region Possession Sensitive
 
     public void OnPossessed(Parasite playerParasite, IInputSource newInputSource)
     {
-        _shouldConsumeHealth = true;
+        _shouldConsumeResource = true;
         _inputSource = newInputSource;
     }
 
     public void OnUnPossessed(Parasite playerParasite)
     {
-        _shouldConsumeHealth = false;
+        _shouldConsumeResource = false;
         _inputSource = _defaultInputSource;
     }
 

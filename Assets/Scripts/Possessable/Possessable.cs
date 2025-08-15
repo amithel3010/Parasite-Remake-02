@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class Possessable : MonoBehaviour, ICollector
 {
-    [SerializeField] private bool _dieOnUnPossess = true;
+    [Header("Gfx")]
+    [SerializeField] private GameObject _defaultGfx;
+    [SerializeField] private GameObject _possessedGfx;
 
     private Health _healthSystem;
     private IPossessionSensitive[] _possessionSensitive;
@@ -11,11 +13,27 @@ public class Possessable : MonoBehaviour, ICollector
     {
         _possessionSensitive = GetComponents<IPossessionSensitive>();
         _healthSystem = GetComponent<Health>();
+
+        if (_defaultGfx == null)
+        {
+            Debug.LogWarning("Possessable: _defaultGfx is null");
+        }
+
+        if (_possessedGfx == null)
+        {
+            Debug.LogWarning("Possessable: _possessedGfx is null");
+        }
+        
+        _possessedGfx?.SetActive(false);
+        _defaultGfx?.SetActive(true);
     }
 
     public void OnPossess(Parasite playerParasite, IInputSource inputSource)
     {
         LayerUtils.SetLayerAllChildren(this.transform, LayerUtils.PlayerControlledLayer);
+        
+        _possessedGfx?.SetActive(true);
+        _defaultGfx?.SetActive(false);
 
         foreach (var sensitive in _possessionSensitive)
         {
@@ -32,15 +50,13 @@ public class Possessable : MonoBehaviour, ICollector
         {
             sensitive.OnUnPossessed(playerParasite);
         }
-
-        if (_dieOnUnPossess)
-        {
-            _healthSystem.KillImmediately();
-        }
+        
+        //Kill possessable after unpossessing
+        _healthSystem.KillImmediately();
     }
 
     public void Collect(Collectable collectable) // called only if controlled by player
-    {     
-            CollectableManager.Instance.CollectCollectable(collectable);      
+    {
+        CollectableManager.Instance.CollectCollectable(collectable);
     }
 }

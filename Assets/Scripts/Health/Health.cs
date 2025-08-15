@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 
-public class Health : MonoBehaviour
+public class Health : MonoBehaviour, IResource
 {
     //class responsible for managing a creature health
     //creature with health can: take damage, heal and die
@@ -12,6 +12,7 @@ public class Health : MonoBehaviour
     [SerializeField] private float _iFramesDuration = 0.3f;
 
     public event Action<float, float> OnHealthChanged;
+    public event Action<float, float> OnValueChanged;
     public event Action<float> OnDamaged;
     public event Action OnDeath;
 
@@ -36,6 +37,7 @@ public class Health : MonoBehaviour
         _currentHealth = Mathf.Clamp(_currentHealth, 0, _maxHealth);
 
         OnHealthChanged?.Invoke(_currentHealth, _maxHealth);
+        OnValueChanged?.Invoke(_currentHealth, _maxHealth);
 
         if (_currentHealth <= 0)
         {
@@ -84,6 +86,18 @@ public class Health : MonoBehaviour
         }
     }
 
+
+    public float CurrentValue => _currentHealth;
+    public float MaxValue => _maxHealth;
+    public void Change(float amount)
+    {
+        ChangeHealth(amount);
+    }
+
+    public bool CanAfford(float amount)
+    {
+        return amount <= CurrentValue;
+    }
 
 
 }

@@ -772,6 +772,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: VerticalRectStaminaBar
       objectReference: {fileID: 0}
+    - target: {fileID: 3249944569927100343, guid: c29c39dcf1723224183491030fec5447, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -788,6 +792,10 @@ PrefabInstance:
     - target: {fileID: 1531392658144311280, guid: 5b1710ba121d8ca4aa26bbd6882a545c, type: 3}
       propertyPath: m_Name
       value: CircleStaminaBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 1531392658144311280, guid: 5b1710ba121d8ca4aa26bbd6882a545c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2586559164979093621, guid: 5b1710ba121d8ca4aa26bbd6882a545c, type: 3}
       propertyPath: m_Pivot.x
@@ -1133,6 +1141,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HorizontalRectStaminaBar
       objectReference: {fileID: 0}
+    - target: {fileID: 4635409226196778232, guid: 6fd1a8a718c2cc741b6a835e3e01ffb7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1232,7 +1244,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6255345155696150151, guid: a5244a2bb99749e489e9966bf838903c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

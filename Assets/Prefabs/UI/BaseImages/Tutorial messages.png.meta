@@ -1,0 +1,392 @@
+fileFormatVersion: 2
+guid: 52ebce5c92e107e4fac3a24d3ef10f62
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Tutorial messages_0
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 921
+        width: 1053
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93cad017395f4b446864e41c8ad6178a
+      internalID: 467980592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial messages_8
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 766
+        width: 1105
+        height: 107
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85dbb4f9590f1a3478f3154cd645a177
+      internalID: 1984329947
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial messages_16
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 640
+        width: 834
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d366007c96e53c449844396c1e7f0522
+      internalID: 2052278020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial messages_22
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 560
+        width: 1655
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c40b376ba2c3e934e8fc2eed26f81617
+      internalID: -1148825006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial messages_34
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 475
+        width: 1402
+        height: 61
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 737c7eca4b44ace47931fd31c64b9ec7
+      internalID: -218408456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial messages_44
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 391
+        width: 1160
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7250b8814ba8e234e96bb6ce62fec138
+      internalID: 1491913311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial messages_54
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 307
+        width: 1417
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 189e4d09e0dfdae46b9e05e63f379c56
+      internalID: 1229828270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial messages_62
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 223
+        width: 1374
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0177e04142745a04d92bf311c00a4dd3
+      internalID: -711283159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tutorial messages_69
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 143
+        width: 838
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d96aca5dc6b3efb4aaebb9959223d19e
+      internalID: -1908423338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 704faa603261c6e42af35ca2555bab06
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      Tutorial messages_0: 467980592
+      Tutorial messages_1: -1231454026
+      Tutorial messages_10: 1350495485
+      Tutorial messages_11: -2016199651
+      Tutorial messages_12: 1349068519
+      Tutorial messages_13: -378076680
+      Tutorial messages_14: -1318920383
+      Tutorial messages_15: 255479999
+      Tutorial messages_16: 2052278020
+      Tutorial messages_17: -1776924179
+      Tutorial messages_18: 1451858631
+      Tutorial messages_19: 740916768
+      Tutorial messages_2: 1130388729
+      Tutorial messages_20: 1418500024
+      Tutorial messages_21: -1274687674
+      Tutorial messages_22: -1148825006
+      Tutorial messages_23: -1612830831
+      Tutorial messages_24: 1148999441
+      Tutorial messages_25: 2031052384
+      Tutorial messages_26: 85386479
+      Tutorial messages_27: -1553404555
+      Tutorial messages_28: 232752679
+      Tutorial messages_29: -1123093581
+      Tutorial messages_3: 1036272882
+      Tutorial messages_30: 1397156983
+      Tutorial messages_31: -1429630286
+      Tutorial messages_32: -324266087
+      Tutorial messages_33: 1348407403
+      Tutorial messages_34: -218408456
+      Tutorial messages_35: 1846009181
+      Tutorial messages_36: 744041646
+      Tutorial messages_37: 1458553681
+      Tutorial messages_38: 877822870
+      Tutorial messages_39: -440883813
+      Tutorial messages_4: -975238360
+      Tutorial messages_40: -283226571
+      Tutorial messages_41: -120760490
+      Tutorial messages_42: 1303065927
+      Tutorial messages_43: 1556722267
+      Tutorial messages_44: 1491913311
+      Tutorial messages_45: 846767472
+      Tutorial messages_46: 118236508
+      Tutorial messages_47: 1089075344
+      Tutorial messages_48: 2126287654
+      Tutorial messages_49: -2047083353
+      Tutorial messages_5: 961209233
+      Tutorial messages_50: -297446825
+      Tutorial messages_51: 597126295
+      Tutorial messages_52: 1796002975
+      Tutorial messages_53: -1931789913
+      Tutorial messages_54: 1229828270
+      Tutorial messages_55: 185630005
+      Tutorial messages_56: -1084933765
+      Tutorial messages_57: -392452033
+      Tutorial messages_58: -684816560
+      Tutorial messages_59: -1002235938
+      Tutorial messages_6: -1248690684
+      Tutorial messages_60: -893259486
+      Tutorial messages_61: 948709462
+      Tutorial messages_62: -711283159
+      Tutorial messages_63: 508538925
+      Tutorial messages_64: -1309168289
+      Tutorial messages_65: -1522502375
+      Tutorial messages_66: -390596144
+      Tutorial messages_67: 894658303
+      Tutorial messages_68: 1620151089
+      Tutorial messages_69: -1908423338
+      Tutorial messages_7: 806581321
+      Tutorial messages_70: 549802049
+      Tutorial messages_71: -538590244
+      Tutorial messages_72: -2005514080
+      Tutorial messages_73: -480511140
+      Tutorial messages_74: 59203480
+      Tutorial messages_8: 1984329947
+      Tutorial messages_9: 1274904339
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

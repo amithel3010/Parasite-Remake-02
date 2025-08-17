@@ -61,7 +61,6 @@ public class PlayerHealthHandler : MonoBehaviour, IPossessionSource, IPlayerResp
     public void OnParasitePossession()
     {
         _health.ResetHealth();
-        _health.SetDead(false);
     }
 
     public void OnParasiteUnPossession()
@@ -71,6 +70,7 @@ public class PlayerHealthHandler : MonoBehaviour, IPossessionSource, IPlayerResp
 
     public void OnPlayerRespawn()
     {
+        _health.SetDead(false);
         _health.ResetHealth();
         
     }

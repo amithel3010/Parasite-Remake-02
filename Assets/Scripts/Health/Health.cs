@@ -19,6 +19,7 @@ public class Health : MonoBehaviour, IResource
     private float _currentHealth;
     private bool _isHittable = true;
     private bool _isInvincible = false;
+    private bool _isDead = false;
 
     public float CurrentHealth => _currentHealth;
     public float MaxHealth => _maxHealth;
@@ -30,7 +31,7 @@ public class Health : MonoBehaviour, IResource
 
     public void ChangeHealth(float amount)
     {
-        if (!_isHittable || _isInvincible) return;
+        if (!_isHittable || _isInvincible || _isDead) return;
 
         float oldHealth = _currentHealth;
         _currentHealth += amount;
@@ -41,6 +42,7 @@ public class Health : MonoBehaviour, IResource
 
         if (_currentHealth <= 0)
         {
+            SetDead(true);
             OnDeath?.Invoke();
         }
         else if (_currentHealth < oldHealth)
@@ -84,6 +86,11 @@ public class Health : MonoBehaviour, IResource
                 Debug.Log("Parasite is now HITTABLE");
                 break;
         }
+    }
+
+    public void SetDead(bool isDead)
+    {
+        _isDead = isDead;
     }
 
 

@@ -6,7 +6,6 @@ using UnityEngine.Serialization;
 [RequireComponent(typeof(CompoundTrigger))]
 public class CameraArea : MonoBehaviour
 {
-    //TODO: make this script a simple script for camera areas that automatically calls for activate camera and mark for de activation, so it requires almost no setup in inspector.
     [SerializeField] private CameraHolder _cameraForArea;
 
     private CompoundTrigger _compoundTrigger;
@@ -30,11 +29,13 @@ public class CameraArea : MonoBehaviour
 
     private void ActivateCamera()
     {
+        Debug.Log($"Activated {_cameraForArea.name}");
         CameraManager.Instance.ActivateCamera(_cameraForArea);
     }
 
     private void MarkForDeactivation()
     {
+        Debug.Log($"Marked {_cameraForArea.name} for deactivation");
         CameraManager.Instance.MarkCameraForDeactivation(_cameraForArea);
     }
 }

@@ -387,9 +387,9 @@ MonoBehaviour:
   - m_EditModeType: 1
     m_Knots:
     - Position:
-        x: 0.26000977
-        y: 0.67840195
-        z: -1.1542816
+        x: 0.25
+        y: 0.5
+        z: -18.22
       TangentIn:
         x: 0
         y: 0
@@ -405,8 +405,8 @@ MonoBehaviour:
           z: 0.0000037758011
           w: 0.9940657
     - Position:
-        x: -0.44999695
-        y: -0.0015983582
+        x: 0.25
+        y: 0.5
         z: 26.31572
       TangentIn:
         x: 0

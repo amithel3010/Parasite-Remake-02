@@ -128,8 +128,8 @@ public class CameraManager : MonoBehaviour
             return;
         }
 
-        Debug.Log($"Deactivated {cameraHolderToDeactivate}");
         cameraHolderToDeactivate.gameObject.SetActive(false);
+        Debug.Log($"Deactivated {cameraHolderToDeactivate}");
         _currentCameraMarkedForDeactivation.SetMarkedForDeactivation(false);
         _currentCameraMarkedForDeactivation = null;
     }

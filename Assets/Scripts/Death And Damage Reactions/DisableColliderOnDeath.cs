@@ -1,10 +1,19 @@
+using System;
 using UnityEngine;
 
 public class DisableColliderOnDeath : MonoBehaviour, IDeathResponse
 {
     [SerializeField] private Collider _colliderToDisable;
-    public void OnDeath()
+     private Rigidbody _rbToDisable;
+
+     private void Awake()
+     {
+         _rbToDisable = GetComponent<Rigidbody>();
+     }
+
+     public void OnDeath()
     {
-        _colliderToDisable.isTrigger = true;
+        _rbToDisable.detectCollisions = false;
+        _rbToDisable.isKinematic = true;
     }
 }

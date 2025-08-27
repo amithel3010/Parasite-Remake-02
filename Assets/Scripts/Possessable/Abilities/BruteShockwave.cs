@@ -7,25 +7,23 @@ public class BruteShockwave : MonoBehaviour, IPossessionSensitive
 {
     //TODO: this should maybe inherent from jump.
 
-    [Header("General Settings")] 
-    [SerializeField] private BreakableType _canBreak;
+    [Header("General Settings")] [SerializeField]
+    private BreakableType _canBreak;
 
     [SerializeField] private float _damage = 25f;
 
-    [FormerlySerializedAs("_ShockwaveCost")] 
-    [SerializeField] private float _shockwaveCost = 5f;
+    [FormerlySerializedAs("_ShockwaveCost")] [SerializeField]
+    private float _shockwaveCost = 5f;
 
-    [Header("Hitbox Settings")] 
-    [SerializeField] private float _hitboxRadius = 1f;
+    [Header("Hitbox Settings")] [SerializeField]
+    private float _hitboxRadius = 1f;
 
     [SerializeField] private float _duration = 0.2f;
 
-    [Header("Vfx")] 
-    [SerializeField] private ParticleSystem _shockwaveParticles;
+    [Header("Vfx")] [SerializeField] private ParticleSystem _shockwaveParticles;
     [SerializeField] private Transform _shockwaveParticlesTransform;
 
-    [Header("Debug")] 
-    [SerializeField] private Material _circleDebugMaterial;
+    [Header("Debug")] [SerializeField] private Material _circleDebugMaterial;
     [SerializeField] private bool _showDebugCircleInGame = true;
 
     private bool _isActive;
@@ -83,7 +81,16 @@ public class BruteShockwave : MonoBehaviour, IPossessionSensitive
 
         foreach (var hit in hits)
         {
-            GameObject target = hit.transform.parent.gameObject;
+            GameObject target;
+            
+            if (hit.transform.parent != null)
+            {
+                 target = hit.transform.parent.gameObject;
+            }
+            else
+            {
+                return;
+            }
 
             if (target == gameObject || _alreadyHit.Contains(target)) continue;
 

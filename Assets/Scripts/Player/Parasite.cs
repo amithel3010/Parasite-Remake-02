@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
@@ -13,6 +14,7 @@ public class Parasite : MonoBehaviour, ICollector
     [Header("Raycast")]
     [SerializeField] private LayerMask _possessableLayer; //might be useless because of LayerUtils
     [SerializeField] private float _possessRayLength;
+    [SerializeField] private float _possessSphereRadius = 1;
 
     [Header("On UnPossession")]
     [SerializeField] private float _ejectForce = 50f;
@@ -20,6 +22,9 @@ public class Parasite : MonoBehaviour, ICollector
 
     [Header("Other")]
     [SerializeField] private GameObject _gfx;
+    
+    //debug
+    private Ray _debugRay;
 
     private bool _canPossess = true;
 
@@ -67,7 +72,8 @@ public class Parasite : MonoBehaviour, ICollector
     private void TryPossess()
     {
         Ray possessCheckRay = new(transform.position, -transform.up);
-        if (Physics.Raycast(possessCheckRay, out RaycastHit hitInfo, _possessRayLength, _possessableLayer))
+        _debugRay =  possessCheckRay;
+        if (Physics.SphereCast(possessCheckRay, _possessSphereRadius, out RaycastHit hitInfo, _possessRayLength, _possessableLayer))
         {
             Debug.Log("Trying to possess" + hitInfo.transform.name);
 
@@ -175,4 +181,9 @@ public class Parasite : MonoBehaviour, ICollector
         _rb.detectCollisions = true;
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawRay(_debugRay);
+        Gizmos.DrawSphere(transform.position - transform.up, _possessSphereRadius);
+    }
 }

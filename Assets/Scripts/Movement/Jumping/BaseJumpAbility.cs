@@ -40,20 +40,18 @@ public class BaseJumpAbility : MonoBehaviour, IPossessionSensitive, IPossessionS
     protected IInputSource _defaultInputSource;
     protected MonoBehaviour _knockbackProvider; // for seeing in inspector
     protected IKnockbackStatus _knockbackStatus;
-
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    
     protected virtual void Awake()
     {
+        _rb = GetComponent<Rigidbody>();
+        _hover = GetComponent<Hover>();
+        
         if (settings != null)
         {
             _jumpHeight = settings.JumpHeight;
             _jumpBuffer = settings.JumpBuffer;
         }
-
-        _rb = GetComponent<Rigidbody>();
-        _hover = GetComponent<Hover>();
-
+        
         if (_inputSourceProvider == null)
         {
             _inputSourceProvider = GetComponent<IInputSource>() as MonoBehaviour;
@@ -83,8 +81,6 @@ public class BaseJumpAbility : MonoBehaviour, IPossessionSensitive, IPossessionS
         if (_showExcpectedJumpHeight)
         {
             //TODO: must be better way
-
-
             DrawJumpHeight();
         }
     }

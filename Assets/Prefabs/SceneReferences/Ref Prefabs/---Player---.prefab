@@ -84,6 +84,14 @@ PrefabInstance:
       propertyPath: _showExcpectedJumpHeight
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6819452192336291955, guid: b4cbc881dfb214d8a98ec7d79bb7eaa5, type: 3}
+      propertyPath: _possessionCooldown
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6819452192336291955, guid: b4cbc881dfb214d8a98ec7d79bb7eaa5, type: 3}
+      propertyPath: _possessSphereRadius
+      value: 0.35
+      objectReference: {fileID: 0}
     - target: {fileID: 8488956055623732518, guid: b4cbc881dfb214d8a98ec7d79bb7eaa5, type: 3}
       propertyPath: m_Name
       value: Player - Parasite

@@ -1191,7 +1191,7 @@ MonoBehaviour:
         m_MethodName: SpawnPossessable
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 6999565424575073364, guid: b2e5d7db94e1a446d8dfe87719c2a3a0, type: 3}
+          m_ObjectArgument: {fileID: 2338638882686671862, guid: 62846ba83004be24d912ad81643db2c4, type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0

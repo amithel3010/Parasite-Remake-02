@@ -1,15 +1,13 @@
-using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Health))]
-public class PossessableHealthHandler : MonoBehaviour, IPossessionSensitive
+public class NonPossessableHealthHandler : MonoBehaviour
 {
     private Health _health;
     private IDamageResponse[] _damageResponsers;
     private IDeathResponse[] _deathResponsers;
-    
-    [Header("Vfx")]
-    [SerializeField] private ParticleSystem _deathParticles;
+
+    [Header("Vfx")] [SerializeField] private ParticleSystem _deathParticles;
 
     void Awake()
     {
@@ -48,23 +46,12 @@ public class PossessableHealthHandler : MonoBehaviour, IPossessionSensitive
         {
             deathResponse.OnDeath();
         }
+
         if (_deathParticles != null)
         {
             Instantiate(_deathParticles, transform.position, Quaternion.identity);
         }
+
         Destroy(gameObject, 5f);
     }
-
-    public void OnPossessed(Parasite playerParasite, IInputSource inputSource)
-    {
-        _health.ResetHealth();
-        //TODO: unclear code!!! baiscally means on death, exit possessable. sounds like a death response to me. but how do i get a reference to parasite?
-        _health.OnDeath += playerParasite.ExitPossessable;
-    }
-
-    public void OnUnPossessed(Parasite playerParasite)
-    {
-        _health.OnDeath -= playerParasite.ExitPossessable;
-    }
-    
 }

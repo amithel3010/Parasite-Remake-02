@@ -35,10 +35,12 @@ namespace AI
             _desiredMoveDir = Vector3.zero;
             _detectedPlayer = false;
 
-            Collider[] hitColliders = Physics.OverlapSphere(transform.position, _playerDetectionRadius);
-            foreach (var collider in hitColliders)
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, _playerDetectionRadius, LayerUtils.PlayerControlledLayerMask);
+            foreach (var col in hitColliders)
             {
-                if (collider.transform.parent.gameObject.TryGetComponent<Parasite>(out Parasite parasite))
+                //TODO: Doesn't detect possessables right now
+                
+                if (col.transform.parent.gameObject.TryGetComponent<Parasite>(out Parasite parasite))
                 {
                     //detected player
                     _detectedPlayer = true;

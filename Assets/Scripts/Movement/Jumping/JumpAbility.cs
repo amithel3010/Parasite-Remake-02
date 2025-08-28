@@ -8,8 +8,8 @@ public class JumpAbility : BaseJumpAbility
         if (settings != null)
         {
             _coyoteTime = settings.CoyoteTime;
-            base.Awake();
         }
+        base.Awake();
     }
 
     protected override bool CanJump()

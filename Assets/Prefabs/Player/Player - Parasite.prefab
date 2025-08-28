@@ -243,8 +243,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 406526d8e80dbae4ba0463f82a10ac2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settings: {fileID: 11400000, guid: 2156f60c52f5a5c43afaef3a39d506f7, type: 2}
-  _jumpHeight: 3
+  settings: {fileID: 0}
+  _jumpHeight: 3.2
   _jumpBuffer: 0.2
   _coyoteTime: 0.2
   _showExcpectedJumpHeight: 0

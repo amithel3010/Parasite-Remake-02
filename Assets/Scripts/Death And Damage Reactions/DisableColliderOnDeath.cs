@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class DisableColliderOnDeath : MonoBehaviour, IDeathResponse
 {
-    [SerializeField] private Collider _colliderToDisable;
      private Rigidbody _rbToDisable;
 
      private void Awake()

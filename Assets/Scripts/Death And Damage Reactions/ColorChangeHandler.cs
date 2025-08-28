@@ -43,7 +43,6 @@ public class ColorChangeHandler : MonoBehaviour
     public void ChangeColor(Color color, float duration)
     {
         ResetColor();
-        //_material.SetColor(BaseColor, _defaultColor);
         StartCoroutine(ChangeColorCoroutine(color, duration));
     }
 
@@ -58,7 +57,6 @@ public class ColorChangeHandler : MonoBehaviour
         {
             material.SetColor(BaseColor, color);
         }
-        //_material.SetColor(BaseColor, color);
     }
 
     public void ResetColor()
@@ -68,7 +66,6 @@ public class ColorChangeHandler : MonoBehaviour
         {
             _materials[i].SetColor(BaseColor, _defaultColors[i]);
         }
-        // _material.SetColor(BaseColor, _defaultColor);
     }
 
     private IEnumerator ChangeColorCoroutine(Color colorToChangeTo, float duration)
@@ -78,12 +75,10 @@ public class ColorChangeHandler : MonoBehaviour
             material.SetColor(BaseColor, colorToChangeTo);
         }
 
-        //_renderer.material.SetColor(BaseColor, colorToChangeTo);
         yield return new WaitForSeconds(duration);
         for (var i = 0; i < _materials.Length; i++)
         {
             _materials[i].SetColor(BaseColor, _defaultColors[i]);
         }
-        // _renderer.material.SetColor(BaseColor, _defaultColor);
     }
 }

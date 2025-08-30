@@ -3,28 +3,35 @@ using UnityEngine;
 
 public class ColorChangeHandler : MonoBehaviour
 {
-
     /// <summary>
     /// Class responsible for coordinating multiple color changes on the same object.
     /// </summary>
+    private MeshRenderer[] _renderers;
 
-    private Renderer _renderer;
-    private Material _material;
-    private Color _defaultColor;
+    private Material[] _materials;
+    private Color[] _defaultColors;
 
     private static readonly int BaseColor = Shader.PropertyToID("_BaseColor");
-    
+
     private void Awake()
     {
-        _renderer = GetComponentInChildren<Renderer>();
-        if (_renderer == null)
+        _renderers = GetComponentsInChildren<MeshRenderer>(includeInactive: true);
+        if (_renderers.Length == 0)
         {
             Debug.Log(this + "Has No Renderer in children");
         }
         else
         {
-            _defaultColor = _renderer.material.GetColor(BaseColor);
-            _material = _renderer.material;
+            _defaultColors = new Color[_renderers.Length];
+            _materials = new Material[_renderers.Length];
+
+            for (var i = 0; i < _renderers.Length; i++)
+            {
+                if (!_renderers[i].material.HasColor(BaseColor)) continue;
+                
+                _defaultColors[i] = _renderers[i].material.GetColor(BaseColor);
+                _materials[i] = _renderers[i].material;
+            }
         }
     }
 
@@ -35,8 +42,7 @@ public class ColorChangeHandler : MonoBehaviour
     /// <param name="duration"></param>
     public void ChangeColor(Color color, float duration)
     {
-        StopAllCoroutines();
-        _material.SetColor(BaseColor, _defaultColor);
+        ResetColor();
         StartCoroutine(ChangeColorCoroutine(color, duration));
     }
 
@@ -47,20 +53,32 @@ public class ColorChangeHandler : MonoBehaviour
     public void ChangeColor(Color color)
     {
         StopAllCoroutines();
-        _material.SetColor(BaseColor, color);
+        foreach (var material in _materials)
+        {
+            material.SetColor(BaseColor, color);
+        }
     }
 
     public void ResetColor()
     {
         StopAllCoroutines();
-        _material.SetColor(BaseColor, _defaultColor);
+        for (var i = 0; i < _materials.Length; i++)
+        {
+            _materials[i].SetColor(BaseColor, _defaultColors[i]);
+        }
     }
 
     private IEnumerator ChangeColorCoroutine(Color colorToChangeTo, float duration)
     {
-        _renderer.material.SetColor(BaseColor, colorToChangeTo);
-        yield return new WaitForSeconds(duration);
-        _renderer.material.SetColor(BaseColor, _defaultColor);
-    }
+        foreach (var material in _materials)
+        {
+            material.SetColor(BaseColor, colorToChangeTo);
+        }
 
+        yield return new WaitForSeconds(duration);
+        for (var i = 0; i < _materials.Length; i++)
+        {
+            _materials[i].SetColor(BaseColor, _defaultColors[i]);
+        }
+    }
 }

@@ -13,21 +13,24 @@ public class GrabBox : MonoBehaviour, IPossessionSensitive
     //cat should feel heavier when holding box. adjust rb.mass?
     // if already holding box, release it.
 
-    [Header("Pickup Transform")]
-    [SerializeField] Transform _holder;
+    [Header("Pickup Transform")] [SerializeField]
+    Transform _holder;
 
-    [Header("Raycast Settings")]
-    [SerializeField] private float _sphereRadius = 0.3f;
+    [Header("Raycast Settings")] [SerializeField]
+    private float _sphereRadius = 0.3f;
+
     [SerializeField] private LayerMask _boxLayer;
 
-    [Header("Movement Changes On Box Pickup")]
-    [SerializeField][Min(0)] private float _rideHeightChange = 1f;
-    [SerializeField][Max(0)] private float _maxSpeedChange = -6f;
-    [SerializeField][Max(0)] private float _jumpHeightChange = -3f;
+    [Header("Movement Changes On Box Pickup")] [SerializeField] [Min(0)]
+    private float _rideHeightChange = 1f;
+
+    [SerializeField] [Max(0)] private float _maxSpeedChange = -6f;
+    [SerializeField] [Max(0)] private float _jumpHeightChange = -3f;
 
     [Header("Debug")]
     //[SerializeField] private bool _showRaycast;
-    [SerializeField] private bool _showOverlapSphere;
+    [SerializeField]
+    private bool _showOverlapSphere;
 
     private IInputSource _inputSource;
     private IInputSource _defaultInputSource;
@@ -35,6 +38,7 @@ public class GrabBox : MonoBehaviour, IPossessionSensitive
     private InputBasedHoverMovement _movement;
     private BaseJumpAbility _jumpAbility;
 
+    private Outline _currentHighlightOutline;
     private GameObject _currentBox;
     private Rigidbody _currentBoxRb;
 
@@ -66,19 +70,32 @@ public class GrabBox : MonoBehaviour, IPossessionSensitive
                 ReleaseBox();
             }
         }
-
     }
 
     private void CheckForBoxesWithOverlapSphere()
     {
-        if (_inputSource.Action2Pressed)
+        //reset outline
+
+        if (_currentHighlightOutline != null)
         {
-            Collider[] hitColliders = Physics.OverlapSphere(_holder.position, _sphereRadius, _boxLayer);
-            foreach (var hitCollider in hitColliders)
+            _currentHighlightOutline.enabled = false;
+            _currentHighlightOutline = null;
+        }
+
+
+        Collider[] hitColliders = Physics.OverlapSphere(_holder.position, _sphereRadius, _boxLayer);
+        foreach (var hitCollider in hitColliders)
+        {
+            if (hitCollider.transform.parent.gameObject.TryGetComponent<WoodenBox>(out var hitBox))
             {
-                if (hitCollider.transform.parent.gameObject.TryGetComponent<WoodenBox>(out var hitBox))
+                Debug.Log("Found Box");
+
+                //Activate Outline
+                _currentHighlightOutline = hitBox.GetComponent<Outline>();
+                _currentHighlightOutline.enabled = true;
+
+                if (_inputSource.Action2Pressed)
                 {
-                    Debug.Log("Found Box");
                     //Grab
                     _currentBox = hitBox.gameObject;
                     _currentBoxRb = _currentBox.GetComponent<Rigidbody>();
@@ -94,8 +111,10 @@ public class GrabBox : MonoBehaviour, IPossessionSensitive
 
                     _isHoldingBox = true;
 
-                    return;
+                    _currentHighlightOutline.enabled = false;
+                    _currentHighlightOutline = null;
 
+                    return;
                 }
             }
         }
@@ -127,13 +146,14 @@ public class GrabBox : MonoBehaviour, IPossessionSensitive
         {
             ReleaseBox();
         }
+
         _inputSource = _defaultInputSource;
     }
 
     private void OnDrawGizmos()
     {
         if (!_showOverlapSphere) return;
-        
+
         Gizmos.color = Color.cadetBlue;
         Gizmos.DrawWireSphere(_holder.position, _sphereRadius);
     }

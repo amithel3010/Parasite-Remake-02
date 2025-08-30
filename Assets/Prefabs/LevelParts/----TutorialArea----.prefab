@@ -22385,6 +22385,10 @@ PrefabInstance:
       propertyPath: _size.y
       value: 10.09
       objectReference: {fileID: 0}
+    - target: {fileID: 5199319055322893108, guid: 6d6ffea430a324855ad63b36f2dc1dc5, type: 3}
+      propertyPath: _showCollider
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5207347741426716008, guid: 6d6ffea430a324855ad63b36f2dc1dc5, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -22399,7 +22403,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5207347741426716008, guid: 6d6ffea430a324855ad63b36f2dc1dc5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 12.9
+      value: 10.32
       objectReference: {fileID: 0}
     - target: {fileID: 5207347741426716008, guid: 6d6ffea430a324855ad63b36f2dc1dc5, type: 3}
       propertyPath: m_LocalPosition.y
@@ -22435,6 +22439,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5207347741426716008, guid: 6d6ffea430a324855ad63b36f2dc1dc5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8507372601900266748, guid: 6d6ffea430a324855ad63b36f2dc1dc5, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

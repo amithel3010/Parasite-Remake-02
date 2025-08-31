@@ -48,7 +48,10 @@ public class PossessableHealthHandler : MonoBehaviour, IPossessionSensitive
         {
             deathResponse.OnDeath();
         }
-        Instantiate(_deathParticles, transform.position, Quaternion.identity);
+        if (_deathParticles != null)
+        {
+            Instantiate(_deathParticles, transform.position, Quaternion.identity);
+        }
         Destroy(gameObject, 5f);
     }
 

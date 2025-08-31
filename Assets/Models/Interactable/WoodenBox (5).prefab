@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &621703076813199923
+--- !u!1001 &6924742723758309374
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: b7ebe51f3aa7fff41a575708e229b6e7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -123.87533
+      value: -162.37462
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b7ebe51f3aa7fff41a575708e229b6e7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -39.589565
+      value: -35.748676
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b7ebe51f3aa7fff41a575708e229b6e7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -186.72955
+      value: -136.01038
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b7ebe51f3aa7fff41a575708e229b6e7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -48,10 +48,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -3366814780030004443, guid: b7ebe51f3aa7fff41a575708e229b6e7, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 3aa6c704156bacc4199bae1c5737153a, type: 2}
     - target: {fileID: 919132149155446097, guid: b7ebe51f3aa7fff41a575708e229b6e7, type: 3}
       propertyPath: m_Name
       value: WoodenBox (5)
@@ -59,7 +55,7 @@ PrefabInstance:
     - target: {fileID: 1957819986760629781, guid: b7ebe51f3aa7fff41a575708e229b6e7, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: c2473b9e26cdf7c40905264e9f5b2407, type: 2}
+      objectReference: {fileID: 2100000, guid: 72f58ca6358803c4a9821cf0d4237a08, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

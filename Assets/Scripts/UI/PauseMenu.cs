@@ -7,6 +7,15 @@ public class PauseMenu : MonoBehaviour
     private bool IsGamePaused = false;
     private bool Audio = true;
 
+
+    private void Start()
+    {
+        IsGamePaused = false;
+        
+    }
+
+
+
     void Update()
     {
         Pause();
@@ -20,23 +29,16 @@ public class PauseMenu : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             IsGamePaused = !IsGamePaused;
+            pauseMenu.SetActive(IsGamePaused);
             Debug.Log("click");
         }
-        if (IsGamePaused == true)
-        {
-            pauseMenu.SetActive(true);
-
-        }
-        else
-        {
-            pauseMenu.SetActive(false);
-
-        }
+       
     }
 
     public void Resume()
     {
         pauseMenu.SetActive(false);
+        
     }
     
 
@@ -49,6 +51,7 @@ public class PauseMenu : MonoBehaviour
     public void MuteAllSound()
     {
         AudioListener.volume = 0f;
+        Debug.Log("Audio muted");
     }
 
 

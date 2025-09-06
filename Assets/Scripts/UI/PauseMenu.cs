@@ -1,16 +1,36 @@
+using System;
 using UnityEngine;
 
 public class PauseMenu : MonoBehaviour
 {
-    [SerializeField] GameObject pauseMenu;
+    [SerializeField] private GameObject pauseMenu;
+    private bool IsGamePaused = false;
+    private bool Audio = true;
+
+    void Update()
+    {
+        Pause();
+    }
+
+    
 
 
     public void Pause()
     {
-        if(Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            IsGamePaused = !IsGamePaused;
+            Debug.Log("click");
+        }
+        if (IsGamePaused == true)
         {
             pauseMenu.SetActive(true);
-            Debug.Log("test");
+
+        }
+        else
+        {
+            pauseMenu.SetActive(false);
+
         }
     }
 
@@ -26,7 +46,10 @@ public class PauseMenu : MonoBehaviour
     }
 
 
-
+    public void MuteAllSound()
+    {
+        AudioListener.volume = 0f;
+    }
 
 
 

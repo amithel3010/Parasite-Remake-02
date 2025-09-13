@@ -1230,7 +1230,7 @@
     "m_Title": "Black Mask Elimate Black BG",
     "m_Position": {
         "x": 682.5,
-        "y": 855.0001220703125
+        "y": 855.0
     }
 }
 
@@ -1415,8 +1415,8 @@
     "m_ObjectId": "10b7861618cf4da69211d08f92c824a5",
     "m_Title": "Add Color To Show Moss Triplanar Texture",
     "m_Position": {
-        "x": 630.4998779296875,
-        "y": 618.4999389648438
+        "x": 630.5,
+        "y": 618.5
     }
 }
 
@@ -2325,8 +2325,8 @@
     "m_ObjectId": "36f3193a29664d2d89714fd27fc435b9",
     "m_Title": "0-1 Value (Y)",
     "m_Position": {
-        "x": -1360.0001220703125,
-        "y": -621.0001220703125
+        "x": -1360.0,
+        "y": -621.0
     }
 }
 
@@ -3303,8 +3303,8 @@
     "m_ObjectId": "561875ee51da458bb58f08a78b9c2a44",
     "m_Title": "Color Gradient (With Midpoint and Falloff)",
     "m_Position": {
-        "x": -440.50006103515627,
-        "y": -621.0001220703125
+        "x": -440.5,
+        "y": -621.0
     }
 }
 
@@ -4227,8 +4227,8 @@
     "m_ObjectId": "72de4b2640fa4042b55040096d703b94",
     "m_Title": "Main Texture (Triplanar)",
     "m_Position": {
-        "x": -191.50001525878907,
-        "y": 62.9998893737793
+        "x": -191.5,
+        "y": 63.0
     }
 }
 
@@ -4297,7 +4297,7 @@
     "m_ObjectId": "788897e2aadc4e3688bc6bbac6c51c3f",
     "m_Title": "Masking With Intensity Slider",
     "m_Position": {
-        "x": 252.4998779296875,
+        "x": 252.5,
         "y": 1274.5
     }
 }
@@ -4938,7 +4938,7 @@
     "m_Title": "Moss Triplanar Texture",
     "m_Position": {
         "x": -224.5,
-        "y": 852.5001220703125
+        "y": 852.5
     }
 }
 
@@ -6635,7 +6635,7 @@
     "m_ObjectId": "df01ef7d7cc1476cb92cc759a3f19948",
     "m_Title": "Mask With Textures Alpha",
     "m_Position": {
-        "x": 842.0001220703125,
+        "x": 842.0,
         "y": 1242.0
     }
 }
@@ -6685,8 +6685,8 @@
     "m_ObjectId": "e285bbf9abbe44d29f4f4b59d94828b4",
     "m_Title": "Top Parts Of Mesh",
     "m_Position": {
-        "x": -447.50006103515627,
-        "y": 1277.500244140625
+        "x": -447.5,
+        "y": 1277.5
     }
 }
 

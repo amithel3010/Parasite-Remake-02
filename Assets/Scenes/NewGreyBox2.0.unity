@@ -1295,7 +1295,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4406155116359948159, guid: 5dc5652d18e030041801b2301fe5c7f8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -62.763588
+      value: -21.272322
       objectReference: {fileID: 0}
     - target: {fileID: 4406155116359948159, guid: 5dc5652d18e030041801b2301fe5c7f8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -1319,7 +1319,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5328442484975146999, guid: 5dc5652d18e030041801b2301fe5c7f8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 60.987896
+      value: 21.272322
       objectReference: {fileID: 0}
     - target: {fileID: 5328442484975146999, guid: 5dc5652d18e030041801b2301fe5c7f8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -27724,7 +27724,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9026646278857755231, guid: 8f5b2b8f8d46eb9429f7d84326c2e3a7, type: 3}
       propertyPath: m_SplineSettings.Position
-      value: 0.24026866
+      value: -0.2
       objectReference: {fileID: 0}
     - target: {fileID: 9026646278857755231, guid: 8f5b2b8f8d46eb9429f7d84326c2e3a7, type: 3}
       propertyPath: managedReferences[5011729450057072640].PositionOffset

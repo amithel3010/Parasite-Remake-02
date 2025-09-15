@@ -669,6 +669,10 @@ PrefabInstance:
       propertyPath: Target.TrackingTarget
       value: 
       objectReference: {fileID: 692211992}
+    - target: {fileID: 5029344493653435145, guid: 08436614c7a4a374ea8f6d9a670692a1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5157066536236329746, guid: 08436614c7a4a374ea8f6d9a670692a1, type: 3}
       propertyPath: m_Name
       value: Static Camera Area - ButterflyTut
@@ -1094,6 +1098,10 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: -4.5
       objectReference: {fileID: 0}
+    - target: {fileID: 3411844844368054424, guid: 8f5b2b8f8d46eb9429f7d84326c2e3a7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3616607367708123680, guid: 8f5b2b8f8d46eb9429f7d84326c2e3a7, type: 3}
       propertyPath: m_LocalPosition.x
       value: -123.08791
@@ -1311,6 +1319,10 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: 4.3623047
       objectReference: {fileID: 0}
+    - target: {fileID: 3411844844368054424, guid: 8f5b2b8f8d46eb9429f7d84326c2e3a7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3616607367708123680, guid: 8f5b2b8f8d46eb9429f7d84326c2e3a7, type: 3}
       propertyPath: m_LocalPosition.x
       value: -128.87102
@@ -1493,6 +1505,10 @@ PrefabInstance:
       propertyPath: Target.TrackingTarget
       value: 
       objectReference: {fileID: 692211992}
+    - target: {fileID: 5029344493653435145, guid: 08436614c7a4a374ea8f6d9a670692a1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5157066536236329746, guid: 08436614c7a4a374ea8f6d9a670692a1, type: 3}
       propertyPath: m_Name
       value: Static Camera Area - Button
@@ -1942,6 +1958,10 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: -0.18357086
       objectReference: {fileID: 0}
+    - target: {fileID: 3411844844368054424, guid: 8f5b2b8f8d46eb9429f7d84326c2e3a7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3616607367708123680, guid: 8f5b2b8f8d46eb9429f7d84326c2e3a7, type: 3}
       propertyPath: m_LocalPosition.x
       value: -181.86
@@ -2243,6 +2263,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DollyHolder - ButterflyTut_Floor01_Mid
       objectReference: {fileID: 0}
+    - target: {fileID: 3411844844368054424, guid: 8f5b2b8f8d46eb9429f7d84326c2e3a7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3616607367708123680, guid: 8f5b2b8f8d46eb9429f7d84326c2e3a7, type: 3}
       propertyPath: m_LocalPosition.x
       value: -174.68
@@ -2479,6 +2503,10 @@ PrefabInstance:
     - target: {fileID: 3267113742689582815, guid: 08bd84e255d94724897fa17ac41c9b77, type: 3}
       propertyPath: m_Name
       value: Follow Camera Holder - Intro River 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3267113742689582815, guid: 08bd84e255d94724897fa17ac41c9b77, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5196335721378309477, guid: 08bd84e255d94724897fa17ac41c9b77, type: 3}
       propertyPath: m_Size.x
@@ -4060,6 +4088,10 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: 1.4892044
       objectReference: {fileID: 0}
+    - target: {fileID: 3411844844368054424, guid: 8f5b2b8f8d46eb9429f7d84326c2e3a7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3616607367708123680, guid: 8f5b2b8f8d46eb9429f7d84326c2e3a7, type: 3}
       propertyPath: m_LocalPosition.x
       value: -124.108665
@@ -4243,6 +4275,10 @@ PrefabInstance:
       propertyPath: m_Center.y
       value: 0.79037094
       objectReference: {fileID: 0}
+    - target: {fileID: 3411844844368054424, guid: 8f5b2b8f8d46eb9429f7d84326c2e3a7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3616607367708123680, guid: 8f5b2b8f8d46eb9429f7d84326c2e3a7, type: 3}
       propertyPath: m_LocalPosition.x
       value: -146.61
@@ -4394,6 +4430,10 @@ PrefabInstance:
     - target: {fileID: 3326146398504818100, guid: 8f5b2b8f8d46eb9429f7d84326c2e3a7, type: 3}
       propertyPath: m_Center.z
       value: -4.954811
+      objectReference: {fileID: 0}
+    - target: {fileID: 3411844844368054424, guid: 8f5b2b8f8d46eb9429f7d84326c2e3a7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3616607367708123680, guid: 8f5b2b8f8d46eb9429f7d84326c2e3a7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4580,6 +4620,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Follow Camera Holder - Cat Gap
       objectReference: {fileID: 0}
+    - target: {fileID: 3267113742689582815, guid: 08bd84e255d94724897fa17ac41c9b77, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5196335721378309477, guid: 08bd84e255d94724897fa17ac41c9b77, type: 3}
       propertyPath: m_Size.x
       value: 13.510315
@@ -4709,6 +4753,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 430429736}
     m_Modifications:
+    - target: {fileID: 5029344493653435145, guid: 08436614c7a4a374ea8f6d9a670692a1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5157066536236329746, guid: 08436614c7a4a374ea8f6d9a670692a1, type: 3}
       propertyPath: m_Name
       value: Static Camera Area - Under Bridge
@@ -4983,6 +5031,10 @@ PrefabInstance:
       propertyPath: Target.TrackingTarget
       value: 
       objectReference: {fileID: 692211992}
+    - target: {fileID: 5029344493653435145, guid: 08436614c7a4a374ea8f6d9a670692a1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5157066536236329746, guid: 08436614c7a4a374ea8f6d9a670692a1, type: 3}
       propertyPath: m_Name
       value: Static Camera Area - Intro Lake
@@ -5069,19 +5121,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8579915902951064615, guid: 08436614c7a4a374ea8f6d9a670692a1, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.8945719
+      value: -0.0011471066
       objectReference: {fileID: 0}
     - target: {fileID: 8579915902951064615, guid: 08436614c7a4a374ea8f6d9a670692a1, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.18417157
+      value: -0.000051707026
       objectReference: {fileID: 0}
     - target: {fileID: 8579915902951064615, guid: 08436614c7a4a374ea8f6d9a670692a1, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.39884764
+      value: 0.998985
       objectReference: {fileID: 0}
     - target: {fileID: 8579915902951064615, guid: 08436614c7a4a374ea8f6d9a670692a1, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.08211347
+      value: -0.04503028
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6577,31 +6629,31 @@ PrefabInstance:
       objectReference: {fileID: 2338638882686671862, guid: 62846ba83004be24d912ad81643db2c4, type: 3}
     - target: {fileID: 6590419721391974969, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -15.320984
+      value: 3.4500046
       objectReference: {fileID: 0}
     - target: {fileID: 6590419721391974969, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.3784008
+      value: -22.877308
       objectReference: {fileID: 0}
     - target: {fileID: 6590419721391974969, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -89.38428
+      value: -198.13225
       objectReference: {fileID: 0}
     - target: {fileID: 6590419721391974969, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9375781
+      value: 0.99738437
       objectReference: {fileID: 0}
     - target: {fileID: 6590419721391974969, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.22465993
+      value: 0.0722808
       objectReference: {fileID: 0}
     - target: {fileID: 6590419721391974969, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.258164
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6590419721391974969, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.061860558
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6860444424319525167, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
       propertyPath: m_RenderPostProcessing
@@ -7776,6 +7828,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4080199596299729671, guid: 2bf96832019324b4b8b66dd384314179, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -10.09
+      objectReference: {fileID: 0}
     - target: {fileID: 6773639118871605156, guid: 2bf96832019324b4b8b66dd384314179, type: 3}
       propertyPath: m_Size.x
       value: 9.37
@@ -7791,6 +7847,10 @@ PrefabInstance:
     - target: {fileID: 7124357454770916072, guid: 2bf96832019324b4b8b66dd384314179, type: 3}
       propertyPath: ShapeModule.m_Scale.y
       value: 6.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 7322829562517598827, guid: 2bf96832019324b4b8b66dd384314179, type: 3}
+      propertyPath: _spawnRadius
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 7347532632157346165, guid: 2bf96832019324b4b8b66dd384314179, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7860,6 +7920,10 @@ PrefabInstance:
     - target: {fileID: 2375384809776988182, guid: 08bd84e255d94724897fa17ac41c9b77, type: 3}
       propertyPath: m_LocalPosition.y
       value: -21.1184
+      objectReference: {fileID: 0}
+    - target: {fileID: 3267113742689582815, guid: 08bd84e255d94724897fa17ac41c9b77, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5196335721378309477, guid: 08bd84e255d94724897fa17ac41c9b77, type: 3}
       propertyPath: m_Size.x

@@ -60,9 +60,9 @@ Material:
     - _QueueOffset: 0
     - _Smoothness: 0
     m_Colors:
-    - _GradientColorTop: {r: 0.39144498, g: 0.764151, b: 0.20545568, a: 1}
-    - _GradintColorBottom: {r: 0.5283019, g: 0.4465646, b: 0.32395872, a: 1}
-    - _MossColor: {r: 0.576518, g: 0.7735849, b: 0.33570668, a: 1}
+    - _GradientColorTop: {r: 0.5380122, g: 0.6367924, b: 0.41151208, a: 1}
+    - _GradintColorBottom: {r: 0.764151, g: 0.57311326, b: 0.3820755, a: 1}
+    - _MossColor: {r: 0.57143736, g: 0.77254903, b: 0.3372549, a: 1}
     - _SpecularColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

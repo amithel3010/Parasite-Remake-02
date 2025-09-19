@@ -51,7 +51,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 6831fd696f06b994f9b03c9bda5811ed, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 8c2056f98264abe45bff9d87d83d4e78, type: 2}
+      objectReference: {fileID: 2100000, guid: 22712212a51309d4a90804bc6503d4e8, type: 2}
     - target: {fileID: 919132149155446097, guid: 6831fd696f06b994f9b03c9bda5811ed, type: 3}
       propertyPath: m_Name
       value: ForestPlatform
@@ -80,7 +80,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2095218368529419310}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 1d1d685cebf3dee49b0c191166e78124, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

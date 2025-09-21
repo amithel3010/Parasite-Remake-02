@@ -38,6 +38,7 @@ public class GrabBox : MonoBehaviour, IPossessionSensitive
     private InputBasedHoverMovement _movement;
     private BaseJumpAbility _jumpAbility;
 
+    private OutlineHandler _outlineHandler; 
     private Outline _currentHighlightOutline;
     private GameObject _currentBox;
     private Rigidbody _currentBoxRb;
@@ -50,6 +51,7 @@ public class GrabBox : MonoBehaviour, IPossessionSensitive
         _hover = GetComponent<Hover>();
         _movement = GetComponent<InputBasedHoverMovement>();
         _jumpAbility = GetComponent<BaseJumpAbility>();
+        _outlineHandler = GetComponent<OutlineHandler>();
 
         _defaultInputSource = GetComponent<IInputSource>();
         _inputSource = _defaultInputSource;
@@ -74,15 +76,8 @@ public class GrabBox : MonoBehaviour, IPossessionSensitive
 
     private void CheckForBoxesWithOverlapSphere()
     {
-        //reset outline
-
-        if (_currentHighlightOutline != null)
-        {
-            _currentHighlightOutline.enabled = false;
-            _currentHighlightOutline = null;
-        }
-
-
+        _outlineHandler.ResetOutline();
+        
         Collider[] hitColliders = Physics.OverlapSphere(_holder.position, _sphereRadius, _boxLayer);
         foreach (var hitCollider in hitColliders)
         {
@@ -92,7 +87,7 @@ public class GrabBox : MonoBehaviour, IPossessionSensitive
 
                 //Activate Outline
                 _currentHighlightOutline = hitBox.GetComponent<Outline>();
-                _currentHighlightOutline.enabled = true;
+                _outlineHandler.SetObjToHighlight(_currentHighlightOutline);
 
                 if (_inputSource.Action2Pressed)
                 {
@@ -111,8 +106,7 @@ public class GrabBox : MonoBehaviour, IPossessionSensitive
 
                     _isHoldingBox = true;
 
-                    _currentHighlightOutline.enabled = false;
-                    _currentHighlightOutline = null;
+                   _outlineHandler.ResetOutline();
 
                     return;
                 }

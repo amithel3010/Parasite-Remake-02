@@ -150,6 +150,7 @@ GameObject:
   - component: {fileID: 4779562977708027517}
   - component: {fileID: 5025745558779639040}
   - component: {fileID: 4638277098448194021}
+  - component: {fileID: 2115811453017249034}
   m_Layer: 6
   m_Name: FlyCat
   m_TagString: Untagged
@@ -544,7 +545,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 630ba03ceb82b784f9a414c5d9dfe399, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _colliderToDisable: {fileID: 3637557849164476620}
+--- !u!114 &2115811453017249034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4087430175363014747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3a25478ee3f2684e84f2b58ebc4b1e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4581140288191664863
 GameObject:
   m_ObjectHideFlags: 0

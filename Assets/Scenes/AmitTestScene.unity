@@ -689,7 +689,7 @@ GameObject:
   m_Component:
   - component: {fileID: 568728377}
   m_Layer: 0
-  m_Name: DeathPlane 02
+  m_Name: DeathPlane 02 m_TagString:RestartFromCheckpointed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4229,17 +4229,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &5567407835848718504 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7315879574712760337, guid: eb57b7085b2f94b8daf1c1f04b02c13a, type: 3}
-  m_PrefabInstance: {fileID: 488083955170187304}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd97c85e78fb24427b7936b5d45f19db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &5748152364446716885 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7040764129166712141, guid: 62846ba83004be24d912ad81643db2c4, type: 3}
@@ -4506,18 +4495,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2197214579668316776}
-    - target: {fileID: 5791844040921095375, guid: c643d3a7f71a24bcebac1cc804749e70, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 5567407835848718504}
-    - target: {fileID: 6469190071731625784, guid: c643d3a7f71a24bcebac1cc804749e70, type: 3}
-      propertyPath: m_text
-      value: Toggle Debug Stats
-      objectReference: {fileID: 0}
-    - target: {fileID: 6469190071731625784, guid: c643d3a7f71a24bcebac1cc804749e70, type: 3}
-      propertyPath: m_TextStyleHashCode
-      value: -1183493901
-      objectReference: {fileID: 0}
     - target: {fileID: 7962700503201345379, guid: c643d3a7f71a24bcebac1cc804749e70, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.38795

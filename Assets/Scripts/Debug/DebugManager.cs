@@ -41,7 +41,7 @@ public class DebugManager : MonoBehaviour
 
     public void Restart()
     {
-        GameManager.Instance.Restart();
+        GameManager.Instance.RestartFromCheckpoint();
     }
 
     public void ToggleDebugCam()

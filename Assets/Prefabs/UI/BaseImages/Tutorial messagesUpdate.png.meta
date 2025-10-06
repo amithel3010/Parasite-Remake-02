@@ -102,7 +102,7 @@ TextureImporter:
         serializedVersion: 2
         x: 174
         y: 771
-        width: 939
+        width: 936
         height: 99
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -112,8 +112,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a2e54eaca32b1924b95fe0e647df23ae
-      internalID: 703774387
+      spriteID: b0a01cfe4b5d1354fab7af5acff88ec6
+      internalID: 1066258412
       vertices: []
       indices: 
       edges: []
@@ -124,7 +124,7 @@ TextureImporter:
         serializedVersion: 2
         x: 173
         y: 644
-        width: 655
+        width: 650
         height: 58
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -134,8 +134,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6edfdbcf1d592244087792831e1bcd05
-      internalID: -1483669322
+      spriteID: 81aee671dede4364db6d33f898d625e4
+      internalID: -1945537931
       vertices: []
       indices: 
       edges: []
@@ -144,9 +144,9 @@ TextureImporter:
       name: Tutorial messagesUpdate_18
       rect:
         serializedVersion: 2
-        x: 61
+        x: 62
         y: 562
-        width: 1268
+        width: 1265
         height: 58
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -156,8 +156,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ef6633965a2ee0a488762f189ae62ce4
-      internalID: -1624534646
+      spriteID: db3ca1028509a6d408cb5426ca6ddb17
+      internalID: -976804411
       vertices: []
       indices: 
       edges: []
@@ -166,9 +166,9 @@ TextureImporter:
       name: Tutorial messagesUpdate_29
       rect:
         serializedVersion: 2
-        x: 59
+        x: 60
         y: 480
-        width: 1280
+        width: 1278
         height: 58
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -178,8 +178,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8ea59593d6818234d9b066a83d31b5a6
-      internalID: -43915105
+      spriteID: 4a67d7b7f2641994dbcb24df3985f624
+      internalID: -1682290807
       vertices: []
       indices: 
       edges: []
@@ -188,7 +188,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: dd3949e4b1019d1428861260338caa20
+    spriteID: a7600fdd574c9c742b659b9b0b08cc8a
     internalID: 0
     vertices: []
     indices: 
@@ -200,72 +200,72 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Tutorial messagesUpdate_0: 1256125515
-      Tutorial messagesUpdate_1: 1974783413
-      Tutorial messagesUpdate_10: 13203190
-      Tutorial messagesUpdate_11: 1671244635
-      Tutorial messagesUpdate_12: -1483669322
-      Tutorial messagesUpdate_13: 1051952853
-      Tutorial messagesUpdate_14: -233715606
-      Tutorial messagesUpdate_15: -2080249923
-      Tutorial messagesUpdate_16: -1154753245
-      Tutorial messagesUpdate_17: -1760643156
-      Tutorial messagesUpdate_18: -1624534646
-      Tutorial messagesUpdate_19: -474070302
-      Tutorial messagesUpdate_2: 653363310
-      Tutorial messagesUpdate_20: 1342185240
-      Tutorial messagesUpdate_21: 508870474
-      Tutorial messagesUpdate_22: -372937798
-      Tutorial messagesUpdate_23: -216093567
-      Tutorial messagesUpdate_24: 566169627
-      Tutorial messagesUpdate_25: 176763641
-      Tutorial messagesUpdate_26: -137169954
-      Tutorial messagesUpdate_27: -416977107
-      Tutorial messagesUpdate_28: 945854596
-      Tutorial messagesUpdate_29: -43915105
-      Tutorial messagesUpdate_3: -1198327948
-      Tutorial messagesUpdate_30: -1949013633
-      Tutorial messagesUpdate_31: -1079567824
-      Tutorial messagesUpdate_32: 757701659
-      Tutorial messagesUpdate_33: 1965386484
-      Tutorial messagesUpdate_34: 1895214184
-      Tutorial messagesUpdate_35: 931007691
-      Tutorial messagesUpdate_36: 1530585410
-      Tutorial messagesUpdate_37: 2030466388
-      Tutorial messagesUpdate_38: 1714510961
-      Tutorial messagesUpdate_39: -466997851
-      Tutorial messagesUpdate_4: 262301094
-      Tutorial messagesUpdate_40: -1987246752
-      Tutorial messagesUpdate_41: 745981180
-      Tutorial messagesUpdate_42: -704191384
-      Tutorial messagesUpdate_43: 1791089969
-      Tutorial messagesUpdate_44: -282458309
-      Tutorial messagesUpdate_45: 587024217
-      Tutorial messagesUpdate_46: 1401450754
-      Tutorial messagesUpdate_47: -374997478
-      Tutorial messagesUpdate_48: -1060501130
-      Tutorial messagesUpdate_49: 1891267783
-      Tutorial messagesUpdate_5: 1504506566
-      Tutorial messagesUpdate_50: 1688844677
-      Tutorial messagesUpdate_51: 889841053
-      Tutorial messagesUpdate_52: -310577798
-      Tutorial messagesUpdate_53: -1612383024
-      Tutorial messagesUpdate_54: -940848857
-      Tutorial messagesUpdate_55: -712782421
-      Tutorial messagesUpdate_56: 238209309
-      Tutorial messagesUpdate_57: 441785304
-      Tutorial messagesUpdate_58: 2088062246
-      Tutorial messagesUpdate_59: 1390752515
-      Tutorial messagesUpdate_6: 1529555720
-      Tutorial messagesUpdate_60: -531757716
-      Tutorial messagesUpdate_61: 1759595507
-      Tutorial messagesUpdate_62: 496206941
-      Tutorial messagesUpdate_63: -1870304118
-      Tutorial messagesUpdate_64: -394912933
-      Tutorial messagesUpdate_65: -1119084519
-      Tutorial messagesUpdate_7: 1991809768
-      Tutorial messagesUpdate_8: 703774387
-      Tutorial messagesUpdate_9: -1103038382
+      Tutorial messagesUpdate_0: 2072310700
+      Tutorial messagesUpdate_1: 1136151666
+      Tutorial messagesUpdate_10: -1391538372
+      Tutorial messagesUpdate_11: 1478579152
+      Tutorial messagesUpdate_12: -1945537931
+      Tutorial messagesUpdate_13: 1575758860
+      Tutorial messagesUpdate_14: 738967905
+      Tutorial messagesUpdate_15: 514946203
+      Tutorial messagesUpdate_16: 1314605548
+      Tutorial messagesUpdate_17: -1565048178
+      Tutorial messagesUpdate_18: -976804411
+      Tutorial messagesUpdate_19: 1774530086
+      Tutorial messagesUpdate_2: -839512761
+      Tutorial messagesUpdate_20: 1995333095
+      Tutorial messagesUpdate_21: 600572171
+      Tutorial messagesUpdate_22: -478767604
+      Tutorial messagesUpdate_23: -1340334880
+      Tutorial messagesUpdate_24: -797561685
+      Tutorial messagesUpdate_25: 1672074838
+      Tutorial messagesUpdate_26: -980053726
+      Tutorial messagesUpdate_27: 1469698347
+      Tutorial messagesUpdate_28: -1342884093
+      Tutorial messagesUpdate_29: -1682290807
+      Tutorial messagesUpdate_3: 269552477
+      Tutorial messagesUpdate_30: -1494050477
+      Tutorial messagesUpdate_31: 818846429
+      Tutorial messagesUpdate_32: 1812864460
+      Tutorial messagesUpdate_33: 1778462246
+      Tutorial messagesUpdate_34: 558433290
+      Tutorial messagesUpdate_35: 1544571789
+      Tutorial messagesUpdate_36: -1618528301
+      Tutorial messagesUpdate_37: 512559707
+      Tutorial messagesUpdate_38: 730049419
+      Tutorial messagesUpdate_39: -666542610
+      Tutorial messagesUpdate_4: -1517681706
+      Tutorial messagesUpdate_40: 1957189639
+      Tutorial messagesUpdate_41: 230008771
+      Tutorial messagesUpdate_42: -1520172148
+      Tutorial messagesUpdate_43: -1845552084
+      Tutorial messagesUpdate_44: -865584221
+      Tutorial messagesUpdate_45: 199735105
+      Tutorial messagesUpdate_46: 1518867029
+      Tutorial messagesUpdate_47: 22240950
+      Tutorial messagesUpdate_48: 1781339021
+      Tutorial messagesUpdate_49: -1663063915
+      Tutorial messagesUpdate_5: 1899582690
+      Tutorial messagesUpdate_50: -2064146409
+      Tutorial messagesUpdate_51: -1441663383
+      Tutorial messagesUpdate_52: 1485352743
+      Tutorial messagesUpdate_53: -1761623674
+      Tutorial messagesUpdate_54: 98871068
+      Tutorial messagesUpdate_55: 1609717093
+      Tutorial messagesUpdate_56: -240841144
+      Tutorial messagesUpdate_57: -2105613403
+      Tutorial messagesUpdate_58: 2118979629
+      Tutorial messagesUpdate_59: -1498241452
+      Tutorial messagesUpdate_6: 1308906669
+      Tutorial messagesUpdate_60: -927770883
+      Tutorial messagesUpdate_61: 1724161963
+      Tutorial messagesUpdate_62: 545036221
+      Tutorial messagesUpdate_63: -1420058467
+      Tutorial messagesUpdate_64: -547748058
+      Tutorial messagesUpdate_65: 1396629970
+      Tutorial messagesUpdate_7: 1101041250
+      Tutorial messagesUpdate_8: 1066258412
+      Tutorial messagesUpdate_9: -929887667
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

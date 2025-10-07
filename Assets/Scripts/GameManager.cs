@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,8 +7,12 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     private PlayerRespawnHandler _playerRespawnHandler;
+    private InputHandler _playerInput;
 
     private bool _isPaused;
+    
+    private bool _lastDebugPressed;
+    private bool _lastPausePressed;
     public bool IsPaused => _isPaused;
 
     //private enum GameState { Playing, Paused, GameOver }
@@ -23,8 +28,14 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
         }
+        
+        if (_playerInput == null)
+        {
+            _playerInput = FindAnyObjectByType<InputHandler>();
+        }
 
         _playerRespawnHandler = FindAnyObjectByType<PlayerRespawnHandler>();
+        
     }
 
     private void Start()
@@ -34,10 +45,34 @@ public class GameManager : MonoBehaviour
         Cursor.visible = false;
     }
 
-    public void TogglePause()
+    private void Update()
     {
+        if (_playerInput.DebugPressed && !_lastDebugPressed)
+        {
+            UIManager.Instance.ToggleDebugMenuCanvas();
+        }
+
+        if (_playerInput.PausePressed && !_lastPausePressed)
+        {
+            PauseGame();
+        }
+
+        _lastDebugPressed = _playerInput.DebugPressed;
+        _lastPausePressed = _playerInput.PausePressed;
+    }
+
+    private void PauseGame()
+    {
+        UIManager.Instance.ShowPauseMenu();
         Time.timeScale = 0f;
         _isPaused = true;
+    }
+
+    public void ResumeGame()
+    {
+        UIManager.Instance.HidePauseMenu();
+        Time.timeScale = 1f;
+        _isPaused = false;
     }
 
     public void GameOver()
@@ -60,5 +95,10 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }

@@ -28,7 +28,7 @@ public class DebugStatsOverlay : MonoBehaviour
         // Add some vertical room since there's more than one line
         size.y += 100;
 
-        Rect rect = new Rect(10, 10, size.x + 20, size.y); // +20 for padding
+        Rect rect = new Rect(100, 500, size.x + 20, size.y); // +20 for padding
 
         GUILayout.BeginArea(rect, GUI.skin.box);
 

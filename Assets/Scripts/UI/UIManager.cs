@@ -20,6 +20,7 @@ public class UIManager : MonoBehaviour
 
     [FormerlySerializedAs("_DebugCanvas")] [SerializeField]
     private Canvas _debugCanvas;
+    [SerializeField] private Canvas _pauseMenuCanvas;
 
     InputHandler _playerInput;
 
@@ -44,12 +45,7 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        if (_playerInput.DebugPressed && !_lastDebugPressed)
-        {
-            ToggleDebugMenu();
-        }
 
-        _lastDebugPressed = _playerInput.DebugPressed;
     }
 
     public void ChangeHealthBarImage(Image newImage)
@@ -83,10 +79,24 @@ public class UIManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
     }
 
-    private void ToggleDebugMenu()
+    public void ToggleDebugMenuCanvas()
     {
         _debugCanvas.enabled = !_debugCanvas.enabled;
         Cursor.visible = !Cursor.visible;
         Cursor.lockState = Cursor.lockState == CursorLockMode.Locked ? CursorLockMode.None : CursorLockMode.Locked;
+    }
+
+    public void ShowPauseMenu()
+    {
+        _pauseMenuCanvas.enabled = true;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
+
+    public void HidePauseMenu()
+    {
+        _pauseMenuCanvas.enabled = false;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 }

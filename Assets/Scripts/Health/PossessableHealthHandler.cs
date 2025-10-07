@@ -10,6 +10,7 @@ public class PossessableHealthHandler : MonoBehaviour, IPossessionSensitive
     
     [Header("Vfx")]
     [SerializeField] private ParticleSystem _deathParticles;
+    [SerializeField] private float _particleOffset;
 
     void Awake()
     {
@@ -50,7 +51,7 @@ public class PossessableHealthHandler : MonoBehaviour, IPossessionSensitive
         }
         if (_deathParticles != null)
         {
-            Instantiate(_deathParticles, transform.position, Quaternion.identity);
+            Instantiate(_deathParticles, transform.position + Vector3.up *_particleOffset, Quaternion.identity);
         }
         Destroy(gameObject, 5f);
     }

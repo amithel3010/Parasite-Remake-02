@@ -19,6 +19,7 @@ public class InputHandler : MonoBehaviour, IInputSource
     private Vector3 _horizontalMovementVector;
 
     public bool DebugPressed { get; private set; }
+    public bool PausePressed { get; private set; }
 
     
     private Camera _mainCamera;
@@ -66,6 +67,7 @@ public class InputHandler : MonoBehaviour, IInputSource
         _action2Pressed = false;
 
         DebugPressed = false;
+        PausePressed = false;
 
         _readyToClear = false;
     }
@@ -84,6 +86,7 @@ public class InputHandler : MonoBehaviour, IInputSource
         _action2Pressed = _action2Pressed || Input.GetKeyDown(KeyCode.C);
 
         DebugPressed = DebugPressed || Input.GetKeyDown(KeyCode.Alpha0);
+        PausePressed = PausePressed || Input.GetKeyDown(KeyCode.Escape);
 
         _horizontalInput = Mathf.Clamp(_horizontalInput, -1f, 1f); //used to be in update is it ok here?
         _verticalInput = Mathf.Clamp(_verticalInput, -1f, 1f);

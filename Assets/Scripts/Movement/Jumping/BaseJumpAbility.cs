@@ -1,19 +1,27 @@
 using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
-public class BaseJumpAbility : MonoBehaviour, IPossessionSensitive, IPossessionSource, IHasLandedEvent, IDeathResponse, IPlayerRespawnListener
+public class BaseJumpAbility : MonoBehaviour, IPossessionSensitive, IPossessionSource, IHasLandedEvent, IDeathResponse,
+    IPlayerRespawnListener
 {
     [Header("Settings")]
     [Tooltip("Adds a layer of security to changes. Leave empty if testing and want to change settings often.")]
-    [SerializeField] protected HoveringCreatureSettings settings;
+    [SerializeField]
+    protected HoveringCreatureSettings settings;
 
-    [Header("Jump Settings")]
-    [SerializeField] protected float _jumpHeight = 5f;
+    [Header("Jump Settings")] [SerializeField]
+    protected float _jumpHeight = 5f;
+
     [SerializeField] protected float _jumpBuffer = 0.2f;
     [SerializeField] protected float _coyoteTime = 0.2f;
 
-    [Header("Debug")]
-    [SerializeField] protected bool _showExcpectedJumpHeight;
+    [Header("Optional Sfx")] [SerializeField]
+    protected AudioClip _sfxJump;
+
+    protected AudioSource _audioSource;
+
+    [Header("Debug")] [SerializeField] protected bool _showExcpectedJumpHeight;
     protected Vector3 _debugAdjustedJumpHeight;
     protected Vector3 _debugJumpApex;
 
@@ -40,18 +48,23 @@ public class BaseJumpAbility : MonoBehaviour, IPossessionSensitive, IPossessionS
     protected IInputSource _defaultInputSource;
     protected MonoBehaviour _knockbackProvider; // for seeing in inspector
     protected IKnockbackStatus _knockbackStatus;
-    
+
     protected virtual void Awake()
     {
         _rb = GetComponent<Rigidbody>();
         _hover = GetComponent<Hover>();
-        
+
+        if (!TryGetComponent(out _audioSource))
+        {
+            Debug.LogError($"No audio source found for {name}");
+        }
+
         if (settings != null)
         {
             _jumpHeight = settings.JumpHeight;
             _jumpBuffer = settings.JumpBuffer;
         }
-        
+
         if (_inputSourceProvider == null)
         {
             _inputSourceProvider = GetComponent<IInputSource>() as MonoBehaviour;
@@ -87,7 +100,6 @@ public class BaseJumpAbility : MonoBehaviour, IPossessionSensitive, IPossessionS
 
     protected virtual void CharacterJump(bool jumpPressed)
     {
-
         _timeSinceJumpPressed += Time.fixedDeltaTime;
 
         if (_hover.IsGrounded)
@@ -122,6 +134,7 @@ public class BaseJumpAbility : MonoBehaviour, IPossessionSensitive, IPossessionS
         {
             PerformJump();
         }
+
         _wasGrounded = _hover.IsGrounded;
         _prevYVelocity = _rb.linearVelocity.y;
     }
@@ -129,8 +142,8 @@ public class BaseJumpAbility : MonoBehaviour, IPossessionSensitive, IPossessionS
     protected virtual bool CanJump()
     {
         return _timeSinceJumpPressed < _jumpBuffer &&
-            _jumpReady &&
-            _availableJumps > 0;
+               _jumpReady &&
+               _availableJumps > 0;
     }
 
     protected virtual void PerformJump()
@@ -157,6 +170,14 @@ public class BaseJumpAbility : MonoBehaviour, IPossessionSensitive, IPossessionS
         //add impulse force;
         _rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         OnJumpStarted?.Invoke();
+
+        //Play sfx
+        if (_audioSource != null && _sfxJump != null)
+        {
+            _audioSource.pitch = Random.Range(0.6f, 1.4f);
+            _audioSource.PlayOneShot(_sfxJump);
+        }
+
 
         _timeSinceJumpPressed = _jumpBuffer; //to make sure jump only happens once per input
     }

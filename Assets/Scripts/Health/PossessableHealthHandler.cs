@@ -5,6 +5,7 @@ using UnityEngine;
 public class PossessableHealthHandler : MonoBehaviour, IPossessionSensitive
 {
     private Health _health;
+    private AudioSource _audioSource;
     private IDamageResponse[] _damageResponsers;
     private IDeathResponse[] _deathResponsers;
     
@@ -12,11 +13,19 @@ public class PossessableHealthHandler : MonoBehaviour, IPossessionSensitive
     [SerializeField] private ParticleSystem _deathParticles;
     [SerializeField] private float _particleOffset;
 
+    [Header("Sfx")]
+    [SerializeField] private AudioClip _sfxDamaged;
+    [SerializeField] private AudioClip _sfxDeath;
+    
     void Awake()
     {
         _deathResponsers = GetComponents<IDeathResponse>();
         _damageResponsers = GetComponents<IDamageResponse>();
         _health = GetComponent<Health>();
+        if (!TryGetComponent(out _audioSource))
+        {
+            Debug.Log($"no  audio source found on {name}");
+        }
     }
 
     private void OnEnable()
@@ -39,6 +48,13 @@ public class PossessableHealthHandler : MonoBehaviour, IPossessionSensitive
             damageResponse.OnDamage(iFramesDuration);
         }
         //play animation
+        
+        //play sfx
+        if (_audioSource != null && _sfxDamaged != null)
+        {
+            _audioSource.pitch = Random.Range(0.6f, 1.4f);
+            _audioSource.PlayOneShot(_sfxDamaged);
+        }
     }
 
     private void HandleDeath()
@@ -52,6 +68,11 @@ public class PossessableHealthHandler : MonoBehaviour, IPossessionSensitive
         if (_deathParticles != null)
         {
             Instantiate(_deathParticles, transform.position + Vector3.up *_particleOffset, Quaternion.identity);
+        }
+        if (_audioSource != null && _sfxDeath != null)
+        {
+            _audioSource.pitch = Random.Range(0.6f, 1.4f);
+            _audioSource.PlayOneShot(_sfxDeath);
         }
         Destroy(gameObject, 5f);
     }

@@ -6293,6 +6293,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3042786854710934686, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: b285a709f20e2a94e853743ee71141d2, type: 2}
+    - target: {fileID: 3042786854710934686, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
+      propertyPath: m_fontColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3042786854710934686, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3042786854710934686, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
+      propertyPath: m_fontColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3042786854710934686, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -7353123108903595098, guid: b285a709f20e2a94e853743ee71141d2, type: 2}
+    - target: {fileID: 3042786854710934686, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 3042786854710934686, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3450932631846008159, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -6772,6 +6800,10 @@ PrefabInstance:
     - target: {fileID: 7801004260342558017, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
       propertyPath: m_LocalPosition.z
       value: -184.16428
+      objectReference: {fileID: 0}
+    - target: {fileID: 8197310329708093698, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -78
       objectReference: {fileID: 0}
     - target: {fileID: 8386567616578582565, guid: e223a14b924664f8bacc28079bdd6701, type: 3}
       propertyPath: CustomBlends

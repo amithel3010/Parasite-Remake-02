@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &4459920952280866482
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 814b2b3c8cc8c4f4ab4d2d28502b60e5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 20.527733
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 814b2b3c8cc8c4f4ab4d2d28502b60e5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -13.161253
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 814b2b3c8cc8c4f4ab4d2d28502b60e5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -123.99259
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 814b2b3c8cc8c4f4ab4d2d28502b60e5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 814b2b3c8cc8c4f4ab4d2d28502b60e5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 814b2b3c8cc8c4f4ab4d2d28502b60e5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 814b2b3c8cc8c4f4ab4d2d28502b60e5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 814b2b3c8cc8c4f4ab4d2d28502b60e5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 814b2b3c8cc8c4f4ab4d2d28502b60e5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 814b2b3c8cc8c4f4ab4d2d28502b60e5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8272983557713127202, guid: 814b2b3c8cc8c4f4ab4d2d28502b60e5, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 7a147e326128c7249b9e8f294fd81182, type: 2}
+    - target: {fileID: 919132149155446097, guid: 814b2b3c8cc8c4f4ab4d2d28502b60e5, type: 3}
+      propertyPath: m_Name
+      value: FloorFlowerColoered
+      objectReference: {fileID: 0}
+    - target: {fileID: 3219963004016687671, guid: 814b2b3c8cc8c4f4ab4d2d28502b60e5, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 972cfd986f90b564bb866a9bf808fd26, type: 2}
+    m_RemovedComponents: []
+    m_RemovedGameObjects:
+    - {fileID: -4273744806666591344, guid: 814b2b3c8cc8c4f4ab4d2d28502b60e5, type: 3}
+    - {fileID: -8641968402145729539, guid: 814b2b3c8cc8c4f4ab4d2d28502b60e5, type: 3}
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 814b2b3c8cc8c4f4ab4d2d28502b60e5, type: 3}

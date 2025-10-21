@@ -16,6 +16,11 @@ public class BrutePunch : MonoBehaviour, IPossessionSensitive
     [SerializeField] private float _punchCost = 5f;
     [SerializeField] private Transform _punchOrigin;
 
+    [Header("Sfx")] [SerializeField] private AudioClip _sfxPunch;
+    private AudioSource _audioSource; //TODO: probably better if there was an audio manager
+
+    [Header("Vfx")] [SerializeField] private ParticleSystem _particleSystem;
+
     [Header("Debug")] [SerializeField] private bool _showHitboxInGame = true;
     [SerializeField] private Material _debugMaterial; // A transparent material for visualization
     [SerializeField] private Mesh _debugMesh; // Optional: default to a Sphere mesh
@@ -31,6 +36,7 @@ public class BrutePunch : MonoBehaviour, IPossessionSensitive
     {
         _defaultInputSource = GetComponent<IInputSource>();
         _inputSource = _defaultInputSource;
+        _audioSource = GetComponent<AudioSource>();
         _stamina = GetComponent<Stamina>(); //can be changed if needed
     }
 
@@ -43,7 +49,8 @@ public class BrutePunch : MonoBehaviour, IPossessionSensitive
             _isActive = true;
             _timer = _duration;
             _alreadyHit.Clear();
-            
+            PlayHitEffects();
+
             if (_shouldConsumeResource)
             {
                 _stamina.Change(-_punchCost);
@@ -60,6 +67,7 @@ public class BrutePunch : MonoBehaviour, IPossessionSensitive
         }
 
         CheckForHittablesAndPreformHits();
+        
     }
 
     private void CheckForHittablesAndPreformHits()
@@ -103,6 +111,20 @@ public class BrutePunch : MonoBehaviour, IPossessionSensitive
         }
     }
 
+    private void PlayHitEffects()
+    {
+        if (_particleSystem != null)
+        {
+            Instantiate(_particleSystem, _punchOrigin.position, _punchOrigin.rotation);
+        }
+
+        if (_sfxPunch != null)
+        {
+            _audioSource.pitch = Random.Range(0.6f, 1.4f);
+            _audioSource.PlayOneShot(_sfxPunch);
+        }
+    }
+
     #region Possession Sensitive
 
     public void OnPossessed(Parasite playerParasite, IInputSource newInputSource)
@@ -142,7 +164,8 @@ public class BrutePunch : MonoBehaviour, IPossessionSensitive
         if (_debugMaterial == null || _debugMesh == null) return;
 
         Graphics.DrawMesh(_debugMesh,
-            Matrix4x4.TRS(_punchOrigin.position, Quaternion.identity, Vector3.one * (_hitboxRadius * 2f)), _debugMaterial,
+            Matrix4x4.TRS(_punchOrigin.position, Quaternion.identity, Vector3.one * (_hitboxRadius * 2f)),
+            _debugMaterial,
             0);
     }
 

@@ -502,6 +502,18 @@ PrefabInstance:
       propertyPath: _deathParticles
       value: 
       objectReference: {fileID: 7580762277191765218, guid: ff3e13d1cc14faa439e3493b27caec7c, type: 3}
+    - target: {fileID: 4676915547449786905, guid: b2e5d7db94e1a446d8dfe87719c2a3a0, type: 3}
+      propertyPath: _particleOffset
+      value: 0.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 5132717996803368486, guid: b2e5d7db94e1a446d8dfe87719c2a3a0, type: 3}
+      propertyPath: _particleSystem
+      value: 
+      objectReference: {fileID: 1869018105556331968, guid: 45311a22d0aec514e902a12118c0e2fe, type: 3}
+    - target: {fileID: 6283027743516186710, guid: b2e5d7db94e1a446d8dfe87719c2a3a0, type: 3}
+      propertyPath: _shockwaveParticles
+      value: 
+      objectReference: {fileID: 5703879716800399388, guid: 8cd6855ce6eb78042abaaae3c4141153, type: 3}
     - target: {fileID: 6999565424575073364, guid: b2e5d7db94e1a446d8dfe87719c2a3a0, type: 3}
       propertyPath: m_Name
       value: Brute Variant(CanGrab)

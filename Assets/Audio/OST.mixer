@@ -14,22 +14,6 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
---- !u!244 &-8630363210706426460
-AudioMixerEffectController:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_EffectID: cc930812e4de599438809595819a34e4
-  m_EffectName: Highpass Simple
-  m_MixLevel: 89ff0390f3146a04fbbbecfd1cf2a284
-  m_Parameters:
-  - m_ParameterName: Cutoff freq
-    m_GUID: 02d7582e60349204d9760714a73bd202
-  m_SendTarget: {fileID: 0}
-  m_EnableWetMix: 0
-  m_Bypass: 0
 --- !u!241 &24100000
 AudioMixerController:
   m_ObjectHideFlags: 0
@@ -54,7 +38,7 @@ AudioMixerController:
     - 7c68b6a984d44074db4fdf8b5e5b873e
     name: View
   m_CurrentViewIndex: 0
-  m_TargetSnapshot: {fileID: 8749924427827877501}
+  m_TargetSnapshot: {fileID: 6276931851397006529}
 --- !u!243 &24300002
 AudioMixerGroupController:
   m_ObjectHideFlags: 0
@@ -87,6 +71,24 @@ AudioMixerEffectController:
   m_EffectName: Attenuation
   m_MixLevel: 1e67f891235ce444390ab3ce2fc9a267
   m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!244 &592501653801970999
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: e532daffe49922a4b801b9018b0d66ec
+  m_EffectName: Highpass
+  m_MixLevel: 304b7993e7a506d468b82b2929c03a55
+  m_Parameters:
+  - m_ParameterName: Cutoff freq
+    m_GUID: 48b788d75aecf9148afe4cdd5aebbe51
+  - m_ParameterName: Resonance
+    m_GUID: 775a15c571125234cb3d6e40dab83abd
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
@@ -163,6 +165,30 @@ AudioMixerGroupController:
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
+--- !u!244 &5230453360567670529
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 045a64490205a6345a59e06f1864b017
+  m_EffectName: Echo
+  m_MixLevel: a9eabd06f85b3bf47b85b5489adbd01c
+  m_Parameters:
+  - m_ParameterName: Delay
+    m_GUID: 6e091a1a46f82034eb2830fcc515ab64
+  - m_ParameterName: Decay
+    m_GUID: b5241b6e478d5a14087ac113afaf72a1
+  - m_ParameterName: Max channels
+    m_GUID: 5ad44da992d7013468a1d92be83ed674
+  - m_ParameterName: Drymix
+    m_GUID: 5446f52df120fcd4db0b8b2fb2a38b2a
+  - m_ParameterName: Wetmix
+    m_GUID: 68be1cf634c78d547af6443e26d7f774
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!243 &5529943081624123884
 AudioMixerGroupController:
   m_ObjectHideFlags: 0
@@ -178,7 +204,7 @@ AudioMixerGroupController:
   m_Send: 00000000000000000000000000000000
   m_Effects:
   - {fileID: -8987365168129464677}
-  - {fileID: -8630363210706426460}
+  - {fileID: 592501653801970999}
   m_UserColorIndex: 0
   m_Mute: 0
   m_Solo: 0
@@ -193,7 +219,17 @@ AudioMixerSnapshotController:
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: 27a2707f17c96b44c8d6c4595307b610
   m_FloatValues:
+    0b1d6210d31a36a4da3e99b6c7d19972: 0.802
+    775a15c571125234cb3d6e40dab83abd: 10
+    335b577643a006d428bc6df85c3c5233: 35.1
+    ff2002e65d3f4554eb62b0d36bfb716b: 0.194
+    48b788d75aecf9148afe4cdd5aebbe51: 22000
+    5d7657a9a9f807a47b4bbcafc1087e2c: 0.986
+    4a2bdbf93d77d1c4585943922231a06f: 0.373
+    3b93563cf994fe6438d8534feccf7c5d: 0.933
+    8aaf42ddd426bfc408de9e8f16aab448: 0.194
     02d7582e60349204d9760714a73bd202: 22000
+    28ace40f3319eca4f90bb564ab0ae611: -80
   m_TransitionOverrides:
     02d7582e60349204d9760714a73bd202: 1
 --- !u!245 &8749924427827877501
@@ -206,6 +242,10 @@ AudioMixerSnapshotController:
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: 46b78fb183890d549853edd146540ed2
   m_FloatValues:
+    775a15c571125234cb3d6e40dab83abd: 1
+    48b788d75aecf9148afe4cdd5aebbe51: 10
     02d7582e60349204d9760714a73bd202: 10
   m_TransitionOverrides:
+    775a15c571125234cb3d6e40dab83abd: 1
+    48b788d75aecf9148afe4cdd5aebbe51: 1
     02d7582e60349204d9760714a73bd202: 1

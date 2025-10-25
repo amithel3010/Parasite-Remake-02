@@ -10,6 +10,8 @@ public class Credits : MonoBehaviour
         if (other.gameObject.layer == LayerUtils.PlayerControlledLayer)
         {
             _Credits.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
     }
 

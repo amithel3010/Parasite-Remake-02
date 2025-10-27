@@ -1,0 +1,81 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: GrassyPlatformCrack
+  m_Shader: {fileID: -6465566751694194690, guid: bf0d55b13c23c134a8bae91dd2c22883, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 2
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses:
+  - MOTIONVECTORS
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTexture:
+        m_Texture: {fileID: 2800000, guid: c65c6ffc7154a5f47b6ccc95afa20b90, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MossTexture:
+        m_Texture: {fileID: 2800000, guid: 5fdf9b69b351c374d9211a48184cc831, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _GradientFalloff: 0.02
+    - _GradientMidpoint: 0
+    - _MainTextureScale: 0.09
+    - _MainTextureTriplanerBlend: 0.16
+    - _MossEndY: 0.29
+    - _MossIntensity: 0.56
+    - _MossScale: 0.19
+    - _MossStartY: -0.05
+    - _MossTextureBlackMask: 0
+    - _MossTriPlanarBlend: 0
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _Smoothness: 0
+    m_Colors:
+    - _GradientColorTop: {r: 0.6132076, g: 0.6042274, b: 0.3557761, a: 1}
+    - _GradintColorBottom: {r: 0.764151, g: 0.57311326, b: 0.3820755, a: 1}
+    - _MossColor: {r: 0.57143736, g: 0.77254903, b: 0.3372549, a: 1}
+    - _SpecularColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
+--- !u!114 &6403353227432871917
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 9
